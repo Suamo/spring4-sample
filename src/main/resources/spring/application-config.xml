@@ -4,8 +4,12 @@
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--
         Used:
@@ -34,5 +38,54 @@
         <property name="url" value="jdbc:mysql://localhost:3306/my_schema"/>
         <property name="username" value="root"/>
     </bean>
+
+    <bean id="allTypesBean" class="ua.antonio.spring4sample.domain.AllTypes">
+        <property name="p1" value="some text"/>
+        <property name="p2" value="true"/>
+        <property name="p3" value="1"/>
+        <property name="p4" value="2"/>
+        <property name="p5" value="3"/>
+        <property name="p6" value="4"/>
+        <property name="p7" value="11"/>
+
+        <property name="p8">
+            <util:list list-class="java.util.LinkedList" value-type="java.lang.String">
+                <value>text 1</value>
+                <value>text 2</value>
+            </util:list>
+        </property>
+        <property name="p9">
+            <util:set id="names" set-class="java.util.HashSet" value-type="java.lang.String">
+                <value>text 11</value>
+                <value>text 21</value>
+            </util:set>
+        </property>
+        <property name="p10">
+            <util:map id="simpleMap" map-class="java.util.HashMap"  key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="key1" value="Value1"/>
+                <entry key="key2" value="Value2"/>
+            </util:map>
+        </property>
+        <property name="p11">
+            <util:properties value-type="java.lang.String">
+                <prop key="key1">Value21</prop>
+                <prop key="key2">Value22</prop>
+            </util:properties>
+        </property>
+        <property name="p12">
+            <util:properties id="dbProp" location="classpath:test.properties"/>
+        </property>
+        <!--<property name="p13" value=""/>-->
+        <!--<property name="p14" value=""/>-->
+        <!--<property name="p15" value=""/>-->
+        <!--<property name="p16" value=""/>-->
+        <!--<property name="p17" value=""/>-->
+        <!--<property name="p18" value=""/>-->
+        <!--<property name="p19" value=""/>-->
+        <!--<property name="p20" value=""/>-->
+    </bean>
+
+    <bean id="allTypesEntry" class="ua.antonio.spring4sample.domain.AllTypesEntry" c:allTypesBean-ref="allTypesBean"/>
+
 
 </beans>
