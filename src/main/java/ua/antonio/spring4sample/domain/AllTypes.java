@@ -1,9 +1,9 @@
 package ua.antonio.spring4sample.domain;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * Sample of Spring converters usage
@@ -27,8 +27,8 @@ public class AllTypes {
     private Properties p11;
     private Properties p12;
 
-    private String p13;
-    private String p14;
+    private Date p13;
+    private LocalDate p14;
     private String p15;
     private String p16;
     private String p17;
@@ -83,4 +83,13 @@ public class AllTypes {
     public void setP12(Properties p12) {
         this.p12 = p12;
     }
+
+    public void setP13(Date p13) {
+        this.p13 = p13;
+    }
+
+    public void setP14(LocalDate p14) {
+        this.p14 = p14;
+    }
+
 }

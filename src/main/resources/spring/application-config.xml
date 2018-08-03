@@ -75,8 +75,8 @@
         <property name="p12">
             <util:properties id="dbProp" location="classpath:test.properties"/>
         </property>
-        <!--<property name="p13" value=""/>-->
-        <!--<property name="p14" value=""/>-->
+        <property name="p13" value="12/10/2018"/>
+        <property name="p14" value="2018-10-12"/> <!-- Custom PropertyEditor for java.time.LocalDate -->
         <!--<property name="p15" value=""/>-->
         <!--<property name="p16" value=""/>-->
         <!--<property name="p17" value=""/>-->
@@ -87,5 +87,14 @@
 
     <bean id="allTypesEntry" class="ua.antonio.spring4sample.domain.AllTypesEntry" c:allTypesBean-ref="allTypesBean"/>
 
+
+    <!-- Custom PropertyEditor for String to LocalDate conversion -->
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="java.time.LocalDate" value="ua.antonio.spring4sample.utils.LocalDateEditor" />
+            </map>
+        </property>
+    </bean>
 
 </beans>
