@@ -77,9 +77,16 @@
         </property>
         <property name="p13" value="12/10/2018"/>
         <property name="p14" value="2018-10-12"/> <!-- Custom PropertyEditor for java.time.LocalDate -->
-        <!--<property name="p15" value=""/>-->
-        <!--<property name="p16" value=""/>-->
-        <!--<property name="p17" value=""/>-->
+        <property name="p15">
+            <null/>
+        </property>
+
+        <property name="p16">
+            <bean class="java.lang.Thread" factory-method="currentThread" />
+        </property>
+        <property name="p17">
+            <bean class="ua.antonio.spring4sample.domain.ThreadFactoryBean"/>
+        </property>
         <!--<property name="p18" value=""/>-->
         <!--<property name="p19" value=""/>-->
         <!--<property name="p20" value=""/>-->

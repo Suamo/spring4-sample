@@ -1,8 +1,6 @@
 package ua.antonio.spring4sample.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -29,9 +27,11 @@ public class AllTypes {
 
     private Date p13;
     private LocalDate p14;
-    private String p15;
-    private String p16;
-    private String p17;
+    private Object p15;
+
+    private Thread p16;
+    private Thread p17;
+
     private String p18;
     private String p19;
     private String p20;
@@ -92,4 +92,15 @@ public class AllTypes {
         this.p14 = p14;
     }
 
+    public void setP15(Object p15) {
+        this.p15 = p15;
+    }
+
+    public void setP16(Thread p16) {
+        this.p16 = p16;
+    }
+
+    public void setP17(Thread p17) {
+        this.p17 = p17;
+    }
 }
