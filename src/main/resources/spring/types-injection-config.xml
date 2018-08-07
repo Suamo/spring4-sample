@@ -87,10 +87,14 @@
         <property name="p17">
             <bean class="ua.antonio.spring4sample.domain.ThreadFactoryBean"/>
         </property>
-        <!--<property name="p18" value=""/>-->
-        <!--<property name="p19" value=""/>-->
-        <!--<property name="p20" value=""/>-->
+        <property name="p18" ref="userParent"/>
+        <property name="p19" ref="userChild"/>
     </bean>
+
+    <!--beans inheritance-->
+    <bean id="userParent" class="ua.antonio.spring4sample.domain.User" p:name="UserParent" p:age="15"/>
+    <bean id="userChild" class="ua.antonio.spring4sample.domain.User" p:name="UserChild" p:age="15" parent="userParent"/>
+
 
     <bean id="allTypesEntry" class="ua.antonio.spring4sample.domain.AllTypesEntry" c:allTypesBean-ref="allTypesBean"/>
 

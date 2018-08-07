@@ -32,9 +32,8 @@ public class AllTypes {
     private Thread p16;
     private Thread p17;
 
-    private String p18;
-    private String p19;
-    private String p20;
+    private User p18;
+    private User p19;
 
     public void setP1(String p1) {
         this.p1 = p1;
@@ -102,5 +101,13 @@ public class AllTypes {
 
     public void setP17(Thread p17) {
         this.p17 = p17;
+    }
+
+    public void setP18(User p18) {
+        this.p18 = p18;
+    }
+
+    public void setP19(User p19) {
+        this.p19 = p19;
     }
 }
