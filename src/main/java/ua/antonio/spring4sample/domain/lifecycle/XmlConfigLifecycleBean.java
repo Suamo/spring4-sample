@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.domain;
+package ua.antonio.spring4sample.domain.lifecycle;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.InitializingBean;
 /**
  * Default Bean Factory is a DefaultListableBeanFactory
  */
-public class XmlLifecycleBean implements InitializingBean, DisposableBean {
+public class XmlConfigLifecycleBean implements InitializingBean, DisposableBean {
     private String value;
 
-    public XmlLifecycleBean() {
+    public XmlConfigLifecycleBean() {
         System.out.println("-> Step 1. Bean Factory: instantiation (constructor call)");
     }
 

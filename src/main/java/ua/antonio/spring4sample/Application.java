@@ -3,7 +3,7 @@ package ua.antonio.spring4sample;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.antonio.spring4sample.domain.User;
+import ua.antonio.spring4sample.domain.types.User;
 import ua.antonio.spring4sample.service.UserService;
 
 public class Application {
@@ -11,16 +11,23 @@ public class Application {
     public static void main(String[] args) {
 //        tryJavaConfig();
 //        tryXmlConfig();
-        tryLifecycleConfig();
+//        tryXmlConfigLifecycle();
+        tryJavaConfigLifecycle();
     }
 
-    private static void tryLifecycleConfig() {
+    private static void tryJavaConfigLifecycle() {
+        ApplicationContext context = new AnnotationConfigApplicationContext(JavaApplicationConfig.class);
+        Object xmlConfigLifecycleBean = context.getBean("xmlConfigLifecycleBean");
+        ((AnnotationConfigApplicationContext) context).close();
+    }
+
+    private static void tryXmlConfigLifecycle() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/lifacycle-config.xml");
         ((ClassPathXmlApplicationContext) context).close();
     }
 
     private static void tryJavaConfig() {
-        ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(TypesApplicationConfig.class);
         checkTheBean(context);
     }
 

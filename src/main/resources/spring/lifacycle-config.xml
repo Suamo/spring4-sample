@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/util/spring-util.xsd">
 
 
-    <bean class="ua.antonio.spring4sample.domain.XmlLifecycleBean"
+    <bean class="ua.antonio.spring4sample.domain.lifecycle.XmlConfigLifecycleBean"
           init-method="initMethod"
           destroy-method="destroyMethod">
         <property name="value" value="v1"/>

@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.domain;
+package ua.antonio.spring4sample.domain.types;
 
 import org.springframework.beans.factory.FactoryBean;
 

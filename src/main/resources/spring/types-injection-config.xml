@@ -39,7 +39,7 @@
         <property name="username" value="root"/>
     </bean>
 
-    <bean id="allTypesBean" class="ua.antonio.spring4sample.domain.AllTypes">
+    <bean id="allTypesBean" class="ua.antonio.spring4sample.domain.types.AllTypes">
         <property name="p1" value="some text"/>
         <property name="p2" value="true"/>
         <property name="p3" value="1"/>
@@ -85,18 +85,18 @@
             <bean class="java.lang.Thread" factory-method="currentThread" />
         </property>
         <property name="p17">
-            <bean class="ua.antonio.spring4sample.domain.ThreadFactoryBean"/>
+            <bean class="ua.antonio.spring4sample.domain.types.ThreadFactoryBean"/>
         </property>
         <property name="p18" ref="userParent"/>
         <property name="p19" ref="userChild"/>
     </bean>
 
     <!--beans inheritance-->
-    <bean id="userParent" class="ua.antonio.spring4sample.domain.User" p:name="UserParent" p:age="15"/>
-    <bean id="userChild" class="ua.antonio.spring4sample.domain.User" p:name="UserChild" p:age="15" parent="userParent"/>
+    <bean id="userParent" class="ua.antonio.spring4sample.domain.types.User" p:name="UserParent" p:age="15"/>
+    <bean id="userChild" class="ua.antonio.spring4sample.domain.types.User" p:name="UserChild" p:age="15" parent="userParent"/>
 
 
-    <bean id="allTypesEntry" class="ua.antonio.spring4sample.domain.AllTypesEntry" c:allTypesBean-ref="allTypesBean"/>
+    <bean id="allTypesEntry" class="ua.antonio.spring4sample.domain.types.AllTypesEntry" c:allTypesBean-ref="allTypesBean"/>
 
 
     <!-- Custom PropertyEditor for String to LocalDate conversion -->

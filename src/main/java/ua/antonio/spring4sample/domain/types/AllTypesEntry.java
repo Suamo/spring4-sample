@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.domain;
+package ua.antonio.spring4sample.domain.types;
 
 public class AllTypesEntry {
     private AllTypes allTypesBean;

@@ -2,7 +2,7 @@ package ua.antonio.spring4sample.repository;
 
 import com.mysql.jdbc.Driver;
 import org.springframework.jdbc.core.JdbcTemplate;
-import ua.antonio.spring4sample.domain.User;
+import ua.antonio.spring4sample.domain.types.User;
 
 import javax.sql.DataSource;
 

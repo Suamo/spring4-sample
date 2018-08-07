@@ -1,6 +1,6 @@
 package ua.antonio.spring4sample.service;
 
-import ua.antonio.spring4sample.domain.User;
+import ua.antonio.spring4sample.domain.types.User;
 import ua.antonio.spring4sample.repository.UserRepo;
 
 public class SimpleUserService implements UserService {
