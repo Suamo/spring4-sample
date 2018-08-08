@@ -40,60 +40,60 @@
     </bean>
 
     <bean id="allTypesBean" class="ua.antonio.spring4sample.domain.types.AllTypes">
-        <property name="p1" value="some text"/>
-        <property name="p2" value="true"/>
-        <property name="p3" value="1"/>
-        <property name="p4" value="2"/>
-        <property name="p5" value="3"/>
-        <property name="p6" value="4"/>
-        <property name="p7" value="11"/>
+        <property name="stringValue" value="some text"/>
+        <property name="booleanValue" value="true"/>
+        <property name="byteValue" value="1"/>
+        <property name="shortValue" value="2"/>
+        <property name="intValue" value="3"/>
+        <property name="longValue" value="4"/>
+        <property name="integer" value="11"/>
 
-        <property name="p8">
+        <property name="list">
             <util:list list-class="java.util.LinkedList" value-type="java.lang.String">
                 <value>text 1</value>
                 <value>text 2</value>
             </util:list>
         </property>
-        <property name="p9">
+        <property name="set">
             <util:set id="names" set-class="java.util.HashSet" value-type="java.lang.String">
                 <value>text 11</value>
                 <value>text 21</value>
             </util:set>
         </property>
-        <property name="p10">
+        <property name="map">
             <util:map id="simpleMap" map-class="java.util.HashMap"  key-type="java.lang.String" value-type="java.lang.String">
                 <entry key="key1" value="Value1"/>
                 <entry key="key2" value="Value2"/>
             </util:map>
         </property>
-        <property name="p11">
+        <property name="propertiesFromInnerBlock">
             <util:properties value-type="java.lang.String">
                 <prop key="key1">Value21</prop>
                 <prop key="key2">Value22</prop>
             </util:properties>
         </property>
-        <property name="p12">
+        <property name="propertiesFromFile">
             <util:properties id="dbProp" location="classpath:test.properties"/>
         </property>
-        <property name="p13" value="12/10/2018"/>
-        <property name="p14" value="2018-10-12"/> <!-- Custom PropertyEditor for java.time.LocalDate -->
-        <property name="p15">
+        <property name="createdWithStandardDateConverter" value="2018/12/10"/>
+        <property name="createdWithCustomDateConverter" value="2018-10-12"/> <!-- Custom PropertyEditor for java.time.LocalDate -->
+        <property name="nullObject">
             <null/>
         </property>
 
-        <property name="p16">
+        <property name="createdWithFactoryMethod">
             <bean class="java.lang.Thread" factory-method="currentThread" />
         </property>
-        <property name="p17">
+        <property name="createdWithFactoryBean">
             <bean class="ua.antonio.spring4sample.domain.types.ThreadFactoryBean"/>
         </property>
-        <property name="p18" ref="userParent"/>
-        <property name="p19" ref="userChild"/>
+        <property name="parentUser" ref="userParentRef"/>
+        <property name="childUserWithInheritedAge" ref="userChildRef"/>
     </bean>
 
     <!--beans inheritance-->
-    <bean id="userParent" class="ua.antonio.spring4sample.domain.types.User" p:name="UserParent" p:age="15"/>
-    <bean id="userChild" class="ua.antonio.spring4sample.domain.types.User" p:name="UserChild" p:age="15" parent="userParent"/>
+    <bean id="userParentRef" class="ua.antonio.spring4sample.domain.types.User" p:name="UserParent" p:age="15"/>
+    <bean id="userChildRef" class="ua.antonio.spring4sample.domain.types.User" p:name="UserChild" parent="userParentRef"/>
 
 
     <bean id="allTypesEntry" class="ua.antonio.spring4sample.domain.types.AllTypesEntry" c:allTypesBean-ref="allTypesBean"/>

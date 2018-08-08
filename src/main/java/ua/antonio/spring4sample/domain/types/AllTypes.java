@@ -7,107 +7,184 @@ import java.util.*;
  * Sample of Spring converters usage
  */
 public class AllTypes {
-    private String p1;
+    private String stringValue;
 
-    private boolean p2;
+    private boolean booleanValue;
 
-    private byte p3;
-    private short p4;
-    private int p5;
-    private long p6;
+    private byte byteValue;
+    private short shortValue;
+    private int intValue;
+    private long longValue;
 
-    private Integer p7;
+    private Integer integer;
 
-    private List p8;
-    private Set p9;
-    private Map p10;
+    private List list;
+    private Set set;
+    private Map map;
 
-    private Properties p11;
-    private Properties p12;
+    private Properties propertiesFromInnerBlock;
+    private Properties propertiesFromFile;
 
-    private Date p13;
-    private LocalDate p14;
-    private Object p15;
+    private Date createdWithStandardDateConverter;
+    private LocalDate createdWithCustomDateConverter;
 
-    private Thread p16;
-    private Thread p17;
+    private Object nullObject;
 
-    private User p18;
-    private User p19;
+    private Thread createdWithFactoryMethod;
+    private Thread createdWithFactoryBean;
 
-    public void setP1(String p1) {
-        this.p1 = p1;
+    private User parentUser;
+    private User childUserWithInheritedAge;
+
+    public String getStringValue() {
+        return stringValue;
     }
 
-    public void setP2(boolean p2) {
-        this.p2 = p2;
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
     }
 
-    public void setP3(byte p3) {
-        this.p3 = p3;
+    public boolean getBooleanValue() {
+        return booleanValue;
     }
 
-    public void setP4(short p4) {
-        this.p4 = p4;
+    public void setBooleanValue(boolean booleanValue) {
+        this.booleanValue = booleanValue;
     }
 
-    public void setP5(int p5) {
-        this.p5 = p5;
+    public byte getByteValue() {
+        return byteValue;
     }
 
-    public void setP6(long p6) {
-        this.p6 = p6;
+    public void setByteValue(byte byteValue) {
+        this.byteValue = byteValue;
     }
 
-    public void setP7(Integer p7) {
-        this.p7 = p7;
+    public short getShortValue() {
+        return shortValue;
     }
 
-    public void setP8(List p8) {
-        this.p8 = p8;
+    public void setShortValue(short shortValue) {
+        this.shortValue = shortValue;
     }
 
-    public void setP9(Set p9) {
-        this.p9 = p9;
+    public int getIntValue() {
+        return intValue;
     }
 
-    public void setP10(Map p10) {
-        this.p10 = p10;
+    public void setIntValue(int intValue) {
+        this.intValue = intValue;
     }
 
-    public void setP11(Properties p11) {
-        this.p11 = p11;
+    public long getLongValue() {
+        return longValue;
     }
 
-    public void setP12(Properties p12) {
-        this.p12 = p12;
+    public void setLongValue(long longValue) {
+        this.longValue = longValue;
     }
 
-    public void setP13(Date p13) {
-        this.p13 = p13;
+    public Integer getInteger() {
+        return integer;
     }
 
-    public void setP14(LocalDate p14) {
-        this.p14 = p14;
+    public void setInteger(Integer integer) {
+        this.integer = integer;
     }
 
-    public void setP15(Object p15) {
-        this.p15 = p15;
+    public List getList() {
+        return list;
     }
 
-    public void setP16(Thread p16) {
-        this.p16 = p16;
+    public void setList(List list) {
+        this.list = list;
     }
 
-    public void setP17(Thread p17) {
-        this.p17 = p17;
+    public Set getSet() {
+        return set;
     }
 
-    public void setP18(User p18) {
-        this.p18 = p18;
+    public void setSet(Set set) {
+        this.set = set;
     }
 
-    public void setP19(User p19) {
-        this.p19 = p19;
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public Properties getPropertiesFromInnerBlock() {
+        return propertiesFromInnerBlock;
+    }
+
+    public void setPropertiesFromInnerBlock(Properties propertiesFromInnerBlock) {
+        this.propertiesFromInnerBlock = propertiesFromInnerBlock;
+    }
+
+    public Properties getPropertiesFromFile() {
+        return propertiesFromFile;
+    }
+
+    public void setPropertiesFromFile(Properties propertiesFromFile) {
+        this.propertiesFromFile = propertiesFromFile;
+    }
+
+    public Date getCreatedWithStandardDateConverter() {
+        return createdWithStandardDateConverter;
+    }
+
+    public void setCreatedWithStandardDateConverter(Date createdWithStandardDateConverter) {
+        this.createdWithStandardDateConverter = createdWithStandardDateConverter;
+    }
+
+    public LocalDate getCreatedWithCustomDateConverter() {
+        return createdWithCustomDateConverter;
+    }
+
+    public void setCreatedWithCustomDateConverter(LocalDate createdWithCustomDateConverter) {
+        this.createdWithCustomDateConverter = createdWithCustomDateConverter;
+    }
+
+    public Object getNullObject() {
+        return nullObject;
+    }
+
+    public void setNullObject(Object nullObject) {
+        this.nullObject = nullObject;
+    }
+
+    public Thread getCreatedWithFactoryMethod() {
+        return createdWithFactoryMethod;
+    }
+
+    public void setCreatedWithFactoryMethod(Thread createdWithFactoryMethod) {
+        this.createdWithFactoryMethod = createdWithFactoryMethod;
+    }
+
+    public Thread getCreatedWithFactoryBean() {
+        return createdWithFactoryBean;
+    }
+
+    public void setCreatedWithFactoryBean(Thread createdWithFactoryBean) {
+        this.createdWithFactoryBean = createdWithFactoryBean;
+    }
+
+    public User getParentUser() {
+        return parentUser;
+    }
+
+    public void setParentUser(User parentUser) {
+        this.parentUser = parentUser;
+    }
+
+    public User getChildUserWithInheritedAge() {
+        return childUserWithInheritedAge;
+    }
+
+    public void setChildUserWithInheritedAge(User childUserWithInheritedAge) {
+        this.childUserWithInheritedAge = childUserWithInheritedAge;
     }
 }
