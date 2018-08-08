@@ -12,10 +12,15 @@
        http://www.springframework.org/schema/util/spring-util.xsd">
 
 
-    <bean class="ua.antonio.spring4sample.domain.lifecycle.XmlConfigLifecycleBean"
+    <bean id="lifecycleBean"
+          class="ua.antonio.spring4sample.domain.lifecycle.XmlConfigLifecycleBean"
           init-method="initMethod"
           destroy-method="destroyMethod">
         <property name="value" value="v1"/>
     </bean>
+
+    <bean id="defaultScopeBean" class="ua.antonio.spring4sample.domain.types.User"/>
+    <bean id="singletonScopeBean" scope="singleton"  class="ua.antonio.spring4sample.domain.types.User"/>
+    <bean id="prototypeScopeBean" scope="prototype"  class="ua.antonio.spring4sample.domain.types.User"/>
 
 </beans>
