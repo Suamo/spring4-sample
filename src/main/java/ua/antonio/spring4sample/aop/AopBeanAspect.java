@@ -3,11 +3,9 @@ package ua.antonio.spring4sample.aop;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
 import ua.antonio.spring4sample.domain.AopBeanImpl;
 
 @Aspect
-@Component
 public class AopBeanAspect {
 
     @Before("validateName()")
