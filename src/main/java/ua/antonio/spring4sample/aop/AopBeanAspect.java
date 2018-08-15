@@ -4,7 +4,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
-import ua.antonio.spring4sample.domain.AopBean;
 import ua.antonio.spring4sample.domain.AopBeanImpl;
 
 @Aspect
@@ -23,7 +22,7 @@ public class AopBeanAspect {
         target.addAction("After");
     }
 
-    @Around("execution(* ua.antonio.spring4sample.domain.AopBean.validateName())")
+    @Around("validateName()")
     public void around(ProceedingJoinPoint joinPoint) throws Throwable {
         AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
 

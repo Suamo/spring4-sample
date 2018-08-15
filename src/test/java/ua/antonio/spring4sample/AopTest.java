@@ -29,7 +29,11 @@ public class AopTest {
 
         bean.validateName();
 
-        assertEquals(4, actions.size());
+        assertEquals("Around Before", actions.get(0));
+        assertEquals("Before", actions.get(1));
+        assertEquals("Target method call", actions.get(2));
+        assertEquals("Around After", actions.get(3));
+        assertEquals("After", actions.get(4));
     }
 
 
