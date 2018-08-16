@@ -45,8 +45,7 @@ public class JdbcTemplateH2Tests {
 
 	@Test
 	public void testRowMapper() {
-        String sql = "SELECT * FROM USERS";
-        User user = jdbcTemplate.queryForObject(sql, new UserRowMapper());
+        User user = jdbcTemplate.queryForObject("SELECT * FROM USERS", new UserRowMapper());
 
         assertEquals("UserName", user.getName());
         assertEquals(17, user.getAge());
@@ -54,12 +53,9 @@ public class JdbcTemplateH2Tests {
 
 	@Test
 	public void testRowCallbackHandler() {
-        String sql = "SELECT * FROM USERS";
-
         UserRowCallbackHandler rch = new UserRowCallbackHandler();
-        jdbcTemplate.query(sql, rch);
+        jdbcTemplate.query("SELECT * FROM USERS", rch);
         List<User> result = rch.getList();
-
 
         assertEquals(1, result.size());
         User user = result.get(0);
@@ -69,17 +65,13 @@ public class JdbcTemplateH2Tests {
 
 	@Test
 	public void testResultSetExtractor() {
-        String sql = "SELECT * FROM USERS";
-
-        String result = jdbcTemplate.query(sql, new UserResultSetExtractor());
-
+        String result = jdbcTemplate.query("SELECT * FROM USERS", new UserResultSetExtractor());
         assertEquals("UserName17", result);
     }
 
 	@Test
 	public void testParametrizedSearch() {
         String sql = "SELECT * FROM USERS where NAME = ?";
-
         User result = jdbcTemplate.queryForObject(sql, new UserRowMapper(), "UserName");
 
         assertEquals("UserName", result.getName());
@@ -88,6 +80,7 @@ public class JdbcTemplateH2Tests {
 	@Test
 	public void testParametrizedSearch_withNamedParameter() {
         String sql = "SELECT * FROM USERS where NAME = :name";
+
         Map<String, Object> params = new HashMap<>();
         params.put("name", "UserName");
 
