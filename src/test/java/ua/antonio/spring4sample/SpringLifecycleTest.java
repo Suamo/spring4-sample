@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.antonio.spring4sample.config.JavaApplicationConfig;
 import ua.antonio.spring4sample.domain.lifecycle.JavaConfigLifecycleBean;
 import ua.antonio.spring4sample.domain.lifecycle.XmlConfigLifecycleBean;
 

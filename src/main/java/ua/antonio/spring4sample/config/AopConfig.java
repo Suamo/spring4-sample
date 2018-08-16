@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample;
+package ua.antonio.spring4sample.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
