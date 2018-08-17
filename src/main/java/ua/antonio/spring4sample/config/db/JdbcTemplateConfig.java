@@ -2,6 +2,7 @@ package ua.antonio.spring4sample.config.db;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.Resource;
@@ -11,13 +12,12 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-import ua.antonio.spring4sample.repository.JdbcTemplateRepo;
-import ua.antonio.spring4sample.repository.UserRepo;
 
 import javax.sql.DataSource;
 import java.sql.Driver;
 
 @Configuration
+@ComponentScan("ua.antonio.spring4sample.repository")
 @PropertySource("classpath:db/db.properties")
 public class JdbcTemplateConfig {
 
@@ -74,11 +74,6 @@ public class JdbcTemplateConfig {
     @Bean
     public NamedParameterJdbcTemplate jdbcNamedTemplate() {
         return new NamedParameterJdbcTemplate(dataSource());
-    }
-
-    @Bean
-    public UserRepo userRepo() {
-        return new JdbcTemplateRepo();
     }
 
 }

@@ -2,18 +2,18 @@ package ua.antonio.spring4sample.config.db;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import ua.antonio.spring4sample.repository.JdbcTemplateRepo;
-import ua.antonio.spring4sample.repository.UserRepo;
 
 import javax.sql.DataSource;
 
 @Configuration
+@ComponentScan("ua.antonio.spring4sample.repository")
 @PropertySource("classpath:db/db-h2.properties")
 public class JdbcTemplateH2Config {
 
@@ -45,11 +45,6 @@ public class JdbcTemplateH2Config {
     @Bean
     public NamedParameterJdbcTemplate jdbcNamedTemplate() {
         return new NamedParameterJdbcTemplate(dataSource());
-    }
-
-    @Bean
-    public UserRepo userRepo() {
-        return new JdbcTemplateRepo();
     }
 
 }
