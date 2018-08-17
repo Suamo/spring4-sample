@@ -14,20 +14,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("ua.antonio.spring4sample.repository")
-@PropertySource("classpath:db/db-h2.properties")
 public class JdbcTemplateH2Config {
-
-    @Value("${driverClassName}")
-    private String driverClassName;
-
-    @Value("${url}")
-    private String url;
-
-    @Value("${user}")
-    private String username;
-
-    @Value("${password}")
-    private String password;
 
     @Bean
     public DataSource dataSource() {
