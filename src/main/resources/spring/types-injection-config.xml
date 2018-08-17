@@ -23,7 +23,7 @@
         Used:
         • Constructor ingestion via "Constructor Namespace" parameters
     -->
-    <bean id="userRepo" class="ua.antonio.spring4sample.repository.JdbcTemplateRepo" c:dataSource-ref="dataSource"/>
+    <bean id="userRepo" class="ua.antonio.spring4sample.repository.JdbcTemplateRepo"/>
 
     <!--
         Used:
