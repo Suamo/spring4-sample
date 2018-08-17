@@ -23,7 +23,7 @@
         Used:
         • Constructor ingestion via "Constructor Namespace" parameters
     -->
-    <bean id="userRepo" class="ua.antonio.spring4sample.repository.JdbcUserRepo" c:dataSource-ref="dataSource"/>
+    <bean id="userRepo" class="ua.antonio.spring4sample.repository.JdbcTemplateRepo" c:dataSource-ref="dataSource"/>
 
     <!--
         Used:
@@ -33,7 +33,7 @@
     -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" p:password="1234">
         <property name="driverClassName">
-            <util:constant static-field="ua.antonio.spring4sample.repository.JdbcUserRepo.DRIVER_NAME"/>
+            <util:constant static-field="ua.antonio.spring4sample.repository.JdbcTemplateRepo.DRIVER_NAME"/>
         </property>
         <property name="url" value="jdbc:mysql://localhost:3306/my_schema"/>
         <property name="username" value="root"/>

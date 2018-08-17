@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import ua.antonio.spring4sample.repository.JdbcTemplateRepo;
+import ua.antonio.spring4sample.repository.UserRepo;
 
 import javax.sql.DataSource;
 
@@ -21,7 +23,7 @@ public class JdbcTemplateH2Config {
     @Value("${url}")
     private String url;
 
-    @Value("${username}")
+    @Value("${user}")
     private String username;
 
     @Value("${password}")
@@ -43,6 +45,11 @@ public class JdbcTemplateH2Config {
     @Bean
     public NamedParameterJdbcTemplate jdbcNamedTemplate() {
         return new NamedParameterJdbcTemplate(dataSource());
+    }
+
+    @Bean
+    public UserRepo userRepo() {
+        return new JdbcTemplateRepo();
     }
 
 }

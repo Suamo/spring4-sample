@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.boot.mappers;
+package ua.antonio.spring4sample.repository.mappers;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;

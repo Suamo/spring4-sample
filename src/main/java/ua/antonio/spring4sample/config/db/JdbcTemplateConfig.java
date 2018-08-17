@@ -11,6 +11,8 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import ua.antonio.spring4sample.repository.JdbcTemplateRepo;
+import ua.antonio.spring4sample.repository.UserRepo;
 
 import javax.sql.DataSource;
 import java.sql.Driver;
@@ -72,6 +74,11 @@ public class JdbcTemplateConfig {
     @Bean
     public NamedParameterJdbcTemplate jdbcNamedTemplate() {
         return new NamedParameterJdbcTemplate(dataSource());
+    }
+
+    @Bean
+    public UserRepo userRepo() {
+        return new JdbcTemplateRepo();
     }
 
 }

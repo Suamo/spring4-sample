@@ -3,9 +3,9 @@ package ua.antonio.spring4sample.domain.types;
 import java.io.Serializable;
 
 public class User {
-    private int id;
+    private Integer id;
     private String name;
-    private int age;
+    private Integer age;
 
     public User() {
     }
@@ -16,7 +16,12 @@ public class User {
         this.age = age;
     }
 
-    public void setId(int id) {
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -28,7 +33,7 @@ public class User {
         this.age = age;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -6,15 +6,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.antonio.spring4sample.boot.mappers.UserResultSetExtractor;
-import ua.antonio.spring4sample.boot.mappers.UserRowCallbackHandler;
-import ua.antonio.spring4sample.boot.mappers.UserRowMapper;
 import ua.antonio.spring4sample.config.db.JdbcTemplateH2Config;
 import ua.antonio.spring4sample.domain.types.User;
+import ua.antonio.spring4sample.repository.UserRepo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,65 +24,63 @@ import static org.junit.Assert.assertEquals;
 public class JdbcTemplateH2Tests {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private NamedParameterJdbcTemplate jdbcNamedTemplate;
+    private UserRepo userRepo;
 
     @Before
     public void initDb() {
-        jdbcTemplate.update("INSERT INTO USERS (NAME, AGE) VALUES (?, ?);", "UserName", 17);
+        userRepo.save(new User("UserName", 17));
     }
 
     @After
     public void cleanDb() {
-        jdbcTemplate.update("TRUNCATE TABLE USERS;");
+        userRepo.truncate();
     }
 
-	@Test
-	public void testRowMapper() {
-        User user = jdbcTemplate.queryForObject("SELECT * FROM USERS", new UserRowMapper());
+    @Test
+    public void testRowMapper() {
+        List<User> users = userRepo.queryWithRowMapper("SELECT * FROM USERS");
+        assertEquals(1, users.size());
 
+        User user = users.get(0);
         assertEquals("UserName", user.getName());
         assertEquals(17, user.getAge());
     }
 
-	@Test
-	public void testRowCallbackHandler() {
-        UserRowCallbackHandler rch = new UserRowCallbackHandler();
-        jdbcTemplate.query("SELECT * FROM USERS", rch);
-        List<User> result = rch.getList();
+    @Test
+    public void testRowCallbackHandler() {
+        List<User> users = userRepo.queryWithRowCallbackHandler("SELECT * FROM USERS");
+        assertEquals(1, users.size());
 
-        assertEquals(1, result.size());
-        User user = result.get(0);
+        User user = users.get(0);
         assertEquals("UserName", user.getName());
         assertEquals(17, user.getAge());
     }
 
-	@Test
-	public void testResultSetExtractor() {
-        String result = jdbcTemplate.query("SELECT * FROM USERS", new UserResultSetExtractor());
-        assertEquals("UserName17", result);
+    @Test
+    public void testResultSetExtractor() {
+        String concatenatedUsersData = userRepo.queryWithResultSetExtractor("SELECT * FROM USERS");
+        assertEquals("UserName17", concatenatedUsersData);
     }
 
-	@Test
-	public void testParametrizedSearch() {
-        String sql = "SELECT * FROM USERS where NAME = ?";
-        User result = jdbcTemplate.queryForObject(sql, new UserRowMapper(), "UserName");
+    @Test
+    public void testParametrizedSearch() {
+        List<User> users = userRepo.queryWithParameters("SELECT * FROM USERS where NAME = ?", "UserName");
+        assertEquals(1, users.size());
 
-        assertEquals("UserName", result.getName());
+        User user = users.get(0);
+        assertEquals("UserName", user.getName());
     }
 
-	@Test
-	public void testParametrizedSearch_withNamedParameter() {
-        String sql = "SELECT * FROM USERS where NAME = :name";
-
+    @Test
+    public void testParametrizedSearch_withNamedParameter() {
         Map<String, Object> params = new HashMap<>();
         params.put("name", "UserName");
 
-        User result = jdbcNamedTemplate.queryForObject(sql, params, new UserRowMapper());
+        List<User> users = userRepo.queryWithNamedParameters("SELECT * FROM USERS where NAME = :name", params);
+        assertEquals(1, users.size());
 
-        assertEquals("UserName", result.getName());
+        User user = users.get(0);
+        assertEquals("UserName", user.getName());
     }
 
 }
