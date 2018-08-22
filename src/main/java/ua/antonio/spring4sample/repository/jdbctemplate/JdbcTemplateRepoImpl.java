@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.repository;
+package ua.antonio.spring4sample.repository.jdbctemplate;
 
 import com.mysql.jdbc.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class JdbcTemplateRepo implements UserRepo {
+public class JdbcTemplateRepoImpl implements JdbcTemplateRepo {
     public static final String DRIVER_NAME = Driver.class.getName();
 
     @Autowired

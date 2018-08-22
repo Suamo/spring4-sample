@@ -1,8 +1,14 @@
 package ua.antonio.spring4sample.domain.types;
 
-import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "USERS")
 public class User {
+    @Id
     private Integer id;
     private String name;
     private Integer age;

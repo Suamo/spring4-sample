@@ -1,11 +1,11 @@
-package ua.antonio.spring4sample.repository;
+package ua.antonio.spring4sample.repository.jdbctemplate;
 
 import ua.antonio.spring4sample.domain.types.User;
 
 import java.util.List;
 import java.util.Map;
 
-public interface UserRepo {
+public interface JdbcTemplateRepo {
     void save(User user);
     void truncate();
     List<User> queryWithRowMapper(String sql);

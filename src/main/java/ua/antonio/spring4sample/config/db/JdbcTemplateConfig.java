@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.sql.Driver;
 
 @Configuration
-@ComponentScan("ua.antonio.spring4sample.repository")
+@ComponentScan("ua.antonio.spring4sample.repository.jdbctemplate")
 @PropertySource("classpath:db/db.properties")
 public class JdbcTemplateConfig {
 

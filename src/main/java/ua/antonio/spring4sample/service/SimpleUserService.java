@@ -1,12 +1,12 @@
 package ua.antonio.spring4sample.service;
 
 import ua.antonio.spring4sample.domain.types.User;
-import ua.antonio.spring4sample.repository.UserRepo;
+import ua.antonio.spring4sample.repository.jdbctemplate.JdbcTemplateRepo;
 
 public class SimpleUserService implements UserService {
-    private UserRepo userRepo;
+    private JdbcTemplateRepo userRepo;
 
-    public SimpleUserService(UserRepo userRepo) {
+    public SimpleUserService(JdbcTemplateRepo userRepo) {
         this.userRepo = userRepo;
     }
 

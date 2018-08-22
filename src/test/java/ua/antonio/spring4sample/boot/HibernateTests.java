@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.antonio.spring4sample.config.db.HibernateH2Config;
 import ua.antonio.spring4sample.domain.types.User;
-import ua.antonio.spring4sample.repository.UserRepo;
+import ua.antonio.spring4sample.repository.hibernate.HibernateRepo;
 
 import java.util.List;
 
@@ -22,21 +22,21 @@ import static org.junit.Assert.assertEquals;
 public class HibernateTests {
 
     @Autowired
-    private UserRepo userRepo;
+    private HibernateRepo repo;
 
     @Before
     public void initDb() {
-        userRepo.save(new User("UserName", 17));
+        repo.save(new User(1, "UserName", 17));
     }
 
     @After
     public void cleanDb() {
-        userRepo.truncate();
+        repo.truncate();
     }
 
-	@Test
-	public void testRowMapper() {
-        List<User> users = userRepo.queryWithRowMapper("SELECT * FROM USERS");
+    @Test
+    public void testRowMapper() {
+        List<User> users = repo.findAll();
         assertEquals(1, users.size());
 
         User user = users.get(0);

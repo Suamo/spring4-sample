@@ -13,7 +13,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("ua.antonio.spring4sample.repository")
+@ComponentScan("ua.antonio.spring4sample.repository.jdbctemplate")
 public class JdbcTemplateH2Config {
 
     @Bean

@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.antonio.spring4sample.config.db.JdbcTemplateH2Config;
 import ua.antonio.spring4sample.domain.types.User;
-import ua.antonio.spring4sample.repository.UserRepo;
+import ua.antonio.spring4sample.repository.jdbctemplate.JdbcTemplateRepo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 public class JdbcTemplateH2Tests {
 
     @Autowired
-    private UserRepo userRepo;
+    private JdbcTemplateRepo userRepo;
 
     @Before
     public void initDb() {
