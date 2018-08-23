@@ -1,14 +1,13 @@
 package ua.antonio.spring4sample.domain.types;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "USERS")
 public class User {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private String name;
     private Integer age;
