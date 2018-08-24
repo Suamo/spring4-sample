@@ -7,6 +7,6 @@ import ua.antonio.spring4sample.domain.types.User;
 @Repository
 public interface SpringDataJpaRepo extends JpaRepository<User, Integer> {
 
-    User findByName(String name);
+    User findByAge(int age);
 
 }

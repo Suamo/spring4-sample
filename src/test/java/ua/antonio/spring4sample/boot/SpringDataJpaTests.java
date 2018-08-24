@@ -47,10 +47,10 @@ public class SpringDataJpaTests {
 
     @Test
     public void testCustomFind() {
-        User user = repo.findByName("UserName");
+        User user = repo.findByAge(17);
         assertEquals(17, user.getAge());
 
-        User user1 = repo.findByName("UserName1");
+        User user1 = repo.findByAge(16);
         Assert.isNull(user1);
     }
 
