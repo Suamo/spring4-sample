@@ -38,7 +38,7 @@ public class JdbcTemplateTests {
 
 	@Test
 	public void testRowMapper() {
-        List<User> users = userRepo.queryWithRowMapper("SELECT * FROM USERS");
+        List<User> users = userRepo.findAll_WithRowMapper();
         assertEquals(1, users.size());
 
         User user = users.get(0);
@@ -48,7 +48,7 @@ public class JdbcTemplateTests {
 
 	@Test
 	public void testRowCallbackHandler() {
-        List<User> users = userRepo.queryWithRowCallbackHandler("SELECT * FROM USERS");
+        List<User> users = userRepo.findAll_WithRowCallbackHandler();
         assertEquals(1, users.size());
 
         User user = users.get(0);
@@ -58,13 +58,13 @@ public class JdbcTemplateTests {
 
 	@Test
 	public void testResultSetExtractor() {
-        String concatenatedUsersData = userRepo.queryWithResultSetExtractor("SELECT * FROM USERS");
+        String concatenatedUsersData = userRepo.findAll_WithResultSetExtractor();
         assertEquals("UserName17", concatenatedUsersData);
     }
 
 	@Test
 	public void testParametrizedSearch() {
-        List<User> users = userRepo.queryWithParameters("SELECT * FROM USERS where NAME = ?", "UserName");
+        List<User> users = userRepo.findByName_WithParameters("UserName");
         assertEquals(1, users.size());
 
         User user = users.get(0);
@@ -73,10 +73,7 @@ public class JdbcTemplateTests {
 
 	@Test
 	public void testParametrizedSearch_withNamedParameter() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", "UserName");
-
-        List<User> users = userRepo.queryWithNamedParameters("SELECT * FROM USERS where NAME = :name", params);
+        List<User> users = userRepo.findByName_WithNamedParameters("UserName");
         assertEquals(1, users.size());
 
         User user = users.get(0);

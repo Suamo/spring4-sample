@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.antonio.spring4sample.domain.types.User;
 import ua.antonio.spring4sample.repository.mappers.UserResultSetExtractor;
 import ua.antonio.spring4sample.repository.mappers.UserRowCallbackHandler;
 import ua.antonio.spring4sample.repository.mappers.UserRowMapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,29 +36,47 @@ public class JdbcTemplateRepoImpl implements JdbcTemplateRepo {
     }
 
     @Override
-    public List<User> queryWithRowMapper(String sql) {
-        return jdbcTemplate.query(sql, new UserRowMapper());
+    public List<User> findAll_WithRowMapper() {
+        return jdbcTemplate.query("SELECT * FROM USERS", new UserRowMapper());
     }
 
     @Override
-    public List<User> queryWithRowCallbackHandler(String sql) {
+    public List<User> findAll_WithRowCallbackHandler() {
         UserRowCallbackHandler rch = new UserRowCallbackHandler();
-        jdbcTemplate.query(sql, rch);
+        jdbcTemplate.query("SELECT * FROM USERS", rch);
         return rch.getList();
     }
 
     @Override
-    public String queryWithResultSetExtractor(String sql) {
-        return jdbcTemplate.query(sql, new UserResultSetExtractor());
+    public String findAll_WithResultSetExtractor() {
+        return jdbcTemplate.query("SELECT * FROM USERS", new UserResultSetExtractor());
     }
 
     @Override
-    public List<User> queryWithParameters(String sql, Object... parameters) {
-        return jdbcTemplate.query(sql, new UserRowMapper(), parameters);
+    public List<User> findByName_WithParameters(String userName) {
+        return jdbcTemplate.query("SELECT * FROM USERS where NAME = ?", new UserRowMapper(), userName);
     }
 
     @Override
-    public List<User> queryWithNamedParameters(String sql, Map<String, Object> params) {
-        return jdbcNamedTemplate.query(sql, params, new UserRowMapper());
+    public List<User> findByName_WithNamedParameters(String userName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", userName);
+        return jdbcNamedTemplate.query("SELECT * FROM USERS where NAME = :name", params, new UserRowMapper());
+    }
+
+    @Override
+    public void createFourUsers(boolean throwExceptionAfterTwo) {
+        save(new User("User1", 15));
+        save(new User("User1", 15));
+        if (throwExceptionAfterTwo)
+            throw new RuntimeException("Exception in the middle of Repository method");
+        save(new User("User1", 15));
+        save(new User("User1", 15));
+    }
+
+    @Override
+    @Transactional
+    public void createFourUsersInTransaction(boolean throwExceptionAfterTwo) {
+        createFourUsers(throwExceptionAfterTwo);
     }
 }
