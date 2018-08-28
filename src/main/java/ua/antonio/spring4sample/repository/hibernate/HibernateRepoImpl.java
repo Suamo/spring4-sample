@@ -35,4 +35,19 @@ public class HibernateRepoImpl implements HibernateRepo {
         session().createQuery("delete from User").executeUpdate();
     }
 
+    @Override
+    public void createFourUsers(boolean throwExceptionAfterTwo) {
+        save(new User("User1", 15));
+        save(new User("User1", 15));
+        if (throwExceptionAfterTwo)
+            throw new RuntimeException("Exception in the middle of Repository method");
+        save(new User("User1", 15));
+        save(new User("User1", 15));
+    }
+
+    @Override
+    public void createFourUsersInTransaction(boolean throwExceptionAfterTwo) {
+        createFourUsers(throwExceptionAfterTwo);
+    }
+
 }

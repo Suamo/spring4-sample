@@ -12,4 +12,7 @@ public interface HibernateRepo {
 
     void truncate();
 
+    void createFourUsers(boolean throwExceptionAfterTwo);
+
+    void createFourUsersInTransaction(boolean throwExceptionAfterTwo);
 }

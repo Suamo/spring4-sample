@@ -2,6 +2,7 @@ package ua.antonio.spring4sample.boot;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +45,28 @@ public class HibernateTests {
         assertEquals(17, user.getAge());
     }
 
+
+    @Test
+    @Ignore("Cannot figure out how to turn off transaction support. SpringSessionContext.currentSession is failing with" +
+            "'Could not obtain transaction-synchronized Session for current thread'")
+    public void testNonTransactionalBehavior() {
+        cleanDb();
+        assertEquals(0, repo.findAll().size());
+
+        try {
+            repo.createFourUsers(true);
+        } catch (RuntimeException e){}
+        assertEquals(2, repo.findAll().size());
+    }
+
+    @Test
+    public void testTransactionalBehavior() {
+        cleanDb();
+        assertEquals(0, repo.findAll().size());
+
+        try {
+            repo.createFourUsersInTransaction(true);
+        } catch (RuntimeException e){}
+        assertEquals(0, repo.findAll().size());
+    }
 }
