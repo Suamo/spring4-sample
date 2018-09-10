@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample;
+package ua.antonio.spring4sample.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
