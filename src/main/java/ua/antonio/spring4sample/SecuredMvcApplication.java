@@ -12,10 +12,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 		@ComponentScan("ua.antonio.spring4sample.controllers"),
 		@ComponentScan("ua.antonio.spring4sample.config.security")
 })
-public class BootApplication {
+public class SecuredMvcApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BootApplication.class);
+		SpringApplication.run(SecuredMvcApplication.class);
 	}
 
 }
