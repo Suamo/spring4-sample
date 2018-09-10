@@ -4,8 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 @SpringBootApplication
+@EnableGlobalMethodSecurity(prePostEnabled = true) // enables REST methods interception restrictions
 @ComponentScans({
 		@ComponentScan("ua.antonio.spring4sample.controllers"),
 		@ComponentScan("ua.antonio.spring4sample.config.security")

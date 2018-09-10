@@ -14,7 +14,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/users/list").hasRole("ADMIN")
+//                version of @PreAuthorize on method "/users/list":
+//                .antMatchers("/users/list").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and();
 
