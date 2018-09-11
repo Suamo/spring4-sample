@@ -1,13 +1,13 @@
 package ua.antonio.spring4sample.repository.ws;
 
+import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
+import ua.antonio.spring4sample.domain.ws.Country;
+import ua.antonio.spring4sample.domain.ws.Currency;
+
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
-
-import io.spring.guides.gs_producing_web_service.Country;
-import io.spring.guides.gs_producing_web_service.Currency;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 @Component
 public class CountryRepository {
