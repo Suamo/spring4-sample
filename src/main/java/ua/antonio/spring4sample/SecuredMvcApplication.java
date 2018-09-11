@@ -6,12 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
-@SpringBootApplication
+@SpringBootApplication(
+		scanBasePackages = {"ua.antonio.spring4sample.controllers", "ua.antonio.spring4sample.config.security"}
+)
 @EnableGlobalMethodSecurity(jsr250Enabled = true) // enables REST methods interception restrictions
-@ComponentScans({
-		@ComponentScan("ua.antonio.spring4sample.controllers"),
-		@ComponentScan("ua.antonio.spring4sample.config.security")
-})
 public class SecuredMvcApplication {
 
 	public static void main(String[] args) {

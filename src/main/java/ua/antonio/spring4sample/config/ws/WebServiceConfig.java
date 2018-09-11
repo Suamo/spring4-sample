@@ -12,9 +12,15 @@ import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
+/**
+ * It’s important to notice that you need to specify bean names for MessageDispatcherServlet and DefaultWsdl11Definition.
+ * Bean names determine the URL under which web service and the generated WSDL file is available.
+ * In this case, the WSDL will be available under http://localhost:8080/ws/countries.wsdl.
+ */
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
+
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -37,4 +43,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchema countriesSchema() {
         return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
     }
+
 }
