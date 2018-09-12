@@ -1,5 +1,5 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:gs="http://antonio.ua/spring4sample/domain/ws">
+                  xmlns:gs="http://antonio.ua/domain">
     <soapenv:Header/>
     <soapenv:Body>
         <gs:getCountryRequest>

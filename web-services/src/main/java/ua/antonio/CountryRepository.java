@@ -1,9 +1,9 @@
-package ua.antonio.spring4sample.repository.ws;
+package ua.antonio;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import ua.antonio.spring4sample.domain.ws.Country;
-import ua.antonio.spring4sample.domain.ws.Currency;
+import ua.antonio.domain.Country;
+import ua.antonio.domain.Currency;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;

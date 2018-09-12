@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample;
+package ua.antonio;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,8 +10,8 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ClassUtils;
 import org.springframework.ws.client.core.WebServiceTemplate;
-import ua.antonio.spring4sample.domain.ws.GetCountryRequest;
-import ua.antonio.spring4sample.domain.ws.GetCountryResponse;
+import ua.antonio.domain.GetCountryRequest;
+import ua.antonio.domain.GetCountryResponse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(

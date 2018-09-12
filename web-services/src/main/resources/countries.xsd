@@ -1,5 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://antonio.ua/spring4sample/domain/ws"
-           targetNamespace="http://antonio.ua/spring4sample/domain/ws" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://antonio.ua/domain"
+           targetNamespace="http://antonio.ua/domain" elementFormDefault="qualified">
 
     <xs:element name="getCountryRequest">
         <xs:complexType>

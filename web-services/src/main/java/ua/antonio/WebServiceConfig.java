@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.config.ws;
+package ua.antonio;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -34,14 +34,14 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("CountriesPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://antonio.ua/spring4sample/domain/ws");
+        wsdl11Definition.setTargetNamespace("http://antonio.ua/domain");
         wsdl11Definition.setSchema(countriesSchema);
         return wsdl11Definition;
     }
 
     @Bean
     public XsdSchema countriesSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("ws/countries.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
     }
 
 }
