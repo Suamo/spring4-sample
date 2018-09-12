@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.config.security;
+package ua.antonio.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.config.security;
+package ua.antonio.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

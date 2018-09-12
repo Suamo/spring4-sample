@@ -12,6 +12,7 @@
         <module>aop</module>
         <module>web-services</module>
         <module>rest</module>
+        <module>security</module>
     </modules>
 
 
