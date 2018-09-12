@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample;
+package ua.antonio;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.antonio.spring4sample.domain.AopBean;
+import ua.antonio.bean.AopBean;
 
 import java.util.List;
 

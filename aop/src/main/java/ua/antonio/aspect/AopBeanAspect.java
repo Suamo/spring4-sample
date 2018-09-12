@@ -1,9 +1,9 @@
-package ua.antonio.spring4sample.aop;
+package ua.antonio.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import ua.antonio.spring4sample.domain.AopBeanImpl;
+import ua.antonio.bean.AopBeanImpl;
 
 @Aspect
 public class AopBeanAspect {
@@ -30,6 +30,6 @@ public class AopBeanAspect {
     }
 
 
-    @Pointcut(value = "execution(* ua.antonio.spring4sample.domain.AopBean.validateName())")
+    @Pointcut(value = "execution(* ua.antonio.bean.AopBean.validateName())")
     private void validateName(){}
 }

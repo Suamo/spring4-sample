@@ -8,8 +8,8 @@
 
     <aop:aspectj-autoproxy/>
     <beans>
-        <bean id="aopBeanImpl" class="ua.antonio.spring4sample.domain.AopBeanImpl"/>
-        <bean class="ua.antonio.spring4sample.aop.AopBeanAspect"/>
+        <bean id="aopBeanImpl" class="ua.antonio.bean.AopBeanImpl"/>
+        <bean class="ua.antonio.aspect.AopBeanAspect"/>
     </beans>
 
 </beans>

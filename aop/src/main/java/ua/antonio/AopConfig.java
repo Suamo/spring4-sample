@@ -1,10 +1,10 @@
-package ua.antonio.spring4sample.config;
+package ua.antonio;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import ua.antonio.spring4sample.domain.AopBean;
-import ua.antonio.spring4sample.domain.AopBeanImpl;
+import ua.antonio.bean.AopBean;
+import ua.antonio.bean.AopBeanImpl;
 
 @Configuration
 @EnableAspectJAutoProxy
