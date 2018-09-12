@@ -1,10 +1,9 @@
-package ua.antonio.spring4sample;
+package ua.antonio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
-import ua.antonio.spring4sample.aop.rest.RestExceptionProcessor;
-import ua.antonio.spring4sample.controllers.rest.SimpleRestController;
+import ua.antonio.aop.RestExceptionProcessor;
 
 @SpringBootApplication(
         scanBasePackageClasses = {

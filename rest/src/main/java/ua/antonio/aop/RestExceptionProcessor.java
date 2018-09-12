@@ -1,11 +1,11 @@
-package ua.antonio.spring4sample.aop.rest;
+package ua.antonio.aop;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ua.antonio.spring4sample.domain.JsonError;
+import ua.antonio.domain.JsonError;
 
 @ControllerAdvice
 public class RestExceptionProcessor {
