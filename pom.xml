@@ -7,17 +7,17 @@
 	<artifactId>spring4-sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>spring4-sample</name>
+
 
     <modules>
         <module>aop</module>
-        <module>web-services</module>
+        <module>lifecycle</module>
         <module>rest</module>
         <module>security</module>
+        <module>web-services</module>
     </modules>
 
-
-	<name>spring4-sample</name>
-	<description>Demo project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

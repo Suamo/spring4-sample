@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample.domain.lifecycle;
+package ua.antonio;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;

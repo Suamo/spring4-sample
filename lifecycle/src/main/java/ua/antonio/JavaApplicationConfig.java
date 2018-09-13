@@ -1,10 +1,8 @@
-package ua.antonio.spring4sample.config;
+package ua.antonio;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import ua.antonio.spring4sample.domain.lifecycle.JavaConfigLifecycleBean;
-import ua.antonio.spring4sample.domain.types.User;
 
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;

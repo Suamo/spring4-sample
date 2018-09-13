@@ -1,4 +1,4 @@
-package ua.antonio.spring4sample;
+package ua.antonio;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,9 +7,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.antonio.spring4sample.config.JavaApplicationConfig;
-import ua.antonio.spring4sample.domain.lifecycle.JavaConfigLifecycleBean;
-import ua.antonio.spring4sample.domain.lifecycle.XmlConfigLifecycleBean;
 
 import java.util.List;
 
@@ -20,13 +17,13 @@ import static org.junit.Assert.assertSame;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringLifecycleTest {
-    private static ConfigurableApplicationContext XML_CONTEXT = new ClassPathXmlApplicationContext("spring/lifacycle-config.xml");
+    private static ConfigurableApplicationContext XML_CONTEXT = new ClassPathXmlApplicationContext("lifacycle-config.xml");
     private static ConfigurableApplicationContext JAVA_CONTEXT = new AnnotationConfigApplicationContext(JavaApplicationConfig.class);
 
 
 	@Test
 	public void testXmlConfigLifecycle() {
-        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/lifacycle-config.xml");
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("lifacycle-config.xml");
         XmlConfigLifecycleBean bean = context.getBean("lifecycleBean", XmlConfigLifecycleBean.class);
         context.close();
 
