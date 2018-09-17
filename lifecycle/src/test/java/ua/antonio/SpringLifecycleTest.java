@@ -52,7 +52,6 @@ public class SpringLifecycleTest {
         assertEquals(sequence.get(3), "'before destroy' BeanPostProcessor (@PreDestroy)");
         assertEquals(sequence.get(4), "DisposableBean.destroy");
         assertEquals(sequence.get(5), "destroyMethod attribute");
-
     }
 
 	@Test
@@ -65,6 +64,18 @@ public class SpringLifecycleTest {
         twiceTakenBeanIsTheSame(JAVA_CONTEXT, "singletonScopeBean");
         twiceTakenBeanIsNotTheSame(JAVA_CONTEXT, "prototypeScopeBean");
 	}
+
+	@Test
+	public void testSingletonToPrototypeDependency_XmlConfig() {
+        twiceTakenParentBeanIsTheSame(XML_CONTEXT, "singletonDependsOnPrototype");
+        twiceTakenParentBeanIsTheSame(XML_CONTEXT, "prototypeDependsOnSingleton");
+	}
+
+    private void twiceTakenParentBeanIsTheSame(ConfigurableApplicationContext context, String beanName) {
+        User bean1 = context.getBean(beanName, User.class);
+        User bean2 = context.getBean(beanName, User.class);
+        assertSame(bean1.getParent(), bean2.getParent());
+    }
 
     private void twiceTakenBeanIsTheSame(ConfigurableApplicationContext context, String beanName) {
         Object bean1 = context.getBean(beanName);

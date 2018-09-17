@@ -11,6 +11,8 @@ public class User {
     private Integer id;
     private String name;
     private Integer age;
+    @Transient
+    private User parent;
 
     public User() {
     }
@@ -48,5 +50,13 @@ public class User {
 
     public int getAge() {
         return age;
+    }
+
+    public void setParent(User parent) {
+        this.parent = parent;
+    }
+
+    public User getParent() {
+        return parent;
     }
 }
