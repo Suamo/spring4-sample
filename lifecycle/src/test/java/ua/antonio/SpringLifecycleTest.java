@@ -2,7 +2,6 @@ package ua.antonio;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -10,12 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class SpringLifecycleTest {
     private static ConfigurableApplicationContext XML_CONTEXT = new ClassPathXmlApplicationContext("lifacycle-config.xml");
     private static ConfigurableApplicationContext JAVA_CONTEXT = new AnnotationConfigApplicationContext(JavaApplicationConfig.class);
