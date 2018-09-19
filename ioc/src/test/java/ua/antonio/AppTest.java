@@ -1,11 +1,9 @@
 package ua.antonio;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.test.context.junit4.SpringRunner;
 import ua.antonio.confg.ScanningConfig;
 import ua.antonio.confg.SimpleConfig;
 import ua.antonio.domain.SimpleBean;
@@ -13,7 +11,6 @@ import ua.antonio.domain.SimpleBean;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-@RunWith(SpringRunner.class)
 public class AppTest {
 
     @Test

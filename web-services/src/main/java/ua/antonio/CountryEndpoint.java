@@ -1,7 +1,6 @@
 package ua.antonio;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -13,17 +12,8 @@ import ua.antonio.domain.GetCountryResponse;
 public class CountryEndpoint {
     private static final String NAMESPACE_URI = "http://antonio.ua/domain";
 
+    @Autowired
     private CountryRepository countryRepository;
-
-    @Autowired
-    public CountryEndpoint() {
-        this.countryRepository = new CountryRepository();
-    }
-
-    @Autowired
-    public CountryEndpoint(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
     @ResponsePayload
