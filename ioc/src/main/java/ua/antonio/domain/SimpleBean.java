@@ -6,10 +6,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class SimpleBean {
 
-    @Autowired
-    private SimpleBean child;
+    private SimpleBean2 child;
 
-    public SimpleBean getChild() {
+    public SimpleBean2 getChild() {
         return child;
     }
+
+    @Autowired
+    public void setChild(SimpleBean2 child) {
+        this.child = child;
     }
+
+}

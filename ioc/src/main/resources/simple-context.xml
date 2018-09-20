@@ -5,5 +5,6 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="simpleBean" class="ua.antonio.domain.SimpleBean"/>
+    <bean id="simpleBean2" class="ua.antonio.domain.SimpleBean2"/>
 
 </beans>
