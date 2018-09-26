@@ -11,5 +11,12 @@
     <artifactId>lifecycle</artifactId>
     <name>lifecycle</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -1,6 +1,5 @@
 package ua.antonio.spring4sample.repository.jpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.antonio.spring4sample.domain.types.User;
@@ -16,7 +15,6 @@ import java.util.List;
 @Transactional
 public class JpaRepoImpl implements JpaRepo {
 
-    @Autowired
     @PersistenceContext
     private EntityManager entityManager;
 
