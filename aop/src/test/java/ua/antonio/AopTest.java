@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.antonio.bean.AopBean;
+import ua.antonio.bean.SomePojo;
 
 import java.util.Date;
 import java.util.List;
@@ -74,6 +75,18 @@ public class AopTest {
         assertTrue(actions.contains("andPointcut"));
         assertTrue(actions.contains("orPointcut"));
         assertTrue(actions.contains("notPointcut"));
+    }
+
+	@Test
+	public void testGetterAndSetterPointcutExpression() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/aop-pointcuts-config.xml");
+        SomePojo bean = ctx.getBean(SomePojo.class);
+        bean.setCustomValue("hello");
+        bean.getCustomValue();
+
+        List<String> actions = bean.getActionsSequence();
+        assertEquals("getter or setter call", actions.get(0));
+        assertEquals("getter or setter call", actions.get(1));
     }
 
 }

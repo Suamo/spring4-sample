@@ -8,6 +8,7 @@
 
     <aop:aspectj-autoproxy/>
     <bean id="aopBeanImpl" class="ua.antonio.bean.AopBeanImpl"/>
+    <bean id="somePojo" class="ua.antonio.bean.SomePojo"/>
     <bean class="ua.antonio.aspect.AopPointcutsBeanAspect"/>
 
 </beans>

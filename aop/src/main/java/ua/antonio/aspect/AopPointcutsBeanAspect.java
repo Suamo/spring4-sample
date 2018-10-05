@@ -4,6 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import ua.antonio.bean.AopBeanImpl;
+import ua.antonio.bean.SomePojo;
 
 @Aspect
 public class AopPointcutsBeanAspect {
@@ -11,6 +12,16 @@ public class AopPointcutsBeanAspect {
     @Before("execution(* ua.antonio.bean.AopBean.checkPointcut(..))")
     public void executionByFullReferencePointcut(JoinPoint joinPoint) {
         tickPointcut(joinPoint, "executionByFullReferencePointcut");
+    }
+
+//    @Before("execution( * ua.antonio.bean.SomePojo.*(..) )") // all methods from the class
+//    @Before("execution( * ua.*.bean.SomePojo.*(..) )") // Dot is used to substitute word
+//    @Before("execution( * *..SomePojo.*(..) )") // For including, sub-packages use two dots
+//    @Before("execution( * *CustomValue(..) )") // two dots as arguments mean any number of arguments
+    @Before("execution( * ua.antonio.bean.SomePojo.setCustomValue(..) ) || execution( * ua.antonio.bean.SomePojo.getCustomValue() )")
+    public void getterAndSetterPointcut(JoinPoint joinPoint) {
+        SomePojo target = (SomePojo)joinPoint.getTarget();
+        target.addAction("getter or setter call");
     }
 
     @Before("execution(* *..checkPointcut(..))")
