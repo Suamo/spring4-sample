@@ -1,8 +1,10 @@
 package ua.antonio.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+@MyCustomClassAnnotation
 public class AopBeanImpl implements AopBean {
     private List<String> actionsSequence = new ArrayList<>();
 
@@ -26,4 +28,6 @@ public class AopBeanImpl implements AopBean {
         throw new RuntimeException("RuntimeException for testing advices.");
     }
 
+    @MyCustomMethodAnnotation
+    public void checkPointcut(int beforeValue, Long afterValue, Date date) {}
 }

@@ -8,6 +8,6 @@
 
     <aop:aspectj-autoproxy/>
     <bean id="aopBeanImpl" class="ua.antonio.bean.AopBeanImpl"/>
-    <bean class="ua.antonio.aspect.AopBeanAspect"/>
+    <bean class="ua.antonio.aspect.AopPointcutsBeanAspect"/>
 
 </beans>

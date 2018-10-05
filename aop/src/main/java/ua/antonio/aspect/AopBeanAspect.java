@@ -8,10 +8,6 @@ import ua.antonio.bean.AopBeanImpl;
 @Aspect
 public class AopBeanAspect {
 
-    //
-    // Simple advices
-    //
-
     @Before("validateName()")
     public void before(JoinPoint joinPoint) {
         AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
@@ -38,11 +34,6 @@ public class AopBeanAspect {
         joinPoint.proceed();
         target.addAction("Around After");
     }
-
-
-    //
-    // Advices for methods that throw exceptions
-    //
 
     @Before("callMethodWithException()")
     public void beforeException(JoinPoint joinPoint) {
@@ -80,14 +71,13 @@ public class AopBeanAspect {
     @AfterThrowing("callMethodWithException()")
     public void afterThrowingException(JoinPoint joinPoint) {
         AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
-
         target.addAction("After Throwing");
     }
 
+    @Pointcut(value = "execution(* ua.antonio.bean.AopBean.callMethodWithException())")
+    private void callMethodWithException(){}
 
     @Pointcut(value = "execution(* ua.antonio.bean.AopBean.validateName())")
     private void validateName(){}
 
-    @Pointcut(value = "execution(* ua.antonio.bean.AopBean.callMethodWithException())")
-    private void callMethodWithException(){}
 }
