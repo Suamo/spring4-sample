@@ -15,7 +15,7 @@ public class AppController {
     }
 
     // http://localhost:8080/users/showUser?userId=105
-    @GetMapping(value = "/showUser")
+    @GetMapping("/showUser")
     public String showUserByRequestParam(@RequestParam("userId") Long id, Model model) {
         model.addAttribute("users", new String[]{"Valera?" + id});
         return "list";

@@ -17,7 +17,8 @@ public class AppTest {
     @Test
     public void java_ScanningContext() {
         ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(ScanningConfig.class);
-        SimpleBean bean = context.getBean(SimpleBean.class);
+        // scanning context generated beans names based on the class name
+        SimpleBean bean = context.getBean("simpleBean", SimpleBean.class);
 
         assertNotNull(bean);
         assertNotNull(bean.getChild());

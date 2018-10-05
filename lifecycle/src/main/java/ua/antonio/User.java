@@ -1,17 +1,9 @@
 package ua.antonio;
 
-
-import javax.persistence.*;
-
-@Entity
-@Table(name = "USERS")
 public class User {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private String name;
     private Integer age;
-    @Transient
     private User parent;
 
     public User() {
