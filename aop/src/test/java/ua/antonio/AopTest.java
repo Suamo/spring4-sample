@@ -2,7 +2,7 @@ package ua.antonio;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.antonio.bean.AopBean;
@@ -13,11 +13,11 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 public class AopTest {
-    private static ConfigurableApplicationContext XML_CONTEXT = new ClassPathXmlApplicationContext("spring/aop-config.xml");
 
 	@Test
 	public void testTypesInjections() {
-        AopBean bean = XML_CONTEXT.getBean("aopBeanImpl", AopBean.class);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/aop-config.xml");
+        AopBean bean = ctx.getBean("aopBeanImpl", AopBean.class);
         List<String> actions = bean.getActionsSequence();
         assertEquals(0, actions.size());
 
@@ -28,6 +28,26 @@ public class AopTest {
         assertEquals("Target method call", actions.get(2));
         assertEquals("Around After", actions.get(3));
         assertEquals("After", actions.get(4));
+        assertEquals("After Returning", actions.get(5)); // called even for void return type
+    }
+
+	@Test
+	public void testExceptionsInAdvices() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/aop-config.xml");
+        AopBean bean = ctx.getBean("aopBeanImpl", AopBean.class);
+        bean.callMethodWithException();
+
+        List<String> actions = bean.getActionsSequence();
+        System.out.println();
+
+
+        assertEquals("Around Before", actions.get(0));
+        assertEquals("Before", actions.get(1));
+        assertEquals("Exception method call", actions.get(2));
+        assertEquals("Around After (Exception caught)", actions.get(3));
+        // if an exception is caught by Aroud advice than AfterThrowing is ignored
+        assertEquals("After", actions.get(4)); // called even if exception is thrown
+        assertEquals("After Returning", actions.get(5));
     }
 
 }

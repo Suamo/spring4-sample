@@ -7,4 +7,6 @@ public interface AopBean {
     List<String> getActionsSequence();
 
     void validateName();
+
+    void callMethodWithException();
 }

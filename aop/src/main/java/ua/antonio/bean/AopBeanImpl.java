@@ -20,4 +20,10 @@ public class AopBeanImpl implements AopBean {
         actionsSequence.add("Target method call");
     }
 
+    @Override
+    public void callMethodWithException() {
+        actionsSequence.add("Exception method call");
+        throw new RuntimeException("RuntimeException for testing advices.");
+    }
+
 }

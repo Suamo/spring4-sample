@@ -8,6 +8,10 @@ import ua.antonio.bean.AopBeanImpl;
 @Aspect
 public class AopBeanAspect {
 
+    //
+    // Simple advices
+    //
+
     @Before("validateName()")
     public void before(JoinPoint joinPoint) {
         AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
@@ -20,6 +24,12 @@ public class AopBeanAspect {
         target.addAction("After");
     }
 
+    @AfterReturning("validateName()")
+    public void afterReturning(JoinPoint joinPoint) {
+        AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
+        target.addAction("After Returning");
+    }
+
     @Around("validateName()")
     public void around(ProceedingJoinPoint joinPoint) throws Throwable {
         AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
@@ -30,6 +40,54 @@ public class AopBeanAspect {
     }
 
 
+    //
+    // Advices for methods that throw exceptions
+    //
+
+    @Before("callMethodWithException()")
+    public void beforeException(JoinPoint joinPoint) {
+        AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
+        target.addAction("Before");
+    }
+
+    @After("callMethodWithException()")
+    public void afterException(JoinPoint joinPoint) {
+        AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
+        target.addAction("After");
+    }
+
+    @Around("callMethodWithException()")
+    public void aroundException(ProceedingJoinPoint joinPoint) {
+        AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
+
+        target.addAction("Around Before");
+        try {
+            joinPoint.proceed();
+        } catch (Throwable throwable) {
+            target.addAction("Around After (Exception caught)");
+            return;
+        }
+        target.addAction("Around After");
+    }
+
+    @AfterReturning("callMethodWithException()")
+    public void afterReturningException(JoinPoint joinPoint) {
+        AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
+
+        target.addAction("After Returning");
+    }
+
+    @AfterThrowing("callMethodWithException()")
+    public void afterThrowingException(JoinPoint joinPoint) {
+        AopBeanImpl target = (AopBeanImpl)joinPoint.getTarget();
+
+        target.addAction("After Throwing");
+    }
+
+
     @Pointcut(value = "execution(* ua.antonio.bean.AopBean.validateName())")
     private void validateName(){}
+
+    @Pointcut(value = "execution(* ua.antonio.bean.AopBean.callMethodWithException())")
+    private void callMethodWithException(){}
 }
