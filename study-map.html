@@ -25,7 +25,10 @@
         body > ul > li {
             padding-bottom: 10px;
         }
-
+        
+        .hidden {
+            visibility:hidden;
+        }
     </style>
     <script>
         function changeTitles() {
@@ -34,7 +37,7 @@
                 let tooltipId = link.attributes.title.value;
                 let tooltip = document.getElementById(tooltipId);
                 link.setAttribute("data-toggle", "tooltip");
-                link.setAttribute("data-placement", "auto bottom");
+                link.setAttribute("data-placement", "auto right");
                 link.setAttribute("data-html", "true");
                 link.setAttribute("class", "label label-info");
                 if (tooltip) {
@@ -45,58 +48,74 @@
                 $('[data-toggle="tooltip"]').tooltip();
             });
         }
-
     </script>
 </head>
-<body onload="changeTitles()">
+<body onload="changeTitles()" class="container">
 <h1>General</h1>
 <ul>
     <li><b>Application context:</b>
-        <a title="a1_1">what is</a>,
-        <a title="a1_2">lifecycle</a>,
-        <a title="a1_3">configuration</a>,
-        <a title="a1_4">creation</a>,
-        <a title="a1_5">usage in test</a>,
+        <a title="a1_1">what is</a>
+        <a title="a1_2">lifecycle</a>
+        <a title="a1_3">configuration</a>
+        <a title="a1_4">creation</a>
+        <a title="a1_5">usage in test</a>
         <a title="a1_6">closing context</a>
     </li>
     <li><b>Beans:</b>
-        <a title="a2_1">lifecycle</a>,
-        <a title="a2_2">scope</a>,
-        <a title="a2_3">IDs</a>,
-        <a title="a2_4">scanning</a>,
-        <a title="a2_5">stereotypes</a>,
+        <a title="a2_1">lifecycle</a>
+        <a title="a2_2">scope</a>
+        <a title="a2_3">IDs</a>
+        <a title="a2_4">scanning</a>
+        <a title="a2_5">stereotypes</a>
         <a title="a2_6">lazy/eager init</a>
-        <a title="a2_7">final/static</a>,
+        <a title="a2_7">final/static</a>
         <a title="a2_8">init/destroy</a>
     </li>
     <li><b>DI, IOC:</b>
-        <a title="a3_1">what is</a>,
-        <a title="a3_2">@Autowired</a>,
-        <a title="a3_3">@Qualifier</a>,
-        <a title="a3_4">private fields injection</a>,
-        <a title="a3_5">scalar/literal injection</a>,
-        <a title="a3_6">@Value</a>,
+        <a title="a3_1">what is</a>
+        <a title="a3_2">@Autowired</a>
+        <a title="a3_3">@Qualifier</a>
+        <a title="a3_4">private fields injection</a>
+        <a title="a3_5">scalar/literal injection</a>
+        <a title="a3_6">@Value</a>
         <a title="a3_7">$ vs #{}</a>
     </li>
     <li><b>Properties:</b>
-        <a title="a4_1">PropertySource</a>,
-        <a title="a4_2">PropertySourcesPlaceholderConfigurer</a>,
+        <a title="a4_1">PropertySource</a>
+        <a title="a4_2">PropertySourcesPlaceholderConfigurer</a>
         <a title="a4_3">PropertyResolver</a>
     </li>
     <li><b>PostProcessors:</b>
-        <a title="a5_1">BeanFactoryPostProcessor</a>,
+        <a title="a5_1">BeanFactoryPostProcessor</a>
         <a title="a5_2">BeanPostProcessor</a>
     </li>
     <li><b>Profiles:</b>
-        <a title="a6_1">what is</a>,
-        <a title="a6_2">usage</a>,
+        <a title="a6_1">what is</a>
+        <a title="a6_2">usage</a>
         <a title="a6_3">limitations</a>
     </li>
-    <li><b>Environment: </b>what includes, possible properties sources</li>
-    <li><b>SpEL: </b>what is, syntax, functionality</li>
+    <li><b>Environment: </b>
+        <a title="a7_1">what is</a>
+        <a title="a7_2">property sources</a>
+    </li>
+    <li><b>SpEL:</b>
+        <a title="a8_1">what is</a>
+        <a title="a8_2">usage</a>
+        <a title="a8_3">functionality</a>
+    </li>
 </ul>
 
-<div style="visibility:hidden;">
+<h1>AOP</h1>
+<ul>
+    <li>AOP: what is, how implemented in Spring, configuration</li>
+    <li>Terminology: aspect, cross-cutting concern, </li>
+    <li>Proxy: types (advantages/ disadvantages /limitations)</li>
+    <li>Advices: types, purpose, which can try/catch exceptions, JoinPoint, ProceedingJoinPoint</li>
+    <li>@EnableAspectJAutoProxy</li>
+    <li>Pointcut: pointcut expression (+examples), pointcut designators</li>
+</ul>
+
+<div class="hidden">
     <div id="a1_1">
         ApplicationContext is a Spring IoC container responsible for:
         <ul>
@@ -165,7 +184,7 @@
     </div>
 </div>
 
-<div style="visibility:hidden;">
+<div class="hidden">
     <div id="a2_1">
         <ul>
             <li>Load Bean definitions
@@ -285,7 +304,7 @@
     </div>
 </div>
 
-<div style="visibility:hidden;">
+<div class="hidden">
     <div id="a3_1">
         DI(IoC) is a technique where one object supplies the dependencies of another object
     </div>
@@ -328,7 +347,7 @@
     </div>
 </div>
 
-<div style="visibility:hidden;">
+<div class="hidden">
     <div id="a4_1">
         Declaration:
         <ul>
@@ -354,7 +373,7 @@
     </div>
 </div>
 
-<div style="visibility:hidden;">
+<div class="hidden">
     <div id="a5_1">
         <ul>
             <li>operates on the bean configuration metadata</li>
@@ -368,14 +387,16 @@
     </div>
 </div>
 
-<div style="visibility:hidden;">
+<div class="hidden">
     <div id="a6_1">
         Is a mechanism that allows for registration of different beans in different environments<br/>
         Default profile is a "default".<br/><br/>
         Useful when (examples):
         <ul>
             <li>Easily changing data sources: in-memory datasource in development, from JNDI for QA</li>
-            <li>registering monitoring infrastructure only when deploying an application into a performance environment</li>
+            <li>registering monitoring infrastructure only when deploying an application into a performance
+                environment
+            </li>
             <li>registering customized implementations of beans for customer A vs customer B deployments</li>
         </ul>
     </div>
@@ -383,12 +404,14 @@
         <ul>
             <li>Java: @Profile on @Configuration/@Component/@Bean</li>
             <li>XML: 'profile' attribute on < beans></li>
-        </ul><br/>
+        </ul>
+        <br/>
         Activation:
         <ul>
             <li>-Dspring.profiles.active="profile1,profile2"</li>
             <li>ctx.getEnvironment().setActiveProfiles("profile1", "profile2")</li>
-        </ul><br/>
+        </ul>
+        <br/>
         Arguments
         <ul>
             <li>@Profile("development")</li>
@@ -397,6 +420,73 @@
     </div>
     <div id="a6_3">
         It is possible to have MAX array size different profiles expected for registered bean
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="a7_1">
+        <ul>
+            <li>integrated in the container</li>
+            <li>contains
+                <ul>
+                    <li>profiles: which is currently active</li>
+                    <li>properties: configuring property sources and resolving properties from them</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="a7_2">
+        <ul>
+            <li>Command line arguments</li>
+            <li>Java System properties (System.getProperties())</li>
+            <li>OS environment variables (System.getenv())</li>
+            <li>Spring Boot application.properties</li>
+            <li>And many more:
+                https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="a8_1">
+        Spring Expression Language supports querying and manipulating an object graph at runtime<br/>
+    </div>
+    <div id="a8_2">
+        <ul>
+            <li>Manually: using ExpressionParser.parseExpression ("org.springframework.expression" package)
+            </li>
+            <li>In Bean Definitions:
+                <ul>
+                    <li>XML Config: < property name="randomNumber" value="#{ T(java.lang.Math).random() * 100.0 }"/>
+                    </li>
+                    <li>Annotation Config: @Value("#{ systemProperties['user.region'] }")</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="a8_3">
+        <ul>
+            <li>Literal expressions</li>
+            <li>Boolean and relational operators</li>
+            <li>Regular expressions</li>
+            <li>Class expressions</li>
+            <li>Accessing properties, arrays, lists, maps</li>
+            <li>Method invocation</li>
+            <li>Relational operators</li>
+            <li>Assignment</li>
+            <li>Calling constructors</li>
+            <li>Bean references</li>
+            <li>Array construction</li>
+            <li>Inline lists</li>
+            <li>Inline maps</li>
+            <li>Ternary operator</li>
+            <li>Variables</li>
+            <li>User defined functions</li>
+            <li>Collection projection</li>
+            <li>Collection selection</li>
+            <li>Templated expressions</li>
+        </ul>
     </div>
 </div>
 
