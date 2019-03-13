@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+            max-width: 350px;
+            width: 350px;
+        }
+
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+
+        body > ul > li {
+            padding-bottom: 10px;
+        }
+        
+        .hidden {
+            visibility:hidden;
+        }
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto right");
+                link.setAttribute("data-html", "true");
+                link.setAttribute("class", "label label-info");
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+    </script>
+</head>
+<body onload="changeTitles()" class="container">
+<h1>AOP</h1>
+<ul>
+    <li><b>AOP:</b>
+        <a title="b1_1">what is</a>
+        <a title="b1_2">in Spring</a>
+        configuration
+    </li>
+    <li><b>Terminology:</b>
+        advice,
+        aspect,
+        cross-cutting concern,
+        pointcut,
+        join point,
+        weaving,
+    </li>
+    <li>Proxy: types (advantages/ disadvantages /limitations)</li>
+    <li>Advices: types, purpose, which can try/catch exceptions, JoinPoint, ProceedingJoinPoint</li>
+    <li>@EnableAspectJAutoProxy</li>
+    <li>Pointcut: pointcut expression (+examples), pointcut designators</li>
+</ul>
+
+<div class="hidden">
+    <div id="b1_1">
+        Is a paradigm that aims to increase modularity by separation of cross-cutting concerns<br/><br/>
+        Examples of cross-cutting concerns:
+        <ul>
+            <li>Logging</li>
+            <li>Security</li>
+            <li>Transaction management</li>
+        </ul><br/>
+        Problems if cross-cutting concerns not used:
+        <ul>
+            <li>Scattering (code duplication)</li>
+            <li>Tangling (significant dependencies between systems)</li>
+        </ul>
+    </div>
+    <div id="b1_2">
+        <ul>
+            <li>implemented in pure Java</li>
+            <li>supports only method execution join points</li>
+            <li>introduced in Spring to provide a close integration with Spring IoC to help solve common problems in enterprise applications</li>
+        </ul>
+    </div>
+    <div id="b1_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="b2_1">
+
+    </div>
+    <div id="b2_2">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="b3_1">
+
+    </div>
+    <div id="b3_2">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="b4_1">
+
+    </div>
+    <div id="b4_2">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="b5_1">
+
+    </div>
+    <div id="b5_2">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="b6_1">
+
+    </div>
+    <div id="b6_2">
+
+    </div>
+</div>
+
+</body>
+</html>
