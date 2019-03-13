@@ -12,10 +12,14 @@
             cursor: pointer;
         }
 
+        .tooltip-inner b {
+            color: lawngreen;
+        }
+
         .tooltip-inner {
             text-align: left;
-            max-width: 350px;
-            width: 350px;
+            max-width: 400px;
+            width: 400px;
         }
 
         .tooltip-inner ul {
@@ -25,9 +29,9 @@
         body > ul > li {
             padding-bottom: 10px;
         }
-        
+
         .hidden {
-            visibility:hidden;
+            visibility: hidden;
         }
     </style>
     <script>
@@ -56,91 +60,166 @@
     <li><b>AOP:</b>
         <a title="b1_1">what is</a>
         <a title="b1_2">in Spring</a>
-        configuration
+        <a title="b1_3">configuration</a>
     </li>
     <li><b>Terminology:</b>
-        advice,
-        aspect,
-        cross-cutting concern,
-        pointcut,
-        join point,
-        weaving,
+        <a title="b2_1">aspect</a>
+        <a title="b2_2">advice</a>
+        <a title="b2_3">cross-cutting concern</a>
+        <a title="b2_4">pointcut</a>
+        <a title="b2_5">join point</a>
+        <a title="b2_6">weaving</a>
     </li>
-    <li>Proxy: types (advantages/ disadvantages /limitations)</li>
-    <li>Advices: types, purpose, which can try/catch exceptions, JoinPoint, ProceedingJoinPoint</li>
-    <li>@EnableAspectJAutoProxy</li>
-    <li>Pointcut: pointcut expression (+examples), pointcut designators</li>
+    <li><b>Proxy:</b>
+        <a title="b3_1">what is</a>
+        <a title="b3_2">types</a>
+        <a title="b3_3">benefits</a>
+    </li>
 </ul>
 
 <div class="hidden">
     <div id="b1_1">
-        Is a paradigm that aims to increase modularity by separation of cross-cutting concerns<br/><br/>
+        Is a paradigm that aims to increase modularity by separation of cross-cutting concerns
+    </div>
+    <div id="b1_2">
+        <ul>
+            <li>implemented in pure Java</li>
+            <li>supports only method execution join points</li>
+            <li>introduced in Spring to provide a close integration with Spring IoC to help solve common problems in
+                enterprise applications
+            </li>
+        </ul>
+    </div>
+    <div id="b1_3">
+        Once @AspectJ support enabled - all @Aspect classes will be automatically detected and used to configure
+        AOP.<br/><br/>
+        Enabling AspectJ support:
+        <ul>
+            <li>Java config: @EnableAspectJAutoProxy</li>
+            <li>XML config: < aop:aspectj-autoproxy/></li>
+        </ul>
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="b2_1">
+        Is a class containing code specific to a cross-cutting concern (pointcuts and advices).<br/><br/>
+        In code:
+        <ul>
+            <li>Java: <b>@Aspect</b></li>
+            <li>Xml: <b>< bean class="path.to.MyAspect"/></b></li>
+        </ul>
+    </div>
+    <div id="b2_2">
+        Is an action taken by an aspect at a particular join point<br/><br/>
+        In code:
+        <ul>
+            <li><b>@Before</b> executes before a join point. Execution of join point cannot be stopped unless unless an
+                exception is thrown.
+            </li>
+            <li><b>@AfterReturning</b> executed after a join point completes normally (without throwing an exception)
+            </li>
+            <li><b>@AfterThrowing</b> executed if a method exits by throwing an exception</li>
+            <li><b>@After</b> executed if method executed normally or with exception</li>
+            <li><b>@Around</b> executed instead of join point method. Join Point method can be called manually by
+                ProceedingJoinPoint.proceed.
+                The only advice which can try/catch exceptions of join point.
+            </li>
+        </ul>
+        <br/>
+        Advices can receive JoinPoint as a method argument. @Around can also get ProceedingJoinPoint.
+    </div>
+    <div id="b2_3">
+        A cross-cutting concern is a logic in an application that cannot be decomposed from the rest of the application
+        and may result in code duplication and tight coupling
+        <br/><br/>
+        In code:
+        <ul>
+            <li><b>logic that can be adviced</b></li>
+        </ul>
+        <br/>
         Examples of cross-cutting concerns:
         <ul>
             <li>Logging</li>
             <li>Security</li>
             <li>Transaction management</li>
-        </ul><br/>
+        </ul>
+        <br/>
         Problems if cross-cutting concerns not used:
         <ul>
             <li>Scattering (code duplication)</li>
             <li>Tangling (significant dependencies between systems)</li>
         </ul>
     </div>
-    <div id="b1_2">
+    <div id="b2_4">
+        Is an expression that identifies which join point advice should be bind to.<br/>
+        Pointcut expressions are defined using AspectJ Pointcut Expression Language.<br/><br/>
+        In code:
         <ul>
-            <li>implemented in pure Java</li>
-            <li>supports only method execution join points</li>
-            <li>introduced in Spring to provide a close integration with Spring IoC to help solve common problems in enterprise applications</li>
+            <li>@Before(<b>"execution(* path.to.MyAopBean.checkPointcut(..))"</b>)</li>
+            <li>@Before("callMethodWithException()")../some advice/..;
+                <b>@Pointcut</b>(value = "execution(* path.to.AopBean.callMethodWithException())")
+                - for cases when the same point cut expression is duplicated in many advices
+            </li>
+        </ul>
+        <br/>
+
+        Spring AOP supports the following AspectJ pointcut designators
+        <ul>
+            <li>execution</li>
+            <li>this</li>
+            <li>within, @within</li>
+            <li>target, @target</li>
+            <li>args, @args</li>
+            <li>@annotation</li>
         </ul>
     </div>
-    <div id="b1_3">
-
+    <div id="b2_5">
+        In code:
+        <ul>
+            <li><b>Logic inside an advice</b></li>
+        </ul>
     </div>
-</div>
-
-<div class="hidden">
-    <div id="b2_1">
-
-    </div>
-    <div id="b2_2">
-
+    <div id="b2_6">
+        Is a merging advices and target class. The weaver generates a woven class (an advised object, proxy).
     </div>
 </div>
 
 <div class="hidden">
     <div id="b3_1">
-
+        Is an object created by the AOP framework with merged advices and target class
     </div>
     <div id="b3_2">
-
+        <ul>
+            <li>JDK dynamic proxy
+                <ul>
+                    <li>used by default for beans with interface</li>
+                    <li>recommended to use</li>
+                    <li>proxy will implement the same interface as target object</li>
+                </ul>
+            </li><br/>
+            <li>CGLIB proxy
+                <ul>
+                    <li>is default for @Configuration and other beans with no interface</li>
+                    <li>not recommended to use</li>
+                    <li>proxy willextend target object</li>
+                    <li>adviced methods cannot be final</li>
+                </ul>
+            </li>
+        </ul>
     </div>
-</div>
-
-<div class="hidden">
-    <div id="b4_1">
-
-    </div>
-    <div id="b4_2">
-
-    </div>
-</div>
-
-<div class="hidden">
-    <div id="b5_1">
-
-    </div>
-    <div id="b5_2">
-
-    </div>
-</div>
-
-<div class="hidden">
-    <div id="b6_1">
-
-    </div>
-    <div id="b6_2">
-
+    <div id="b3_3">
+        Benefits
+        <ul>
+            <li>pure Java implementation</li>
+            <li>close integration with Spring</li>
+        </ul><br/>
+        Disadvantages
+        <ul>
+            <li>only methods join points (no field interception)</li>
+            <li>little runtime overhead</li>
+            <li>local or internal method calls within an adviced class will not be intercepted</li>
+        </ul>
     </div>
 </div>
 
