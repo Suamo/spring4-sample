@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .tooltip-inner b {
+            color: lawngreen;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+            max-width: 400px;
+            width: 400px;
+        }
+
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+
+        body > ul > li {
+            padding-bottom: 10px;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto right");
+                link.setAttribute("data-html", "true");
+                link.setAttribute("class", "label label-info");
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+    </script>
+</head>
+<body onload="changeTitles()" class="container">
+<h1>Data Management</h1>
+<ul>
+    <li><b>Exceptions:</b>
+        <a title="c1_1">hierarchy</a>
+        <a title="c1_2">why unchecked</a>
+    </li>
+    <li><b>DataSource:</b>
+        <a title="c2_">configuration</a>
+        <a title="c2_">test DB</a>
+        <a title="c2_">JNDI</a>
+    </li>
+    <li><b>JdbcTemplate:</b>
+        <a title="c3_">what is (why called so)</a>
+        <a title="c3_">callbacks (what is, three callback interfaces)</a>
+        <a title="c3_">plain SQL execution</a>
+        <a title="c3_">acquiring/releasing connection</a>
+        <a title="c3_">generic queries (returning objects/lists/maps)</a>
+    </li>
+    <li><b>Transactions:</b>
+        <a title="c4_">what is</a>
+        <a title="c4_">in Spring (how implemented)</a>
+        <a title="c4_">local vs global</a>
+        <a title="c4_">transaction strategy</a>
+        <a title="c4_">PlatformTransactionManager</a>
+        <a title="c4_">transaction properties (propagation, isolation levels!!)</a>
+        <a title="c4_">declaring transaction</a>
+        <a title="c4_">environment (JDBC, JTA, Hibernate, and so on)</a>
+        <a title="c4_">managing from JdbcTemplate</a>
+        <a title="c4_">@EnableTransactionManagement</a>
+        <a title="c4_">calling one @Transactional from another</a>
+        <a title="c4_">rollback policy (overriding, Unit test)</a>
+    </li>
+    <li><b>unit of work:</b>
+        <a title="c5_">what is</a>
+        <a title="c5_">vs JDBC AutoCommit</a>
+    </li>
+    <li><b>JPA:</b>
+        <a title="c6_">what is</a>
+        <a title="c6_">configuration (Spring Boot simplification)</a>
+        <a title="c6_">participation in transaction</a>
+    </li>
+    <li><b>ORM:</b>
+        <a title="c7_">what is</a>
+        <a title="c7_">benefits/disadvantages</a>
+        <a title="c7_">@Entity</a>
+    </li>
+    <li><b>:</b>
+        <a title="c8_">PersistenceContext</a>
+        <a title="c8_">EntityManager</a>
+    </li>
+    <li><b>Spring data:</b>
+        <a title="c9_">what is and how to define “instant repository”</a>
+        <a title="c9_">name convention for finder methods</a>
+        <a title="c9_">how implemented internally in Spring, @Query</a>
+    </li>
+</ul>
+
+<div class="hidden">
+    <div id="c1_1">
+        Data access exceptions hierarchy:
+        <ul>
+            <li>RuntimeException
+            <ul>
+                <li>DataAccessException
+                    <ul>
+                        <li>DataAccessResourceFailureException</li>
+                        <li>CleanupFailureDataAccessException</li>
+                        <li>InvalidDataAccessApiUsageException</li>
+                        <li>InvalidDataAccessResourceUsageException</li>
+                        <li>DataRetrievalFailureException</li>
+                        <li>OptimisticLockingFailureException</li>
+                        <li>UnauthorizedDataAccessException</li>
+                        <li>DataintegrityvViolationException</li>
+                        <li>DeadlockLoserDataAccessException</li>
+                        <li>etc...</li>
+                    </ul>
+                </li>
+            </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="c1_2">
+        <ul>
+            <li>best practice for API</li>
+            <li>best when it's imossible to do anything useful</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
