@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+            max-width: 350px;
+            width: 350px;
+        }
+
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+
+        body > ul > li {
+            padding-bottom: 10px;
+        }
+
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto bottom");
+                link.setAttribute("data-html", "true");
+                link.setAttribute("class", "label label-info");
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+    </script>
+</head>
+<body onload="changeTitles()">
+<h1>General</h1>
+<ul>
+    <li><b>Application context:</b>
+        <a title="a1_1">what is</a>,
+        <a title="a1_2">lifecycle</a>,
+        <a title="a1_3">configuration</a>,
+        <a title="a1_4">creation</a>,
+        <a title="a1_5">usage in test</a>,
+        <a title="a1_6">closing context</a>
+    </li>
+    <li><b>Beans:</b>
+        <a title="a2_1">lifecycle</a>,
+        <a title="a2_2">scope</a>,
+        <a title="a2_3">IDs</a>,
+        <a title="a2_4">scanning</a>,
+        <a title="a2_5">stereotypes</a>,
+        <a title="a2_6">lazy/eager init</a>
+        <a title="a2_7">final/static</a>,
+        <a title="a2_8">init/destroy</a>
+    </li>
+    <li><b>DI, IOC:</b>
+        <a title="a3_1">what is</a>,
+        <a title="a3_2">@Autowired</a>,
+        <a title="a3_3">@Qualifier</a>,
+        <a title="a3_4">private fields injection</a>,
+        <a title="a3_5">scalar/literal injection</a>,
+        <a title="a3_6">@Value</a>,
+        <a title="a3_7">$ vs #{}</a>
+    </li>
+    <li><b>Properties:</b>
+        <a title="a4_1">PropertySource</a>,
+        <a title="a4_2">PropertySourcesPlaceholderConfigurer</a>,
+        <a title="a4_3">PropertyResolver</a>
+    </li>
+    <li><b>PostProcessors:</b>
+        <a title="a5_1">BeanFactoryPostProcessor</a>,
+        <a title="a5_2">BeanPostProcessor</a>
+    </li>
+    <li><b>Profiles:</b>
+        <a title="a6_1">what is</a>,
+        <a title="a6_2">usage</a>,
+        <a title="a6_3">limitations</a>
+    </li>
+    <li><b>Environment: </b>what includes, possible properties sources</li>
+    <li><b>SpEL: </b>what is, syntax, functionality</li>
+</ul>
+
+<div style="visibility:hidden;">
+    <div id="a1_1">
+        ApplicationContext is a Spring IoC container responsible for:
+        <ul>
+            <li>instantiating</li>
+            <li>configuring</li>
+            <li>assembling the beans from configuration</li>
+        </ul>
+    </div>
+    <div id="a1_2">
+        <ul>
+            <li>Initialization
+                <ul>
+                    <li>context created</li>
+                    <li>beans loaded</li>
+                    <li>injected</li>
+                    <li>initialized</li>
+                    <li>resources are allocated</li>
+                </ul>
+            </li>
+            <li>Use</li>
+            <li>Destruction
+                <ul>
+                    <li>context destroyed</li>
+                    <li>resources released</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="a1_3">
+        <ul>
+            <li>XML config: get beans from ClassPathXmlApplicationContext</li>
+            <li>Java config (@Configuration + @Bean): get beans from AnnotationConfigApplicationContext</li>
+            <li>Java annotations (@Component + @Autowired): get beans in Autowired fields (if scanned) or from
+                AnnotationConfigApplicationContext
+            </li>
+            advantages? why final config class not allowed?
+        </ul>
+    </div>
+    <div id="a1_4">
+        <ul>
+            <li>new ClassPathXmlApplicationContext("lifacycle-config.xml");</li>
+            <li>new AnnotationConfigApplicationContext(JavaApplicationConfig.class);</li>
+        </ul>
+    </div>
+    <div id="a1_5">
+        <ul>
+            <li>implement the ApplicationContextAware interface and obtain context in setter</li>
+            <li>extend AbstractJUnit4SpringContextTests / AbstractTestNGSpringContextTests and get access for
+                their protected ApplicationContext field
+            </li>
+            <li>inject ApplicationContext</li>
+        </ul>
+    </div>
+    <div id="a1_6">
+        <ul>
+            <li>For WEB: closed automatically</li>
+            <li>For non-WEB:
+                <ul>
+                    <li>registerShutdownHook(): app context will be closed on JVM shutdown (applied by default
+                        in Spring Boot);
+                    </li>
+                    <li>close(): app context will be closed immediately</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div style="visibility:hidden;">
+    <div id="a2_1">
+        <ul>
+            <li>Load Bean definitions
+                <ul>
+                    <li>Bean Definitions are loaded</li>
+                    <li>Bean Definitions are processed</li>
+                </ul>
+            </li>
+            <li>Create Beans
+                <ul>
+                    <li>constructor call</li>
+                    <li>setter call</li>
+                    <li>postprocessor “init” methods call</li>
+                </ul>
+            </li>
+            <li>Beans are ready and being used</li>
+            <li>Beans are destroyed
+                <ul>
+                    <li>destroy method call</li>
+                    <li>handing over to garbage collector</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="a2_2">
+        <ul>
+            <li>singleton (default) - one object instance per IoC container</li>
+            <li>prototype - one object instance per bean request from container</li>
+            <li>[web only] request - one object instance per HTTP request lifecycle (each HTTP request has new
+                instance)
+            </li>
+            <li>[web only] session - one object instance per HTTP session lifecycle</li>
+            <li>[web only] application - one object instance per ServletContext lifecycle</li>
+            <li>[web only] websocket - one object instance per WebSocket lifecycle</li>
+        </ul>
+        Note: if a singleton depends on prototype then this Prototype bean will be created on container
+        creation.
+    </div>
+    <div id="a2_3">
+        Attributes "id" and "name" define the same thing - name of the bean and it's aliases.<br/>
+        E.g. id="n1,n2;n3" - bean has name "n1" and aliases "n2" and "n3".<br/>
+        "name" values can also be separated via space.<br/>
+        By default, the bean name will be the same as the method name.<br/>
+        Can be overriden by @Bean("customBeanName")
+    </div>
+    <div id="a2_4">
+        Responsible for searching beans to register.<br/>
+        Detects
+        <ul>
+            <li>Stereotypes: @Component, @Controller, @Repository, @Service</li>
+            <li>Other: @RestController, @ControllerAdvice, @Configuration</li>
+        </ul>
+        Turned on:
+        <ul>
+            <li>@ComponentScan("com.path")</li>
+            <li>< context:component-scan base-package="com.path"/></li>
+        </ul>
+    </div>
+    <div id="a2_5">
+        Stereotypes ("stereotype" package):<br/>
+        define the roles class in architecture (eventually targets for pointcuts).<br/>
+        Stereotypes are:
+        <ul>
+            <li>@Component</li>
+            <li>Specializations meta-annotatated with @Component
+                <ul>
+                    <li>@Controller</li>
+                    <li>@Repository</li>
+                    <li>@Service</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="a2_6">
+        Singletons are eagerly instantiated by default.<br/>
+        To alter:
+        <ul>
+            <li>< bean id="lazy" class="com.foo.ExpensiveToCreateBean" lazy-init="true"/> or < beans
+                default-lazy-init="true">
+            </li>
+            <li>@Lazy for @Bean or class with beans</li>
+        </ul>
+    </div>
+    <div id="a2_7">
+        non-static @Bean methods in @Configuration classes need to be overridable,<br/>
+        i.e. they must not be declared as private or final.<br/>
+        static methods can be final though it doesn't make sense.
+    </div>
+    <div id="a2_8">
+        Init method - called as a callback after bean is created and assembled. Declaring options:
+        <ul>
+            <li>@PostConstruct [JSR-250] (Java config, best practice)</li>
+            <li>custom init() method (Java and XML config)
+                <ul>
+                    <li>XML: < beans default-init-method="init"/> or < bean init-method="init"/></li>
+                    <li>Java: @Bean(initMethod = "init")</li>
+                </ul>
+            </li>
+            <li>afterPropertiesSet() from InitializingBean callback interface (not recommended since
+                couples the code to Spring)
+            </li>
+        </ul>
+        <br/>
+
+        Destruction method called on closing the application context. Declaring options:
+        <ul>
+            <li>@PreDestroy [JSR-250] (Java config, best practice)</li>
+            <li>custom destroy() method (Java and XML config)
+                <ul>
+                    <li>XML: < beans default-destroy-method attribute="destroy"/> or < bean destroy-method="destroy"/>
+                    </li>
+                    <li>Java: @Bean(destroyMethod = "destroyMethod")</li>
+                </ul>
+            </li>
+            <li>destroy() from DisposableBean callback interface (not recommended)</li>
+        </ul>
+    </div>
+</div>
+
+<div style="visibility:hidden;">
+    <div id="a3_1">
+        DI(IoC) is a technique where one object supplies the dependencies of another object
+    </div>
+    <div id="a3_2">
+        <ul>
+            <li>injects a bean</li>
+            <li>handled by Spring BeanPostProcessor</li>
+            <li>makes injection mandatory. Fails if nothing to inject</li>
+            <li>only one constructor can be Autowired</li>
+            <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
+        </ul>
+    </div>
+    <div id="a3_3">
+        Defines exact bean name if injection by type finds multiple implementations.
+    </div>
+    <div id="a3_4">
+        Private fields are injected the same way as public.
+    </div>
+    <div id="a3_5">
+        <ul>
+            <li>XML: by adding "value" attribute to "property" or "constructor-arg"</li>
+            <li>Class: using @Value</li>
+        </ul>
+    </div>
+    <div id="a3_6">
+        <ul>
+            <li>handled by Spring BeanPostProcessor</li>
+            <li>can be placed on fields, methods and method/constructor parameters</li>
+            <li>used for expression-driven dependency injection</li>
+            <li>supported for dynamic resolution of handler method parameters e.g. in Spring MVC</li>
+        </ul>
+    </div>
+    <div id="a3_7">
+        <ul>Used in @Value
+            <li>#{} - SpEL expression. Inside the expression variables can be references by #newName, #this, #root</li>
+            <li>$ - "${" is a "placeholder prefix". ${} expression internally will be handled by
+                PropertyResolver.resolvePlaceholders
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div style="visibility:hidden;">
+    <div id="a4_1">
+        Declaration:
+        <ul>
+            <li>@PropertySource("classpath:/com/myco/app.properties")</li>
+        </ul>
+        Usage
+        <ul>
+            <li>@Autowired Environment env; env.getProperty("testbean.name");</li>
+            <li>@Value("${testbean.name}")</li>
+        </ul>
+    </div>
+    <div id="a4_2">
+        <ul>
+            <li>predefined bean factory post-processor</li>
+            <li>newer and more flexible version of old PropertyPlaceholderConfigurer</li>
+            <li>Resolves ${...} placeholders in bean definition property values and @Value annotations against the
+                current Spring Environment and its set of PropertySources
+            </li>
+        </ul>
+    </div>
+    <div id="a4_3">
+        "${}" expression internally handled by PropertyResolver.resolvePlaceholders
+    </div>
+</div>
+
+<div style="visibility:hidden;">
+    <div id="a5_1">
+        <ul>
+            <li>operates on the bean configuration metadata</li>
+            <li>can change the actual bean definition (i.e., the blueprint that defines the bean)</li>
+        </ul>
+    </div>
+    <div id="a5_2">
+        <ul>
+            <li>operates on already created bean</li>
+        </ul>
+    </div>
+</div>
+
+<div style="visibility:hidden;">
+    <div id="a6_1">
+        Is a mechanism that allows for registration of different beans in different environments<br/>
+        Default profile is a "default".<br/><br/>
+        Useful when (examples):
+        <ul>
+            <li>Easily changing data sources: in-memory datasource in development, from JNDI for QA</li>
+            <li>registering monitoring infrastructure only when deploying an application into a performance environment</li>
+            <li>registering customized implementations of beans for customer A vs customer B deployments</li>
+        </ul>
+    </div>
+    <div id="a6_2">
+        <ul>
+            <li>Java: @Profile on @Configuration/@Component/@Bean</li>
+            <li>XML: 'profile' attribute on < beans></li>
+        </ul><br/>
+        Activation:
+        <ul>
+            <li>-Dspring.profiles.active="profile1,profile2"</li>
+            <li>ctx.getEnvironment().setActiveProfiles("profile1", "profile2")</li>
+        </ul><br/>
+        Arguments
+        <ul>
+            <li>@Profile("development")</li>
+            <li>@Profile({"p1", "p2"})</li>
+        </ul>
+    </div>
+    <div id="a6_3">
+        It is possible to have MAX array size different profiles expected for registered bean
+    </div>
+</div>
+
+</body>
+</html>
