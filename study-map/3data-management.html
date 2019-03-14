@@ -63,7 +63,7 @@
     </li>
     <li><b>DataSource:</b>
         <a title="c2_1">configuration</a>
-        <a title="c2_">test DB</a>
+        <a title="c2_2">test DB</a>
         <a title="c2_">JNDI</a>
     </li>
     <li><b>JdbcTemplate:</b>
@@ -147,7 +147,7 @@
 <div class="hidden">
     <div id="c2_1">
         <ul>
-            <li>Define DataSource properties. Usually:
+            <li>Define DataSource properties (DataSourceProperties in Boot). Usually:
             <ul>
                 <li>"driverClassName"</li>
                 <li>"url"</li>
@@ -160,7 +160,26 @@
         </ul>
     </div>
     <div id="c2_2">
-
+        Package: org.springframework.jdbc.datasource<br/>
+        Spring Boot can auto-configure embedded:
+        <ul>
+            <li>H2</li>
+            <li>HSQL</li>
+            <li>Derby</li>
+        </ul><br/>
+        Some of DataSources:
+        <ul>
+            <li>BasicDataSource</li>
+            <li>SingleConnectionDataSource - connection is not closed after each use.</li>
+            <li>DriverManagerDataSource - every time uses new Connection and close after use.</li>
+            <li>HikariDataSource</li>
+        </ul><br/>
+        DataSources Builders:
+        <ul>
+            <li>DataSourceBuilder</li>
+            <li>EmbeddedDatabaseBuilder</li>
+            <li>LocalSessionFactoryBuilder</li>
+        </ul>
     </div>
     <div id="c2_3">
 
