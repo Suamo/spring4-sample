@@ -63,22 +63,18 @@
     </li>
     <li><b>DataSource:</b>
         <a title="c2_1">configuration</a>
-        <a title="c2_2">test DB</a>
-        <a title="c2_">JNDI</a>
+        <a title="c2_2">types</a>
+        <a title="c2_3">JNDI</a>
     </li>
     <li><b>JdbcTemplate:</b>
-        <a title="c3_">what is (why called so)</a>
-        <a title="c3_">callbacks (what is, three callback interfaces)</a>
-        <a title="c3_">plain SQL execution</a>
-        <a title="c3_">acquiring/releasing connection</a>
-        <a title="c3_">generic queries (returning objects/lists/maps)</a>
+        <a title="c3_1">what is</a>
+        <a title="c3_2">callbacks</a>
+        <a title="c3_3">queries</a>
     </li>
     <li><b>Transactions:</b>
-        <a title="c4_">what is</a>
-        <a title="c4_">in Spring (how implemented)</a>
-        <a title="c4_">local vs global</a>
-        <a title="c4_">transaction strategy</a>
-        <a title="c4_">PlatformTransactionManager</a>
+        <a title="c4_1">what is</a>
+        <a title="c4_2">types</a>
+        <a title="c4_3">transaction strategy</a>
         <a title="c4_">transaction properties (propagation, isolation levels!!)</a>
         <a title="c4_">declaring transaction</a>
         <a title="c4_">environment (JDBC, JTA, Hibernate, and so on)</a>
@@ -117,22 +113,22 @@
         Data access exceptions hierarchy:
         <ul>
             <li>RuntimeException
-            <ul>
-                <li>DataAccessException
-                    <ul>
-                        <li>DataAccessResourceFailureException</li>
-                        <li>CleanupFailureDataAccessException</li>
-                        <li>InvalidDataAccessApiUsageException</li>
-                        <li>InvalidDataAccessResourceUsageException</li>
-                        <li>DataRetrievalFailureException</li>
-                        <li>OptimisticLockingFailureException</li>
-                        <li>UnauthorizedDataAccessException</li>
-                        <li>DataintegrityvViolationException</li>
-                        <li>DeadlockLoserDataAccessException</li>
-                        <li>etc...</li>
-                    </ul>
-                </li>
-            </ul>
+                <ul>
+                    <li>DataAccessException
+                        <ul>
+                            <li>DataAccessResourceFailureException</li>
+                            <li>CleanupFailureDataAccessException</li>
+                            <li>InvalidDataAccessApiUsageException</li>
+                            <li>InvalidDataAccessResourceUsageException</li>
+                            <li>DataRetrievalFailureException</li>
+                            <li>OptimisticLockingFailureException</li>
+                            <li>UnauthorizedDataAccessException</li>
+                            <li>DataintegrityvViolationException</li>
+                            <li>DeadlockLoserDataAccessException</li>
+                            <li>etc...</li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -147,56 +143,167 @@
 <div class="hidden">
     <div id="c2_1">
         <ul>
-            <li>Define DataSource properties (DataSourceProperties in Boot). Usually:
-            <ul>
-                <li>"driverClassName"</li>
-                <li>"url"</li>
-                <li>"username"</li>
-                <li>"password"</li>
-            </ul>
+            <li>Define properties (DataSourceProperties in Boot). Usually:
+                <ul>
+                    <li>"<b>driverClassName</b>"</li>
+                    <li>"<b>url</b>"</li>
+                    <li>"<b>username</b>"</li>
+                    <li>"<b>password</b>"</li>
+                </ul>
             </li>
-            <li>Create DataSource bean. e.g. BasicDataSource with defined properties</li>
+            <li>Create DataSource with defined properties</li>
             <li>Add created bean to PlatformTransactionManager</li>
         </ul>
     </div>
     <div id="c2_2">
-        Package: org.springframework.jdbc.datasource<br/>
+        Package: org.springframework.jdbc.datasource<br/><br/>
+        Hierarchy:
+        <ul>
+            <li>(i) javax.sql.DataSource
+                <ul>
+                    <li>AbstractDataSource
+                        <ul>
+                            <li>AbstractRoutingDataSource
+                                <ul>
+                                    <li>IsolationLevelDataSourceRouter</li>
+                                </ul>
+                            </li>
+                            <li>AbstractDriverBasedDataSource
+                                <ul>
+                                    <li><b>SimpleDriverDataSource</b></li>
+                                    <li><b>DriverManagerDataSource</b> - every time uses new Connection and closes is
+                                        after use
+                                        <ul>
+                                            <li><b>SingleConnectionDataSource</b> - connection is not closed after each
+                                                use
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>(i) SmartDataSource
+                        <ul>
+                            <li>SingleConnectionDataSource</li>
+                        </ul>
+                    </li>
+                    <li>(i) EmbeddedDatabase
+                        <ul>
+                            <li>EmbeddedDataSourceProxy</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul><br/>
+
+        DataSources Builders:
+        <ul>
+            <li>DataSourceBuilder (Boot)</li>
+            <li><b>EmbeddedDatabaseBuilder</b></li>
+        </ul><br/>
+
         Spring Boot can auto-configure embedded:
         <ul>
             <li>H2</li>
             <li>HSQL</li>
             <li>Derby</li>
-        </ul><br/>
-        Some of DataSources:
-        <ul>
-            <li>BasicDataSource</li>
-            <li>SingleConnectionDataSource - connection is not closed after each use.</li>
-            <li>DriverManagerDataSource - every time uses new Connection and close after use.</li>
-            <li>HikariDataSource</li>
-        </ul><br/>
-        DataSources Builders:
-        <ul>
-            <li>DataSourceBuilder</li>
-            <li>EmbeddedDatabaseBuilder</li>
-            <li>LocalSessionFactoryBuilder</li>
         </ul>
     </div>
     <div id="c2_3">
-
-    </div>
-    <div id="c2_4">
-
+        < jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/><br/>
+        < bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" /><br/>
+        (doesn't need to know about datasource
     </div>
 </div>
 
 <div class="hidden">
     <div id="c3_1">
+        JdbcTemplate is a JDBC approac.<br/>
+        Named so because of a Template Method pattern that it's based on.<br/><br/>
+        Features:
+        <ul>
+            <li>creation of statements</li>
+            <li>execution of: statements, SQLs, stored procedures</li>
+            <li>provides execution results</li>
+            <li>creation/releasing connections</li>
+            <li>covers JDBC exceptions with more informative</li>
+        </ul>
+    </div>
+    <div id="c3_2">
+        callback ("call-after" function) - called after thother function execution.<br/><br/>
 
+        Main JdbcTemplate callbacks:
+        <ul>
+            <li><b>PreparedStatementCreator</b> prepare parametrized precompiled statement from a Connection for queries</li>
+            <li><b>CallableStatementCreator</b> prepare parametrized statement from a Connection to execute SQL stored procedures</li>
+            <li><b>RowCallbackHandler</b> jdbcTemplate uses RowMapper in methods that doesn't return values. Called for each ResultSet record separately.</li>
+        </ul><br/>
+        Alternative callback interfaces:
+        <ul>
+            <li><b>RowMapper</b>called for each ResultSet record separately to convert it to a result object</li>
+            <li><b>ResultSetExtractor</b>called once for the whole ResultSet to convert it to a result object</li>
+        </ul>
+    </div>
+    <div id="c3_3">
+        Plain SQL statement execution:
+        <ul>
+            <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
+            <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
+        </ul><br/>
+
+        Dynamic queries (with returning an entity) are possible with RowMapper.<br/>
+        If RowMapper is provided following JdbcTemplate methods can be used:
+        <ul>
+            <li><b>query()</b></li>
+            <li><b>queryForObject()</b> – returns one object</li>
+            <li><b>queryForMap()</b> - returns object as map (column name:value)</li>
+            <li><b>queryForList()</b> - returns multiple objects</li>
+        </ul>
     </div>
 </div>
 
 <div class="hidden">
     <div id="c4_1">
+        A transaction (symbolizes a <b>unit of work</b>) is a series of operations such that either all occur, or nothing occurs.<br/><br/>
+        Being cross-cutting concern in Spring is implemented with AOP.
+    </div>
+    <div id="c4_2">
+        <ul>
+            <li><b>Global transactions</b> handles multiple transactional resources (e.g. databases + message queues).
+                The application server manages global transactions through the JTA (with JNDI source).</li>
+            <li><b>Local transactions</b> handles single transactional resources</li>
+        </ul>
+    </div>
+    <div id="c4_3">
+        Defined by the <b>PlatformTransactionManager</b> interface with method <b>getTransaction</b> that
+        takes TransactionDefinition as an argument and returns TransactionStatus.<br/><br/>
+
+        <b>TransactionDefinition</b> defines transaction properties:
+        <ul>
+            <li>isolation level</li>
+            <li>propagation behavior</li>
+            <li>transaction timeout</li>
+            <li>read-only status</li>
+        </ul><br/>
+
+        <b>TransactionStatus</b> - new or current transaction status with methods:
+        <ul>
+            <li>isNewTransaction()</li>
+            <li>hasSavepoint()</li>
+            <li>setRollbackOnly()</li>
+            <li>isRollbackOnly()</li>
+            <li>flush()</li>
+            <li>isCompleted()</li>
+        </ul>
+    </div>
+    <div id="c4_4">
+
+    </div>
+    <div id="c4_5">
+
+    </div>
+    <div id="c4_6">
 
     </div>
 </div>
