@@ -22,6 +22,10 @@
             width: 400px;
         }
 
+        .tooltip-inner table tr {
+            border-bottom: 1px solid white;
+        }
+
         .tooltip-inner ul {
             padding-left: 15px;
         }
@@ -74,18 +78,12 @@
     <li><b>Transactions:</b>
         <a title="c4_1">what is</a>
         <a title="c4_2">types</a>
+        <a title="c4_6">configuration</a>
         <a title="c4_3">transaction strategy</a>
-        <a title="c4_">transaction properties (propagation, isolation levels!!)</a>
-        <a title="c4_">declaring transaction</a>
-        <a title="c4_">environment (JDBC, JTA, Hibernate, and so on)</a>
-        <a title="c4_">managing from JdbcTemplate</a>
-        <a title="c4_">@EnableTransactionManagement</a>
-        <a title="c4_">calling one @Transactional from another</a>
-        <a title="c4_">rollback policy (overriding, Unit test)</a>
-    </li>
-    <li><b>unit of work:</b>
-        <a title="c5_">what is</a>
-        <a title="c5_">vs JDBC AutoCommit</a>
+        <a title="c4_4">isolation</a>
+        <a title="c4_5">propagation</a>
+        <a title="c4_7">@Transactional</a>
+        <a title="c4_8">rollback</a>
     </li>
     <li><b>JPA:</b>
         <a title="c6_">what is</a>
@@ -152,7 +150,7 @@
                 </ul>
             </li>
             <li>Create DataSource with defined properties</li>
-            <li>Add created bean to PlatformTransactionManager</li>
+            <li>Create environment specific PlatformTransactionManager with created dataSource</li>
         </ul>
     </div>
     <div id="c2_2">
@@ -266,7 +264,11 @@
 <div class="hidden">
     <div id="c4_1">
         A transaction (symbolizes a <b>unit of work</b>) is a series of operations such that either all occur, or nothing occurs.<br/><br/>
-        Being cross-cutting concern in Spring is implemented with AOP.
+        Being cross-cutting concern in Spring is implemented with AOP.<br/><br/>
+
+        The Unit of Work pattern is used to group one or more operations into a single
+        transaction, so that all operations either pass or fail as one.<br/>
+        JDBC AutoCommit mode forces to run each query as separate transaction. So <b>AutoCommit mode is opposite to UnitOfWork</b>.
     </div>
     <div id="c4_2">
         <ul>
@@ -298,12 +300,115 @@
         </ul>
     </div>
     <div id="c4_4">
-
+        One of the transaction properties.<br/><br/>
+        <table>
+            <tr>
+                <th>Level</th>
+                <th>Name</th>
+                <th>Allows</th>
+            </tr>
+            <tr>
+                <td>1st (lowest)</td>
+                <td>Read uncommitted</td>
+                <td>phantom reads, non-repeatable reads, dirty reads</td>
+            </tr>
+            <tr>
+                <td>2nd*</td>
+                <td>Read committed</td>
+                <td>phantom reads, non-repeatable reads</td>
+            </tr>
+            <tr>
+                <td>3rd</td>
+                <td>Repeatable reads</td>
+                <td>phantom reads</td>
+            </tr>
+            <tr>
+                <td>4th (highest)</td>
+                <td>Serializable</td>
+                <td>transactions are fully isolated</td>
+            </tr>
+        </table><br/>
+        *default in most DBs
     </div>
     <div id="c4_5">
-
+        One of the transaction properties.<br/>
+        Propagation defines behavior of the target methods:
+        if they should be executed in an existing or new transaction, or no transaction at all.<br/><br/>
+        <ul>
+            <li><b>REQUIRES_NEW</b>: create a new transaction, suspend any existing one</li>
+            <li><b>MANDATORY</b>: use current transaction, throw exception if none exists</li>
+            <li><b>REQUIRED</b>: use current transaction, if non exists – create one</li>
+            <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists</li>
+            <li><b>NEVER</b>: execute non-transactionally, throw exception if any transaction exists</li>
+            <li><b>NOT_SUPPORTED</b>: execute non-transactionally, suspend any existing transaction</li>
+            <li><b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else behave like Propagation.REQUIRED</li>
+        </ul>
     </div>
     <div id="c4_6">
+        <ul>
+            <li><b>Declarative</b>: best for big amount of transactional operations.<br/>
+                Configuration:
+                <ul>
+                    <li><b>@EnableTransactionManagement</b> to configuration</li>
+                    <li><b>@Transactional</b> annotation on methods/classes</li>
+                </ul>
+                Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate PlatformTransactionManager
+                implementation to drive transactions around method invocations.
+            </li>
+            <li><b>Programming</b>: best for small number of transactional operations. Can set transaction name.<br/>
+            Can be configured in two ways:
+                <ul>
+                    <li>use <b>PlatformTransactionManager</b> bean directly to initiate, roll back, and commit transactions
+                        (using the TransactionDefinition and TransactionStatus)</li>
+                    <li>create <b>TransactionTemplate</b> and call execute(TransactionCallback)</li>
+                </ul>
+            </li>
+        </ul>
+        ???? managing from JdbcTemplate
+    </div>
+    <div id="c4_7">
+        @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a <b>join point</b>.
+        Method or class marked @Transactional will be covered in transactional behavior
+        (when method starts transaction will be opened and closed when the method finished).<br/><br/>
+
+        If <b>one @Transactional method is calling another</b> on the same object instance:
+        since transaction-management is implemented using AOP - @Transactional annotation will have <b>no effect</b>
+        on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.
+    </div>
+    <div id="c4_8">
+        Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is <b>marked for rollback</b>.<br/>
+        Types ot Exceptions for rollback can be changed (including checked exceptions):
+        <ul>
+            <li>XML: 'rollback-for' or 'no-rollback-for' attributes can be added to tx:method</li>
+            <li>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();</li>
+            <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName, noRollbackForClassName</li>
+        </ul><br/>
+
+        <b>@Transactional test is automatically rolled back</b> after completion when:
+        <ul>
+            <li>used @RunWith(SpringJUnit4ClassRunner.class) in JUnit 4</li>
+            <li>used @ExtendWith(SpringExtension.class) in JUnit 5</li>
+        </ul>
+    </div>
+    <div id="c4_9">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="c5_1">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="c6_1">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="c7_1">
 
     </div>
 </div>
