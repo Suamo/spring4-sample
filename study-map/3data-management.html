@@ -85,19 +85,15 @@
         <a title="c4_7">@Transactional</a>
         <a title="c4_8">rollback</a>
     </li>
-    <li><b>JPA:</b>
-        <a title="c6_">what is</a>
-        <a title="c6_">configuration (Spring Boot simplification)</a>
-        <a title="c6_">participation in transaction</a>
-    </li>
     <li><b>ORM:</b>
-        <a title="c7_">what is</a>
-        <a title="c7_">benefits/disadvantages</a>
-        <a title="c7_">@Entity</a>
+        <a title="c6_1">what is</a>
+        <a title="c6_2">how works</a>
     </li>
-    <li><b>:</b>
-        <a title="c8_">PersistenceContext</a>
-        <a title="c8_">EntityManager</a>
+    <li><b>JPA:</b>
+        <a title="c7_1">what is</a>
+        <a title="c7_2">configuration</a>
+        <a title="c7_">participation in transaction</a>
+    </li>
     </li>
     <li><b>Spring data:</b>
         <a title="c9_">what is and how to define “instant repository”</a>
@@ -193,13 +189,15 @@
                     </li>
                 </ul>
             </li>
-        </ul><br/>
+        </ul>
+        <br/>
 
         DataSources Builders:
         <ul>
             <li>DataSourceBuilder (Boot)</li>
             <li><b>EmbeddedDatabaseBuilder</b></li>
-        </ul><br/>
+        </ul>
+        <br/>
 
         Spring Boot can auto-configure embedded:
         <ul>
@@ -233,10 +231,16 @@
 
         Main JdbcTemplate callbacks:
         <ul>
-            <li><b>PreparedStatementCreator</b> prepare parametrized precompiled statement from a Connection for queries</li>
-            <li><b>CallableStatementCreator</b> prepare parametrized statement from a Connection to execute SQL stored procedures</li>
-            <li><b>RowCallbackHandler</b> jdbcTemplate uses RowMapper in methods that doesn't return values. Called for each ResultSet record separately.</li>
-        </ul><br/>
+            <li><b>PreparedStatementCreator</b> prepare parametrized precompiled statement from a Connection for queries
+            </li>
+            <li><b>CallableStatementCreator</b> prepare parametrized statement from a Connection to execute SQL stored
+                procedures
+            </li>
+            <li><b>RowCallbackHandler</b> jdbcTemplate uses RowMapper in methods that doesn't return values. Called for
+                each ResultSet record separately.
+            </li>
+        </ul>
+        <br/>
         Alternative callback interfaces:
         <ul>
             <li><b>RowMapper</b>called for each ResultSet record separately to convert it to a result object</li>
@@ -248,7 +252,8 @@
         <ul>
             <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
             <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
-        </ul><br/>
+        </ul>
+        <br/>
 
         Dynamic queries (with returning an entity) are possible with RowMapper.<br/>
         If RowMapper is provided following JdbcTemplate methods can be used:
@@ -263,17 +268,20 @@
 
 <div class="hidden">
     <div id="c4_1">
-        A transaction (symbolizes a <b>unit of work</b>) is a series of operations such that either all occur, or nothing occurs.<br/><br/>
+        A transaction (symbolizes a <b>unit of work</b>) is a series of operations such that either all occur, or
+        nothing occurs.<br/><br/>
         Being cross-cutting concern in Spring is implemented with AOP.<br/><br/>
 
         The Unit of Work pattern is used to group one or more operations into a single
         transaction, so that all operations either pass or fail as one.<br/>
-        JDBC AutoCommit mode forces to run each query as separate transaction. So <b>AutoCommit mode is opposite to UnitOfWork</b>.
+        JDBC AutoCommit mode forces to run each query as separate transaction. So <b>AutoCommit mode is opposite to
+        UnitOfWork</b>.
     </div>
     <div id="c4_2">
         <ul>
             <li><b>Global transactions</b> handles multiple transactional resources (e.g. databases + message queues).
-                The application server manages global transactions through the JTA (with JNDI source).</li>
+                The application server manages global transactions through the JTA (with JNDI source).
+            </li>
             <li><b>Local transactions</b> handles single transactional resources</li>
         </ul>
     </div>
@@ -287,7 +295,8 @@
             <li>propagation behavior</li>
             <li>transaction timeout</li>
             <li>read-only status</li>
-        </ul><br/>
+        </ul>
+        <br/>
 
         <b>TransactionStatus</b> - new or current transaction status with methods:
         <ul>
@@ -327,7 +336,8 @@
                 <td>Serializable</td>
                 <td>transactions are fully isolated</td>
             </tr>
-        </table><br/>
+        </table>
+        <br/>
         *default in most DBs
     </div>
     <div id="c4_5">
@@ -341,7 +351,9 @@
             <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists</li>
             <li><b>NEVER</b>: execute non-transactionally, throw exception if any transaction exists</li>
             <li><b>NOT_SUPPORTED</b>: execute non-transactionally, suspend any existing transaction</li>
-            <li><b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else behave like Propagation.REQUIRED</li>
+            <li><b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else
+                behave like Propagation.REQUIRED
+            </li>
         </ul>
     </div>
     <div id="c4_6">
@@ -352,14 +364,17 @@
                     <li><b>@EnableTransactionManagement</b> to configuration</li>
                     <li><b>@Transactional</b> annotation on methods/classes</li>
                 </ul>
-                Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate PlatformTransactionManager
+                Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate
+                PlatformTransactionManager
                 implementation to drive transactions around method invocations.
             </li>
             <li><b>Programming</b>: best for small number of transactional operations. Can set transaction name.<br/>
-            Can be configured in two ways:
+                Can be configured in two ways:
                 <ul>
-                    <li>use <b>PlatformTransactionManager</b> bean directly to initiate, roll back, and commit transactions
-                        (using the TransactionDefinition and TransactionStatus)</li>
+                    <li>use <b>PlatformTransactionManager</b> bean directly to initiate, roll back, and commit
+                        transactions
+                        (using the TransactionDefinition and TransactionStatus)
+                    </li>
                     <li>create <b>TransactionTemplate</b> and call execute(TransactionCallback)</li>
                 </ul>
             </li>
@@ -376,13 +391,16 @@
         on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.
     </div>
     <div id="c4_8">
-        Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is <b>marked for rollback</b>.<br/>
+        Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is <b>marked for
+        rollback</b>.<br/>
         Types ot Exceptions for rollback can be changed (including checked exceptions):
         <ul>
             <li>XML: 'rollback-for' or 'no-rollback-for' attributes can be added to tx:method</li>
             <li>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();</li>
-            <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName, noRollbackForClassName</li>
-        </ul><br/>
+            <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName, noRollbackForClassName
+            </li>
+        </ul>
+        <br/>
 
         <b>@Transactional test is automatically rolled back</b> after completion when:
         <ul>
@@ -403,12 +421,60 @@
 
 <div class="hidden">
     <div id="c6_1">
+        <b>Object Relational Mapping</b> is meant to help us map our entities to the database tables.<br/><br/>
+        Benefits
+        <ul>
+            <li>Easy mapping object model to data model</li>
+            <li>Much less code</li>
+            <li>Concurrency support</li>
+            <li>Automatic management of: Cache, Connection pool, Transactions, Keys</li>
+        </ul><br/>
 
+        Disadvantages
+        <ul>
+            <li>Overhead for simple applications</li>
+            <li>Need to learn implementation</li>
+            <li>Performance lower</li>
+            <li>Hard to make complex queries</li>
+        </ul>
+    </div>
+    <div id="c6_2">
+        <b>PersistenceContext</b> contains a set of entity instances that correspond to persistent entity identity.<br/><br/>
+
+        All the manipulations with the persistent instances are made using <b>EntityManager</b>.
+        EntityManager writes, deletes and searches entities to database.<br/><br/>
+
+        <b>@Entity</b> annotation is used to mark a class as an entity class that will be mapped to the database using ORM.
     </div>
 </div>
 
 <div class="hidden">
     <div id="c7_1">
+        Java Persistence API
+    </div>
+    <div id="c7_2">
+        One of EntityManagerFactorys need to be configured:
+        <ul>
+            <li><b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global transactions</li>
+            <li><b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence unit" with
+                provicer and properties (persistence.xml or more programmically since Spring 3.1).</li>
+            <li></li>
+        </ul>
+        Alternative is to use in a JEE-compliant container, in which the application server bootstraps the JPA
+        persistence unit based on the information in the deployment descriptors. This allows Spring to look up
+        the entity manager via JNDI lookup. In the JPA specification, a persistence unit should be defined in the
+        configuration file META-INF/ persistence.xml. However, as of Spring 3.1, a new feature has been added that
+        eliminates this need.
+
+        (Spring Boot simplification)
+    </div>
+    <div id="c7_3">
+
+    </div>
+    <div id="c7_4">
+
+    </div>
+    <div id="c7_5">
 
     </div>
 </div>
