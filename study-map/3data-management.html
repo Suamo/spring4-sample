@@ -92,13 +92,13 @@
     <li><b>JPA:</b>
         <a title="c7_1">what is</a>
         <a title="c7_2">configuration</a>
-        <a title="c7_">participation in transaction</a>
+        <a title="c7_3">participation in transaction</a>
     </li>
     </li>
     <li><b>Spring data:</b>
-        <a title="c9_">what is and how to define “instant repository”</a>
-        <a title="c9_">name convention for finder methods</a>
-        <a title="c9_">how implemented internally in Spring, @Query</a>
+        <a title="c8_1">instant repository</a>
+        <a title="c8_2">how works</a>
+        <a title="c8_3">@Query</a>
     </li>
 </ul>
 
@@ -428,7 +428,8 @@
             <li>Much less code</li>
             <li>Concurrency support</li>
             <li>Automatic management of: Cache, Connection pool, Transactions, Keys</li>
-        </ul><br/>
+        </ul>
+        <br/>
 
         Disadvantages
         <ul>
@@ -439,45 +440,72 @@
         </ul>
     </div>
     <div id="c6_2">
-        <b>PersistenceContext</b> contains a set of entity instances that correspond to persistent entity identity.<br/><br/>
+        <b>PersistenceContext</b> contains a set of entity instances that correspond to persistent entity identity.<br/>
+        <br/><br/>
 
         All the manipulations with the persistent instances are made using <b>EntityManager</b>.
-        EntityManager writes, deletes and searches entities to database.<br/><br/>
+        EntityManager writes, deletes and searches entities to database.
+        Injected viw @PersistenceContext.<br/><br/>
 
-        <b>@Entity</b> annotation is used to mark a class as an entity class that will be mapped to the database using ORM.
+        <b>@Entity</b> annotation is used to mark a class as an entity class that will be mapped to the database using
+        ORM.
     </div>
 </div>
 
 <div class="hidden">
     <div id="c7_1">
-        Java Persistence API
+        Java Persistence API - high level API and specification so that different ORM tools can implement so that it
+        provides the flexibility to developer to change the implementation from one ORM to another
     </div>
     <div id="c7_2">
         One of EntityManagerFactorys need to be configured:
         <ul>
-            <li><b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global transactions</li>
-            <li><b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence unit" with
-                provicer and properties (persistence.xml or more programmically since Spring 3.1).</li>
-            <li></li>
+            <li><b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global
+                transactions
+            </li>
+            <li><b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence unit"
+                with
+                provicer and properties (persistence.xml or more programmically since Spring 3.1).
+            </li>
         </ul>
-        Alternative is to use in a JEE-compliant container, in which the application server bootstraps the JPA
+        Alternative is to use in a JEE-compliant container where <b>application server</b> bootstraps the JPA
         persistence unit based on the information in the deployment descriptors. This allows Spring to look up
-        the entity manager via JNDI lookup. In the JPA specification, a persistence unit should be defined in the
-        configuration file META-INF/ persistence.xml. However, as of Spring 3.1, a new feature has been added that
-        eliminates this need.
+        the entity manager via <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
+        configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1<br/><br/>
 
-        (Spring Boot simplification)
+        <b>JpaTransactionManager</b> is the JPA PlatformTransactionManager implementation.
     </div>
     <div id="c7_3">
-
-    </div>
-    <div id="c7_4">
-
-    </div>
-    <div id="c7_5">
-
+        JpaTransactionManager expose a JPA transaction to JDBC access code that accesses the same DataSource
     </div>
 </div>
+
+<div class="hidden">
+    <div id="c8_1">
+        Is a simple way to create repoeitories.<br/>
+        Can be done in two ways:
+        <ul>
+            <li>extend repository interface with <b>Repository</b>, <b>CrudRepository</b> or <b>PagingAndSortingRepository</b></li>
+            <li>annotate your repository interface with <b>@RepositoryDefinition</b></li>
+        </ul>
+    </div>
+    <div id="c8_2">
+        The query builder mechanism built into Spring Data repository infrastructure is building
+        constraining queries over entities of the repository.<br/>
+        The mechanism strips the following prefixes from the method and starts parsing the rest of it
+        <ul>
+            <li><b>find…By</b></li>
+            <li><b>read…By</b></li>
+            <li><b>query…By</b></li>
+            <li><b>count…By</b></li>
+            <li><b>get…By</b></li>
+        </ul>
+    </div>
+    <div id="c8_3">
+        For more <b>complex queries</b>, you can annotate your method with <b>@Query</b>. Allows customization using SQL/JPQL.
+    </div>
+</div>
+
 
 </body>
 </html>
