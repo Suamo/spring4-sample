@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .tooltip-inner b {
+            color: lawngreen;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+            max-width: 400px;
+            width: 400px;
+        }
+
+        .tooltip-inner table tr {
+            border-bottom: 1px solid white;
+        }
+
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+
+        body > ul > li {
+            padding-bottom: 10px;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto right");
+                link.setAttribute("data-html", "true");
+                link.setAttribute("class", "label label-info");
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+    </script>
+</head>
+<body onload="changeTitles()" class="container">
+<h1>Spring Boot</h1>
+
+<ul>
+    <li><b>Spring MVC:</b>
+        <a title="e1_1">what is, why called so</a>
+        <a title="e1_2">configuration, what lib is required in classpath</a>
+        <a title="e1_3">initialization sequence (incl. DispatcherServlet, WebApplicationContext + scopes)</a>
+    </li>
+    <li><b>Controller:</b>
+        <a title="e2_1">@Controller</a>
+        <a title="e2_2">request mapping (@RequestMapping vs @GetMapping, @RequestParam vs @PathVariable)</a>
+        <a title="e2_3">parameter types for a controller method, other annotations @MatrixVariable,
+            MultipartFile, @RequestPart, @RequestHeader, @CookieValue, @ModelAttribute, @SessionAttribute)</a>
+        <a title="e2_4">return types (void, String, View, HttpHeaders, Map, Model, ModelAndView and more)</a>
+    </li>
+    <li><b>View:</b>
+        <a title="e3_1">what is</a>
+        <a title="e3_2">types (technologies)</a>
+        <a title="e3_3">templating approaches</a>
+        <a title="e3_4">ViewResolvers</a>
+        <a title="e3_5">rendering phase</a>
+    </li>
+    <li><b>Model:</b>
+        <a title="e4_1">what is</a>
+        <a title="e4_2">how is used</a>
+        <a title="e4_3">why accessible from view</a>
+    </li>
+    <li><b>Testing:</b>
+        <a title="e5_1">Testing controllers</a>
+        <a title="e5_2">Mockito support</a>
+    </li>
+</ul>
+
+<div class="hidden">
+    <div id="d1_1">
+
+    </div>
+    <div id="d1_2">
+
+    </div>
+    <div id="d1_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="d2_1">
+
+    </div>
+    <div id="d2_2">
+
+    </div>
+    <div id="d2_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="d3_1">
+
+    </div>
+    <div id="d3_2">
+
+    </div>
+    <div id="d3_3">
+
+    </div>
+</div>
+
+</body>
+</html>
