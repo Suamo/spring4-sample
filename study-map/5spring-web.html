@@ -69,10 +69,9 @@
     </li>
     <li><b>Controller:</b>
         <a title="e2_1">@Controller</a>
-        <a title="e2_2">request mapping (@RequestMapping vs @GetMapping, @RequestParam vs @PathVariable)</a>
-        <a title="e2_3">parameter types for a controller method, other annotations @MatrixVariable,
-            MultipartFile, @RequestPart, @RequestHeader, @CookieValue, @ModelAttribute, @SessionAttribute)</a>
-        <a title="e2_4">return types (void, String, View, HttpHeaders, Map, Model, ModelAndView and more)</a>
+        <a title="e2_2">request mapping</a>
+        <a title="e2_3">parameters</a>
+        <a title="e2_4">return types</a>
     </li>
     <li><b>View:</b>
         <a title="e3_1">what is</a>
@@ -130,12 +129,72 @@
 
 <div class="hidden">
     <div id="e2_1">
+        <b>@Controller</b> - simply @Component specialization that tells the developer that the component is a
+        "Controller" role.
 
     </div>
     <div id="e2_2">
-
+        <b>@RequestMapping</b> maps incoming request to a controller or a method. Supported through a
+        RequestMappingHandlerMapping and RequestMappingHandlerAdapter.<br/><br/>
+        Specializations (can be applied only to method):
+        <ul>
+            <li><b>GetMapping</b></li>
+            <li><b>PostMapping</b></li>
+            <li>DeleteMapping</li>
+            <li>PutMapping</li>
+            <li>(and mode)</li>
+        </ul>
+        <br/>
     </div>
     <div id="e2_3">
+        Mappling parameters:
+        <ul>
+            <li><b>@PathVariable</b> maps method parameters from the URI path(e.g. http://foo.com/user<b>/33</b>)</li>
+            <li><b>@RequestParam</b> maps method parameters from the URI query (e.g.
+                http://foo.com/user<b>?id=33</b>)<br/>
+                <ul>
+                    <li>For Map/MultiValueMap - populated with all request parameters</li>
+                    <li>MultipartFile - representation of an uploaded file</li>
+                </ul>
+            </li>
+            <li>@MatrixVariable</li>
+            <li>@RequestPart</li>
+            <li>@RequestHeader</li>
+            <li>@CookieValue</li>
+            <li>@ModelAttribute</li>
+            <li>@SessionAttribute</li>
+        </ul>
+        <br/>
+
+        Controller method can receive following arguments (without any annotation):
+        <ul>
+            <li>ServletRequest</li>
+            <li>ServletResponse</li>
+            <li>HttpSession</li>
+            <li>Principal</li>
+            <li>HttpMethod</li>
+            <li>Map</li>
+            <li>Model</li>
+            <li>ModelMap</li>
+            <li>Any other type with converter</li>
+        </ul>
+    </div>
+    <div id="e2_4">
+        <ul>
+            <li>void</li>
+            <li>String</li>
+            <li>View</li>
+            <li>HttpHeaders</li>
+            <li>Map</li>
+            <li>Model</li>
+            <li>ModelAndView</li>
+            <li>(and more)</li>
+        </ul>
+    </div>
+    <div id="e2_5">
+
+    </div>
+    <div id="e2_6">
 
     </div>
 </div>
