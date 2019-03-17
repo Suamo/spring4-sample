@@ -59,13 +59,13 @@
     </script>
 </head>
 <body onload="changeTitles()" class="container">
-<h1>Spring Boot</h1>
+<h1>Spring MVC</h1>
 
 <ul>
-    <li><b>Spring MVC:</b>
-        <a title="e1_1">what is, why called so</a>
-        <a title="e1_2">configuration, what lib is required in classpath</a>
-        <a title="e1_3">initialization sequence (incl. DispatcherServlet, WebApplicationContext + scopes)</a>
+    <li><b>Overview:</b>
+        <a title="e1_1">what is</a>
+        <a title="e1_2">configuration</a>
+        <a title="e1_3">components</a>
     </li>
     <li><b>Controller:</b>
         <a title="e2_1">@Controller</a>
@@ -93,37 +93,61 @@
 </ul>
 
 <div class="hidden">
-    <div id="d1_1">
+    <div id="e1_1">
+        Spring Web MVC is the original web framework built on the Servlet API and has been included in the
+        Spring Framework from the very beginning. The formal name, “<b>Spring Web MVC</b>,” comes from the name of its
+        source module (spring-webmvc), but it is more commonly known as “Spring MVC”.<br/><br/>
+        MVC is an abbreviation for a <b>Model–View–Controller</b> pattern that decouples major components
+        allowing for efficient code reuse and parallel development.
+    </div>
+    <div id="e1_2">
+        <ul>
+            <li><b>Add spring-webmvc.jar</b> to classpath (it's not part of spring-core)</li>
+            <li><b>Register DispatcherServlet</b> in ne of two ways:
+                <ul>
+                    <li>implement WebApplicationInitializer</li>
+                    <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
+                </ul>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+    <div id="e1_3">
+        <b>DispatcherServlet</b> - front controller that provides a shared algorithm for
+        request processing, while actual work is performed by configurable delegate controllers.
+        DispatcherServlet initializes WebApplicationContext (child of root ApplicationContext).<br/><br/>
+
+        <b>WebApplicationContext</b> is an interface to provide configuration for a web application. Typically
+        contains infrastructure beans, such as data repositories and business services that need to be shared across
+        multiple Servlet instances. Supports additional scopes:
+        <ul>
+            <li><b>request</b></li>
+            <li><b>session</b></li>
+            <li><b>application</b></li>
+        </ul>
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="e2_1">
 
     </div>
-    <div id="d1_2">
+    <div id="e2_2">
 
     </div>
-    <div id="d1_3">
+    <div id="e2_3">
 
     </div>
 </div>
 
 <div class="hidden">
-    <div id="d2_1">
+    <div id="e3_1">
 
     </div>
-    <div id="d2_2">
+    <div id="e3_2">
 
     </div>
-    <div id="d2_3">
-
-    </div>
-</div>
-
-<div class="hidden">
-    <div id="d3_1">
-
-    </div>
-    <div id="d3_2">
-
-    </div>
-    <div id="d3_3">
+    <div id="e3_3">
 
     </div>
 </div>
