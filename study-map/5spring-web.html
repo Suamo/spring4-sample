@@ -72,22 +72,14 @@
         <a title="e2_2">request mapping</a>
         <a title="e2_3">parameters</a>
         <a title="e2_4">return types</a>
+        <a title="e2_5">testing</a>
     </li>
     <li><b>View:</b>
         <a title="e3_1">overview</a>
         <a title="e3_2">resolvers</a>
-        <a title="e3_3">templating approaches</a>
-        <a title="e3_4">ViewResolvers</a>
-        <a title="e3_5">rendering phase</a>
     </li>
     <li><b>Model:</b>
-        <a title="e4_1">what is</a>
-        <a title="e4_2">how is used</a>
-        <a title="e4_3">why accessible from view</a>
-    </li>
-    <li><b>Testing:</b>
-        <a title="e5_1">Testing controllers</a>
-        <a title="e5_2">Mockito support</a>
+        <a title="e4_1">overview</a>
     </li>
 </ul>
 
@@ -121,7 +113,7 @@
         multiple Servlet instances. Supports additional scopes:
         <ul>
             <li><b>request</b></li>
-            <li><b>session</b></li>
+            <li><b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b></li>
             <li><b>application</b></li>
         </ul>
     </div>
@@ -191,6 +183,13 @@
             <li>(and more)</li>
         </ul>
     </div>
+    <div id="e2_5">
+        <ul>
+            <li><b>Mock</b> implementations of Servlet API contracts for unit testing <b>controllers</b>,
+                filters, and other web components</li>
+            <li>A framework, also known as <b>MockMvc</b>, for testing annotated controllers through the DispatcherServlet</li>
+        </ul>
+    </div>
 </div>
 
 <div class="hidden">
@@ -206,36 +205,30 @@
             <li>The DispatcherServlet delegates to a ViewResolver to obtain View implementation based on view name.</li>
             <li>The default ViewResolver treats the view name as a Web Application-relative file path – i.e. a JSP: /WEB-INF/reward/list.jsp</li>
             <li>Override this default by registering a ViewResolver bean with the DispatcherServlet</li>
-            <li>We will use InternalResourceViewResolver (for JSP templates)</li>
-            <li>Several other options available.</li>
-        </ul>
+        </ul><br/>
 
         Some of View Resolvers in Spring MVC:
         <ul>
-            <!--https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-viewresolver-->
-            <li>XmlViewResolver</li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Thymeleaf: ThymeleafViewResolver</li>
+            <li>JSP and JSTL: InternalResourceViewResolver or ResourceBundleViewResolver</li>
+            <li>Apache Tiles: UrlBasedViewResolver or ResourceBundleViewResolver</li>
+            <li>Xslt: XsltViewResolver</li>
         </ul>
-    </div>
-    <div id="e3_3">
-
     </div>
 </div>
 
 <div class="hidden">
     <div id="e4_1">
+        <b>Model</b> in Spring MVC represents processed data to be rendered in the view by the respective view resolver.
+        Is an object backed my a <b>Map of attributes</b> names and values that can be sent between client and server.<br/><br/>
 
-    </div>
-    <div id="e4_2">
-
-    </div>
-    <div id="e4_3">
-
+        Processing:
+        <ul>
+            <li>Model is passed by the controller to the dispatcher servlet</li>
+            <li>dispatcher server send it to the respective view resolver</li>
+            <li>view resolver is rendering model’s data to the view and generate html page</li>
+        </ul>
+        Spring provide support to access the model in the view layer
     </div>
 </div>
 
