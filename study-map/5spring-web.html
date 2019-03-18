@@ -74,8 +74,8 @@
         <a title="e2_4">return types</a>
     </li>
     <li><b>View:</b>
-        <a title="e3_1">what is</a>
-        <a title="e3_2">types (technologies)</a>
+        <a title="e3_1">overview</a>
+        <a title="e3_2">resolvers</a>
         <a title="e3_3">templating approaches</a>
         <a title="e3_4">ViewResolvers</a>
         <a title="e3_5">rendering phase</a>
@@ -191,22 +191,50 @@
             <li>(and more)</li>
         </ul>
     </div>
-    <div id="e2_5">
+</div>
 
+<div class="hidden">
+    <div id="e3_1">
+        View is the base interface for different view technologies (XML, PDF, XLS etc.).<br/>
+        All handler methods in the Spring MVC controllers must resolve to a <b>logical view name</b>, either explicitly
+        (e.g., by returning a String, View, or ModelAndView) or implicitly (i.e., based on conventions)<br/>
+        Views in Spring are addressed by a logical view name and are resolved by a <b>view resolver</b>.
     </div>
-    <div id="e2_6">
+    <div id="e3_2">
+        The right view is chosen by the <b>ViewResolver</b> bean that has to be registered in the container.
+        <ul>
+            <li>The DispatcherServlet delegates to a ViewResolver to obtain View implementation based on view name.</li>
+            <li>The default ViewResolver treats the view name as a Web Application-relative file path – i.e. a JSP: /WEB-INF/reward/list.jsp</li>
+            <li>Override this default by registering a ViewResolver bean with the DispatcherServlet</li>
+            <li>We will use InternalResourceViewResolver (for JSP templates)</li>
+            <li>Several other options available.</li>
+        </ul>
+
+        Some of View Resolvers in Spring MVC:
+        <ul>
+            <!--https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-viewresolver-->
+            <li>XmlViewResolver</li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div id="e3_3">
 
     </div>
 </div>
 
 <div class="hidden">
-    <div id="e3_1">
+    <div id="e4_1">
 
     </div>
-    <div id="e3_2">
+    <div id="e4_2">
 
     </div>
-    <div id="e3_3">
+    <div id="e4_3">
 
     </div>
 </div>
