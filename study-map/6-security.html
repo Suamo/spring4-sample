@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .tooltip-inner b {
+            color: lawngreen;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+            max-width: 400px;
+            width: 400px;
+        }
+
+        .tooltip-inner table tr {
+            border-bottom: 1px solid white;
+        }
+
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+
+        body > ul > li {
+            padding-bottom: 10px;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto right");
+                link.setAttribute("data-html", "true");
+                link.setAttribute("class", "label label-info");
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+    </script>
+</head>
+<body onload="changeTitles()" class="container">
+<h1>Security</h1>
+<ul>
+    <li><b>Overview:</b>
+        <a title="f1_1">overview</a>
+        <a title="f1_2">authentication vs authorization</a>
+    </li>
+    <li><b>Configuration:</b>
+        <a title="f2_1">delegating filter proxy</a>
+        <a title="f2_2">security filter chain</a>
+        <a title="f2_3">context</a>
+        <a title="f2_4">intercept-url</a>
+        <a title="f2_5">antMatcher vs mvcMatcher</a>
+    </li>
+    <li><b>Password:</b>
+        <a title="f3_1">hashing</a>
+        <a title="f3_2">salting</a>
+    </li>
+    <li><b>Method security:</b>
+        <a title="f4_1">why needed</a>
+        <a title="f4_2">types of method that usually require security</a>
+        <a title="f4_3">@PreAuthorized vs @RolesAllowed</a>
+        <a title="f4_4">@Secured</a>
+    </li>
+    <li><b>security in SpEL:</b>
+        <a title="f5_1">@PreAuthorize</a>
+        <a title="f5_2">@PreFilter</a>
+        <a title="f5_3">@PostAuthorize</a>
+        <a title="f5_4">@PostFilter</a>
+    </li>
+    <li><b>General practices:</b>
+        <a title="f6_1">Is it enough to hide sections of my output (e.g. JSP-Page or Mustache template)?</a>
+        <a title="f6_2">JSP tag library</a>
+    </li>
+</ul>
+
+<div class="hidden">
+    <div id="f1_1">
+        Spring Security is a cross cutting concern.
+        implemented in the following two ways depending on what is to be secured:
+        <ul>
+            <li>Using a Spring <b>AOP proxy</b> that inherits from the AbstractSecurityInterceptor class.
+                Applied to method invocation authorization on objects secured with Spring Security.</li>
+            <li>Spring Security’s web infrastructure is based entirely on <b>servlet filters</b>.
+                It deals in HttpServletRequest s and HttpServletResponse. Spring Security maintains a filter chain
+                internally where each of the filters has a particular responsibility.</li>
+        </ul>
+    </div>
+    <div id="f1_2">
+        <ul>
+            <li><b>Authentication</b> is the process of identifying whether this user exists (come first)</li>
+            <li><b>Authorization</b> is the process of determining what it may or may not do (roles, permissions)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="f2_1">
+        The <b>DelegatingFilterProxy</b> class implements the javax.servlet.Filter interface and thus is a <b>servlet filter</b>.
+        DelegatingFilterProxy provides the link between web.xml and the application context.
+    </div>
+    <div id="f2_2">
+        The security filter chain implements the <b>SecurityFilterChain</b> interface and the only implementation
+        provided by Spring Security is the <b>DefaultSecurityFilterChain</b> class.<br/><br/>
+        There are two parts:
+        <ul>
+            <li><b>request matcher</b> - determines whether the filters in the
+                chain are to be applied to a request or not</li>
+            <li><b>filters</b></li>
+        </ul>
+    </div>
+    <div id="f2_3">
+        <b>SecurityContext</b> interface, which defines the minimum security information associated with a thread of execution.
+        <br/><br/>
+        There are two methods:
+        <ul>
+            <li>setting an object that implements the Authentication</li>
+            <li>retrieving an object that implements the Authentication</li>
+        </ul>
+        The <b>Authentication</b> interface defines the properties of an object that represents a <b>security token</b>
+        for <b>authentication request</b> (prior to authentication) and <b>authenticated principal</b> (after authentication).
+    </div>
+    <div id="f2_4">
+        The <<b>intercept-url</b>> element specifies WHO will be able to access whit URL resources<br/><br/>
+        Attributes:
+        <ul>
+            <li><b>access</b>: Access attributes, commonly role names, specifying the user(s) that has access</li>
+            <li><b>filters</b>: Omitted or having the value “none”. In the latter case the Spring Security filter chain for
+                the URL pattern will be bypassed.</li>
+            <li><b>method</b>: HTTP method used with URL pattern and, optionally, servlet path to match requests.
+                If omitted all HTTP methods will match.</li>
+            <li><b>pattern</b>: URL path pattern for which the Spring Security filter chain will be applied.</li>
+            <li><b>request-matcher-ref</b>: Reference to RequestMatcher bean used to determine if this
+                intercept-url will be used.
+                <ul>
+                    <li><b>requires-channel</b>: Possible values are “http”, “https” and “any”. The first two are for access over
+                        HTTP and HTTPS respectively. Omitting this attribute or using the value “any” matches both HTTP and HTTPS.</li>
+                    <li><b>servlet-path</b>: Servlet path used in combination with method and pattern to match requests. Optional.</li>
+                </ul>
+            </li>
+        </ul><br/>
+        <b>Multiple intercept-url</b> elements may be defined and they will be evaluated in the order in which they are defined.
+        When an intercept-url element with a matching pattern is found, evaluation stops.
+        It is therefore recommended to define more intercept-url elements with more specific pattern earlier and more
+        general patterns later.
+    </div>
+    <div id="f2_5">
+        antMatchers vs mvcMatchers:
+        <ul>
+            <li><b>antMatchers</b>("/services") only matches the exact “/services” URL
+            <ul>
+                <li>only matches the exact URLs. E.g. "/services" matches only "/services"</li>
+            </ul>
+            </li>
+            <li><b>mvcMatchers</b>
+                <ul>
+                    <li>Matches URLs by the same rules as @RequestMapping. E.g. "/services" matches
+                        “/services”, “/services/”, “/services.html” and “/services.abc”</li>
+                    <li>mvcMatchers API is newer than the antMatchers API</li>
+                </ul>
+            </li>
+        </ul><br/>
+        * and ** patterns:
+        <ul>
+            <li><b>*</b> Matches any path on the level at which the wildcard occur.
+                Example: /services/* matches /services/users and /services/orders but not /services/orders/123/items.</li>
+            <li><b>**</b> Matches any path on the level at the wildcard occurs and all levels below.
+                If only /** or ** then will match any request. Example: /services/** matches /services, /services/,
+                /services/users and /services/orders and also /services/orders/123/items etc.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="f3_1">
+
+    </div>
+    <div id="f3_2">
+
+    </div>
+    <div id="f3_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="f4_1">
+
+    </div>
+    <div id="f4_2">
+
+    </div>
+    <div id="f4_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="f5_1">
+
+    </div>
+    <div id="f5_2">
+
+    </div>
+    <div id="f5_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="f6_1">
+
+    </div>
+    <div id="f6_2">
+
+    </div>
+    <div id="f6_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="f7_1">
+
+    </div>
+    <div id="f7_2">
+
+    </div>
+    <div id="f7_3">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="f8_1">
+
+    </div>
+    <div id="f8_2">
+
+    </div>
+    <div id="f8_3">
+
+    </div>
+</div>
+
+</body>
+</html>
