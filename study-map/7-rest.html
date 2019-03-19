@@ -68,12 +68,9 @@
 <ul>
     <li><b>Overview:</b>
         <a title="g1_1">What is</a>
-        <a title="g1_2">resource</a>
-        <a title="g1_3">CRUD</a>
         <a title="g1_4">security</a>
         <a title="g1_5">idempotency</a>
         <a title="g1_6">scalable / interoperable</a>
-        <a title="g1_7">stateless</a>
         <a title="g1_8">status codes</a>
     </li>
     <li><b>In Spring:</b>
@@ -93,7 +90,28 @@
 
 <div class="hidden">
     <div id="g1_1">
+        <b>Representational State Transfer</b> (REST) is a software architectural style that defines a set of
+        constraints to be used for creating Web services. RESTful Web services allow the requesting systems to
+        access and manipulate textual representations of Web resources by using a uniform and predefined set of
+        <b>stateless</b> operations.<br/><br/>
 
+        <b>Resource</b>:
+        <ul>
+            <li>Resource a key abstraction of information in REST</li>
+            <li>Any information that can be named can be a resource like Student, Employee etc.</li>
+            <li>REST is resource based API</li>
+            <li>Expose resources through URIs like
+                http://host:80/api/employees/1111, It is based on Model nouns, not verbs</li>
+            <li>Resources support
+                limited set of operations – GET, PUT, POST, DELETE in case of HTTP. Example: update an employee use
+                PUT to /employees/1111 and don’t POST</li>
+            <li>Resources can support multiple
+                representations like HTML, XML, JSON etc.</li>
+            <li>Multiple URIs may refers to same resource as like CRUD
+                operation on employee resource using HTTP verbs</li>
+        </ul><br/>
+
+        <b>CRUD</b> stands for create, read, update, delete
     </div>
     <div id="g1_2">
 
