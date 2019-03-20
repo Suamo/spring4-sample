@@ -77,9 +77,7 @@
     </li>
     <li><b>In Spring:</b>
         <a title="g2_1">configuration</a>
-        <a title="g2_5"></a>
-        <a title="g2_6">@ResponseStatus</a>
-        <a title="g2_7">Spring MVC in classpath</a>
+        <a title="g2_2">@ResponseStatus</a>
     </li>
     <li><b>Additional</b>
         <a title="g3_1">Spring Boot starter</a>
@@ -164,15 +162,21 @@
 
 <div class="hidden">
     <div id="g2_1">
+        Spring MVC is the core component for REST support so spring-webmvc.jar must be in the clsspath.<br/><br/>
+
         REST controller can be annotated with specialization of @Controller - <b>@RestController</b>.
         (while @Controller is a stereotype - @RestController is not - defined in different package).
         The difference is only that @RestController defines @ResponseBody<br/><br/>
 
         <b>HttpMethod</b> class with constants that can be used in RestTemplate: GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE.<br/><br/>
 
-        Controller method argument annotated with <b>@RequestBody</b> will have an access to the HTTP request body content.
-        Conversion will be done by <b>HttpMessageConverter</b> implementations specific to argument type. If @RequestBody is used for
-        the whole method than return value will be converted using converter.<br/><br/>
+        Conversions (is done by <b>HttpMessageConverter</b> implementations):
+        <ul>
+            <li><b>@RequestBody</b> (can be applied on controller <b>method argument</b>) - access to the HTTP request body.
+                Body content is converted to the declared method argument type by using HttpMessageConverter implementations</li>
+            <li><b>@ResponseBody</b> (can be applied on controller <b>method</b>) serializes return value to the response body
+                (versus view resolution and rendering with an HTML template)</li>
+        </ul><br/>
 
         In addition to <b>@RequestMapping</b> annotation there are also HTTP method specific specializations:
         <ul>
@@ -182,17 +186,12 @@
             <li>@DeleteMapping</li>
             <li>@PatchMapping</li>
         </ul><br/>
-
-        <b>@ResponseBody</b> serializes return value to the response body through an HttpMessageConverter versus view resolution and rendering with an HTML template.
-        <br/><br/>
-        <b>@ResponseBody vs @RequestBody</b>
-        https://stackoverflow.com/questions/11291933/requestbody-and-responsebody-annotations-in-spring
     </div>
     <div id="g2_2">
+        <b>@ResponseStatus</b> defines what "code" and "reason" must controller method return.<br/><br/>
 
-    </div>
-    <div id="g2_3">
-
+        The MVC Config automatically declares built-in resolvers for default Spring MVC exceptions, for @ResponseStatus
+        annotated exceptions, and for support of @ExceptionHandler methods. You can customize that list or replace it.
     </div>
 </div>
 
