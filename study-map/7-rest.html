@@ -39,7 +39,6 @@
         }
 
 
-
     </style>
     <script>
         function changeTitles() {
@@ -61,7 +60,6 @@
         }
 
 
-
     </script>
 </head>
 <body onload="changeTitles()" class="container">
@@ -72,16 +70,15 @@
         <a title="g1_1">What is</a>
         <a title="g1_2">resources</a>
         <a title="g1_3">idempotency</a>
-        <a title="g1_4">scalable / interoperable</a>
+        <a title="g1_4">scalable/interoperable</a>
         <a title="g1_5">status codes</a>
     </li>
     <li><b>In Spring:</b>
         <a title="g2_1">configuration</a>
         <a title="g2_2">@ResponseStatus</a>
     </li>
-    <li><b>Additional</b>
-        <a title="g3_1">Spring Boot starter</a>
-        <a title="g3_2">RestTemplate</a>
+    <li><b>RestTemplate:</b>
+        <a title="g3_1">overview</a>
     </li>
 </ul>
 
@@ -92,7 +89,8 @@
         access and manipulate textual representations of Web resources by using a uniform and predefined set of
         stateless operations.<br/><br/>
         REST is <b>stateless</b> because according to its definition it HAS to be stateless; meaning each request must
-        contain all the required information to interact with the server without the server need to store some context between requests.<br/><br/>
+        contain all the required information to interact with the server without the server need to store some context
+        between requests.<br/><br/>
 
         <b>CRUD</b> stands for create, read, update, delete<br/><br/>
         REST <b>does not provide any security</b> constraints by default but we can implement it in the RESTful web
@@ -153,30 +151,55 @@
 
     </div>
     <div id="g1_4">
-
+        <ul>
+            <li>RESTful web services, <b>provide interoperability</b> between computer systems on the Internet (through
+                API).
+            </li>
+            <li>Since good services are built to be stateless, they <b>can scale horizontally</b> just like regular web
+                farms (a tried
+                and trusted pattern). And once a good caching strategy is devised, load on servers and latency for
+                consumers are both reduced.
+            </li>
+        </ul>
     </div>
     <div id="g1_5">
-
+        Most important codes:
+        <ul>
+            <li><b>200</b> OK</li>
+            <li>307 Temporary redirect</li>
+            <li><b>400</b> Bad request</li>
+            <li>401 Unauthorized</li>
+            <li>404 Not found</li>
+            <li>429 Too many requests</li>
+            <li><b>500</b> Internal server error</li>
+            <li>501 Not implemented</li>
+            <li>503 Service unavailable</li>
+        </ul>
     </div>
 </div>
 
 <div class="hidden">
     <div id="g2_1">
-        Spring MVC is the core component for REST support so spring-webmvc.jar must be in the clsspath.<br/><br/>
+        Spring MVC is the core component for REST support so spring-webmvc.jar must be in the clsspath.<br/>
+        Can be configured by Spring Boot starter: <b>spring-boot-starter-web</b><br/><br/>
 
         REST controller can be annotated with specialization of @Controller - <b>@RestController</b>.
         (while @Controller is a stereotype - @RestController is not - defined in different package).
         The difference is only that @RestController defines @ResponseBody<br/><br/>
 
-        <b>HttpMethod</b> class with constants that can be used in RestTemplate: GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE.<br/><br/>
-
         Conversions (is done by <b>HttpMessageConverter</b> implementations):
         <ul>
-            <li><b>@RequestBody</b> (can be applied on controller <b>method argument</b>) - access to the HTTP request body.
-                Body content is converted to the declared method argument type by using HttpMessageConverter implementations</li>
-            <li><b>@ResponseBody</b> (can be applied on controller <b>method</b>) serializes return value to the response body
-                (versus view resolution and rendering with an HTML template)</li>
-        </ul><br/>
+            <li><b>@RequestBody</b> (can be applied on controller <b>method argument</b>) - access to the HTTP request
+                body.
+                Body content is converted to the declared method argument type by using HttpMessageConverter
+                implementations
+            </li>
+            <li><b>@ResponseBody</b> (can be applied on controller <b>method</b>) serializes return value to the
+                response body
+                (versus view resolution and rendering with an HTML template)
+            </li>
+        </ul>
+        <br/>
 
         In addition to <b>@RequestMapping</b> annotation there are also HTTP method specific specializations:
         <ul>
@@ -185,7 +208,8 @@
             <li>@PutMapping</li>
             <li>@DeleteMapping</li>
             <li>@PatchMapping</li>
-        </ul><br/>
+        </ul>
+        <br/>
     </div>
     <div id="g2_2">
         <b>@ResponseStatus</b> defines what "code" and "reason" must controller method return.<br/><br/>
@@ -197,24 +221,17 @@
 
 <div class="hidden">
     <div id="g3_1">
+        <b>RestTemplate</b> - synchronous client to perform HTTP requests, exposing a simple, template method API over
+        underlying HTTP client libraries such as the JDK {HttpURLConnection}, Apache HttpComponents, and others.
 
-    </div>
-    <div id="g3_2">
+        <br/><br/>
+        <b>HttpMethod</b> class with constants that can be used in RestTemplate: GET, HEAD, POST, PUT, PATCH, DELETE,
+        OPTIONS, TRACE.
 
-    </div>
-    <div id="g3_3">
-
-    </div>
-</div>
-
-<div class="hidden">
-    <div id="g4_1">
-
-    </div>
-    <div id="g4_2">
-
-    </div>
-    <div id="g4_3">
+        <br/><br/>
+        Example:<br/>
+        String url = "http://localhost:8080/users/{$username}";<br/>
+        User user = <b>restTemplate.getForObject</b>(url, User.class, "johncusack");
 
     </div>
 </div>
