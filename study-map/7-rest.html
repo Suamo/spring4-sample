@@ -39,6 +39,7 @@
         }
 
 
+
     </style>
     <script>
         function changeTitles() {
@@ -60,6 +61,7 @@
         }
 
 
+
     </script>
 </head>
 <body onload="changeTitles()" class="container">
@@ -68,17 +70,14 @@
 <ul>
     <li><b>Overview:</b>
         <a title="g1_1">What is</a>
-        <a title="g1_4">security</a>
-        <a title="g1_5">idempotency</a>
-        <a title="g1_6">scalable / interoperable</a>
-        <a title="g1_8">status codes</a>
+        <a title="g1_2">resources</a>
+        <a title="g1_3">idempotency</a>
+        <a title="g1_4">scalable / interoperable</a>
+        <a title="g1_5">status codes</a>
     </li>
     <li><b>In Spring:</b>
-        <a title="g2_1">HTTP methods</a>
-        <a title="g2_2">HttpMessageConverter</a>
-        <a title="g2_3">@RequestMapping</a>
-        <a title="g2_4">@Controller vs @RestController</a>
-        <a title="g2_5">@ResponseBody vs @RequestBody</a>
+        <a title="g2_1">configuration</a>
+        <a title="g2_5"></a>
         <a title="g2_6">@ResponseStatus</a>
         <a title="g2_7">Spring MVC in classpath</a>
     </li>
@@ -93,37 +92,101 @@
         <b>Representational State Transfer</b> (REST) is a software architectural style that defines a set of
         constraints to be used for creating Web services. RESTful Web services allow the requesting systems to
         access and manipulate textual representations of Web resources by using a uniform and predefined set of
-        <b>stateless</b> operations.<br/><br/>
+        stateless operations.<br/><br/>
+        REST is <b>stateless</b> because according to its definition it HAS to be stateless; meaning each request must
+        contain all the required information to interact with the server without the server need to store some context between requests.<br/><br/>
 
+        <b>CRUD</b> stands for create, read, update, delete<br/><br/>
+        REST <b>does not provide any security</b> constraints by default but we can implement it in the RESTful web
+        services by using security layers like transport layer security (TLS), auth token security.<br/><br/>
+
+        <b>Operations (HTTP methods)</b>
+        <ul>
+            <li><b>Safe</b> operations
+                <ul>
+                    <li>HEAD</li>
+                    <li>GET</li>
+                    <li>OPTIONS</li>
+                    <li>TRACE</li>
+                </ul>
+            </li>
+            <li>Operations that <b>might cause side effects</b>
+                <ul>
+                    <li>POST</li>
+                    <li>PUT</li>
+                    <li>DELETE</li>
+                    <li>PATCH</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="g1_2">
         <b>Resource</b>:
         <ul>
             <li>Resource a key abstraction of information in REST</li>
             <li>Any information that can be named can be a resource like Student, Employee etc.</li>
             <li>REST is resource based API</li>
             <li>Expose resources through URIs like
-                http://host:80/api/employees/1111, It is based on Model nouns, not verbs</li>
+                http://host:80/api/employees/1111, It is based on Model nouns, not verbs
+            </li>
             <li>Resources support
                 limited set of operations – GET, PUT, POST, DELETE in case of HTTP. Example: update an employee use
-                PUT to /employees/1111 and don’t POST</li>
+                PUT to /employees/1111 and don’t POST
+            </li>
             <li>Resources can support multiple
-                representations like HTML, XML, JSON etc.</li>
+                representations like HTML, XML, JSON etc.
+            </li>
             <li>Multiple URIs may refers to same resource as like CRUD
-                operation on employee resource using HTTP verbs</li>
-        </ul><br/>
-
-        <b>CRUD</b> stands for create, read, update, delete
-    </div>
-    <div id="g1_2">
-
+                operation on employee resource using HTTP verbs
+            </li>
+        </ul>
     </div>
     <div id="g1_3">
+        Idempotence (mathematics and computer science) - is the property of certain operations when they can be
+        <b>applied multiple times without changing</b> the result beyond the initial application.<br/><br/>
+        Idempotent operations in REST:
+        <ul>
+            <li>GET</li>
+            <li>HEAD</li>
+            <li>PUT</li>
+            <li>DELETE</li>
+        </ul>
+        Idempotence <b>allows requests caching</b> which leads to minimizing network load.
+
+    </div>
+    <div id="g1_4">
+
+    </div>
+    <div id="g1_5">
 
     </div>
 </div>
 
 <div class="hidden">
     <div id="g2_1">
+        REST controller can be annotated with specialization of @Controller - <b>@RestController</b>.
+        (while @Controller is a stereotype - @RestController is not - defined in different package).
+        The difference is only that @RestController defines @ResponseBody<br/><br/>
 
+        <b>HttpMethod</b> class with constants that can be used in RestTemplate: GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE.<br/><br/>
+
+        Controller method argument annotated with <b>@RequestBody</b> will have an access to the HTTP request body content.
+        Conversion will be done by <b>HttpMessageConverter</b> implementations specific to argument type. If @RequestBody is used for
+        the whole method than return value will be converted using converter.<br/><br/>
+
+        In addition to <b>@RequestMapping</b> annotation there are also HTTP method specific specializations:
+        <ul>
+            <li>@GetMapping</li>
+            <li>@PostMapping</li>
+            <li>@PutMapping</li>
+            <li>@DeleteMapping</li>
+            <li>@PatchMapping</li>
+        </ul><br/>
+
+        <b>@ResponseBody</b> serializes return value to the response body through an HttpMessageConverter versus view resolution and rendering with an HTML template.
+        <br/><br/>
+        <b>@ResponseBody vs @RequestBody</b>
+        https://stackoverflow.com/questions/11291933/requestbody-and-responsebody-annotations-in-spring
     </div>
     <div id="g2_2">
 
