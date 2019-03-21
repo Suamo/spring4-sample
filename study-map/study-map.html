@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .tooltip-inner b {
+            color: lawngreen;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+            max-width: 400px;
+            width: 400px;
+        }
+
+        .tooltip-inner table tr {
+            border-bottom: 1px solid white;
+        }
+
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+
+        body > ul > li {
+            padding-bottom: 10px;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto right");
+                link.setAttribute("data-html", "true");
+                link.setAttribute("class", "label label-info");
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+
+    </script>
+</head>
+<body onload="changeTitles()" class="container">
+
+
+<div class="chapter">
+
+    <h1>General</h1>
+    <ul>
+        <li><b>Application context:</b>
+            <a title="a1_1">what is</a>
+            <a title="a1_2">lifecycle</a>
+            <a title="a1_3">configuration</a>
+            <a title="a1_4">creation</a>
+            <a title="a1_5">usage in test</a>
+            <a title="a1_6">closing context</a>
+        </li>
+        <li><b>Beans:</b>
+            <a title="a2_1">lifecycle</a>
+            <a title="a2_2">scope</a>
+            <a title="a2_3">IDs</a>
+            <a title="a2_4">scanning</a>
+            <a title="a2_5">stereotypes</a>
+            <a title="a2_6">lazy/eager init</a>
+            <a title="a2_7">final/static</a>
+            <a title="a2_8">init/destroy</a>
+        </li>
+        <li><b>DI, IOC:</b>
+            <a title="a3_1">what is</a>
+            <a title="a3_2">@Autowired</a>
+            <a title="a3_3">@Qualifier</a>
+            <a title="a3_4">private fields injection</a>
+            <a title="a3_5">scalar/literal injection</a>
+            <a title="a3_6">@Value</a>
+            <a title="a3_7">$ vs #{}</a>
+        </li>
+        <li><b>Properties:</b>
+            <a title="a4_1">PropertySource</a>
+            <a title="a4_2">PropertySourcesPlaceholderConfigurer</a>
+            <a title="a4_3">PropertyResolver</a>
+        </li>
+        <li><b>PostProcessors:</b>
+            <a title="a5_1">BeanFactoryPostProcessor</a>
+            <a title="a5_2">BeanPostProcessor</a>
+        </li>
+        <li><b>Profiles:</b>
+            <a title="a6_1">what is</a>
+            <a title="a6_2">usage</a>
+            <a title="a6_3">limitations</a>
+        </li>
+        <li><b>Environment: </b>
+            <a title="a7_1">what is</a>
+            <a title="a7_2">property sources</a>
+        </li>
+        <li><b>SpEL:</b>
+            <a title="a8_1">what is</a>
+            <a title="a8_2">usage</a>
+            <a title="a8_3">functionality</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="a1_1">
+            ApplicationContext is a Spring IoC container responsible for:
+            <ul>
+                <li>instantiating</li>
+                <li>configuring</li>
+                <li>assembling the beans from configuration</li>
+            </ul>
+        </div>
+        <div id="a1_2">
+            <ul>
+                <li>Initialization
+                    <ul>
+                        <li>context created</li>
+                        <li>beans loaded</li>
+                        <li>injected</li>
+                        <li>initialized</li>
+                        <li>resources are allocated</li>
+                    </ul>
+                </li>
+                <li>Use</li>
+                <li>Destruction
+                    <ul>
+                        <li>context destroyed</li>
+                        <li>resources released</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="a1_3">
+            <ul>
+                <li>XML config: get beans from ClassPathXmlApplicationContext</li>
+                <li>Java config (@Configuration + @Bean): get beans from AnnotationConfigApplicationContext</li>
+                <li>Java annotations (@Component + @Autowired): get beans in Autowired fields (if scanned) or from
+                    AnnotationConfigApplicationContext
+                </li>
+                advantages? why final config class not allowed?
+            </ul>
+        </div>
+        <div id="a1_4">
+            <ul>
+                <li>new ClassPathXmlApplicationContext("lifacycle-config.xml");</li>
+                <li>new AnnotationConfigApplicationContext(JavaApplicationConfig.class);</li>
+            </ul>
+        </div>
+        <div id="a1_5">
+            <ul>
+                <li>implement the ApplicationContextAware interface and obtain context in setter</li>
+                <li>extend AbstractJUnit4SpringContextTests / AbstractTestNGSpringContextTests and get access for
+                    their protected ApplicationContext field
+                </li>
+                <li>inject ApplicationContext</li>
+            </ul>
+        </div>
+        <div id="a1_6">
+            <ul>
+                <li>For WEB: closed automatically</li>
+                <li>For non-WEB:
+                    <ul>
+                        <li>registerShutdownHook(): app context will be closed on JVM shutdown (applied by default
+                            in Spring Boot);
+                        </li>
+                        <li>close(): app context will be closed immediately</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="a2_1">
+            <ul>
+                <li>Load Bean definitions
+                    <ul>
+                        <li>Bean Definitions are loaded</li>
+                        <li>Bean Definitions are processed</li>
+                    </ul>
+                </li>
+                <li>Create Beans
+                    <ul>
+                        <li>constructor call</li>
+                        <li>setter call</li>
+                        <li>postprocessor “init” methods call</li>
+                    </ul>
+                </li>
+                <li>Beans are ready and being used</li>
+                <li>Beans are destroyed
+                    <ul>
+                        <li>destroy method call</li>
+                        <li>handing over to garbage collector</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="a2_2">
+            <ul>
+                <li>singleton (default) - one object instance per IoC container</li>
+                <li>prototype - one object instance per bean request from container</li>
+                <li>[web only] request - one object instance per HTTP request lifecycle (each HTTP request has new
+                    instance)
+                </li>
+                <li>[web only] session - one object instance per HTTP session lifecycle</li>
+                <li>[web only] application - one object instance per ServletContext lifecycle</li>
+                <li>[web only] websocket - one object instance per WebSocket lifecycle</li>
+            </ul>
+            Note: if a singleton depends on prototype then this Prototype bean will be created on container
+            creation.
+        </div>
+        <div id="a2_3">
+            Attributes "id" and "name" define the same thing - name of the bean and it's aliases.<br/>
+            E.g. id="n1,n2;n3" - bean has name "n1" and aliases "n2" and "n3".<br/>
+            "name" values can also be separated via space.<br/>
+            By default, the bean name will be the same as the method name.<br/>
+            Can be overriden by @Bean("customBeanName")
+        </div>
+        <div id="a2_4">
+            Responsible for searching beans to register.<br/>
+            Detects
+            <ul>
+                <li>Stereotypes: @Component, @Controller, @Repository, @Service</li>
+                <li>Other: @RestController, @ControllerAdvice, @Configuration</li>
+            </ul>
+            Turned on:
+            <ul>
+                <li>@ComponentScan("com.path")</li>
+                <li>< context:component-scan base-package="com.path"/></li>
+            </ul>
+        </div>
+        <div id="a2_5">
+            Stereotypes ("stereotype" package):<br/>
+            define the roles class in architecture (eventually targets for pointcuts).<br/>
+            Stereotypes are:
+            <ul>
+                <li>@Component</li>
+                <li>Specializations meta-annotatated with @Component
+                    <ul>
+                        <li>@Controller</li>
+                        <li>@Repository</li>
+                        <li>@Service</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="a2_6">
+            Singletons are eagerly instantiated by default.<br/>
+            To alter:
+            <ul>
+                <li>< bean id="lazy" class="com.foo.ExpensiveToCreateBean" lazy-init="true"/> or < beans
+                    default-lazy-init="true">
+                </li>
+                <li>@Lazy for @Bean or class with beans</li>
+            </ul>
+        </div>
+        <div id="a2_7">
+            non-static @Bean methods in @Configuration classes need to be overridable,<br/>
+            i.e. they must not be declared as private or final.<br/>
+            static methods can be final though it doesn't make sense.
+        </div>
+        <div id="a2_8">
+            Init method - called as a callback after bean is created and assembled. Declaring options:
+            <ul>
+                <li>@PostConstruct [JSR-250] (Java config, best practice)</li>
+                <li>custom init() method (Java and XML config)
+                    <ul>
+                        <li>XML: < beans default-init-method="init"/> or < bean init-method="init"/></li>
+                        <li>Java: @Bean(initMethod = "init")</li>
+                    </ul>
+                </li>
+                <li>afterPropertiesSet() from InitializingBean callback interface (not recommended since
+                    couples the code to Spring)
+                </li>
+            </ul>
+            <br/>
+
+            Destruction method called on closing the application context. Declaring options:
+            <ul>
+                <li>@PreDestroy [JSR-250] (Java config, best practice)</li>
+                <li>custom destroy() method (Java and XML config)
+                    <ul>
+                        <li>XML: < beans default-destroy-method attribute="destroy"/> or < bean destroy-method="destroy"/>
+                        </li>
+                        <li>Java: @Bean(destroyMethod = "destroyMethod")</li>
+                    </ul>
+                </li>
+                <li>destroy() from DisposableBean callback interface (not recommended)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="a3_1">
+            DI(IoC) is a technique where one object supplies the dependencies of another object
+        </div>
+        <div id="a3_2">
+            <ul>
+                <li>injects a bean</li>
+                <li>handled by Spring BeanPostProcessor</li>
+                <li>makes injection mandatory. Fails if nothing to inject</li>
+                <li>only one constructor can be Autowired</li>
+                <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
+            </ul>
+        </div>
+        <div id="a3_3">
+            Defines exact bean name if injection by type finds multiple implementations.
+        </div>
+        <div id="a3_4">
+            Private fields are injected the same way as public.
+        </div>
+        <div id="a3_5">
+            <ul>
+                <li>XML: by adding "value" attribute to "property" or "constructor-arg"</li>
+                <li>Class: using @Value</li>
+            </ul>
+        </div>
+        <div id="a3_6">
+            <ul>
+                <li>handled by Spring BeanPostProcessor</li>
+                <li>can be placed on fields, methods and method/constructor parameters</li>
+                <li>used for expression-driven dependency injection</li>
+                <li>supported for dynamic resolution of handler method parameters e.g. in Spring MVC</li>
+            </ul>
+        </div>
+        <div id="a3_7">
+            <ul>Used in @Value
+                <li>#{} - SpEL expression. Inside the expression variables can be references by #newName, #this, #root</li>
+                <li>$ - "${" is a "placeholder prefix". ${} expression internally will be handled by
+                    PropertyResolver.resolvePlaceholders
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="a4_1">
+            Declaration:
+            <ul>
+                <li>@PropertySource("classpath:/com/myco/app.properties")</li>
+            </ul>
+            Usage
+            <ul>
+                <li>@Autowired Environment env; env.getProperty("testbean.name");</li>
+                <li>@Value("${testbean.name}")</li>
+            </ul>
+        </div>
+        <div id="a4_2">
+            <ul>
+                <li>predefined bean factory post-processor</li>
+                <li>newer and more flexible version of old PropertyPlaceholderConfigurer</li>
+                <li>Resolves ${...} placeholders in bean definition property values and @Value annotations against the
+                    current Spring Environment and its set of PropertySources
+                </li>
+            </ul>
+        </div>
+        <div id="a4_3">
+            "${}" expression internally handled by PropertyResolver.resolvePlaceholders
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="a5_1">
+            <ul>
+                <li>operates on the bean configuration metadata</li>
+                <li>can change the actual bean definition (i.e., the blueprint that defines the bean)</li>
+            </ul>
+        </div>
+        <div id="a5_2">
+            <ul>
+                <li>operates on already created bean</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="a6_1">
+            Is a mechanism that allows for registration of different beans in different environments<br/>
+            Default profile is a "default".<br/><br/>
+            Useful when (examples):
+            <ul>
+                <li>Easily changing data sources: in-memory datasource in development, from JNDI for QA</li>
+                <li>registering monitoring infrastructure only when deploying an application into a performance
+                    environment
+                </li>
+                <li>registering customized implementations of beans for customer A vs customer B deployments</li>
+            </ul>
+        </div>
+        <div id="a6_2">
+            <ul>
+                <li>Java: @Profile on @Configuration/@Component/@Bean</li>
+                <li>XML: 'profile' attribute on < beans></li>
+            </ul>
+            <br/>
+            Activation:
+            <ul>
+                <li>-Dspring.profiles.active="profile1,profile2"</li>
+                <li>ctx.getEnvironment().setActiveProfiles("profile1", "profile2")</li>
+            </ul>
+            <br/>
+            Arguments
+            <ul>
+                <li>@Profile("development")</li>
+                <li>@Profile({"p1", "p2"})</li>
+            </ul>
+        </div>
+        <div id="a6_3">
+            It is possible to have MAX array size different profiles expected for registered bean
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="a7_1">
+            <ul>
+                <li>integrated in the container</li>
+                <li>contains
+                    <ul>
+                        <li>profiles: which is currently active</li>
+                        <li>properties: configuring property sources and resolving properties from them</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="a7_2">
+            <ul>
+                <li>Command line arguments</li>
+                <li>Java System properties (System.getProperties())</li>
+                <li>OS environment variables (System.getenv())</li>
+                <li>Spring Boot application.properties</li>
+                <li>And many more:
+                    https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="a8_1">
+            Spring Expression Language supports querying and manipulating an object graph at runtime<br/>
+        </div>
+        <div id="a8_2">
+            <ul>
+                <li>Manually: using ExpressionParser.parseExpression ("org.springframework.expression" package)
+                </li>
+                <li>In Bean Definitions:
+                    <ul>
+                        <li>XML Config: < property name="randomNumber" value="#{ T(java.lang.Math).random() * 100.0 }"/>
+                        </li>
+                        <li>Annotation Config: @Value("#{ systemProperties['user.region'] }")</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="a8_3">
+            <ul>
+                <li>Literal expressions</li>
+                <li>Boolean and relational operators</li>
+                <li>Regular expressions</li>
+                <li>Class expressions</li>
+                <li>Accessing properties, arrays, lists, maps</li>
+                <li>Method invocation</li>
+                <li>Relational operators</li>
+                <li>Assignment</li>
+                <li>Calling constructors</li>
+                <li>Bean references</li>
+                <li>Array construction</li>
+                <li>Inline lists</li>
+                <li>Inline maps</li>
+                <li>Ternary operator</li>
+                <li>Variables</li>
+                <li>User defined functions</li>
+                <li>Collection projection</li>
+                <li>Collection selection</li>
+                <li>Templated expressions</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+
+    <h1>AOP</h1>
+    <ul>
+        <li><b>AOP:</b>
+            <a title="b1_1">what is</a>
+            <a title="b1_2">in Spring</a>
+            <a title="b1_3">configuration</a>
+        </li>
+        <li><b>Terminology:</b>
+            <a title="b2_1">aspect</a>
+            <a title="b2_2">advice</a>
+            <a title="b2_3">cross-cutting concern</a>
+            <a title="b2_4">pointcut</a>
+            <a title="b2_5">join point</a>
+            <a title="b2_6">weaving</a>
+        </li>
+        <li><b>Proxy:</b>
+            <a title="b3_1">what is</a>
+            <a title="b3_2">types</a>
+            <a title="b3_3">benefits</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="b1_1">
+            Is a paradigm that aims to increase modularity by separation of cross-cutting concerns
+        </div>
+        <div id="b1_2">
+            <ul>
+                <li>implemented in pure Java</li>
+                <li>supports only method execution join points</li>
+                <li>introduced in Spring to provide a close integration with Spring IoC to help solve common problems in
+                    enterprise applications
+                </li>
+            </ul>
+        </div>
+        <div id="b1_3">
+            Once @AspectJ support enabled - all @Aspect classes will be automatically detected and used to configure
+            AOP.<br/><br/>
+            Enabling AspectJ support:
+            <ul>
+                <li>Java config: @EnableAspectJAutoProxy</li>
+                <li>XML config: < aop:aspectj-autoproxy/></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="b2_1">
+            Is a class containing code specific to a cross-cutting concern (pointcuts and advices).<br/><br/>
+            In code:
+            <ul>
+                <li>Java: <b>@Aspect</b></li>
+                <li>Xml: <b>< bean class="path.to.MyAspect"/></b></li>
+            </ul>
+        </div>
+        <div id="b2_2">
+            Is an action taken by an aspect at a particular join point<br/><br/>
+            In code:
+            <ul>
+                <li><b>@Before</b> executes before a join point. Execution of join point cannot be stopped unless unless an
+                    exception is thrown.
+                </li>
+                <li><b>@AfterReturning</b> executed after a join point completes normally (without throwing an exception)
+                </li>
+                <li><b>@AfterThrowing</b> executed if a method exits by throwing an exception</li>
+                <li><b>@After</b> executed if method executed normally or with exception</li>
+                <li><b>@Around</b> executed instead of join point method. Join Point method can be called manually by
+                    ProceedingJoinPoint.proceed.
+                    The only advice which can try/catch exceptions of join point.
+                </li>
+            </ul>
+            <br/>
+            Advices can receive JoinPoint as a method argument. @Around can also get ProceedingJoinPoint.
+        </div>
+        <div id="b2_3">
+            A cross-cutting concern is a logic in an application that cannot be decomposed from the rest of the application
+            and may result in code duplication and tight coupling
+            <br/><br/>
+            In code:
+            <ul>
+                <li><b>logic that can be adviced</b></li>
+            </ul>
+            <br/>
+            Examples of cross-cutting concerns:
+            <ul>
+                <li>Logging</li>
+                <li>Security</li>
+                <li>Transaction management</li>
+            </ul>
+            <br/>
+            Problems if cross-cutting concerns not used:
+            <ul>
+                <li>Scattering (code duplication)</li>
+                <li>Tangling (significant dependencies between systems)</li>
+            </ul>
+        </div>
+        <div id="b2_4">
+            Is an expression that identifies which join point advice should be bind to.<br/>
+            Pointcut expressions are defined using AspectJ Pointcut Expression Language.<br/><br/>
+            In code:
+            <ul>
+                <li>@Before(<b>"execution(* path.to.MyAopBean.checkPointcut(..))"</b>)</li>
+                <li>@Before("callMethodWithException()")../some advice/..;
+                    <b>@Pointcut</b>(value = "execution(* path.to.AopBean.callMethodWithException())")
+                    - for cases when the same point cut expression is duplicated in many advices
+                </li>
+            </ul>
+            <br/>
+
+            Spring AOP supports the following AspectJ pointcut designators
+            <ul>
+                <li>execution</li>
+                <li>this</li>
+                <li>within, @within</li>
+                <li>target, @target</li>
+                <li>args, @args</li>
+                <li>@annotation</li>
+            </ul>
+        </div>
+        <div id="b2_5">
+            In code:
+            <ul>
+                <li><b>Logic inside an advice</b></li>
+            </ul>
+        </div>
+        <div id="b2_6">
+            Is a merging advices and target class. The weaver generates a woven class (an advised object, proxy).
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="b3_1">
+            Is an object created by the AOP framework with merged advices and target class
+        </div>
+        <div id="b3_2">
+            <ul>
+                <li>JDK dynamic proxy
+                    <ul>
+                        <li>used by default for beans with interface</li>
+                        <li>recommended to use</li>
+                        <li>proxy will implement the same interface as target object</li>
+                    </ul>
+                </li><br/>
+                <li>CGLIB proxy
+                    <ul>
+                        <li>is default for @Configuration and other beans with no interface</li>
+                        <li>not recommended to use</li>
+                        <li>proxy willextend target object</li>
+                        <li>adviced methods cannot be final</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="b3_3">
+            Benefits
+            <ul>
+                <li>pure Java implementation</li>
+                <li>close integration with Spring</li>
+            </ul><br/>
+            Disadvantages
+            <ul>
+                <li>only methods join points (no field interception)</li>
+                <li>little runtime overhead</li>
+                <li>local or internal method calls within an adviced class will not be intercepted</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+
+    <h1>Data Management</h1>
+    <ul>
+        <li><b>Exceptions:</b>
+            <a title="c1_1">hierarchy</a>
+            <a title="c1_2">why unchecked</a>
+        </li>
+        <li><b>DataSource:</b>
+            <a title="c2_1">configuration</a>
+            <a title="c2_2">types</a>
+            <a title="c2_3">JNDI</a>
+        </li>
+        <li><b>JdbcTemplate:</b>
+            <a title="c3_1">what is</a>
+            <a title="c3_2">callbacks</a>
+            <a title="c3_3">queries</a>
+        </li>
+        <li><b>Transactions:</b>
+            <a title="c4_1">what is</a>
+            <a title="c4_2">types</a>
+            <a title="c4_6">configuration</a>
+            <a title="c4_3">transaction strategy</a>
+            <a title="c4_4">isolation</a>
+            <a title="c4_5">propagation</a>
+            <a title="c4_7">@Transactional</a>
+            <a title="c4_8">rollback</a>
+        </li>
+        <li><b>ORM:</b>
+            <a title="c6_1">what is</a>
+            <a title="c6_2">how works</a>
+        </li>
+        <li><b>JPA:</b>
+            <a title="c7_1">what is</a>
+            <a title="c7_2">configuration</a>
+            <a title="c7_3">participation in transaction</a>
+        </li>
+        <li><b>Spring data:</b>
+            <a title="c8_1">instant repository</a>
+            <a title="c8_2">how works</a>
+            <a title="c8_3">@Query</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="c1_1">
+            Data access exceptions hierarchy:
+            <ul>
+                <li>RuntimeException
+                    <ul>
+                        <li>DataAccessException
+                            <ul>
+                                <li>DataAccessResourceFailureException</li>
+                                <li>CleanupFailureDataAccessException</li>
+                                <li>InvalidDataAccessApiUsageException</li>
+                                <li>InvalidDataAccessResourceUsageException</li>
+                                <li>DataRetrievalFailureException</li>
+                                <li>OptimisticLockingFailureException</li>
+                                <li>UnauthorizedDataAccessException</li>
+                                <li>DataintegrityvViolationException</li>
+                                <li>DeadlockLoserDataAccessException</li>
+                                <li>etc...</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="c1_2">
+            <ul>
+                <li>best practice for API</li>
+                <li>best when it's imossible to do anything useful</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="c2_1">
+            <ul>
+                <li>Define properties (DataSourceProperties in Boot). Usually:
+                    <ul>
+                        <li>"<b>driverClassName</b>"</li>
+                        <li>"<b>url</b>"</li>
+                        <li>"<b>username</b>"</li>
+                        <li>"<b>password</b>"</li>
+                    </ul>
+                </li>
+                <li>Create DataSource with defined properties</li>
+                <li>Create environment specific PlatformTransactionManager with created dataSource</li>
+            </ul>
+        </div>
+        <div id="c2_2">
+            Package: org.springframework.jdbc.datasource<br/><br/>
+            Hierarchy:
+            <ul>
+                <li>(i) javax.sql.DataSource
+                    <ul>
+                        <li>AbstractDataSource
+                            <ul>
+                                <li>AbstractRoutingDataSource
+                                    <ul>
+                                        <li>IsolationLevelDataSourceRouter</li>
+                                    </ul>
+                                </li>
+                                <li>AbstractDriverBasedDataSource
+                                    <ul>
+                                        <li><b>SimpleDriverDataSource</b></li>
+                                        <li><b>DriverManagerDataSource</b> - every time uses new Connection and closes is
+                                            after use
+                                            <ul>
+                                                <li><b>SingleConnectionDataSource</b> - connection is not closed after each
+                                                    use
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>(i) SmartDataSource
+                            <ul>
+                                <li>SingleConnectionDataSource</li>
+                            </ul>
+                        </li>
+                        <li>(i) EmbeddedDatabase
+                            <ul>
+                                <li>EmbeddedDataSourceProxy</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <br/>
+
+            DataSources Builders:
+            <ul>
+                <li>DataSourceBuilder (Boot)</li>
+                <li><b>EmbeddedDatabaseBuilder</b></li>
+            </ul>
+            <br/>
+
+            Spring Boot can auto-configure embedded:
+            <ul>
+                <li>H2</li>
+                <li>HSQL</li>
+                <li>Derby</li>
+            </ul>
+        </div>
+        <div id="c2_3">
+            < jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/><br/>
+            < bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" /><br/>
+            (doesn't need to know about datasource
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="c3_1">
+            JdbcTemplate is a JDBC approac.<br/>
+            Named so because of a Template Method pattern that it's based on.<br/><br/>
+            Features:
+            <ul>
+                <li>creation of statements</li>
+                <li>execution of: statements, SQLs, stored procedures</li>
+                <li>provides execution results</li>
+                <li>creation/releasing connections</li>
+                <li>covers JDBC exceptions with more informative</li>
+            </ul>
+        </div>
+        <div id="c3_2">
+            callback ("call-after" function) - called after thother function execution.<br/><br/>
+
+            Main JdbcTemplate callbacks:
+            <ul>
+                <li><b>PreparedStatementCreator</b> prepare parametrized precompiled statement from a Connection for queries
+                </li>
+                <li><b>CallableStatementCreator</b> prepare parametrized statement from a Connection to execute SQL stored
+                    procedures
+                </li>
+                <li><b>RowCallbackHandler</b> jdbcTemplate uses RowMapper in methods that doesn't return values. Called for
+                    each ResultSet record separately.
+                </li>
+            </ul>
+            <br/>
+            Alternative callback interfaces:
+            <ul>
+                <li><b>RowMapper</b>called for each ResultSet record separately to convert it to a result object</li>
+                <li><b>ResultSetExtractor</b>called once for the whole ResultSet to convert it to a result object</li>
+            </ul>
+        </div>
+        <div id="c3_3">
+            Plain SQL statement execution:
+            <ul>
+                <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
+                <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
+            </ul>
+            <br/>
+
+            Dynamic queries (with returning an entity) are possible with RowMapper.<br/>
+            If RowMapper is provided following JdbcTemplate methods can be used:
+            <ul>
+                <li><b>query()</b></li>
+                <li><b>queryForObject()</b> – returns one object</li>
+                <li><b>queryForMap()</b> - returns object as map (column name:value)</li>
+                <li><b>queryForList()</b> - returns multiple objects</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="c4_1">
+            A transaction (symbolizes a <b>unit of work</b>) is a series of operations such that either all occur, or
+            nothing occurs.<br/><br/>
+            Being cross-cutting concern in Spring is implemented with AOP.<br/><br/>
+
+            The Unit of Work pattern is used to group one or more operations into a single
+            transaction, so that all operations either pass or fail as one.<br/>
+            JDBC AutoCommit mode forces to run each query as separate transaction. So <b>AutoCommit mode is opposite to
+            UnitOfWork</b>.
+        </div>
+        <div id="c4_2">
+            <ul>
+                <li><b>Global transactions</b> handles multiple transactional resources (e.g. databases + message queues).
+                    The application server manages global transactions through the JTA (with JNDI source).
+                </li>
+                <li><b>Local transactions</b> handles single transactional resources</li>
+            </ul>
+        </div>
+        <div id="c4_3">
+            Defined by the <b>PlatformTransactionManager</b> interface with method <b>getTransaction</b> that
+            takes TransactionDefinition as an argument and returns TransactionStatus.<br/><br/>
+
+            <b>TransactionDefinition</b> defines transaction properties:
+            <ul>
+                <li>isolation level</li>
+                <li>propagation behavior</li>
+                <li>transaction timeout</li>
+                <li>read-only status</li>
+            </ul>
+            <br/>
+
+            <b>TransactionStatus</b> - new or current transaction status with methods:
+            <ul>
+                <li>isNewTransaction()</li>
+                <li>hasSavepoint()</li>
+                <li>setRollbackOnly()</li>
+                <li>isRollbackOnly()</li>
+                <li>flush()</li>
+                <li>isCompleted()</li>
+            </ul>
+        </div>
+        <div id="c4_4">
+            One of the transaction properties.<br/><br/>
+            <table>
+                <tr>
+                    <th>Level</th>
+                    <th>Name</th>
+                    <th>Allows</th>
+                </tr>
+                <tr>
+                    <td>1st (lowest)</td>
+                    <td>Read uncommitted</td>
+                    <td>phantom reads, non-repeatable reads, dirty reads</td>
+                </tr>
+                <tr>
+                    <td>2nd*</td>
+                    <td>Read committed</td>
+                    <td>phantom reads, non-repeatable reads</td>
+                </tr>
+                <tr>
+                    <td>3rd</td>
+                    <td>Repeatable reads</td>
+                    <td>phantom reads</td>
+                </tr>
+                <tr>
+                    <td>4th (highest)</td>
+                    <td>Serializable</td>
+                    <td>transactions are fully isolated</td>
+                </tr>
+            </table>
+            <br/>
+            *default in most DBs
+        </div>
+        <div id="c4_5">
+            One of the transaction properties.<br/>
+            Propagation defines behavior of the target methods:
+            if they should be executed in an existing or new transaction, or no transaction at all.<br/><br/>
+            <ul>
+                <li><b>REQUIRES_NEW</b>: create a new transaction, suspend any existing one</li>
+                <li><b>MANDATORY</b>: use current transaction, throw exception if none exists</li>
+                <li><b>REQUIRED</b>: use current transaction, if non exists – create one</li>
+                <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists</li>
+                <li><b>NEVER</b>: execute non-transactionally, throw exception if any transaction exists</li>
+                <li><b>NOT_SUPPORTED</b>: execute non-transactionally, suspend any existing transaction</li>
+                <li><b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else
+                    behave like Propagation.REQUIRED
+                </li>
+            </ul>
+        </div>
+        <div id="c4_6">
+            <ul>
+                <li><b>Declarative</b>: best for big amount of transactional operations.<br/>
+                    Configuration:
+                    <ul>
+                        <li><b>@EnableTransactionManagement</b> to configuration</li>
+                        <li><b>@Transactional</b> annotation on methods/classes</li>
+                    </ul>
+                    Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate
+                    PlatformTransactionManager
+                    implementation to drive transactions around method invocations.
+                </li>
+                <li><b>Programming</b>: best for small number of transactional operations. Can set transaction name.<br/>
+                    Can be configured in two ways:
+                    <ul>
+                        <li>use <b>PlatformTransactionManager</b> bean directly to initiate, roll back, and commit
+                            transactions
+                            (using the TransactionDefinition and TransactionStatus)
+                        </li>
+                        <li>create <b>TransactionTemplate</b> and call execute(TransactionCallback)</li>
+                    </ul>
+                </li>
+            </ul>
+            ???? managing from JdbcTemplate
+        </div>
+        <div id="c4_7">
+            @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a <b>join point</b>.
+            Method or class marked @Transactional will be covered in transactional behavior
+            (when method starts transaction will be opened and closed when the method finished).<br/><br/>
+
+            If <b>one @Transactional method is calling another</b> on the same object instance:
+            since transaction-management is implemented using AOP - @Transactional annotation will have <b>no effect</b>
+            on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.
+        </div>
+        <div id="c4_8">
+            Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is <b>marked for
+            rollback</b>.<br/>
+            Types ot Exceptions for rollback can be changed (including checked exceptions):
+            <ul>
+                <li>XML: 'rollback-for' or 'no-rollback-for' attributes can be added to tx:method</li>
+                <li>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();</li>
+                <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName, noRollbackForClassName
+                </li>
+            </ul>
+            <br/>
+
+            <b>@Transactional test is automatically rolled back</b> after completion when:
+            <ul>
+                <li>used @RunWith(SpringJUnit4ClassRunner.class) in JUnit 4</li>
+                <li>used @ExtendWith(SpringExtension.class) in JUnit 5</li>
+            </ul>
+        </div>
+        <div id="c4_9">
+
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="c5_1">
+
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="c6_1">
+            <b>Object Relational Mapping</b> is meant to help us map our entities to the database tables.<br/><br/>
+            Benefits
+            <ul>
+                <li>Easy mapping object model to data model</li>
+                <li>Much less code</li>
+                <li>Concurrency support</li>
+                <li>Automatic management of: Cache, Connection pool, Transactions, Keys</li>
+            </ul>
+            <br/>
+
+            Disadvantages
+            <ul>
+                <li>Overhead for simple applications</li>
+                <li>Need to learn implementation</li>
+                <li>Performance lower</li>
+                <li>Hard to make complex queries</li>
+            </ul>
+        </div>
+        <div id="c6_2">
+            <b>PersistenceContext</b> contains a set of entity instances that correspond to persistent entity identity.<br/>
+            <br/><br/>
+
+            All the manipulations with the persistent instances are made using <b>EntityManager</b>.
+            EntityManager writes, deletes and searches entities to database.
+            Injected viw @PersistenceContext.<br/><br/>
+
+            <b>@Entity</b> annotation is used to mark a class as an entity class that will be mapped to the database using
+            ORM.
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="c7_1">
+            Java Persistence API - high level API and specification so that different ORM tools can implement so that it
+            provides the flexibility to developer to change the implementation from one ORM to another
+        </div>
+        <div id="c7_2">
+            One of EntityManagerFactorys need to be configured:
+            <ul>
+                <li><b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global
+                    transactions
+                </li>
+                <li><b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence unit"
+                    with
+                    provicer and properties (persistence.xml or more programmically since Spring 3.1).
+                </li>
+            </ul>
+            Alternative is to use in a JEE-compliant container where <b>application server</b> bootstraps the JPA
+            persistence unit based on the information in the deployment descriptors. This allows Spring to look up
+            the entity manager via <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
+            configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1<br/><br/>
+
+            <b>JpaTransactionManager</b> is the JPA PlatformTransactionManager implementation.
+        </div>
+        <div id="c7_3">
+            JpaTransactionManager expose a JPA transaction to JDBC access code that accesses the same DataSource
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="c8_1">
+            Is a simple way to create repoeitories.<br/>
+            Can be done in two ways:
+            <ul>
+                <li>extend repository interface with <b>Repository</b>, <b>CrudRepository</b> or <b>PagingAndSortingRepository</b></li>
+                <li>annotate your repository interface with <b>@RepositoryDefinition</b></li>
+            </ul>
+        </div>
+        <div id="c8_2">
+            The query builder mechanism built into Spring Data repository infrastructure is building
+            constraining queries over entities of the repository.<br/>
+            The mechanism strips the following prefixes from the method and starts parsing the rest of it
+            <ul>
+                <li><b>find…By</b></li>
+                <li><b>read…By</b></li>
+                <li><b>query…By</b></li>
+                <li><b>count…By</b></li>
+                <li><b>get…By</b></li>
+            </ul>
+        </div>
+        <div id="c8_3">
+            For more <b>complex queries</b>, you can annotate your method with <b>@Query</b>. Allows customization using SQL/JPQL.
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+
+    <h1>Spring Boot</h1>
+
+    <ul>
+        <li><b>Spring Boot:</b>
+            <a title="c1_1">what is</a>
+            <a title="c1_2">advantages</a>
+            <a title="c1_3">configuration</a>
+            <a title="c1_4">properties</a>
+            <a title="c1_5">embadded containers</a>
+            <a title="c1_6">starter POM</a>
+            <a title="c1_7">logging</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="c1_1">
+            Spring Boot is used to build stand-alone and production ready spring applications.<br/>
+            Feature:
+            <ul>
+                <li>Create <b>stand-alone</b> Spring applications</li>
+                <li><b>Embed Tomcat, Jetty or Undertow</b> directly (no need to deploy WAR files)</li>
+                <li>Provide <b>opinionated*</b> 'starter' dependencies to simplify your build configuration</li>
+                <li><b>Automatically configure</b> Spring and 3rd party libraries whenever possible</li>
+                <li>Provide production-ready features such as metrics, health checks and externalized configuration</li>
+                <li>Absolutely no code generation and no requirement for XML configuration</li>
+            </ul><br/>
+            * Opinionated: Spring scans dependencies from classpath and adds support for different
+            components by initializing “maybe” required beans. For example if it sees a dependency on Thymeleaf,
+            3 beans that Thymeleaf uses are automatically initialized: ThymeleafViewResolver, SpringTemplateEngine,
+            TemplateResolver. Moreover it also scans the templates directory from resources for Thymeleaf templates.
+            If you have tomcat-embedded.jar on your classpath TomcatServletWebServerFactory bean will be initialized.
+        </div>
+        <div id="c1_2">
+            <ul>
+                <li>easy configuration of Spring application</li>
+                <li>Integrated web containers that allow for easy testing</li>
+                <li>Starters – sets of dependencies that help setting up a “typical” application</li>
+                <li>Decrease amount of boilerplate code</li>
+            </ul>
+        </div>
+        <div id="c1_3">
+            <b>@EnableAutoConfiguration</b> - enables auto-configuration of the Application Context (opinionated view)
+            <br/><br/>
+
+            <b>@SpringBootApplication</b> - just convenient annotation that is
+            meta-annotated with @Configuration, @EnableAutoConfiguration and @ComponentScan.
+        </div>
+        <div id="c1_4">
+            common annotations and configuration properties
+            SpringApplication loads properties from <b>application.properties</b> (or <b>yml/yaml</b>) files in the
+            following locations and adds them to the Spring Environment:
+            <ul>
+                <li><b>current directory /config</b></li>
+                <li><b>current directory</b></li>
+                <li><b>classpath /config</b></li>
+                <li><b>classpath root</b></li>
+            </ul>
+        </div>
+        <div id="c1_5">
+            Spring Boot supports following embedded containers:
+            <ul>
+                <li><b>Tomcat</b></li>
+                <li><b>Jetty</b></li>
+                <li><b>Undertow</b></li>
+            </ul><br/>
+
+            Jar vs War
+            <ul>
+                <li>JAR - onlly suitable for embedded container since it will come as a part of the application</li>
+                <li>WAR - archive that can be deployed on an external container</li>
+            </ul>
+        </div>
+        <div id="c1_6">
+            Maven users can inherit from the <b>spring-boot-starter-parent</b> project to obtain sensible defaults.<br/><br/>
+            Features:
+            <ul>
+                <li><b>Java 1.8</b> as the default</li>
+                <li><b>UTF-8</b> source encoding</li>
+                <li>A Dependency Management section, inherited from the spring-boot-dependencies pom, that manages
+                    the <b>versions of common dependencies</b>. This dependency management lets you omit < version> tags for those
+                    dependencies when used in your own pom.
+                </li>
+                <li>Pom properties can be used in project properties (or yml) using <b>@..@</b> placeholders</li>
+                <li>Additional <b>plugin configurations</b> (exec plugin, Git commit ID, and shade)</li>
+                <li><b>profile-specific resource filtering</b> (e.g. application-dev.properties and application-dev.yml)</li>
+            </ul>
+        </div>
+        <div id="c1_7">
+            Configuration:
+            <ul>
+                <li>add the required dependencies to the classpat</li>
+                <li>configure the required framework using application.properties or framework-specific
+                    configuration file placed in the classpath</li>
+            </ul><br/>
+            Spring Boot uses <b>Commons Logging</b> for all internal logging but leaves the underlying log implementation open.<br/><br/>
+            Default configurations are provided for;
+            <ul>
+                <li>Java Util Logging</li>
+                <li>Log4J2</li>
+                <li>Logback</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+
+    <h1>Spring MVC</h1>
+
+    <ul>
+        <li><b>Overview:</b>
+            <a title="e1_1">what is</a>
+            <a title="e1_2">configuration</a>
+            <a title="e1_3">components</a>
+        </li>
+        <li><b>Controller:</b>
+            <a title="e2_1">@Controller</a>
+            <a title="e2_2">request mapping</a>
+            <a title="e2_3">parameters</a>
+            <a title="e2_4">return types</a>
+            <a title="e2_5">testing</a>
+        </li>
+        <li><b>View:</b>
+            <a title="e3_1">overview</a>
+            <a title="e3_2">resolvers</a>
+        </li>
+        <li><b>Model:</b>
+            <a title="e4_1">overview</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="e1_1">
+            Spring Web MVC is the original web framework built on the Servlet API and has been included in the
+            Spring Framework from the very beginning. The formal name, “<b>Spring Web MVC</b>,” comes from the name of its
+            source module (spring-webmvc), but it is more commonly known as “Spring MVC”.<br/><br/>
+            MVC is an abbreviation for a <b>Model–View–Controller</b> pattern that decouples major components
+            allowing for efficient code reuse and parallel development.
+        </div>
+        <div id="e1_2">
+            <ul>
+                <li>Add <b>spring-webmvc.jar</b> to classpath (it's not part of spring-core)</li>
+                <li>Add <b>@EnableWebMvc</b> to @Configuration (in Spring Boot not needed)</li>
+                <li><b>Register DispatcherServlet</b> in ne of two ways:
+                    <ul>
+                        <li>implement WebApplicationInitializer</li>
+                        <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="e1_3">
+            <b>DispatcherServlet</b> - front controller that provides a shared algorithm for
+            request processing, while actual work is performed by configurable delegate controllers.
+            DispatcherServlet initializes WebApplicationContext (child of root ApplicationContext).<br/><br/>
+
+            <b>WebApplicationContext</b> is an interface to provide configuration for a web application. Typically
+            contains infrastructure beans, such as data repositories and business services that need to be shared across
+            multiple Servlet instances. Supports additional scopes:
+            <ul>
+                <li><b>request</b></li>
+                <li><b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b></li>
+                <li><b>application</b></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="e2_1">
+            <b>@Controller</b> - simply @Component specialization that tells the developer that the component is a
+            "Controller" role.
+
+        </div>
+        <div id="e2_2">
+            <b>@RequestMapping</b> maps incoming request to a controller or a method. Supported through a
+            RequestMappingHandlerMapping and RequestMappingHandlerAdapter.<br/><br/>
+            Specializations (can be applied only to method):
+            <ul>
+                <li><b>GetMapping</b></li>
+                <li><b>PostMapping</b></li>
+                <li>DeleteMapping</li>
+                <li>PutMapping</li>
+                <li>(and mode)</li>
+            </ul>
+            <br/>
+        </div>
+        <div id="e2_3">
+            Mappling parameters:
+            <ul>
+                <li><b>@PathVariable</b> maps method parameters from the URI path(e.g. http://foo.com/user<b>/33</b>)</li>
+                <li><b>@RequestParam</b> maps method parameters from the URI query (e.g.
+                    http://foo.com/user<b>?id=33</b>)<br/>
+                    <ul>
+                        <li>For Map/MultiValueMap - populated with all request parameters</li>
+                        <li>MultipartFile - representation of an uploaded file</li>
+                    </ul>
+                </li>
+                <li>@MatrixVariable</li>
+                <li>@RequestPart</li>
+                <li>@RequestHeader</li>
+                <li>@CookieValue</li>
+                <li>@ModelAttribute</li>
+                <li>@SessionAttribute</li>
+            </ul>
+            <br/>
+
+            Controller method can receive following arguments (without any annotation):
+            <ul>
+                <li>ServletRequest</li>
+                <li>ServletResponse</li>
+                <li>HttpSession</li>
+                <li>Principal</li>
+                <li>HttpMethod</li>
+                <li>Map</li>
+                <li>Model</li>
+                <li>ModelMap</li>
+                <li>Any other type with converter</li>
+            </ul>
+        </div>
+        <div id="e2_4">
+            <ul>
+                <li>void</li>
+                <li>String</li>
+                <li>View</li>
+                <li>HttpHeaders</li>
+                <li>Map</li>
+                <li>Model</li>
+                <li>ModelAndView</li>
+                <li>(and more)</li>
+            </ul>
+        </div>
+        <div id="e2_5">
+            <ul>
+                <li><b>Mock</b> implementations of Servlet API contracts for unit testing <b>controllers</b>,
+                    filters, and other web components</li>
+                <li>A framework, also known as <b>MockMvc</b>, for testing annotated controllers through the DispatcherServlet</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="e3_1">
+            View is the base interface for different view technologies (XML, PDF, XLS etc.).<br/>
+            All handler methods in the Spring MVC controllers must resolve to a <b>logical view name</b>, either explicitly
+            (e.g., by returning a String, View, or ModelAndView) or implicitly (i.e., based on conventions)<br/>
+            Views in Spring are addressed by a logical view name and are resolved by a <b>view resolver</b>.
+        </div>
+        <div id="e3_2">
+            The right view is chosen by the <b>ViewResolver</b> bean that has to be registered in the container.
+            <ul>
+                <li>The DispatcherServlet delegates to a ViewResolver to obtain View implementation based on view name.</li>
+                <li>The default ViewResolver treats the view name as a Web Application-relative file path – i.e. a JSP: /WEB-INF/reward/list.jsp</li>
+                <li>Override this default by registering a ViewResolver bean with the DispatcherServlet</li>
+            </ul><br/>
+
+            Some of View Resolvers in Spring MVC:
+            <ul>
+                <li>Thymeleaf: ThymeleafViewResolver</li>
+                <li>JSP and JSTL: InternalResourceViewResolver or ResourceBundleViewResolver</li>
+                <li>Apache Tiles: UrlBasedViewResolver or ResourceBundleViewResolver</li>
+                <li>Xslt: XsltViewResolver</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="e4_1">
+            <b>Model</b> in Spring MVC represents processed data to be rendered in the view by the respective view resolver.
+            Is an object backed my a <b>Map of attributes</b> names and values that can be sent between client and server.<br/><br/>
+
+            Processing:
+            <ul>
+                <li>Model is passed by the controller to the dispatcher servlet</li>
+                <li>dispatcher server send it to the respective view resolver</li>
+                <li>view resolver is rendering model’s data to the view and generate html page</li>
+            </ul>
+            Spring provide support to access the model in the view layer
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+
+    <h1>Security</h1>
+    <ul>
+        <li><b>Overview:</b>
+            <a title="f1_1">overview</a>
+            <a title="f1_2">authentication vs authorization</a>
+            <a title="f1_3">method security</a>
+            <a title="f1_4">view security</a>
+        </li>
+        <li><b>Configuration:</b>
+            <a title="f2_1">delegating filter proxy</a>
+            <a title="f2_2">security filter chain</a>
+            <a title="f2_3">context</a>
+            <a title="f2_4">intercept-url</a>
+            <a title="f2_5">antMatcher vs mvcMatcher</a>
+            <a title="f2_6">passwords</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="f1_1">
+            Spring Security is a cross cutting concern.
+            implemented in the following two ways depending on what is to be secured:
+            <ul>
+                <li>Using a Spring <b>AOP proxy</b> that inherits from the AbstractSecurityInterceptor class.
+                    Applied to method invocation authorization on objects secured with Spring Security.
+                </li>
+                <li>Spring Security’s web infrastructure is based entirely on <b>servlet filters</b>.
+                    It deals in HttpServletRequest s and HttpServletResponse. Spring Security maintains a filter chain
+                    internally where each of the filters has a particular responsibility.
+                </li>
+            </ul>
+        </div>
+        <div id="f1_2">
+            <ul>
+                <li><b>Authentication</b> is the process of identifying whether this user exists (come first)</li>
+                <li><b>Authorization</b> is the process of determining what it may or may not do (roles, permissions)</li>
+            </ul>
+        </div>
+        <div id="f1_3">
+            Method-level security is commonly applied to services in the service layer of an application. Implemented by AOP
+            Proxies.
+            <br/><br/>
+            Approaches:
+            <ul>
+                <li><b>@PreAuthorize</b>
+                    <ul>
+                        <li>restricted by SpEL expression</li>
+                        <li>enabled by @EnableGlobalMethodSecurity(prePostEnabled=true)</li>
+                    </ul>
+                </li>
+                <li><b>@RolesAllowed</b>
+                    <ul>
+                        <li>restricted by role name</li>
+                        <li>enabled by @EnableGlobalMethodSecurity(jsr250Enabled=true)</li>
+                    </ul>
+                </li>
+                <li><b>@Secured</b>
+                    <ul>
+                        <li>legacy annotation - better to use @PreAuthorize instead</li>
+                        <li>restricted by role name</li>
+                        <li>enabled by @EnableGlobalMethodSecurity(securedEnabled=true)</li>
+                    </ul>
+                </li>
+            </ul>
+            *both annotations can be applied on class or method levels<br/><br/>
+
+            Other security annotation and use SpEL:
+            <ul>
+                <li>@PreAuthorize</li>
+                <li>@PreFilter</li>
+                <li>@PostAuthorize</li>
+                <li>@PostFilter</li>
+            </ul>
+
+        </div>
+        <div id="f1_4">
+            In order to protect JSP elements Spring <b>Security taglib</b> have to be used.<br/><br/>
+
+
+            Examples:
+            <ul>
+                <li><b>declaring</b><br/>
+                    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+                </li>
+                <li><b>authorize</b> tag: visibility by condition<br/>
+                    < sec:authorize access="hasRole('aadministrator')"> Visible if "access" expression is true<
+                    /sec:authorize>
+                </li>
+                <li><b>authentication</b> tag: allows for accessing the Authentication object in the current security
+                    context<br/>
+                    < sec:authentication property="principal.username" />
+                </li>
+                <li><b>accesscontrollist</b> tag (deprecated, use authorize tag): checks a list of permissions for a specific
+                    domain object<br/>
+                    < sec:accesscontrollist hasPermission="5, 7" domainObject="${order}">
+                </li>
+                <li>when cross-site request forgery (CSRF) protection is enabled
+                    <ul>
+                        <li><b>csrfInput</b> tag inserts a hidden form with the name and value of the CSRF protection token
+                            in the rendered page<br/>
+                            < form action="login" method="post">< sec:csrfInput/>// fields //< /form>
+                        </li>
+                        <li><b>csrfMetaTags</b> tag inserts meta tags containing the CSRF protection token form field and header
+                            names and CSRF protection token value. These meta tags can then be accessed from JavaScript in your application.<br/>
+                            < sec:csrfMetaTags />< script> var csrfToken = $("meta[name='_csrf']").attr("content");
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="f2_1">
+            The <b>DelegatingFilterProxy</b> class implements the javax.servlet.Filter interface and thus is a <b>servlet
+            filter</b>.
+            DelegatingFilterProxy provides the link between web.xml and the application context.
+        </div>
+        <div id="f2_2">
+            The security filter chain implements the <b>SecurityFilterChain</b> interface and the only implementation
+            provided by Spring Security is the <b>DefaultSecurityFilterChain</b> class.<br/><br/>
+            There are two parts:
+            <ul>
+                <li><b>request matcher</b> - determines whether the filters in the
+                    chain are to be applied to a request or not
+                </li>
+                <li><b>filters</b></li>
+            </ul>
+        </div>
+        <div id="f2_3">
+            <b>SecurityContext</b> interface, which defines the minimum security information associated with a thread of
+            execution.
+            <br/><br/>
+            There are two methods:
+            <ul>
+                <li>setting an object that implements the Authentication</li>
+                <li>retrieving an object that implements the Authentication</li>
+            </ul>
+            The <b>Authentication</b> interface defines the properties of an object that represents a <b>security token</b>
+            for <b>authentication request</b> (prior to authentication) and <b>authenticated principal</b> (after
+            authentication).
+        </div>
+        <div id="f2_4">
+            The <<b>intercept-url</b>> element specifies WHO will be able to access whit URL resources<br/><br/>
+            Attributes:
+            <ul>
+                <li><b>access</b>: Access attributes, commonly role names, specifying the user(s) that has access</li>
+                <li><b>filters</b>: Omitted or having the value “none”. In the latter case the Spring Security filter chain
+                    for
+                    the URL pattern will be bypassed.
+                </li>
+                <li><b>method</b>: HTTP method used with URL pattern and, optionally, servlet path to match requests.
+                    If omitted all HTTP methods will match.
+                </li>
+                <li><b>pattern</b>: URL path pattern for which the Spring Security filter chain will be applied.</li>
+                <li><b>request-matcher-ref</b>: Reference to RequestMatcher bean used to determine if this
+                    intercept-url will be used.
+                    <ul>
+                        <li><b>requires-channel</b>: Possible values are “http”, “https” and “any”. The first two are for
+                            access over
+                            HTTP and HTTPS respectively. Omitting this attribute or using the value “any” matches both HTTP
+                            and HTTPS.
+                        </li>
+                        <li><b>servlet-path</b>: Servlet path used in combination with method and pattern to match requests.
+                            Optional.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <br/>
+            <b>Multiple intercept-url</b> elements may be defined and they will be evaluated in the order in which they are
+            defined.
+            When an intercept-url element with a matching pattern is found, evaluation stops.
+            It is therefore recommended to define more intercept-url elements with more specific pattern earlier and more
+            general patterns later.
+        </div>
+        <div id="f2_5">
+            antMatchers vs mvcMatchers:
+            <ul>
+                <li><b>antMatchers</b>("/services") only matches the exact “/services” URL
+                    <ul>
+                        <li>only matches the exact URLs. E.g. "/services" matches only "/services"</li>
+                    </ul>
+                </li>
+                <li><b>mvcMatchers</b>
+                    <ul>
+                        <li>Matches URLs by the same rules as @RequestMapping. E.g. "/services" matches
+                            “/services”, “/services/”, “/services.html” and “/services.abc”
+                        </li>
+                        <li>mvcMatchers API is newer than the antMatchers API</li>
+                    </ul>
+                </li>
+            </ul>
+            <br/>
+            * and ** patterns:
+            <ul>
+                <li><b>*</b> Matches any path on the level at which the wildcard occur.
+                    Example: /services/* matches /services/users and /services/orders but not /services/orders/123/items.
+                </li>
+                <li><b>**</b> Matches any path on the level at the wildcard occurs and all levels below.
+                    If only /** or ** then will match any request. Example: /services/** matches /services, /services/,
+                    /services/users and /services/orders and also /services/orders/123/items etc.
+                </li>
+            </ul>
+        </div>
+        <div id="f2_6">
+            <b>Hashing</b> process is referred to as password encoding and is implemented using the PasswordEncoder
+            interface.<br/><br/>
+            <b>Salt</b> is used as additional input for hashing password. Salts are used to safeguard passwords in storage.
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+
+    <h1>REST</h1>
+
+    <ul>
+        <li><b>Overview:</b>
+            <a title="g1_1">What is</a>
+            <a title="g1_2">resources</a>
+            <a title="g1_3">idempotency</a>
+            <a title="g1_4">scalable/interoperable</a>
+            <a title="g1_5">status codes</a>
+        </li>
+        <li><b>In Spring:</b>
+            <a title="g2_1">configuration</a>
+            <a title="g2_2">@ResponseStatus</a>
+        </li>
+        <li><b>RestTemplate:</b>
+            <a title="g3_1">overview</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="g1_1">
+            <b>Representational State Transfer</b> (REST) is a software architectural style that defines a set of
+            constraints to be used for creating Web services. RESTful Web services allow the requesting systems to
+            access and manipulate textual representations of Web resources by using a uniform and predefined set of
+            stateless operations.<br/><br/>
+            REST is <b>stateless</b> because according to its definition it HAS to be stateless; meaning each request must
+            contain all the required information to interact with the server without the server need to store some context
+            between requests.<br/><br/>
+
+            <b>CRUD</b> stands for create, read, update, delete<br/><br/>
+            REST <b>does not provide any security</b> constraints by default but we can implement it in the RESTful web
+            services by using security layers like transport layer security (TLS), auth token security.<br/><br/>
+
+            <b>Operations (HTTP methods)</b>
+            <ul>
+                <li><b>Safe</b> operations
+                    <ul>
+                        <li>HEAD</li>
+                        <li>GET</li>
+                        <li>OPTIONS</li>
+                        <li>TRACE</li>
+                    </ul>
+                </li>
+                <li>Operations that <b>might cause side effects</b>
+                    <ul>
+                        <li>POST</li>
+                        <li>PUT</li>
+                        <li>DELETE</li>
+                        <li>PATCH</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="g1_2">
+            <b>Resource</b>:
+            <ul>
+                <li>Resource a key abstraction of information in REST</li>
+                <li>Any information that can be named can be a resource like Student, Employee etc.</li>
+                <li>REST is resource based API</li>
+                <li>Expose resources through URIs like
+                    http://host:80/api/employees/1111, It is based on Model nouns, not verbs
+                </li>
+                <li>Resources support
+                    limited set of operations – GET, PUT, POST, DELETE in case of HTTP. Example: update an employee use
+                    PUT to /employees/1111 and don’t POST
+                </li>
+                <li>Resources can support multiple
+                    representations like HTML, XML, JSON etc.
+                </li>
+                <li>Multiple URIs may refers to same resource as like CRUD
+                    operation on employee resource using HTTP verbs
+                </li>
+            </ul>
+        </div>
+        <div id="g1_3">
+            Idempotence (mathematics and computer science) - is the property of certain operations when they can be
+            <b>applied multiple times without changing</b> the result beyond the initial application.<br/><br/>
+            Idempotent operations in REST:
+            <ul>
+                <li>GET</li>
+                <li>HEAD</li>
+                <li>PUT</li>
+                <li>DELETE</li>
+            </ul>
+            Idempotence <b>allows requests caching</b> which leads to minimizing network load.
+
+        </div>
+        <div id="g1_4">
+            <ul>
+                <li>RESTful web services, <b>provide interoperability</b> between computer systems on the Internet (through
+                    API).
+                </li>
+                <li>Since good services are built to be stateless, they <b>can scale horizontally</b> just like regular web
+                    farms (a tried
+                    and trusted pattern). And once a good caching strategy is devised, load on servers and latency for
+                    consumers are both reduced.
+                </li>
+            </ul>
+        </div>
+        <div id="g1_5">
+            Most important codes:
+            <ul>
+                <li><b>200</b> OK</li>
+                <li>307 Temporary redirect</li>
+                <li><b>400</b> Bad request</li>
+                <li>401 Unauthorized</li>
+                <li>404 Not found</li>
+                <li>429 Too many requests</li>
+                <li><b>500</b> Internal server error</li>
+                <li>501 Not implemented</li>
+                <li>503 Service unavailable</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="g2_1">
+            Spring MVC is the core component for REST support so spring-webmvc.jar must be in the clsspath.<br/>
+            Can be configured by Spring Boot starter: <b>spring-boot-starter-web</b><br/><br/>
+
+            REST controller can be annotated with specialization of @Controller - <b>@RestController</b>.
+            (while @Controller is a stereotype - @RestController is not - defined in different package).
+            The difference is only that @RestController defines @ResponseBody<br/><br/>
+
+            Conversions (is done by <b>HttpMessageConverter</b> implementations):
+            <ul>
+                <li><b>@RequestBody</b> (can be applied on controller <b>method argument</b>) - access to the HTTP request
+                    body.
+                    Body content is converted to the declared method argument type by using HttpMessageConverter
+                    implementations
+                </li>
+                <li><b>@ResponseBody</b> (can be applied on controller <b>method</b>) serializes return value to the
+                    response body
+                    (versus view resolution and rendering with an HTML template)
+                </li>
+            </ul>
+            <br/>
+
+            In addition to <b>@RequestMapping</b> annotation there are also HTTP method specific specializations:
+            <ul>
+                <li>@GetMapping</li>
+                <li>@PostMapping</li>
+                <li>@PutMapping</li>
+                <li>@DeleteMapping</li>
+                <li>@PatchMapping</li>
+            </ul>
+            <br/>
+        </div>
+        <div id="g2_2">
+            <b>@ResponseStatus</b> defines what "code" and "reason" must controller method return.<br/><br/>
+
+            The MVC Config automatically declares built-in resolvers for default Spring MVC exceptions, for @ResponseStatus
+            annotated exceptions, and for support of @ExceptionHandler methods. You can customize that list or replace it.
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="g3_1">
+            <b>RestTemplate</b> - synchronous client to perform HTTP requests, exposing a simple, template method API over
+            underlying HTTP client libraries such as the JDK {HttpURLConnection}, Apache HttpComponents, and others.
+
+            <br/><br/>
+            <b>HttpMethod</b> class with constants that can be used in RestTemplate: GET, HEAD, POST, PUT, PATCH, DELETE,
+            OPTIONS, TRACE.
+
+            <br/><br/>
+            Example:<br/>
+            String url = "http://localhost:8080/users/{$username}";<br/>
+            User user = <b>restTemplate.getForObject</b>(url, User.class, "johncusack");
+
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+
+    <h1>Testing</h1>
+
+    <ul>
+        <li><b>Spring in testing:</b>
+            <a title="h1_1">configuration</a>
+            <a title="h1_2">@Transactional</a>
+            <a title="h1_3">mocks</a>
+            <a title="h1_4">Spring Boot</a>
+        </li>
+    </ul>
+
+    <div class="hidden">
+        <div id="h1_1">
+            <ul>
+                <li>Annotate test with <b>@RunWith(SpringJUnit4ClassRunner.class)</b></li>
+                <li>Annotate test with <b>@ContextConfiguration</b> (in case separate test configuration is needed)</li>
+                <li>use <b>@Autowired</b> to inject beans to be tested</li>
+            </ul><br/>
+            <b>TestContext</b> framework stores сreated <b>Application Contexts</b> in <b>static context cache</b>
+            by configuration's location as a key.
+            So if tests are running one by one using the same configuration - they will reuse the same AppContext.
+
+        </div>
+        <div id="h1_2">
+            <b>@Transactional</b> behavior provides ability (method level) to run tests against real DB without any
+            danger to the data - even if test deletes all the data in table those changes will be <b>automatically reverted</b> afterwards.
+            <br/><br/>
+            Transactional support is provided to a test via a <b>PlatformTransactionManager bean</b> defined in the test’s application context.
+        </div>
+        <div id="h1_3">
+            <b>Mockito</b> and <b>EasyMock</b> framework allows the creation of test double objects (mock objects) in
+            automated unit tests for the purpose of test-driven development (TDD) or behavior-driven development (BDD).
+
+            <br/><br/>
+            If mock object is wrapped with Spring Proxy developer can access target object and set some expected values using
+            following utils: AopUtils and AopProxyUtils. However there is no direct support of those libraries in Spring.
+        </div>
+        <div id="h1_4">
+            Test support is provided by two modules:
+            <ul>
+                <li><b>spring-boot-test</b> contains core items</li>
+                <li><b>spring-boot-test-autoconfigure</b> supports auto-configuration for tests</li>
+            </ul><br/>
+
+            The <b>spring-boot-starter-test</b> starter (in test scope) contains the following provided libraries:
+            <ul>
+                <li><b>JUnit</b>: The de-facto standard for unit testing Java applications.</li>
+                <li><b>Spring Test & Spring Boot Test</b>: Utilities and integration test support for Spring Boot applications.</li>
+                <li><b>AssertJ</b>: A fluent assertion library.</li>
+                <li><b>Hamcrest</b>: A library of matcher objects (also known as constraints or predicates).</li>
+                <li><b>Mockito</b>: A Java mocking framework.</li>
+                <li><b>JSONassert</b>: An assertion library for JSON.</li>
+                <li><b>JsonPath</b>: XPath for JSON.</li>
+            </ul><br/>
+            Spring Boot provides a <b>@SpringBootTest</b> with features:
+            <ul>
+                <li>Uses <b>SpringBootContextLoader</b> as the default ContextLoader when no specific
+                    @ContextConfiguration(loader=...)</li>
+                <li>Searches for a <b>@SpringBootConfiguration</b> when nested @Configuration is not used,
+                    and no explicit classes are specified.</li>
+                <li>Allows <b>custom Environment</b> properties to be defined using the properties attribute.</li>
+                <li>Provides support for different <b>webEnvironment modes</b>, including the ability to <b>start a fully running
+                    web server</b> listening on a defined or random port.</li>
+                <li>Registers a <b>TestRestTemplate</b> and/or <b>WebTestClient</b> bean for use in web tests that are using a fully
+                    running web server.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
