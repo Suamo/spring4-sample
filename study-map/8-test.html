@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .tooltip-inner b {
+            color: lawngreen;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+            max-width: 400px;
+            width: 400px;
+        }
+
+        .tooltip-inner table tr {
+            border-bottom: 1px solid white;
+        }
+
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+
+        body > ul > li {
+            padding-bottom: 10px;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto right");
+                link.setAttribute("data-html", "true");
+                link.setAttribute("class", "label label-info");
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+
+    </script>
+</head>
+<body onload="changeTitles()" class="container">
+<h1>Testing</h1>
+
+<ul>
+    <li><b>Spring in testing:</b>
+        <a title="h1_1">main modules</a>
+        <a title="h1_2">advantages (simplification)</a>
+        <a title="h1_3">app context configuration, shared app context</a>
+        <a title="h1_4">usage</a>
+        <a title="h1_4">@SpringBootTest and interaction with @SpringBootApplication and @SpringBootConfiguration</a>
+    </li>
+    <li><b>:</b>
+        <a title="h2_1">Test types that Spring is used for</a>
+        <a title="h2_2">@Transactional in testing</a>
+    </li>
+    <li><b>mock frameworks:</b>
+        <a title="h2_1">Mockito</a>
+        <a title="h2_2">EasyMock</a>
+    </li>
+</ul>
+
+<div class="hidden">
+    <div id="h1_1">
+
+    </div>
+    <div id="h1_2">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="h2_1">
+
+    </div>
+    <div id="h2_2">
+
+    </div>
+</div>
+
+<div class="hidden">
+    <div id="h3_1">
+
+    </div>
+    <div id="h3_2">
+
+    </div>
+</div>
+
+</body>
+</html>
