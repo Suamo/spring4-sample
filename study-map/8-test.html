@@ -67,46 +67,68 @@
 
 <ul>
     <li><b>Spring in testing:</b>
-        <a title="h1_1">main modules</a>
-        <a title="h1_2">advantages (simplification)</a>
-        <a title="h1_3">app context configuration, shared app context</a>
-        <a title="h1_4">usage</a>
-        <a title="h1_4">@SpringBootTest and interaction with @SpringBootApplication and @SpringBootConfiguration</a>
-    </li>
-    <li><b>:</b>
-        <a title="h2_1">Test types that Spring is used for</a>
-        <a title="h2_2">@Transactional in testing</a>
-    </li>
-    <li><b>mock frameworks:</b>
-        <a title="h2_1">Mockito</a>
-        <a title="h2_2">EasyMock</a>
+        <a title="h1_1">configuration</a>
+        <a title="h1_2">@Transactional</a>
+        <a title="h1_3">mocks</a>
+        <a title="h1_4">Spring Boot</a>
     </li>
 </ul>
 
 <div class="hidden">
     <div id="h1_1">
+        <ul>
+            <li>Annotate test with <b>@RunWith(SpringJUnit4ClassRunner.class)</b></li>
+            <li>Annotate test with <b>@ContextConfiguration</b> (in case separate test configuration is needed)</li>
+            <li>use <b>@Autowired</b> to inject beans to be tested</li>
+        </ul><br/>
+        <b>TestContext</b> framework stores сreated <b>Application Contexts</b> in <b>static context cache</b>
+        by configuration's location as a key.
+        So if tests are running one by one using the same configuration - they will reuse the same AppContext.
 
     </div>
     <div id="h1_2">
-
+        <b>@Transactional</b> behavior provides ability (method level) to run tests against real DB without any
+        danger to the data - even if test deletes all the data in table those changes will be <b>automatically reverted</b> afterwards.
+        <br/><br/>
+        Transactional support is provided to a test via a <b>PlatformTransactionManager bean</b> defined in the test’s application context.
     </div>
-</div>
+    <div id="h1_3">
+        <b>Mockito</b> and <b>EasyMock</b> framework allows the creation of test double objects (mock objects) in
+        automated unit tests for the purpose of test-driven development (TDD) or behavior-driven development (BDD).
 
-<div class="hidden">
-    <div id="h2_1">
-
+        <br/><br/>
+        If mock object is wrapped with Spring Proxy developer can access target object and set some expected values using
+        following utils: AopUtils and AopProxyUtils. However there is no direct support of those libraries in Spring.
     </div>
-    <div id="h2_2">
+    <div id="h1_4">
+        Test support is provided by two modules:
+        <ul>
+            <li><b>spring-boot-test</b> contains core items</li>
+            <li><b>spring-boot-test-autoconfigure</b> supports auto-configuration for tests</li>
+        </ul><br/>
 
-    </div>
-</div>
-
-<div class="hidden">
-    <div id="h3_1">
-
-    </div>
-    <div id="h3_2">
-
+        The <b>spring-boot-starter-test</b> starter (in test scope) contains the following provided libraries:
+        <ul>
+            <li><b>JUnit</b>: The de-facto standard for unit testing Java applications.</li>
+            <li><b>Spring Test & Spring Boot Test</b>: Utilities and integration test support for Spring Boot applications.</li>
+            <li><b>AssertJ</b>: A fluent assertion library.</li>
+            <li><b>Hamcrest</b>: A library of matcher objects (also known as constraints or predicates).</li>
+            <li><b>Mockito</b>: A Java mocking framework.</li>
+            <li><b>JSONassert</b>: An assertion library for JSON.</li>
+            <li><b>JsonPath</b>: XPath for JSON.</li>
+        </ul><br/>
+        Spring Boot provides a <b>@SpringBootTest</b> with features:
+        <ul>
+            <li>Uses <b>SpringBootContextLoader</b> as the default ContextLoader when no specific
+                @ContextConfiguration(loader=...)</li>
+            <li>Searches for a <b>@SpringBootConfiguration</b> when nested @Configuration is not used,
+                and no explicit classes are specified.</li>
+            <li>Allows <b>custom Environment</b> properties to be defined using the properties attribute.</li>
+            <li>Provides support for different <b>webEnvironment modes</b>, including the ability to <b>start a fully running
+                web server</b> listening on a defined or random port.</li>
+            <li>Registers a <b>TestRestTemplate</b> and/or <b>WebTestClient</b> bean for use in web tests that are using a fully
+                running web server.</li>
+        </ul>
     </div>
 </div>
 
