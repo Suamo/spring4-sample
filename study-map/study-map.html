@@ -49,7 +49,12 @@
                 link.setAttribute("data-toggle", "tooltip");
                 link.setAttribute("data-placement", "auto right");
                 link.setAttribute("data-html", "true");
-                link.setAttribute("class", "label label-info");
+                let current = link.getAttribute("class");
+                if (current) {
+                    link.setAttribute("class", current + " label");
+                } else {
+                    link.setAttribute("class", "label label-info");
+                }
                 if (tooltip) {
                     link.setAttribute("title", tooltip.innerHTML);
                 }
@@ -58,8 +63,6 @@
                 $('[data-toggle="tooltip"]').tooltip();
             });
         }
-
-
     </script>
 </head>
 <body onload="changeTitles()" class="container">
@@ -71,7 +74,7 @@
     <ul>
         <li><b>Application context:</b>
             <a title="a1_1">what is</a>
-            <a title="a1_2">lifecycle</a>
+            <a title="a1_2" class="label-warning">lifecycle</a>
             <a title="a1_3">configuration</a>
             <a title="a1_4">creation</a>
             <a title="a1_5">usage in test</a>
@@ -162,7 +165,7 @@
         </div>
         <div id="a1_4">
             <ul>
-                <li>new ClassPathXmlApplicationContext("lifacycle-config.xml");</li>
+                <li>new ClassPathXmlApplicationContext("lifecycle-config.xml");</li>
                 <li>new AnnotationConfigApplicationContext(JavaApplicationConfig.class);</li>
             </ul>
         </div>
