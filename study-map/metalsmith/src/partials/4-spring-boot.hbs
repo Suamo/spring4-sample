@@ -1,64 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        a {
-            cursor: pointer;
-        }
-
-        .tooltip-inner b {
-            color: lawngreen;
-        }
-
-        .tooltip-inner {
-            text-align: left;
-            max-width: 400px;
-            width: 400px;
-        }
-
-        .tooltip-inner table tr {
-            border-bottom: 1px solid white;
-        }
-
-        .tooltip-inner ul {
-            padding-left: 15px;
-        }
-
-        body > ul > li {
-            padding-bottom: 10px;
-        }
-
-        .hidden {
-            visibility: hidden;
-        }
-    </style>
-    <script>
-        function changeTitles() {
-            let links = document.getElementsByTagName("a");
-            for (let link of links) {
-                let tooltipId = link.attributes.title.value;
-                let tooltip = document.getElementById(tooltipId);
-                link.setAttribute("data-toggle", "tooltip");
-                link.setAttribute("data-placement", "auto right");
-                link.setAttribute("data-html", "true");
-                link.setAttribute("class", "label label-info");
-                if (tooltip) {
-                    link.setAttribute("title", tooltip.innerHTML);
-                }
-            }
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        }
-    </script>
-</head>
-<body onload="changeTitles()" class="container">
 <h1>Spring Boot</h1>
 
 <ul>
@@ -75,16 +14,19 @@
 
 <div class="hidden">
     <div id="c1_1">
-        Spring Boot is used to build stand-alone and production ready spring applications.<br/>
+        Spring Boot is used to build stand-alone and production ready spring applications.<br />
         Feature:
         <ul>
             <li>Create <b>stand-alone</b> Spring applications</li>
             <li><b>Embed Tomcat, Jetty or Undertow</b> directly (no need to deploy WAR files)</li>
-            <li>Provide <b>opinionated*</b> 'starter' dependencies to simplify your build configuration</li>
+            <li>Provide
+                <b>opinionated*</b> 'starter' dependencies to simplify your build configuration
+            </li>
             <li><b>Automatically configure</b> Spring and 3rd party libraries whenever possible</li>
             <li>Provide production-ready features such as metrics, health checks and externalized configuration</li>
             <li>Absolutely no code generation and no requirement for XML configuration</li>
-        </ul><br/>
+        </ul>
+        <br />
         * Opinionated: Spring scans dependencies from classpath and adds support for different
         components by initializing “maybe” required beans. For example if it sees a dependency on Thymeleaf,
         3 beans that Thymeleaf uses are automatically initialized: ThymeleafViewResolver, SpringTemplateEngine,
@@ -101,14 +43,15 @@
     </div>
     <div id="c1_3">
         <b>@EnableAutoConfiguration</b> - enables auto-configuration of the Application Context (opinionated view)
-        <br/><br/>
+        <br /><br />
 
         <b>@SpringBootApplication</b> - just convenient annotation that is
         meta-annotated with @Configuration, @EnableAutoConfiguration and @ComponentScan.
     </div>
     <div id="c1_4">
         common annotations and configuration properties
-        SpringApplication loads properties from <b>application.properties</b> (or <b>yml/yaml</b>) files in the
+        SpringApplication loads properties from <b>application.properties</b> (or
+        <b>yml/yaml</b>) files in the
         following locations and adds them to the Spring Environment:
         <ul>
             <li><b>current directory /config</b></li>
@@ -123,7 +66,8 @@
             <li><b>Tomcat</b></li>
             <li><b>Jetty</b></li>
             <li><b>Undertow</b></li>
-        </ul><br/>
+        </ul>
+        <br />
 
         Jar vs War
         <ul>
@@ -132,18 +76,24 @@
         </ul>
     </div>
     <div id="c1_6">
-        Maven users can inherit from the <b>spring-boot-starter-parent</b> project to obtain sensible defaults.<br/><br/>
+        Maven users can inherit from the
+        <b>spring-boot-starter-parent</b> project to obtain sensible defaults.<br /><br />
         Features:
         <ul>
             <li><b>Java 1.8</b> as the default</li>
             <li><b>UTF-8</b> source encoding</li>
             <li>A Dependency Management section, inherited from the spring-boot-dependencies pom, that manages
-                the <b>versions of common dependencies</b>. This dependency management lets you omit < version> tags for those
-                    dependencies when used in your own pom.
+                the
+                <b>versions of common dependencies</b>. This dependency management lets you omit < version> tags for those
+                dependencies when used in your own pom.
             </li>
-            <li>Pom properties can be used in project properties (or yml) using <b>@..@</b> placeholders</li>
+            <li>Pom properties can be used in project properties (or yml) using
+                <b>@..@</b> placeholders
+            </li>
             <li>Additional <b>plugin configurations</b> (exec plugin, Git commit ID, and shade)</li>
-            <li><b>profile-specific resource filtering</b> (e.g. application-dev.properties and application-dev.yml)</li>
+            <li>
+                <b>profile-specific resource filtering</b> (e.g. application-dev.properties and application-dev.yml)
+            </li>
         </ul>
     </div>
     <div id="c1_7">
@@ -151,9 +101,12 @@
         <ul>
             <li>add the required dependencies to the classpat</li>
             <li>configure the required framework using application.properties or framework-specific
-                configuration file placed in the classpath</li>
-        </ul><br/>
-        Spring Boot uses <b>Commons Logging</b> for all internal logging but leaves the underlying log implementation open.<br/><br/>
+                configuration file placed in the classpath
+            </li>
+        </ul>
+        <br />
+        Spring Boot uses
+        <b>Commons Logging</b> for all internal logging but leaves the underlying log implementation open.<br /><br />
         Default configurations are provided for;
         <ul>
             <li>Java Util Logging</li>
@@ -162,6 +115,3 @@
         </ul>
     </div>
 </div>
-
-</body>
-</html>

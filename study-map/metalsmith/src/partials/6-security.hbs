@@ -1,68 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        a {
-            cursor: pointer;
-        }
-
-        .tooltip-inner b {
-            color: lawngreen;
-        }
-
-        .tooltip-inner {
-            text-align: left;
-            max-width: 400px;
-            width: 400px;
-        }
-
-        .tooltip-inner table tr {
-            border-bottom: 1px solid white;
-        }
-
-        .tooltip-inner ul {
-            padding-left: 15px;
-        }
-
-        body > ul > li {
-            padding-bottom: 10px;
-        }
-
-        .hidden {
-            visibility: hidden;
-        }
-
-
-    </style>
-    <script>
-        function changeTitles() {
-            let links = document.getElementsByTagName("a");
-            for (let link of links) {
-                let tooltipId = link.attributes.title.value;
-                let tooltip = document.getElementById(tooltipId);
-                link.setAttribute("data-toggle", "tooltip");
-                link.setAttribute("data-placement", "auto right");
-                link.setAttribute("data-html", "true");
-                link.setAttribute("class", "label label-info");
-                if (tooltip) {
-                    link.setAttribute("title", tooltip.innerHTML);
-                }
-            }
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        }
-
-
-    </script>
-</head>
-<body onload="changeTitles()" class="container">
 <h1>Security</h1>
 <ul>
     <li><b>Overview:</b>
@@ -86,7 +21,8 @@
         Spring Security is a cross cutting concern.
         implemented in the following two ways depending on what is to be secured:
         <ul>
-            <li>Using a Spring <b>AOP proxy</b> that inherits from the AbstractSecurityInterceptor class.
+            <li>Using a Spring
+                <b>AOP proxy</b> that inherits from the AbstractSecurityInterceptor class.
                 Applied to method invocation authorization on objects secured with Spring Security.
             </li>
             <li>Spring Security’s web infrastructure is based entirely on <b>servlet filters</b>.
@@ -97,14 +33,18 @@
     </div>
     <div id="f1_2">
         <ul>
-            <li><b>Authentication</b> is the process of identifying whether this user exists (come first)</li>
-            <li><b>Authorization</b> is the process of determining what it may or may not do (roles, permissions)</li>
+            <li>
+                <b>Authentication</b> is the process of identifying whether this user exists (come first)
+            </li>
+            <li>
+                <b>Authorization</b> is the process of determining what it may or may not do (roles, permissions)
+            </li>
         </ul>
     </div>
     <div id="f1_3">
         Method-level security is commonly applied to services in the service layer of an application. Implemented by AOP
         Proxies.
-        <br/><br/>
+        <br /><br />
         Approaches:
         <ul>
             <li><b>@PreAuthorize</b>
@@ -127,7 +67,7 @@
                 </ul>
             </li>
         </ul>
-        *both annotations can be applied on class or method levels<br/><br/>
+        *both annotations can be applied on class or method levels<br /><br />
 
         Other security annotation and use SpEL:
         <ul>
@@ -139,34 +79,38 @@
 
     </div>
     <div id="f1_4">
-        In order to protect JSP elements Spring <b>Security taglib</b> have to be used.<br/><br/>
+        In order to protect JSP elements Spring <b>Security taglib</b> have to be used.<br /><br />
 
 
         Examples:
         <ul>
-            <li><b>declaring</b><br/>
+            <li><b>declaring</b><br />
                 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
             </li>
-            <li><b>authorize</b> tag: visibility by condition<br/>
+            <li><b>authorize</b> tag: visibility by condition<br />
                 < sec:authorize access="hasRole('aadministrator')"> Visible if "access" expression is true<
                 /sec:authorize>
             </li>
-            <li><b>authentication</b> tag: allows for accessing the Authentication object in the current security
-                context<br/>
+            <li>
+                <b>authentication</b> tag: allows for accessing the Authentication object in the current security
+                context<br />
                 < sec:authentication property="principal.username" />
             </li>
-            <li><b>accesscontrollist</b> tag (deprecated, use authorize tag): checks a list of permissions for a specific
-                domain object<br/>
+            <li>
+                <b>accesscontrollist</b> tag (deprecated, use authorize tag): checks a list of permissions for a specific
+                domain object<br />
                 < sec:accesscontrollist hasPermission="5, 7" domainObject="${order}">
             </li>
             <li>when cross-site request forgery (CSRF) protection is enabled
                 <ul>
-                    <li><b>csrfInput</b> tag inserts a hidden form with the name and value of the CSRF protection token
-                        in the rendered page<br/>
+                    <li>
+                        <b>csrfInput</b> tag inserts a hidden form with the name and value of the CSRF protection token
+                        in the rendered page<br />
                         < form action="login" method="post">< sec:csrfInput/>// fields //< /form>
                     </li>
-                    <li><b>csrfMetaTags</b> tag inserts meta tags containing the CSRF protection token form field and header
-                        names and CSRF protection token value. These meta tags can then be accessed from JavaScript in your application.<br/>
+                    <li>
+                        <b>csrfMetaTags</b> tag inserts meta tags containing the CSRF protection token form field and header
+                        names and CSRF protection token value. These meta tags can then be accessed from JavaScript in your application.<br />
                         < sec:csrfMetaTags />< script> var csrfToken = $("meta[name='_csrf']").attr("content");
                     </li>
                 </ul>
@@ -177,13 +121,16 @@
 
 <div class="hidden">
     <div id="f2_1">
-        The <b>DelegatingFilterProxy</b> class implements the javax.servlet.Filter interface and thus is a <b>servlet
-        filter</b>.
+        The
+        <b>DelegatingFilterProxy</b> class implements the javax.servlet.Filter interface and thus is a
+        <b>servlet
+            filter</b>.
         DelegatingFilterProxy provides the link between web.xml and the application context.
     </div>
     <div id="f2_2">
-        The security filter chain implements the <b>SecurityFilterChain</b> interface and the only implementation
-        provided by Spring Security is the <b>DefaultSecurityFilterChain</b> class.<br/><br/>
+        The security filter chain implements the
+        <b>SecurityFilterChain</b> interface and the only implementation
+        provided by Spring Security is the <b>DefaultSecurityFilterChain</b> class.<br /><br />
         There are two parts:
         <ul>
             <li><b>request matcher</b> - determines whether the filters in the
@@ -195,44 +142,55 @@
     <div id="f2_3">
         <b>SecurityContext</b> interface, which defines the minimum security information associated with a thread of
         execution.
-        <br/><br/>
+        <br /><br />
         There are two methods:
         <ul>
             <li>setting an object that implements the Authentication</li>
             <li>retrieving an object that implements the Authentication</li>
         </ul>
-        The <b>Authentication</b> interface defines the properties of an object that represents a <b>security token</b>
-        for <b>authentication request</b> (prior to authentication) and <b>authenticated principal</b> (after
+        The <b>Authentication</b> interface defines the properties of an object that represents a
+        <b>security token</b>
+        for <b>authentication request</b> (prior to authentication) and
+        <b>authenticated principal</b> (after
         authentication).
     </div>
     <div id="f2_4">
-        The <<b>intercept-url</b>> element specifies WHO will be able to access whit URL resources<br/><br/>
+        The <<b>intercept-url</b>> element specifies WHO will be able to access whit URL resources<br /><br />
         Attributes:
         <ul>
-            <li><b>access</b>: Access attributes, commonly role names, specifying the user(s) that has access</li>
-            <li><b>filters</b>: Omitted or having the value “none”. In the latter case the Spring Security filter chain
+            <li>
+                <b>access</b>: Access attributes, commonly role names, specifying the user(s) that has access
+            </li>
+            <li>
+                <b>filters</b>: Omitted or having the value “none”. In the latter case the Spring Security filter chain
                 for
                 the URL pattern will be bypassed.
             </li>
-            <li><b>method</b>: HTTP method used with URL pattern and, optionally, servlet path to match requests.
+            <li>
+                <b>method</b>: HTTP method used with URL pattern and, optionally, servlet path to match requests.
                 If omitted all HTTP methods will match.
             </li>
-            <li><b>pattern</b>: URL path pattern for which the Spring Security filter chain will be applied.</li>
-            <li><b>request-matcher-ref</b>: Reference to RequestMatcher bean used to determine if this
+            <li>
+                <b>pattern</b>: URL path pattern for which the Spring Security filter chain will be applied.
+            </li>
+            <li>
+                <b>request-matcher-ref</b>: Reference to RequestMatcher bean used to determine if this
                 intercept-url will be used.
                 <ul>
-                    <li><b>requires-channel</b>: Possible values are “http”, “https” and “any”. The first two are for
+                    <li>
+                        <b>requires-channel</b>: Possible values are “http”, “https” and “any”. The first two are for
                         access over
                         HTTP and HTTPS respectively. Omitting this attribute or using the value “any” matches both HTTP
                         and HTTPS.
                     </li>
-                    <li><b>servlet-path</b>: Servlet path used in combination with method and pattern to match requests.
+                    <li>
+                        <b>servlet-path</b>: Servlet path used in combination with method and pattern to match requests.
                         Optional.
                     </li>
                 </ul>
             </li>
         </ul>
-        <br/>
+        <br />
         <b>Multiple intercept-url</b> elements may be defined and they will be evaluated in the order in which they are
         defined.
         When an intercept-url element with a matching pattern is found, evaluation stops.
@@ -256,7 +214,7 @@
                 </ul>
             </li>
         </ul>
-        <br/>
+        <br />
         * and ** patterns:
         <ul>
             <li><b>*</b> Matches any path on the level at which the wildcard occur.
@@ -270,10 +228,7 @@
     </div>
     <div id="f2_6">
         <b>Hashing</b> process is referred to as password encoding and is implemented using the PasswordEncoder
-        interface.<br/><br/>
+        interface.<br /><br />
         <b>Salt</b> is used as additional input for hashing password. Salts are used to safeguard passwords in storage.
     </div>
 </div>
-
-</body>
-</html>

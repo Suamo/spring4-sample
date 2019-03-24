@@ -1,0 +1,10 @@
+a {
+    border-bottom: .1em solid transparent;
+    text-decoration: none;
+    color: var(--colour-link-primary);
+    transition: border-color .2s;
+}
+
+a:hover {
+    border-color: var(--colour-grey-light);
+}

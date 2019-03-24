@@ -1,60 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        a {
-            cursor: pointer;
-        }
-
-        .tooltip-inner b {
-            color: lawngreen;
-        }
-
-        .tooltip-inner {
-            text-align: left;
-            max-width: 400px;
-            width: 400px;
-        }
-
-        .tooltip-inner ul {
-            padding-left: 15px;
-        }
-
-        body > ul > li {
-            padding-bottom: 10px;
-        }
-
-        .hidden {
-            visibility: hidden;
-        }
-    </style>
-    <script>
-        function changeTitles() {
-            let links = document.getElementsByTagName("a");
-            for (let link of links) {
-                let tooltipId = link.attributes.title.value;
-                let tooltip = document.getElementById(tooltipId);
-                link.setAttribute("data-toggle", "tooltip");
-                link.setAttribute("data-placement", "auto right");
-                link.setAttribute("data-html", "true");
-                link.setAttribute("class", "label label-info");
-                if (tooltip) {
-                    link.setAttribute("title", tooltip.innerHTML);
-                }
-            }
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        }
-    </script>
-</head>
-<body onload="changeTitles()" class="container">
 <h1>AOP</h1>
 <ul>
     <li><b>AOP:</b>
@@ -92,7 +35,7 @@
     </div>
     <div id="b1_3">
         Once @AspectJ support enabled - all @Aspect classes will be automatically detected and used to configure
-        AOP.<br/><br/>
+        AOP.<br /><br />
         Enabling AspectJ support:
         <ul>
             <li>Java config: @EnableAspectJAutoProxy</li>
@@ -103,7 +46,7 @@
 
 <div class="hidden">
     <div id="b2_1">
-        Is a class containing code specific to a cross-cutting concern (pointcuts and advices).<br/><br/>
+        Is a class containing code specific to a cross-cutting concern (pointcuts and advices).<br /><br />
         In code:
         <ul>
             <li>Java: <b>@Aspect</b></li>
@@ -111,40 +54,43 @@
         </ul>
     </div>
     <div id="b2_2">
-        Is an action taken by an aspect at a particular join point<br/><br/>
+        Is an action taken by an aspect at a particular join point<br /><br />
         In code:
         <ul>
-            <li><b>@Before</b> executes before a join point. Execution of join point cannot be stopped unless unless an
+            <li>
+                <b>@Before</b> executes before a join point. Execution of join point cannot be stopped unless unless an
                 exception is thrown.
             </li>
-            <li><b>@AfterReturning</b> executed after a join point completes normally (without throwing an exception)
+            <li>
+                <b>@AfterReturning</b> executed after a join point completes normally (without throwing an exception)
             </li>
             <li><b>@AfterThrowing</b> executed if a method exits by throwing an exception</li>
             <li><b>@After</b> executed if method executed normally or with exception</li>
-            <li><b>@Around</b> executed instead of join point method. Join Point method can be called manually by
+            <li>
+                <b>@Around</b> executed instead of join point method. Join Point method can be called manually by
                 ProceedingJoinPoint.proceed.
                 The only advice which can try/catch exceptions of join point.
             </li>
         </ul>
-        <br/>
+        <br />
         Advices can receive JoinPoint as a method argument. @Around can also get ProceedingJoinPoint.
     </div>
     <div id="b2_3">
         A cross-cutting concern is a logic in an application that cannot be decomposed from the rest of the application
         and may result in code duplication and tight coupling
-        <br/><br/>
+        <br /><br />
         In code:
         <ul>
             <li><b>logic that can be adviced</b></li>
         </ul>
-        <br/>
+        <br />
         Examples of cross-cutting concerns:
         <ul>
             <li>Logging</li>
             <li>Security</li>
             <li>Transaction management</li>
         </ul>
-        <br/>
+        <br />
         Problems if cross-cutting concerns not used:
         <ul>
             <li>Scattering (code duplication)</li>
@@ -152,8 +98,8 @@
         </ul>
     </div>
     <div id="b2_4">
-        Is an expression that identifies which join point advice should be bind to.<br/>
-        Pointcut expressions are defined using AspectJ Pointcut Expression Language.<br/><br/>
+        Is an expression that identifies which join point advice should be bind to.<br />
+        Pointcut expressions are defined using AspectJ Pointcut Expression Language.<br /><br />
         In code:
         <ul>
             <li>@Before(<b>"execution(* path.to.MyAopBean.checkPointcut(..))"</b>)</li>
@@ -162,7 +108,7 @@
                 - for cases when the same point cut expression is duplicated in many advices
             </li>
         </ul>
-        <br/>
+        <br />
 
         Spring AOP supports the following AspectJ pointcut designators
         <ul>
@@ -197,7 +143,8 @@
                     <li>recommended to use</li>
                     <li>proxy will implement the same interface as target object</li>
                 </ul>
-            </li><br/>
+            </li>
+            <br />
             <li>CGLIB proxy
                 <ul>
                     <li>is default for @Configuration and other beans with no interface</li>
@@ -213,7 +160,8 @@
         <ul>
             <li>pure Java implementation</li>
             <li>close integration with Spring</li>
-        </ul><br/>
+        </ul>
+        <br />
         Disadvantages
         <ul>
             <li>only methods join points (no field interception)</li>
@@ -222,6 +170,3 @@
         </ul>
     </div>
 </div>
-
-</body>
-</html>

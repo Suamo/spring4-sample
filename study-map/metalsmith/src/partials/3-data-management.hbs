@@ -1,64 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        a {
-            cursor: pointer;
-        }
-
-        .tooltip-inner b {
-            color: lawngreen;
-        }
-
-        .tooltip-inner {
-            text-align: left;
-            max-width: 400px;
-            width: 400px;
-        }
-
-        .tooltip-inner table tr {
-            border-bottom: 1px solid white;
-        }
-
-        .tooltip-inner ul {
-            padding-left: 15px;
-        }
-
-        body > ul > li {
-            padding-bottom: 10px;
-        }
-
-        .hidden {
-            visibility: hidden;
-        }
-    </style>
-    <script>
-        function changeTitles() {
-            let links = document.getElementsByTagName("a");
-            for (let link of links) {
-                let tooltipId = link.attributes.title.value;
-                let tooltip = document.getElementById(tooltipId);
-                link.setAttribute("data-toggle", "tooltip");
-                link.setAttribute("data-placement", "auto right");
-                link.setAttribute("data-html", "true");
-                link.setAttribute("class", "label label-info");
-                if (tooltip) {
-                    link.setAttribute("title", tooltip.innerHTML);
-                }
-            }
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        }
-    </script>
-</head>
-<body onload="changeTitles()" class="container">
 <h1>Data Management</h1>
 <ul>
     <li><b>Exceptions:</b>
@@ -149,7 +88,7 @@
         </ul>
     </div>
     <div id="c2_2">
-        Package: org.springframework.jdbc.datasource<br/><br/>
+        Package: org.springframework.jdbc.datasource<br /><br />
         Hierarchy:
         <ul>
             <li>(i) javax.sql.DataSource
@@ -164,10 +103,12 @@
                             <li>AbstractDriverBasedDataSource
                                 <ul>
                                     <li><b>SimpleDriverDataSource</b></li>
-                                    <li><b>DriverManagerDataSource</b> - every time uses new Connection and closes is
+                                    <li>
+                                        <b>DriverManagerDataSource</b> - every time uses new Connection and closes is
                                         after use
                                         <ul>
-                                            <li><b>SingleConnectionDataSource</b> - connection is not closed after each
+                                            <li>
+                                                <b>SingleConnectionDataSource</b> - connection is not closed after each
                                                 use
                                             </li>
                                         </ul>
@@ -189,14 +130,14 @@
                 </ul>
             </li>
         </ul>
-        <br/>
+        <br />
 
         DataSources Builders:
         <ul>
             <li>DataSourceBuilder (Boot)</li>
             <li><b>EmbeddedDatabaseBuilder</b></li>
         </ul>
-        <br/>
+        <br />
 
         Spring Boot can auto-configure embedded:
         <ul>
@@ -206,16 +147,16 @@
         </ul>
     </div>
     <div id="c2_3">
-        < jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/><br/>
-        < bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" /><br/>
+        < jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/><br />
+        < bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" /><br />
         (doesn't need to know about datasource
     </div>
 </div>
 
 <div class="hidden">
     <div id="c3_1">
-        JdbcTemplate is a JDBC approac.<br/>
-        Named so because of a Template Method pattern that it's based on.<br/><br/>
+        JdbcTemplate is a JDBC approac.<br />
+        Named so because of a Template Method pattern that it's based on.<br /><br />
         Features:
         <ul>
             <li>creation of statements</li>
@@ -226,24 +167,31 @@
         </ul>
     </div>
     <div id="c3_2">
-        callback ("call-after" function) - called after thother function execution.<br/><br/>
+        callback ("call-after" function) - called after thother function execution.<br /><br />
 
         Main JdbcTemplate callbacks:
         <ul>
-            <li><b>PreparedStatementCreator</b> prepare parametrized precompiled statement from a Connection for queries
+            <li>
+                <b>PreparedStatementCreator</b> prepare parametrized precompiled statement from a Connection for queries
             </li>
-            <li><b>CallableStatementCreator</b> prepare parametrized statement from a Connection to execute SQL stored
+            <li>
+                <b>CallableStatementCreator</b> prepare parametrized statement from a Connection to execute SQL stored
                 procedures
             </li>
-            <li><b>RowCallbackHandler</b> jdbcTemplate uses RowMapper in methods that doesn't return values. Called for
+            <li>
+                <b>RowCallbackHandler</b> jdbcTemplate uses RowMapper in methods that doesn't return values. Called for
                 each ResultSet record separately.
             </li>
         </ul>
-        <br/>
+        <br />
         Alternative callback interfaces:
         <ul>
-            <li><b>RowMapper</b>called for each ResultSet record separately to convert it to a result object</li>
-            <li><b>ResultSetExtractor</b>called once for the whole ResultSet to convert it to a result object</li>
+            <li>
+                <b>RowMapper</b>called for each ResultSet record separately to convert it to a result object
+            </li>
+            <li>
+                <b>ResultSetExtractor</b>called once for the whole ResultSet to convert it to a result object
+            </li>
         </ul>
     </div>
     <div id="c3_3">
@@ -252,9 +200,9 @@
             <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
             <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
         </ul>
-        <br/>
+        <br />
 
-        Dynamic queries (with returning an entity) are possible with RowMapper.<br/>
+        Dynamic queries (with returning an entity) are possible with RowMapper.<br />
         If RowMapper is provided following JdbcTemplate methods can be used:
         <ul>
             <li><b>query()</b></li>
@@ -267,26 +215,30 @@
 
 <div class="hidden">
     <div id="c4_1">
-        A transaction (symbolizes a <b>unit of work</b>) is a series of operations such that either all occur, or
-        nothing occurs.<br/><br/>
-        Being cross-cutting concern in Spring is implemented with AOP.<br/><br/>
+        A transaction (symbolizes a
+        <b>unit of work</b>) is a series of operations such that either all occur, or
+        nothing occurs.<br /><br />
+        Being cross-cutting concern in Spring is implemented with AOP.<br /><br />
 
         The Unit of Work pattern is used to group one or more operations into a single
-        transaction, so that all operations either pass or fail as one.<br/>
-        JDBC AutoCommit mode forces to run each query as separate transaction. So <b>AutoCommit mode is opposite to
-        UnitOfWork</b>.
+        transaction, so that all operations either pass or fail as one.<br />
+        JDBC AutoCommit mode forces to run each query as separate transaction. So
+        <b>AutoCommit mode is opposite to
+            UnitOfWork</b>.
     </div>
     <div id="c4_2">
         <ul>
-            <li><b>Global transactions</b> handles multiple transactional resources (e.g. databases + message queues).
+            <li>
+                <b>Global transactions</b> handles multiple transactional resources (e.g. databases + message queues).
                 The application server manages global transactions through the JTA (with JNDI source).
             </li>
             <li><b>Local transactions</b> handles single transactional resources</li>
         </ul>
     </div>
     <div id="c4_3">
-        Defined by the <b>PlatformTransactionManager</b> interface with method <b>getTransaction</b> that
-        takes TransactionDefinition as an argument and returns TransactionStatus.<br/><br/>
+        Defined by the <b>PlatformTransactionManager</b> interface with method
+        <b>getTransaction</b> that
+        takes TransactionDefinition as an argument and returns TransactionStatus.<br /><br />
 
         <b>TransactionDefinition</b> defines transaction properties:
         <ul>
@@ -295,7 +247,7 @@
             <li>transaction timeout</li>
             <li>read-only status</li>
         </ul>
-        <br/>
+        <br />
 
         <b>TransactionStatus</b> - new or current transaction status with methods:
         <ul>
@@ -308,7 +260,7 @@
         </ul>
     </div>
     <div id="c4_4">
-        One of the transaction properties.<br/><br/>
+        One of the transaction properties.<br /><br />
         <table>
             <tr>
                 <th>Level</th>
@@ -336,28 +288,32 @@
                 <td>transactions are fully isolated</td>
             </tr>
         </table>
-        <br/>
+        <br />
         *default in most DBs
     </div>
     <div id="c4_5">
-        One of the transaction properties.<br/>
+        One of the transaction properties.<br />
         Propagation defines behavior of the target methods:
-        if they should be executed in an existing or new transaction, or no transaction at all.<br/><br/>
+        if they should be executed in an existing or new transaction, or no transaction at all.<br /><br />
         <ul>
             <li><b>REQUIRES_NEW</b>: create a new transaction, suspend any existing one</li>
             <li><b>MANDATORY</b>: use current transaction, throw exception if none exists</li>
             <li><b>REQUIRED</b>: use current transaction, if non exists – create one</li>
-            <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists</li>
-            <li><b>NEVER</b>: execute non-transactionally, throw exception if any transaction exists</li>
-            <li><b>NOT_SUPPORTED</b>: execute non-transactionally, suspend any existing transaction</li>
-            <li><b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else
+            <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists
+            </li>
+            <li><b>NEVER</b>: execute non-transactionally, throw exception if any transaction exists
+            </li>
+            <li><b>NOT_SUPPORTED</b>: execute non-transactionally, suspend any existing transaction
+            </li>
+            <li>
+                <b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else
                 behave like Propagation.REQUIRED
             </li>
         </ul>
     </div>
     <div id="c4_6">
         <ul>
-            <li><b>Declarative</b>: best for big amount of transactional operations.<br/>
+            <li><b>Declarative</b>: best for big amount of transactional operations.<br />
                 Configuration:
                 <ul>
                     <li><b>@EnableTransactionManagement</b> to configuration</li>
@@ -367,10 +323,12 @@
                 PlatformTransactionManager
                 implementation to drive transactions around method invocations.
             </li>
-            <li><b>Programming</b>: best for small number of transactional operations. Can set transaction name.<br/>
+            <li>
+                <b>Programming</b>: best for small number of transactional operations. Can set transaction name.<br />
                 Can be configured in two ways:
                 <ul>
-                    <li>use <b>PlatformTransactionManager</b> bean directly to initiate, roll back, and commit
+                    <li>use
+                        <b>PlatformTransactionManager</b> bean directly to initiate, roll back, and commit
                         transactions
                         (using the TransactionDefinition and TransactionStatus)
                     </li>
@@ -381,17 +339,20 @@
         ???? managing from JdbcTemplate
     </div>
     <div id="c4_7">
-        @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a <b>join point</b>.
+        @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a
+        <b>join point</b>.
         Method or class marked @Transactional will be covered in transactional behavior
-        (when method starts transaction will be opened and closed when the method finished).<br/><br/>
+        (when method starts transaction will be opened and closed when the method finished).<br /><br />
 
         If <b>one @Transactional method is calling another</b> on the same object instance:
-        since transaction-management is implemented using AOP - @Transactional annotation will have <b>no effect</b>
+        since transaction-management is implemented using AOP - @Transactional annotation will have
+        <b>no effect</b>
         on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.
     </div>
     <div id="c4_8">
-        Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is <b>marked for
-        rollback</b>.<br/>
+        Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is
+        <b>marked for
+            rollback</b>.<br />
         Types ot Exceptions for rollback can be changed (including checked exceptions):
         <ul>
             <li>XML: 'rollback-for' or 'no-rollback-for' attributes can be added to tx:method</li>
@@ -399,7 +360,7 @@
             <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName, noRollbackForClassName
             </li>
         </ul>
-        <br/>
+        <br />
 
         <b>@Transactional test is automatically rolled back</b> after completion when:
         <ul>
@@ -420,7 +381,7 @@
 
 <div class="hidden">
     <div id="c6_1">
-        <b>Object Relational Mapping</b> is meant to help us map our entities to the database tables.<br/><br/>
+        <b>Object Relational Mapping</b> is meant to help us map our entities to the database tables.<br /><br />
         Benefits
         <ul>
             <li>Easy mapping object model to data model</li>
@@ -428,7 +389,7 @@
             <li>Concurrency support</li>
             <li>Automatic management of: Cache, Connection pool, Transactions, Keys</li>
         </ul>
-        <br/>
+        <br />
 
         Disadvantages
         <ul>
@@ -439,12 +400,12 @@
         </ul>
     </div>
     <div id="c6_2">
-        <b>PersistenceContext</b> contains a set of entity instances that correspond to persistent entity identity.<br/>
-        <br/><br/>
+        <b>PersistenceContext</b> contains a set of entity instances that correspond to persistent entity identity.<br />
+        <br /><br />
 
         All the manipulations with the persistent instances are made using <b>EntityManager</b>.
         EntityManager writes, deletes and searches entities to database.
-        Injected viw @PersistenceContext.<br/><br/>
+        Injected viw @PersistenceContext.<br /><br />
 
         <b>@Entity</b> annotation is used to mark a class as an entity class that will be mapped to the database using
         ORM.
@@ -459,18 +420,22 @@
     <div id="c7_2">
         One of EntityManagerFactorys need to be configured:
         <ul>
-            <li><b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global
+            <li>
+                <b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global
                 transactions
             </li>
-            <li><b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence unit"
+            <li>
+                <b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence unit"
                 with
                 provicer and properties (persistence.xml or more programmically since Spring 3.1).
             </li>
         </ul>
-        Alternative is to use in a JEE-compliant container where <b>application server</b> bootstraps the JPA
+        Alternative is to use in a JEE-compliant container where
+        <b>application server</b> bootstraps the JPA
         persistence unit based on the information in the deployment descriptors. This allows Spring to look up
-        the entity manager via <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
-        configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1<br/><br/>
+        the entity manager via
+        <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
+        configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1<br /><br />
 
         <b>JpaTransactionManager</b> is the JPA PlatformTransactionManager implementation.
     </div>
@@ -481,16 +446,17 @@
 
 <div class="hidden">
     <div id="c8_1">
-        Is a simple way to create repoeitories.<br/>
+        Is a simple way to create repoeitories.<br />
         Can be done in two ways:
         <ul>
-            <li>extend repository interface with <b>Repository</b>, <b>CrudRepository</b> or <b>PagingAndSortingRepository</b></li>
+            <li>extend repository interface with <b>Repository</b>, <b>CrudRepository</b> or
+                <b>PagingAndSortingRepository</b></li>
             <li>annotate your repository interface with <b>@RepositoryDefinition</b></li>
         </ul>
     </div>
     <div id="c8_2">
         The query builder mechanism built into Spring Data repository infrastructure is building
-        constraining queries over entities of the repository.<br/>
+        constraining queries over entities of the repository.<br />
         The mechanism strips the following prefixes from the method and starts parsing the rest of it
         <ul>
             <li><b>find…By</b></li>
@@ -501,10 +467,7 @@
         </ul>
     </div>
     <div id="c8_3">
-        For more <b>complex queries</b>, you can annotate your method with <b>@Query</b>. Allows customization using SQL/JPQL.
+        For more <b>complex queries</b>, you can annotate your method with
+        <b>@Query</b>. Allows customization using SQL/JPQL.
     </div>
 </div>
-
-
-</body>
-</html>

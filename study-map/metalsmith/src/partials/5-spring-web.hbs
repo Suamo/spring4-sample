@@ -1,64 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        a {
-            cursor: pointer;
-        }
-
-        .tooltip-inner b {
-            color: lawngreen;
-        }
-
-        .tooltip-inner {
-            text-align: left;
-            max-width: 400px;
-            width: 400px;
-        }
-
-        .tooltip-inner table tr {
-            border-bottom: 1px solid white;
-        }
-
-        .tooltip-inner ul {
-            padding-left: 15px;
-        }
-
-        body > ul > li {
-            padding-bottom: 10px;
-        }
-
-        .hidden {
-            visibility: hidden;
-        }
-    </style>
-    <script>
-        function changeTitles() {
-            let links = document.getElementsByTagName("a");
-            for (let link of links) {
-                let tooltipId = link.attributes.title.value;
-                let tooltip = document.getElementById(tooltipId);
-                link.setAttribute("data-toggle", "tooltip");
-                link.setAttribute("data-placement", "auto right");
-                link.setAttribute("data-html", "true");
-                link.setAttribute("class", "label label-info");
-                if (tooltip) {
-                    link.setAttribute("title", tooltip.innerHTML);
-                }
-            }
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        }
-    </script>
-</head>
-<body onload="changeTitles()" class="container">
 <h1>Spring MVC</h1>
 
 <ul>
@@ -87,8 +26,9 @@
     <div id="e1_1">
         Spring Web MVC is the original web framework built on the Servlet API and has been included in the
         Spring Framework from the very beginning. The formal name, “<b>Spring Web MVC</b>,” comes from the name of its
-        source module (spring-webmvc), but it is more commonly known as “Spring MVC”.<br/><br/>
-        MVC is an abbreviation for a <b>Model–View–Controller</b> pattern that decouples major components
+        source module (spring-webmvc), but it is more commonly known as “Spring MVC”.<br /><br />
+        MVC is an abbreviation for a
+        <b>Model–View–Controller</b> pattern that decouples major components
         allowing for efficient code reuse and parallel development.
     </div>
     <div id="e1_2">
@@ -106,14 +46,16 @@
     <div id="e1_3">
         <b>DispatcherServlet</b> - front controller that provides a shared algorithm for
         request processing, while actual work is performed by configurable delegate controllers.
-        DispatcherServlet initializes WebApplicationContext (child of root ApplicationContext).<br/><br/>
+        DispatcherServlet initializes WebApplicationContext (child of root ApplicationContext).<br /><br />
 
         <b>WebApplicationContext</b> is an interface to provide configuration for a web application. Typically
         contains infrastructure beans, such as data repositories and business services that need to be shared across
         multiple Servlet instances. Supports additional scopes:
         <ul>
             <li><b>request</b></li>
-            <li><b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b></li>
+            <li>
+                <b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b>
+            </li>
             <li><b>application</b></li>
         </ul>
     </div>
@@ -127,7 +69,7 @@
     </div>
     <div id="e2_2">
         <b>@RequestMapping</b> maps incoming request to a controller or a method. Supported through a
-        RequestMappingHandlerMapping and RequestMappingHandlerAdapter.<br/><br/>
+        RequestMappingHandlerMapping and RequestMappingHandlerAdapter.<br /><br />
         Specializations (can be applied only to method):
         <ul>
             <li><b>GetMapping</b></li>
@@ -136,14 +78,16 @@
             <li>PutMapping</li>
             <li>(and mode)</li>
         </ul>
-        <br/>
+        <br />
     </div>
     <div id="e2_3">
         Mappling parameters:
         <ul>
-            <li><b>@PathVariable</b> maps method parameters from the URI path(e.g. http://foo.com/user<b>/33</b>)</li>
+            <li>
+                <b>@PathVariable</b> maps method parameters from the URI path(e.g. http://foo.com/user<b>/33</b>)
+            </li>
             <li><b>@RequestParam</b> maps method parameters from the URI query (e.g.
-                http://foo.com/user<b>?id=33</b>)<br/>
+                http://foo.com/user<b>?id=33</b>)<br />
                 <ul>
                     <li>For Map/MultiValueMap - populated with all request parameters</li>
                     <li>MultipartFile - representation of an uploaded file</li>
@@ -156,7 +100,7 @@
             <li>@ModelAttribute</li>
             <li>@SessionAttribute</li>
         </ul>
-        <br/>
+        <br />
 
         Controller method can receive following arguments (without any annotation):
         <ul>
@@ -185,27 +129,35 @@
     </div>
     <div id="e2_5">
         <ul>
-            <li><b>Mock</b> implementations of Servlet API contracts for unit testing <b>controllers</b>,
-                filters, and other web components</li>
-            <li>A framework, also known as <b>MockMvc</b>, for testing annotated controllers through the DispatcherServlet</li>
+            <li><b>Mock</b> implementations of Servlet API contracts for unit testing
+                <b>controllers</b>,
+                filters, and other web components
+            </li>
+            <li>A framework, also known as
+                <b>MockMvc</b>, for testing annotated controllers through the DispatcherServlet
+            </li>
         </ul>
     </div>
 </div>
 
 <div class="hidden">
     <div id="e3_1">
-        View is the base interface for different view technologies (XML, PDF, XLS etc.).<br/>
-        All handler methods in the Spring MVC controllers must resolve to a <b>logical view name</b>, either explicitly
-        (e.g., by returning a String, View, or ModelAndView) or implicitly (i.e., based on conventions)<br/>
-        Views in Spring are addressed by a logical view name and are resolved by a <b>view resolver</b>.
+        View is the base interface for different view technologies (XML, PDF, XLS etc.).<br />
+        All handler methods in the Spring MVC controllers must resolve to a
+        <b>logical view name</b>, either explicitly
+        (e.g., by returning a String, View, or ModelAndView) or implicitly (i.e., based on conventions)<br />
+        Views in Spring are addressed by a logical view name and are resolved by a
+        <b>view resolver</b>.
     </div>
     <div id="e3_2">
-        The right view is chosen by the <b>ViewResolver</b> bean that has to be registered in the container.
+        The right view is chosen by the
+        <b>ViewResolver</b> bean that has to be registered in the container.
         <ul>
             <li>The DispatcherServlet delegates to a ViewResolver to obtain View implementation based on view name.</li>
             <li>The default ViewResolver treats the view name as a Web Application-relative file path – i.e. a JSP: /WEB-INF/reward/list.jsp</li>
             <li>Override this default by registering a ViewResolver bean with the DispatcherServlet</li>
-        </ul><br/>
+        </ul>
+        <br />
 
         Some of View Resolvers in Spring MVC:
         <ul>
@@ -220,7 +172,8 @@
 <div class="hidden">
     <div id="e4_1">
         <b>Model</b> in Spring MVC represents processed data to be rendered in the view by the respective view resolver.
-        Is an object backed my a <b>Map of attributes</b> names and values that can be sent between client and server.<br/><br/>
+        Is an object backed my a
+        <b>Map of attributes</b> names and values that can be sent between client and server.<br /><br />
 
         Processing:
         <ul>
@@ -231,6 +184,3 @@
         Spring provide support to access the model in the view layer
     </div>
 </div>
-
-</body>
-</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Page not found</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+    
+        .tooltip-inner b {
+            color: lawngreen;
+        }
+    
+        .tooltip-inner {
+            text-align: left;
+            max-width: 400px;
+            width: 400px;
+        }
+    
+        .tooltip-inner table tr {
+            border-bottom: 1px solid white;
+        }
+    
+        .tooltip-inner ul {
+            padding-left: 15px;
+        }
+    
+        .hidden {
+            visibility: hidden;
+        }
+    
+    
+    </style>
+    <script>
+        function changeTitles() {
+            let links = document.getElementsByTagName("a");
+            for (let link of links) {
+                let tooltipId = link.attributes.title.value;
+                let tooltip = document.getElementById(tooltipId);
+                link.setAttribute("data-toggle", "tooltip");
+                link.setAttribute("data-placement", "auto right");
+                link.setAttribute("data-html", "true");
+                let current = link.getAttribute("class");
+                if (current) {
+                    link.setAttribute("class", current + " label");
+                } else {
+                    link.setAttribute("class", "label label-info");
+                }
+                if (tooltip) {
+                    link.setAttribute("title", tooltip.innerHTML);
+                }
+            }
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+    </script>
+</head>
+<body onload="changeTitles()" class="container">
+
+<article class="section error-message">
+    <h1 class="error-message-code">404</h1>
+    
+    <div class="error-message-detail">
+        <h2 class="error-message-title">Page not found</h2>
+        <p class="lead-paragraph">Nothing to see here! Try the <a href="/">homepage</a>.</p>
+    </div>
+</article>
+
+</body>
+</html>

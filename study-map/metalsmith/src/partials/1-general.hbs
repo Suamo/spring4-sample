@@ -1,61 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <style>
-        a {
-            cursor: pointer;
-        }
-
-        .tooltip-inner {
-            text-align: left;
-            max-width: 350px;
-            width: 350px;
-        }
-
-        .tooltip-inner ul {
-            padding-left: 15px;
-        }
-
-        body > ul > li {
-            padding-bottom: 10px;
-        }
-        
-        .hidden {
-            visibility:hidden;
-        }
-    </style>
-    <script>
-        function changeTitles() {
-            let links = document.getElementsByTagName("a");
-            for (let link of links) {
-                let tooltipId = link.attributes.title.value;
-                let tooltip = document.getElementById(tooltipId);
-                link.setAttribute("data-toggle", "tooltip");
-                link.setAttribute("data-placement", "auto right");
-                link.setAttribute("data-html", "true");
-                link.setAttribute("class", "label label-info");
-                if (tooltip) {
-                    link.setAttribute("title", tooltip.innerHTML);
-                }
-            }
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        }
-    </script>
-</head>
-<body onload="changeTitles()" class="container">
 <h1>General</h1>
 <ul>
     <li><b>Application context:</b>
         <a title="a1_1">what is</a>
-        <a title="a1_2">lifecycle</a>
+        <a title="a1_2" class="label-warning">lifecycle</a>
         <a title="a1_3">configuration</a>
         <a title="a1_4">creation</a>
         <a title="a1_5">usage in test</a>
@@ -214,14 +161,14 @@
         creation.
     </div>
     <div id="a2_3">
-        Attributes "id" and "name" define the same thing - name of the bean and it's aliases.<br/>
-        E.g. id="n1,n2;n3" - bean has name "n1" and aliases "n2" and "n3".<br/>
-        "name" values can also be separated via space.<br/>
-        By default, the bean name will be the same as the method name.<br/>
+        Attributes "id" and "name" define the same thing - name of the bean and it's aliases.<br />
+        E.g. id="n1,n2;n3" - bean has name "n1" and aliases "n2" and "n3".<br />
+        "name" values can also be separated via space.<br />
+        By default, the bean name will be the same as the method name.<br />
         Can be overriden by @Bean("customBeanName")
     </div>
     <div id="a2_4">
-        Responsible for searching beans to register.<br/>
+        Responsible for searching beans to register.<br />
         Detects
         <ul>
             <li>Stereotypes: @Component, @Controller, @Repository, @Service</li>
@@ -234,8 +181,8 @@
         </ul>
     </div>
     <div id="a2_5">
-        Stereotypes ("stereotype" package):<br/>
-        define the roles class in architecture (eventually targets for pointcuts).<br/>
+        Stereotypes ("stereotype" package):<br />
+        define the roles class in architecture (eventually targets for pointcuts).<br />
         Stereotypes are:
         <ul>
             <li>@Component</li>
@@ -249,7 +196,7 @@
         </ul>
     </div>
     <div id="a2_6">
-        Singletons are eagerly instantiated by default.<br/>
+        Singletons are eagerly instantiated by default.<br />
         To alter:
         <ul>
             <li>< bean id="lazy" class="com.foo.ExpensiveToCreateBean" lazy-init="true"/> or < beans
@@ -259,8 +206,8 @@
         </ul>
     </div>
     <div id="a2_7">
-        non-static @Bean methods in @Configuration classes need to be overridable,<br/>
-        i.e. they must not be declared as private or final.<br/>
+        non-static @Bean methods in @Configuration classes need to be overridable,<br />
+        i.e. they must not be declared as private or final.<br />
         static methods can be final though it doesn't make sense.
     </div>
     <div id="a2_8">
@@ -277,7 +224,7 @@
                 couples the code to Spring)
             </li>
         </ul>
-        <br/>
+        <br />
 
         Destruction method called on closing the application context. Declaring options:
         <ul>
@@ -379,8 +326,8 @@
 
 <div class="hidden">
     <div id="a6_1">
-        Is a mechanism that allows for registration of different beans in different environments<br/>
-        Default profile is a "default".<br/><br/>
+        Is a mechanism that allows for registration of different beans in different environments<br />
+        Default profile is a "default".<br /><br />
         Useful when (examples):
         <ul>
             <li>Easily changing data sources: in-memory datasource in development, from JNDI for QA</li>
@@ -395,13 +342,13 @@
             <li>Java: @Profile on @Configuration/@Component/@Bean</li>
             <li>XML: 'profile' attribute on < beans></li>
         </ul>
-        <br/>
+        <br />
         Activation:
         <ul>
             <li>-Dspring.profiles.active="profile1,profile2"</li>
             <li>ctx.getEnvironment().setActiveProfiles("profile1", "profile2")</li>
         </ul>
-        <br/>
+        <br />
         Arguments
         <ul>
             <li>@Profile("development")</li>
@@ -440,7 +387,7 @@
 
 <div class="hidden">
     <div id="a8_1">
-        Spring Expression Language supports querying and manipulating an object graph at runtime<br/>
+        Spring Expression Language supports querying and manipulating an object graph at runtime<br />
     </div>
     <div id="a8_2">
         <ul>
@@ -479,6 +426,3 @@
         </ul>
     </div>
 </div>
-
-</body>
-</html>
