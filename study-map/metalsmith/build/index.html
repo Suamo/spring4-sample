@@ -66,9 +66,8 @@
         <a title="a1_1">what is</a>
         <a title="a1_2" class="label-warning">lifecycle</a>
         <a title="a1_3">configuration</a>
-        <a title="a1_4">creation</a>
-        <a title="a1_5">usage in test</a>
-        <a title="a1_6">closing context</a>
+        <a title="a1_4">usage in test</a>
+        <a title="a1_5">closing context</a>
     </li>
     <li><b>Beans:</b>
         <a title="a2_1">lifecycle</a>
@@ -116,7 +115,7 @@
 
 <div class="hidden">
     <div id="a1_1">
-        ApplicationContext is a Spring IoC container responsible for:
+        <b>ApplicationContext</b> is a Spring IoC container responsible for:
         <ul>
             <li>instantiating</li>
             <li>configuring</li>
@@ -145,38 +144,47 @@
     </div>
     <div id="a1_3">
         <ul>
-            <li>XML config: get beans from ClassPathXmlApplicationContext</li>
-            <li>Java config (@Configuration + @Bean): get beans from AnnotationConfigApplicationContext</li>
-            <li>Java annotations (@Component + @Autowired): get beans in Autowired fields (if scanned) or from
-                AnnotationConfigApplicationContext
+            <li><b>XML config</b>
+                <ul>
+                    <li>Define beans in xml</li>
+                    <li>new <b>ClassPathXmlApplicationContext</b>("lifacycle-config.xml");</li>
+                </ul>
             </li>
-            advantages? why final config class not allowed?
-        </ul>
+            <li><b>Java config</b>
+                <ul>
+                    <li>Define <b>@Bean</b> in @Configuration</li>
+                    <li>new <b>AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);</li>
+                </ul>
+            </li>
+            <li><b>Java annotations</b>
+                <ul>
+                    <li>Add @ComponentScan to the @Configuration</li>
+                    <li>Add @ContextConfiguration to the class where bean need to be injected</li>
+                    <li>Annotate bean class as <b>@Component</b></li>
+                    <li>Inject bean with <b>@Autowired</b></li>
+                </ul>
+            </li>
+        </ul><br/>
+        advantages? why final config class not allowed?
     </div>
     <div id="a1_4">
         <ul>
-            <li>new ClassPathXmlApplicationContext("lifacycle-config.xml");</li>
-            <li>new AnnotationConfigApplicationContext(JavaApplicationConfig.class);</li>
+            <li>implement the <b>ApplicationContextAware</b> interface and obtain context in setter</li>
+            <li>extend <b>AbstractJUnit4SpringContextTests</b> / <b>AbstractTestNGSpringContextTests</b> and get access for
+                their protected ApplicationContext field
+            </li>
+            <li>inject <b>ApplicationContext</b></li>
         </ul>
     </div>
     <div id="a1_5">
         <ul>
-            <li>implement the ApplicationContextAware interface and obtain context in setter</li>
-            <li>extend AbstractJUnit4SpringContextTests / AbstractTestNGSpringContextTests and get access for
-                their protected ApplicationContext field
-            </li>
-            <li>inject ApplicationContext</li>
-        </ul>
-    </div>
-    <div id="a1_6">
-        <ul>
             <li>For WEB: closed automatically</li>
             <li>For non-WEB:
                 <ul>
-                    <li>registerShutdownHook(): app context will be closed on JVM shutdown (applied by default
+                    <li><b>registerShutdownHook()</b>: app context will be closed on JVM shutdown (applied by default
                         in Spring Boot);
                     </li>
-                    <li>close(): app context will be closed immediately</li>
+                    <li><b>close()</b>: app context will be closed immediately</li>
                 </ul>
             </li>
         </ul>
@@ -210,15 +218,15 @@
     </div>
     <div id="a2_2">
         <ul>
-            <li>singleton (default) - one object instance per IoC container</li>
-            <li>prototype - one object instance per bean request from container</li>
-            <li>[web only] request - one object instance per HTTP request lifecycle (each HTTP request has new
+            <li><b>singleton</b> (default) - one object instance per IoC container</li>
+            <li><b>prototype</b> - one object instance per bean request from container</li>
+            <li>[web only] <b>request</b> - one object instance per HTTP request lifecycle (each HTTP request has new
                 instance)
             </li>
-            <li>[web only] session - one object instance per HTTP session lifecycle</li>
-            <li>[web only] application - one object instance per ServletContext lifecycle</li>
-            <li>[web only] websocket - one object instance per WebSocket lifecycle</li>
-        </ul>
+            <li>[web only] <b>session</b> - one object instance per HTTP session lifecycle</li>
+            <li>[web only] <b>application</b> - one object instance per ServletContext lifecycle</li>
+            <li>[web only] <b>websocket</b> - one object instance per WebSocket lifecycle</li>
+        </ul><br/>
         Note: if a singleton depends on prototype then this Prototype bean will be created on container
         creation.
     </div>
@@ -230,16 +238,16 @@
         Can be overriden by @Bean("customBeanName")
     </div>
     <div id="a2_4">
-        Responsible for searching beans to register.<br />
+        Responsible for searching beans to register.<br/>
+        Turned on:
+        <ul>
+            <li><b>@ComponentScan</b>("com.path")</li>
+            <li>< context:<b>component-scan</b> base-package="com.path"/></li>
+        </ul><br/>
         Detects
         <ul>
             <li>Stereotypes: @Component, @Controller, @Repository, @Service</li>
             <li>Other: @RestController, @ControllerAdvice, @Configuration</li>
-        </ul>
-        Turned on:
-        <ul>
-            <li>@ComponentScan("com.path")</li>
-            <li>< context:component-scan base-package="com.path"/></li>
         </ul>
     </div>
     <div id="a2_5">
@@ -247,12 +255,12 @@
         define the roles class in architecture (eventually targets for pointcuts).<br />
         Stereotypes are:
         <ul>
-            <li>@Component</li>
+            <li><b>@Component</b></li>
             <li>Specializations meta-annotatated with @Component
                 <ul>
-                    <li>@Controller</li>
-                    <li>@Repository</li>
-                    <li>@Service</li>
+                    <li><b>@Controller</b></li>
+                    <li><b>@Repository</b></li>
+                    <li><b>@Service</b></li>
                 </ul>
             </li>
         </ul>
@@ -261,10 +269,10 @@
         Singletons are eagerly instantiated by default.<br />
         To alter:
         <ul>
-            <li>< bean id="lazy" class="com.foo.ExpensiveToCreateBean" lazy-init="true"/> or < beans
-                default-lazy-init="true">
+            <li>< bean id="lazy" class="com.foo.HeavyBean" <b>lazy-init</b>="true"/> or <br/>
+                < beans <b>default-lazy-init</b>="true">
             </li>
-            <li>@Lazy for @Bean or class with beans</li>
+            <li><b>@Lazy</b> for @Bean or class with beans</li>
         </ul>
     </div>
     <div id="a2_7">
@@ -273,32 +281,32 @@
         static methods can be final though it doesn't make sense.
     </div>
     <div id="a2_8">
-        Init method - called as a callback after bean is created and assembled. Declaring options:
+        <b>Init method</b> - called as a callback after bean is created and assembled. Declaring options:
         <ul>
-            <li>@PostConstruct [JSR-250] (Java config, best practice)</li>
-            <li>custom init() method (Java and XML config)
+            <li><b>@PostConstruct</b> [JSR-250] (Java config, best practice)</li>
+            <li><b>custom init()</b> method (Java and XML config)
                 <ul>
                     <li>XML: < beans default-init-method="init"/> or < bean init-method="init"/></li>
                     <li>Java: @Bean(initMethod = "init")</li>
                 </ul>
             </li>
-            <li>afterPropertiesSet() from InitializingBean callback interface (not recommended since
+            <li><b>afterPropertiesSet()</b> from InitializingBean callback interface (not recommended since
                 couples the code to Spring)
             </li>
         </ul>
         <br />
 
-        Destruction method called on closing the application context. Declaring options:
+        <b>Destruction method</b> called on closing the application context. Declaring options:
         <ul>
-            <li>@PreDestroy [JSR-250] (Java config, best practice)</li>
-            <li>custom destroy() method (Java and XML config)
+            <li><b>@PreDestroy</b> [JSR-250] (Java config, best practice)</li>
+            <li><b>custom destroy()</b> method (Java and XML config)
                 <ul>
                     <li>XML: < beans default-destroy-method attribute="destroy"/> or < bean destroy-method="destroy"/>
                     </li>
                     <li>Java: @Bean(destroyMethod = "destroyMethod")</li>
                 </ul>
             </li>
-            <li>destroy() from DisposableBean callback interface (not recommended)</li>
+            <li><b>destroy()</b> from DisposableBean callback interface (not recommended)</li>
         </ul>
     </div>
 </div>
@@ -350,12 +358,12 @@
     <div id="a4_1">
         Declaration:
         <ul>
-            <li>@PropertySource("classpath:/com/myco/app.properties")</li>
-        </ul>
+            <li><b>@PropertySource</b>("classpath:/com/myco/app.properties")</li>
+        </ul><br/>
         Usage
         <ul>
-            <li>@Autowired Environment env; env.getProperty("testbean.name");</li>
-            <li>@Value("${testbean.name}")</li>
+            <li>@Autowired Environment env; <b>env.getProperty</b>("testbean.name");</li>
+            <li><b>@Value</b>("${testbean.name}")</li>
         </ul>
     </div>
     <div id="a4_2">
