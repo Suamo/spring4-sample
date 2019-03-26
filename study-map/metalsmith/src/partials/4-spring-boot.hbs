@@ -1,117 +1,162 @@
-<h1>Spring Boot</h1>
+<div>
+    <h1>Spring Boot</h1>
+    <ul>
+        <li>
+            <b>Spring Boot:</b>
+            <a title="c1_1">what is</a>
+            <a title="c1_2">advantages</a>
+            <a title="c1_3">configuration</a>
+            <a title="c1_4">properties</a>
+            <a title="c1_5">embadded containers</a>
+            <a title="c1_6">starter POM</a>
+            <a title="c1_7">logging</a>
+        </li>
+    </ul>
 
-<ul>
-    <li><b>Spring Boot:</b>
-        <a title="c1_1">what is</a>
-        <a title="c1_2">advantages</a>
-        <a title="c1_3">configuration</a>
-        <a title="c1_4">properties</a>
-        <a title="c1_5">embadded containers</a>
-        <a title="c1_6">starter POM</a>
-        <a title="c1_7">logging</a>
-    </li>
-</ul>
+    <div class="hidden">
+        <div id="c1_1">
+            Spring Boot is used to build stand-alone and production ready spring applications.
+            <br/>
+            Feature:
+            <ul>
+                <li>Create <b>stand-alone</b> Spring applications
+                </li>
+                <li>
+                    <b>Embed Tomcat, Jetty or Undertow</b>
+                    directly (no need to deploy WAR files)
+                </li>
+                <li>Provide
+                    <b>opinionated*</b>
+                    'starter' dependencies to simplify your build configuration
+                </li>
+                <li>
+                    <b>Automatically configure</b>
+                    Spring and 3rd party libraries whenever possible
+                </li>
+                <li>Provide production-ready features such as metrics, health checks and externalized configuration</li>
+                <li>Absolutely no code generation and no requirement for XML configuration</li>
+            </ul>
+            <br/>
+            * Opinionated: Spring scans dependencies from classpath and adds support for different
+            components by initializing “maybe” required beans. For example if it sees a dependency on Thymeleaf,
+            3 beans that Thymeleaf uses are automatically initialized: ThymeleafViewResolver, SpringTemplateEngine,
+            TemplateResolver. Moreover it also scans the templates directory from resources for Thymeleaf templates.
+            If you have tomcat-embedded.jar on your classpath TomcatServletWebServerFactory bean will be initialized.
+        </div>
+        <div id="c1_2">
+            <ul>
+                <li>easy configuration of Spring application</li>
+                <li>Integrated web containers that allow for easy testing</li>
+                <li>Starters – sets of dependencies that help setting up a “typical” application</li>
+                <li>Decrease amount of boilerplate code</li>
+            </ul>
+        </div>
+        <div id="c1_3">
+            <b>@EnableAutoConfiguration</b>
+            - enables auto-configuration of the Application Context (opinionated view)
+            <br/>
+            <br/>
 
-<div class="hidden">
-    <div id="c1_1">
-        Spring Boot is used to build stand-alone and production ready spring applications.<br />
-        Feature:
-        <ul>
-            <li>Create <b>stand-alone</b> Spring applications</li>
-            <li><b>Embed Tomcat, Jetty or Undertow</b> directly (no need to deploy WAR files)</li>
-            <li>Provide
-                <b>opinionated*</b> 'starter' dependencies to simplify your build configuration
-            </li>
-            <li><b>Automatically configure</b> Spring and 3rd party libraries whenever possible</li>
-            <li>Provide production-ready features such as metrics, health checks and externalized configuration</li>
-            <li>Absolutely no code generation and no requirement for XML configuration</li>
-        </ul>
-        <br />
-        * Opinionated: Spring scans dependencies from classpath and adds support for different
-        components by initializing “maybe” required beans. For example if it sees a dependency on Thymeleaf,
-        3 beans that Thymeleaf uses are automatically initialized: ThymeleafViewResolver, SpringTemplateEngine,
-        TemplateResolver. Moreover it also scans the templates directory from resources for Thymeleaf templates.
-        If you have tomcat-embedded.jar on your classpath TomcatServletWebServerFactory bean will be initialized.
-    </div>
-    <div id="c1_2">
-        <ul>
-            <li>easy configuration of Spring application</li>
-            <li>Integrated web containers that allow for easy testing</li>
-            <li>Starters – sets of dependencies that help setting up a “typical” application</li>
-            <li>Decrease amount of boilerplate code</li>
-        </ul>
-    </div>
-    <div id="c1_3">
-        <b>@EnableAutoConfiguration</b> - enables auto-configuration of the Application Context (opinionated view)
-        <br /><br />
+            <b>@SpringBootApplication</b>
+            - just convenient annotation that is
+            meta-annotated with @Configuration, @EnableAutoConfiguration and @ComponentScan.
+        </div>
+        <div id="c1_4">
+            common annotations and configuration properties
+            SpringApplication loads properties from <b>application.properties</b> (or
+            <b>yml/yaml</b>) files in the
+            following locations and adds them to the Spring Environment:
+            <ul>
+                <li>
+                    <b>current directory /config</b>
+                </li>
+                <li>
+                    <b>current directory</b>
+                </li>
+                <li>
+                    <b>classpath /config</b>
+                </li>
+                <li>
+                    <b>classpath root</b>
+                </li>
+            </ul>
+        </div>
+        <div id="c1_5">
+            Spring Boot supports following embedded containers:
+            <ul>
+                <li>
+                    <b>Tomcat</b>
+                </li>
+                <li>
+                    <b>Jetty</b>
+                </li>
+                <li>
+                    <b>Undertow</b>
+                </li>
+            </ul>
+            <br/>
 
-        <b>@SpringBootApplication</b> - just convenient annotation that is
-        meta-annotated with @Configuration, @EnableAutoConfiguration and @ComponentScan.
-    </div>
-    <div id="c1_4">
-        common annotations and configuration properties
-        SpringApplication loads properties from <b>application.properties</b> (or
-        <b>yml/yaml</b>) files in the
-        following locations and adds them to the Spring Environment:
-        <ul>
-            <li><b>current directory /config</b></li>
-            <li><b>current directory</b></li>
-            <li><b>classpath /config</b></li>
-            <li><b>classpath root</b></li>
-        </ul>
-    </div>
-    <div id="c1_5">
-        Spring Boot supports following embedded containers:
-        <ul>
-            <li><b>Tomcat</b></li>
-            <li><b>Jetty</b></li>
-            <li><b>Undertow</b></li>
-        </ul>
-        <br />
-
-        Jar vs War
-        <ul>
-            <li>JAR - onlly suitable for embedded container since it will come as a part of the application</li>
-            <li>WAR - archive that can be deployed on an external container</li>
-        </ul>
-    </div>
-    <div id="c1_6">
-        Maven users can inherit from the
-        <b>spring-boot-starter-parent</b> project to obtain sensible defaults.<br /><br />
-        Features:
-        <ul>
-            <li><b>Java 1.8</b> as the default</li>
-            <li><b>UTF-8</b> source encoding</li>
-            <li>A Dependency Management section, inherited from the spring-boot-dependencies pom, that manages
-                the
-                <b>versions of common dependencies</b>. This dependency management lets you omit < version> tags for those
-                dependencies when used in your own pom.
-            </li>
-            <li>Pom properties can be used in project properties (or yml) using
-                <b>@..@</b> placeholders
-            </li>
-            <li>Additional <b>plugin configurations</b> (exec plugin, Git commit ID, and shade)</li>
-            <li>
-                <b>profile-specific resource filtering</b> (e.g. application-dev.properties and application-dev.yml)
-            </li>
-        </ul>
-    </div>
-    <div id="c1_7">
-        Configuration:
-        <ul>
-            <li>add the required dependencies to the classpat</li>
-            <li>configure the required framework using application.properties or framework-specific
-                configuration file placed in the classpath
-            </li>
-        </ul>
-        <br />
-        Spring Boot uses
-        <b>Commons Logging</b> for all internal logging but leaves the underlying log implementation open.<br /><br />
-        Default configurations are provided for;
-        <ul>
-            <li>Java Util Logging</li>
-            <li>Log4J2</li>
-            <li>Logback</li>
-        </ul>
+            Jar vs War
+            <ul>
+                <li>JAR - onlly suitable for embedded container since it will come as a part of the application</li>
+                <li>WAR - archive that can be deployed on an external container</li>
+            </ul>
+        </div>
+        <div id="c1_6">
+            Maven users can inherit from the
+            <b>spring-boot-starter-parent</b>
+            project to obtain sensible defaults.
+            <br/>
+            <br/>
+            Features:
+            <ul>
+                <li>
+                    <b>Java 1.8</b>
+                    as the default
+                </li>
+                <li>
+                    <b>UTF-8</b>
+                    source encoding
+                </li>
+                <li>A Dependency Management section, inherited from the spring-boot-dependencies pom, that manages
+                    the
+                    <b>versions of common dependencies</b>. This dependency management lets you omit
+                    &lt;version>
+                    tags for those
+                    dependencies when used in your own pom.
+                </li>
+                <li>Pom properties can be used in project properties (or yml) using
+                    <b>@..@</b>
+                    placeholders
+                </li>
+                <li>Additional <b>plugin configurations</b> (exec plugin, Git commit ID, and shade)
+                </li>
+                <li>
+                    <b>profile-specific resource filtering</b>
+                    (e.g. application-dev.properties and application-dev.yml)
+                </li>
+            </ul>
+        </div>
+        <div id="c1_7">
+            Configuration:
+            <ul>
+                <li>add the required dependencies to the classpat</li>
+                <li>configure the required framework using application.properties or framework-specific
+                    configuration file placed in the classpath
+                </li>
+            </ul>
+            <br/>
+            Spring Boot uses
+            <b>Commons Logging</b>
+            for all internal logging but leaves the underlying log implementation open.
+            <br/>
+            <br/>
+            Default configurations are provided for;
+            <ul>
+                <li>Java Util Logging</li>
+                <li>Log4J2</li>
+                <li>Logback</li>
+            </ul>
+        </div>
     </div>
 </div>

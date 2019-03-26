@@ -1,186 +1,232 @@
-<h1>Spring MVC</h1>
+<div>
+    <h1>Spring MVC</h1>
+    <ul>
+        <li>
+            <b>Overview:</b>
+            <a title="e1_1">what is</a>
+            <a title="e1_2">configuration</a>
+            <a title="e1_3">components</a>
+        </li>
+        <li>
+            <b>Controller:</b>
+            <a title="e2_1">@Controller</a>
+            <a title="e2_2">request mapping</a>
+            <a title="e2_3">parameters</a>
+            <a title="e2_4">return types</a>
+            <a title="e2_5">testing</a>
+        </li>
+        <li>
+            <b>View:</b>
+            <a title="e3_1">overview</a>
+            <a title="e3_2">resolvers</a>
+        </li>
+        <li>
+            <b>Model:</b>
+            <a title="e4_1">overview</a>
+        </li>
+    </ul>
 
-<ul>
-    <li><b>Overview:</b>
-        <a title="e1_1">what is</a>
-        <a title="e1_2">configuration</a>
-        <a title="e1_3">components</a>
-    </li>
-    <li><b>Controller:</b>
-        <a title="e2_1">@Controller</a>
-        <a title="e2_2">request mapping</a>
-        <a title="e2_3">parameters</a>
-        <a title="e2_4">return types</a>
-        <a title="e2_5">testing</a>
-    </li>
-    <li><b>View:</b>
-        <a title="e3_1">overview</a>
-        <a title="e3_2">resolvers</a>
-    </li>
-    <li><b>Model:</b>
-        <a title="e4_1">overview</a>
-    </li>
-</ul>
+    <div class="hidden">
+        <div id="e1_1">
+            Spring Web MVC is the original web framework built on the Servlet API and has been included in the
+            Spring Framework from the very beginning. The formal name, “<b>Spring Web MVC</b>,” comes from the name of
+            its
+            source module (spring-webmvc), but it is more commonly known as “Spring MVC”.
+            <br/>
+            <br/>
+            MVC is an abbreviation for a
+            <b>Model–View–Controller</b>
+            pattern that decouples major components
+            allowing for efficient code reuse and parallel development.
+        </div>
+        <div id="e1_2">
+            <ul>
+                <li>Add <b>spring-webmvc.jar</b> to classpath (it's not part of spring-core)
+                </li>
+                <li>Add <b>@EnableWebMvc</b> to @Configuration (in Spring Boot not needed)
+                </li>
+                <li>
+                    <b>Register DispatcherServlet</b>
+                    in ne of two ways:
+                    <ul>
+                        <li>implement WebApplicationInitializer</li>
+                        <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="e1_3">
+            <b>DispatcherServlet</b>
+            - front controller that provides a shared algorithm for
+            request processing, while actual work is performed by configurable delegate controllers.
+            DispatcherServlet initializes WebApplicationContext (child of root ApplicationContext).
+            <br/>
+            <br/>
 
-<div class="hidden">
-    <div id="e1_1">
-        Spring Web MVC is the original web framework built on the Servlet API and has been included in the
-        Spring Framework from the very beginning. The formal name, “<b>Spring Web MVC</b>,” comes from the name of its
-        source module (spring-webmvc), but it is more commonly known as “Spring MVC”.<br /><br />
-        MVC is an abbreviation for a
-        <b>Model–View–Controller</b> pattern that decouples major components
-        allowing for efficient code reuse and parallel development.
+            <b>WebApplicationContext</b>
+            is an interface to provide configuration for a web application. Typically
+            contains infrastructure beans, such as data repositories and business services that need to be shared across
+            multiple Servlet instances. Supports additional scopes:
+            <ul>
+                <li>
+                    <b>request</b>
+                </li>
+                <li>
+                    <b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b>
+                </li>
+                <li>
+                    <b>application</b>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div id="e1_2">
-        <ul>
-            <li>Add <b>spring-webmvc.jar</b> to classpath (it's not part of spring-core)</li>
-            <li>Add <b>@EnableWebMvc</b> to @Configuration (in Spring Boot not needed)</li>
-            <li><b>Register DispatcherServlet</b> in ne of two ways:
-                <ul>
-                    <li>implement WebApplicationInitializer</li>
-                    <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div id="e1_3">
-        <b>DispatcherServlet</b> - front controller that provides a shared algorithm for
-        request processing, while actual work is performed by configurable delegate controllers.
-        DispatcherServlet initializes WebApplicationContext (child of root ApplicationContext).<br /><br />
 
-        <b>WebApplicationContext</b> is an interface to provide configuration for a web application. Typically
-        contains infrastructure beans, such as data repositories and business services that need to be shared across
-        multiple Servlet instances. Supports additional scopes:
-        <ul>
-            <li><b>request</b></li>
-            <li>
-                <b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b>
-            </li>
-            <li><b>application</b></li>
-        </ul>
-    </div>
-</div>
+    <div class="hidden">
+        <div id="e2_1">
+            <b>@Controller</b>
+            - simply @Component specialization that tells the developer that the component is a
+            "Controller" role.
 
-<div class="hidden">
-    <div id="e2_1">
-        <b>@Controller</b> - simply @Component specialization that tells the developer that the component is a
-        "Controller" role.
+        </div>
+        <div id="e2_2">
+            <b>@RequestMapping</b>
+            maps incoming request to a controller or a method. Supported through a
+            RequestMappingHandlerMapping and RequestMappingHandlerAdapter.
+            <br/>
+            <br/>
+            Specializations (can be applied only to method):
+            <ul>
+                <li>
+                    <b>GetMapping</b>
+                </li>
+                <li>
+                    <b>PostMapping</b>
+                </li>
+                <li>DeleteMapping</li>
+                <li>PutMapping</li>
+                <li>(and mode)</li>
+            </ul>
+            <br/>
+        </div>
+        <div id="e2_3">
+            Mappling parameters:
+            <ul>
+                <li>
+                    <b>@PathVariable</b>
+                    maps method parameters from the URI path(e.g. http://foo.com/user<b>/33</b>)
+                </li>
+                <li>
+                    <b>@RequestParam</b>
+                    maps method parameters from the URI query (e.g.
+                    http://foo.com/user<b>?id=33</b>)
+                    <br/>
+                    <ul>
+                        <li>For Map/MultiValueMap - populated with all request parameters</li>
+                        <li>MultipartFile - representation of an uploaded file</li>
+                    </ul>
+                </li>
+                <li>@MatrixVariable</li>
+                <li>@RequestPart</li>
+                <li>@RequestHeader</li>
+                <li>@CookieValue</li>
+                <li>@ModelAttribute</li>
+                <li>@SessionAttribute</li>
+            </ul>
+            <br/>
 
+            Controller method can receive following arguments (without any annotation):
+            <ul>
+                <li>ServletRequest</li>
+                <li>ServletResponse</li>
+                <li>HttpSession</li>
+                <li>Principal</li>
+                <li>HttpMethod</li>
+                <li>Map</li>
+                <li>Model</li>
+                <li>ModelMap</li>
+                <li>Any other type with converter</li>
+            </ul>
+        </div>
+        <div id="e2_4">
+            <ul>
+                <li>void</li>
+                <li>String</li>
+                <li>View</li>
+                <li>HttpHeaders</li>
+                <li>Map</li>
+                <li>Model</li>
+                <li>ModelAndView</li>
+                <li>(and more)</li>
+            </ul>
+        </div>
+        <div id="e2_5">
+            <ul>
+                <li>
+                    <b>Mock</b>
+                    implementations of Servlet API contracts for unit testing
+                    <b>controllers</b>,
+                    filters, and other web components
+                </li>
+                <li>A framework, also known as
+                    <b>MockMvc</b>, for testing annotated controllers through the DispatcherServlet
+                </li>
+            </ul>
+        </div>
     </div>
-    <div id="e2_2">
-        <b>@RequestMapping</b> maps incoming request to a controller or a method. Supported through a
-        RequestMappingHandlerMapping and RequestMappingHandlerAdapter.<br /><br />
-        Specializations (can be applied only to method):
-        <ul>
-            <li><b>GetMapping</b></li>
-            <li><b>PostMapping</b></li>
-            <li>DeleteMapping</li>
-            <li>PutMapping</li>
-            <li>(and mode)</li>
-        </ul>
-        <br />
-    </div>
-    <div id="e2_3">
-        Mappling parameters:
-        <ul>
-            <li>
-                <b>@PathVariable</b> maps method parameters from the URI path(e.g. http://foo.com/user<b>/33</b>)
-            </li>
-            <li><b>@RequestParam</b> maps method parameters from the URI query (e.g.
-                http://foo.com/user<b>?id=33</b>)<br />
-                <ul>
-                    <li>For Map/MultiValueMap - populated with all request parameters</li>
-                    <li>MultipartFile - representation of an uploaded file</li>
-                </ul>
-            </li>
-            <li>@MatrixVariable</li>
-            <li>@RequestPart</li>
-            <li>@RequestHeader</li>
-            <li>@CookieValue</li>
-            <li>@ModelAttribute</li>
-            <li>@SessionAttribute</li>
-        </ul>
-        <br />
 
-        Controller method can receive following arguments (without any annotation):
-        <ul>
-            <li>ServletRequest</li>
-            <li>ServletResponse</li>
-            <li>HttpSession</li>
-            <li>Principal</li>
-            <li>HttpMethod</li>
-            <li>Map</li>
-            <li>Model</li>
-            <li>ModelMap</li>
-            <li>Any other type with converter</li>
-        </ul>
-    </div>
-    <div id="e2_4">
-        <ul>
-            <li>void</li>
-            <li>String</li>
-            <li>View</li>
-            <li>HttpHeaders</li>
-            <li>Map</li>
-            <li>Model</li>
-            <li>ModelAndView</li>
-            <li>(and more)</li>
-        </ul>
-    </div>
-    <div id="e2_5">
-        <ul>
-            <li><b>Mock</b> implementations of Servlet API contracts for unit testing
-                <b>controllers</b>,
-                filters, and other web components
-            </li>
-            <li>A framework, also known as
-                <b>MockMvc</b>, for testing annotated controllers through the DispatcherServlet
-            </li>
-        </ul>
-    </div>
-</div>
+    <div class="hidden">
+        <div id="e3_1">
+            View is the base interface for different view technologies (XML, PDF, XLS etc.).
+            <br/>
+            All handler methods in the Spring MVC controllers must resolve to a
+            <b>logical view name</b>, either explicitly
+            (e.g., by returning a String, View, or ModelAndView) or implicitly (i.e., based on conventions)
+            <br/>
+            Views in Spring are addressed by a logical view name and are resolved by a
+            <b>view resolver</b>.
+        </div>
+        <div id="e3_2">
+            The right view is chosen by the
+            <b>ViewResolver</b>
+            bean that has to be registered in the container.
+            <ul>
+                <li>The DispatcherServlet delegates to a ViewResolver to obtain View implementation based on view
+                    name.
+                </li>
+                <li>The default ViewResolver treats the view name as a Web Application-relative file path – i.e. a JSP:
+                    /WEB-INF/reward/list.jsp
+                </li>
+                <li>Override this default by registering a ViewResolver bean with the DispatcherServlet</li>
+            </ul>
+            <br/>
 
-<div class="hidden">
-    <div id="e3_1">
-        View is the base interface for different view technologies (XML, PDF, XLS etc.).<br />
-        All handler methods in the Spring MVC controllers must resolve to a
-        <b>logical view name</b>, either explicitly
-        (e.g., by returning a String, View, or ModelAndView) or implicitly (i.e., based on conventions)<br />
-        Views in Spring are addressed by a logical view name and are resolved by a
-        <b>view resolver</b>.
+            Some of View Resolvers in Spring MVC:
+            <ul>
+                <li>Thymeleaf: ThymeleafViewResolver</li>
+                <li>JSP and JSTL: InternalResourceViewResolver or ResourceBundleViewResolver</li>
+                <li>Apache Tiles: UrlBasedViewResolver or ResourceBundleViewResolver</li>
+                <li>Xslt: XsltViewResolver</li>
+            </ul>
+        </div>
     </div>
-    <div id="e3_2">
-        The right view is chosen by the
-        <b>ViewResolver</b> bean that has to be registered in the container.
-        <ul>
-            <li>The DispatcherServlet delegates to a ViewResolver to obtain View implementation based on view name.</li>
-            <li>The default ViewResolver treats the view name as a Web Application-relative file path – i.e. a JSP: /WEB-INF/reward/list.jsp</li>
-            <li>Override this default by registering a ViewResolver bean with the DispatcherServlet</li>
-        </ul>
-        <br />
 
-        Some of View Resolvers in Spring MVC:
-        <ul>
-            <li>Thymeleaf: ThymeleafViewResolver</li>
-            <li>JSP and JSTL: InternalResourceViewResolver or ResourceBundleViewResolver</li>
-            <li>Apache Tiles: UrlBasedViewResolver or ResourceBundleViewResolver</li>
-            <li>Xslt: XsltViewResolver</li>
-        </ul>
-    </div>
-</div>
+    <div class="hidden">
+        <div id="e4_1">
+            <b>Model</b>
+            in Spring MVC represents processed data to be rendered in the view by the respective view resolver.
+            Is an object backed my a
+            <b>Map of attributes</b>
+            names and values that can be sent between client and server.
+            <br/>
+            <br/>
 
-<div class="hidden">
-    <div id="e4_1">
-        <b>Model</b> in Spring MVC represents processed data to be rendered in the view by the respective view resolver.
-        Is an object backed my a
-        <b>Map of attributes</b> names and values that can be sent between client and server.<br /><br />
-
-        Processing:
-        <ul>
-            <li>Model is passed by the controller to the dispatcher servlet</li>
-            <li>dispatcher server send it to the respective view resolver</li>
-            <li>view resolver is rendering model’s data to the view and generate html page</li>
-        </ul>
-        Spring provide support to access the model in the view layer
+            Processing:
+            <ul>
+                <li>Model is passed by the controller to the dispatcher servlet</li>
+                <li>dispatcher server send it to the respective view resolver</li>
+                <li>view resolver is rendering model’s data to the view and generate html page</li>
+            </ul>
+            Spring provide support to access the model in the view layer
+        </div>
     </div>
 </div>

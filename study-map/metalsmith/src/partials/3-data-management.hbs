@@ -1,473 +1,582 @@
-<h1>Data Management</h1>
-<ul>
-    <li><b>Exceptions:</b>
-        <a title="c1_1">hierarchy</a>
-        <a title="c1_2">why unchecked</a>
-    </li>
-    <li><b>DataSource:</b>
-        <a title="c2_1">configuration</a>
-        <a title="c2_2">types</a>
-        <a title="c2_3">JNDI</a>
-    </li>
-    <li><b>JdbcTemplate:</b>
-        <a title="c3_1">what is</a>
-        <a title="c3_2">callbacks</a>
-        <a title="c3_3">queries</a>
-    </li>
-    <li><b>Transactions:</b>
-        <a title="c4_1">what is</a>
-        <a title="c4_2">types</a>
-        <a title="c4_6">configuration</a>
-        <a title="c4_3">transaction strategy</a>
-        <a title="c4_4">isolation</a>
-        <a title="c4_5">propagation</a>
-        <a title="c4_7">@Transactional</a>
-        <a title="c4_8">rollback</a>
-    </li>
-    <li><b>ORM:</b>
-        <a title="c6_1">what is</a>
-        <a title="c6_2">how works</a>
-    </li>
-    <li><b>JPA:</b>
-        <a title="c7_1">what is</a>
-        <a title="c7_2">configuration</a>
-        <a title="c7_3">participation in transaction</a>
-    </li>
-    <li><b>Spring data:</b>
-        <a title="c8_1">instant repository</a>
-        <a title="c8_2">how works</a>
-        <a title="c8_3">@Query</a>
-    </li>
-</ul>
+<div>
+    <h1>Data Management</h1>
+    <ul>
+        <li>
+            <b>Exceptions:</b>
+            <a title="c1_1">hierarchy</a>
+            <a title="c1_2">why unchecked</a>
+        </li>
+        <li>
+            <b>DataSource:</b>
+            <a title="c2_1">configuration</a>
+            <a title="c2_2">types</a>
+            <a title="c2_3">JNDI</a>
+        </li>
+        <li>
+            <b>JdbcTemplate:</b>
+            <a title="c3_1">what is</a>
+            <a title="c3_2">callbacks</a>
+            <a title="c3_3">queries</a>
+        </li>
+        <li>
+            <b>Transactions:</b>
+            <a title="c4_1">what is</a>
+            <a title="c4_2">types</a>
+            <a title="c4_6">configuration</a>
+            <a title="c4_3">transaction strategy</a>
+            <a title="c4_4">isolation</a>
+            <a title="c4_5">propagation</a>
+            <a title="c4_7">@Transactional</a>
+            <a title="c4_8">rollback</a>
+        </li>
+        <li>
+            <b>ORM:</b>
+            <a title="c6_1">what is</a>
+            <a title="c6_2">how works</a>
+        </li>
+        <li>
+            <b>JPA:</b>
+            <a title="c7_1">what is</a>
+            <a title="c7_2">configuration</a>
+            <a title="c7_3">participation in transaction</a>
+        </li>
+        <li>
+            <b>Spring data:</b>
+            <a title="c8_1">instant repository</a>
+            <a title="c8_2">how works</a>
+            <a title="c8_3">@Query</a>
+        </li>
+    </ul>
 
-<div class="hidden">
-    <div id="c1_1">
-        Data access exceptions hierarchy:
-        <ul>
-            <li>RuntimeException
-                <ul>
-                    <li>DataAccessException
-                        <ul>
-                            <li>DataAccessResourceFailureException</li>
-                            <li>CleanupFailureDataAccessException</li>
-                            <li>InvalidDataAccessApiUsageException</li>
-                            <li>InvalidDataAccessResourceUsageException</li>
-                            <li>DataRetrievalFailureException</li>
-                            <li>OptimisticLockingFailureException</li>
-                            <li>UnauthorizedDataAccessException</li>
-                            <li>DataintegrityvViolationException</li>
-                            <li>DeadlockLoserDataAccessException</li>
-                            <li>etc...</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+    <div class="hidden">
+        <div id="c1_1">
+            Data access exceptions hierarchy:
+            <ul>
+                <li>RuntimeException
+                    <ul>
+                        <li>DataAccessException
+                            <ul>
+                                <li>DataAccessResourceFailureException</li>
+                                <li>CleanupFailureDataAccessException</li>
+                                <li>InvalidDataAccessApiUsageException</li>
+                                <li>InvalidDataAccessResourceUsageException</li>
+                                <li>DataRetrievalFailureException</li>
+                                <li>OptimisticLockingFailureException</li>
+                                <li>UnauthorizedDataAccessException</li>
+                                <li>DataintegrityvViolationException</li>
+                                <li>DeadlockLoserDataAccessException</li>
+                                <li>etc...</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="c1_2">
+            <ul>
+                <li>best practice for API</li>
+                <li>best when it's imossible to do anything useful</li>
+            </ul>
+        </div>
     </div>
-    <div id="c1_2">
-        <ul>
-            <li>best practice for API</li>
-            <li>best when it's imossible to do anything useful</li>
-        </ul>
-    </div>
-</div>
 
-<div class="hidden">
-    <div id="c2_1">
-        <ul>
-            <li>Define properties (DataSourceProperties in Boot). Usually:
-                <ul>
-                    <li>"<b>driverClassName</b>"</li>
-                    <li>"<b>url</b>"</li>
-                    <li>"<b>username</b>"</li>
-                    <li>"<b>password</b>"</li>
-                </ul>
-            </li>
-            <li>Create DataSource with defined properties</li>
-            <li>Create environment specific PlatformTransactionManager with created dataSource</li>
-        </ul>
-    </div>
-    <div id="c2_2">
-        Package: org.springframework.jdbc.datasource<br /><br />
-        Hierarchy:
-        <ul>
-            <li>(i) javax.sql.DataSource
-                <ul>
-                    <li>AbstractDataSource
-                        <ul>
-                            <li>AbstractRoutingDataSource
-                                <ul>
-                                    <li>IsolationLevelDataSourceRouter</li>
-                                </ul>
-                            </li>
-                            <li>AbstractDriverBasedDataSource
-                                <ul>
-                                    <li><b>SimpleDriverDataSource</b></li>
-                                    <li>
-                                        <b>DriverManagerDataSource</b> - every time uses new Connection and closes is
-                                        after use
-                                        <ul>
-                                            <li>
-                                                <b>SingleConnectionDataSource</b> - connection is not closed after each
-                                                use
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>(i) SmartDataSource
-                        <ul>
-                            <li>SingleConnectionDataSource</li>
-                        </ul>
-                    </li>
-                    <li>(i) EmbeddedDatabase
-                        <ul>
-                            <li>EmbeddedDataSourceProxy</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <br />
+    <div class="hidden">
+        <div id="c2_1">
+            <ul>
+                <li>Define properties (DataSourceProperties in Boot). Usually:
+                    <ul>
+                        <li>"<b>driverClassName</b>"
+                        </li>
+                        <li>"<b>url</b>"
+                        </li>
+                        <li>"<b>username</b>"
+                        </li>
+                        <li>"<b>password</b>"
+                        </li>
+                    </ul>
+                </li>
+                <li>Create DataSource with defined properties</li>
+                <li>Create environment specific PlatformTransactionManager with created dataSource</li>
+            </ul>
+        </div>
+        <div id="c2_2">
+            Package: org.springframework.jdbc.datasource
+            <br/>
+            <br/>
+            Hierarchy:
+            <ul>
+                <li>(i) javax.sql.DataSource
+                    <ul>
+                        <li>AbstractDataSource
+                            <ul>
+                                <li>AbstractRoutingDataSource
+                                    <ul>
+                                        <li>IsolationLevelDataSourceRouter</li>
+                                    </ul>
+                                </li>
+                                <li>AbstractDriverBasedDataSource
+                                    <ul>
+                                        <li>
+                                            <b>SimpleDriverDataSource</b>
+                                        </li>
+                                        <li>
+                                            <b>DriverManagerDataSource</b>
+                                            - every time uses new Connection and closes is
+                                            after use
+                                            <ul>
+                                                <li>
+                                                    <b>SingleConnectionDataSource</b>
+                                                    - connection is not closed after each
+                                                    use
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>(i) SmartDataSource
+                            <ul>
+                                <li>SingleConnectionDataSource</li>
+                            </ul>
+                        </li>
+                        <li>(i) EmbeddedDatabase
+                            <ul>
+                                <li>EmbeddedDataSourceProxy</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <br/>
 
-        DataSources Builders:
-        <ul>
-            <li>DataSourceBuilder (Boot)</li>
-            <li><b>EmbeddedDatabaseBuilder</b></li>
-        </ul>
-        <br />
+            DataSources Builders:
+            <ul>
+                <li>DataSourceBuilder (Boot)</li>
+                <li>
+                    <b>EmbeddedDatabaseBuilder</b>
+                </li>
+            </ul>
+            <br/>
 
-        Spring Boot can auto-configure embedded:
-        <ul>
-            <li>H2</li>
-            <li>HSQL</li>
-            <li>Derby</li>
-        </ul>
+            Spring Boot can auto-configure embedded:
+            <ul>
+                <li>H2</li>
+                <li>HSQL</li>
+                <li>Derby</li>
+            </ul>
+        </div>
+        <div id="c2_3">
+            &lt;jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
+            <br/>
+            &lt;bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
+            <br/>
+            (doesn't need to know about datasource
+        </div>
     </div>
-    <div id="c2_3">
-        < jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/><br />
-        < bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" /><br />
-        (doesn't need to know about datasource
-    </div>
-</div>
 
-<div class="hidden">
-    <div id="c3_1">
-        JdbcTemplate is a JDBC approac.<br />
-        Named so because of a Template Method pattern that it's based on.<br /><br />
-        Features:
-        <ul>
-            <li>creation of statements</li>
-            <li>execution of: statements, SQLs, stored procedures</li>
-            <li>provides execution results</li>
-            <li>creation/releasing connections</li>
-            <li>covers JDBC exceptions with more informative</li>
-        </ul>
-    </div>
-    <div id="c3_2">
-        callback ("call-after" function) - called after thother function execution.<br /><br />
+    <div class="hidden">
+        <div id="c3_1">
+            JdbcTemplate is a JDBC approac.
+            <br/>
+            Named so because of a Template Method pattern that it's based on.
+            <br/>
+            <br/>
+            Features:
+            <ul>
+                <li>creation of statements</li>
+                <li>execution of: statements, SQLs, stored procedures</li>
+                <li>provides execution results</li>
+                <li>creation/releasing connections</li>
+                <li>covers JDBC exceptions with more informative</li>
+            </ul>
+        </div>
+        <div id="c3_2">
+            callback ("call-after" function) - called after thother function execution.
+            <br/>
+            <br/>
 
-        Main JdbcTemplate callbacks:
-        <ul>
-            <li>
-                <b>PreparedStatementCreator</b> prepare parametrized precompiled statement from a Connection for queries
-            </li>
-            <li>
-                <b>CallableStatementCreator</b> prepare parametrized statement from a Connection to execute SQL stored
-                procedures
-            </li>
-            <li>
-                <b>RowCallbackHandler</b> jdbcTemplate uses RowMapper in methods that doesn't return values. Called for
-                each ResultSet record separately.
-            </li>
-        </ul>
-        <br />
-        Alternative callback interfaces:
-        <ul>
-            <li>
-                <b>RowMapper</b>called for each ResultSet record separately to convert it to a result object
-            </li>
-            <li>
-                <b>ResultSetExtractor</b>called once for the whole ResultSet to convert it to a result object
-            </li>
-        </ul>
-    </div>
-    <div id="c3_3">
-        Plain SQL statement execution:
-        <ul>
-            <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
-            <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
-        </ul>
-        <br />
+            Main JdbcTemplate callbacks:
+            <ul>
+                <li>
+                    <b>PreparedStatementCreator</b>
+                    prepare parametrized precompiled statement from a Connection for queries
+                </li>
+                <li>
+                    <b>CallableStatementCreator</b>
+                    prepare parametrized statement from a Connection to execute SQL stored
+                    procedures
+                </li>
+                <li>
+                    <b>RowCallbackHandler</b>
+                    jdbcTemplate uses RowMapper in methods that doesn't return values. Called for
+                    each ResultSet record separately.
+                </li>
+            </ul>
+            <br/>
+            Alternative callback interfaces:
+            <ul>
+                <li>
+                    <b>RowMapper</b>called for each ResultSet record separately to convert it to a result object
+                </li>
+                <li>
+                    <b>ResultSetExtractor</b>called once for the whole ResultSet to convert it to a result object
+                </li>
+            </ul>
+        </div>
+        <div id="c3_3">
+            Plain SQL statement execution:
+            <ul>
+                <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
+                <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
+            </ul>
+            <br/>
 
-        Dynamic queries (with returning an entity) are possible with RowMapper.<br />
-        If RowMapper is provided following JdbcTemplate methods can be used:
-        <ul>
-            <li><b>query()</b></li>
-            <li><b>queryForObject()</b> – returns one object</li>
-            <li><b>queryForMap()</b> - returns object as map (column name:value)</li>
-            <li><b>queryForList()</b> - returns multiple objects</li>
-        </ul>
+            Dynamic queries (with returning an entity) are possible with RowMapper.
+            <br/>
+            If RowMapper is provided following JdbcTemplate methods can be used:
+            <ul>
+                <li>
+                    <b>query()</b>
+                </li>
+                <li>
+                    <b>queryForObject()</b>
+                    – returns one object
+                </li>
+                <li>
+                    <b>queryForMap()</b>
+                    - returns object as map (column name:value)
+                </li>
+                <li>
+                    <b>queryForList()</b>
+                    - returns multiple objects
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 
-<div class="hidden">
-    <div id="c4_1">
-        A transaction (symbolizes a
-        <b>unit of work</b>) is a series of operations such that either all occur, or
-        nothing occurs.<br /><br />
-        Being cross-cutting concern in Spring is implemented with AOP.<br /><br />
+    <div class="hidden">
+        <div id="c4_1">
+            A transaction (symbolizes a
+            <b>unit of work</b>) is a series of operations such that either all occur, or
+            nothing occurs.
+            <br/>
+            <br/>
+            Being cross-cutting concern in Spring is implemented with AOP.
+            <br/>
+            <br/>
 
-        The Unit of Work pattern is used to group one or more operations into a single
-        transaction, so that all operations either pass or fail as one.<br />
-        JDBC AutoCommit mode forces to run each query as separate transaction. So
-        <b>AutoCommit mode is opposite to
-            UnitOfWork</b>.
-    </div>
-    <div id="c4_2">
-        <ul>
-            <li>
-                <b>Global transactions</b> handles multiple transactional resources (e.g. databases + message queues).
-                The application server manages global transactions through the JTA (with JNDI source).
-            </li>
-            <li><b>Local transactions</b> handles single transactional resources</li>
-        </ul>
-    </div>
-    <div id="c4_3">
-        Defined by the <b>PlatformTransactionManager</b> interface with method
-        <b>getTransaction</b> that
-        takes TransactionDefinition as an argument and returns TransactionStatus.<br /><br />
+            The Unit of Work pattern is used to group one or more operations into a single
+            transaction, so that all operations either pass or fail as one.
+            <br/>
+            JDBC AutoCommit mode forces to run each query as separate transaction. So
+            <b>AutoCommit mode is opposite to
+                UnitOfWork</b>.
+        </div>
+        <div id="c4_2">
+            <ul>
+                <li>
+                    <b>Global transactions</b>
+                    handles multiple transactional resources (e.g. databases + message queues).
+                    The application server manages global transactions through the JTA (with JNDI source).
+                </li>
+                <li>
+                    <b>Local transactions</b>
+                    handles single transactional resources
+                </li>
+            </ul>
+        </div>
+        <div id="c4_3">
+            Defined by the <b>PlatformTransactionManager</b> interface with method
+            <b>getTransaction</b>
+            that
+            takes TransactionDefinition as an argument and returns TransactionStatus.
+            <br/>
+            <br/>
 
-        <b>TransactionDefinition</b> defines transaction properties:
-        <ul>
-            <li>isolation level</li>
-            <li>propagation behavior</li>
-            <li>transaction timeout</li>
-            <li>read-only status</li>
-        </ul>
-        <br />
+            <b>TransactionDefinition</b>
+            defines transaction properties:
+            <ul>
+                <li>isolation level</li>
+                <li>propagation behavior</li>
+                <li>transaction timeout</li>
+                <li>read-only status</li>
+            </ul>
+            <br/>
 
-        <b>TransactionStatus</b> - new or current transaction status with methods:
-        <ul>
-            <li>isNewTransaction()</li>
-            <li>hasSavepoint()</li>
-            <li>setRollbackOnly()</li>
-            <li>isRollbackOnly()</li>
-            <li>flush()</li>
-            <li>isCompleted()</li>
-        </ul>
-    </div>
-    <div id="c4_4">
-        One of the transaction properties.<br /><br />
-        <table>
-            <tr>
-                <th>Level</th>
-                <th>Name</th>
-                <th>Allows</th>
-            </tr>
-            <tr>
-                <td>1st (lowest)</td>
-                <td>Read uncommitted</td>
-                <td>phantom reads, non-repeatable reads, dirty reads</td>
-            </tr>
-            <tr>
-                <td>2nd*</td>
-                <td>Read committed</td>
-                <td>phantom reads, non-repeatable reads</td>
-            </tr>
-            <tr>
-                <td>3rd</td>
-                <td>Repeatable reads</td>
-                <td>phantom reads</td>
-            </tr>
-            <tr>
-                <td>4th (highest)</td>
-                <td>Serializable</td>
-                <td>transactions are fully isolated</td>
-            </tr>
-        </table>
-        <br />
-        *default in most DBs
-    </div>
-    <div id="c4_5">
-        One of the transaction properties.<br />
-        Propagation defines behavior of the target methods:
-        if they should be executed in an existing or new transaction, or no transaction at all.<br /><br />
-        <ul>
-            <li><b>REQUIRES_NEW</b>: create a new transaction, suspend any existing one</li>
-            <li><b>MANDATORY</b>: use current transaction, throw exception if none exists</li>
-            <li><b>REQUIRED</b>: use current transaction, if non exists – create one</li>
-            <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists
-            </li>
-            <li><b>NEVER</b>: execute non-transactionally, throw exception if any transaction exists
-            </li>
-            <li><b>NOT_SUPPORTED</b>: execute non-transactionally, suspend any existing transaction
-            </li>
-            <li>
-                <b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else
-                behave like Propagation.REQUIRED
-            </li>
-        </ul>
-    </div>
-    <div id="c4_6">
-        <ul>
-            <li><b>Declarative</b>: best for big amount of transactional operations.<br />
-                Configuration:
-                <ul>
-                    <li><b>@EnableTransactionManagement</b> to configuration</li>
-                    <li><b>@Transactional</b> annotation on methods/classes</li>
-                </ul>
-                Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate
-                PlatformTransactionManager
-                implementation to drive transactions around method invocations.
-            </li>
-            <li>
-                <b>Programming</b>: best for small number of transactional operations. Can set transaction name.<br />
-                Can be configured in two ways:
-                <ul>
-                    <li>use
-                        <b>PlatformTransactionManager</b> bean directly to initiate, roll back, and commit
-                        transactions
-                        (using the TransactionDefinition and TransactionStatus)
-                    </li>
-                    <li>create <b>TransactionTemplate</b> and call execute(TransactionCallback)</li>
-                </ul>
-            </li>
-        </ul>
-        ???? managing from JdbcTemplate
-    </div>
-    <div id="c4_7">
-        @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a
-        <b>join point</b>.
-        Method or class marked @Transactional will be covered in transactional behavior
-        (when method starts transaction will be opened and closed when the method finished).<br /><br />
+            <b>TransactionStatus</b>
+            - new or current transaction status with methods:
+            <ul>
+                <li>isNewTransaction()</li>
+                <li>hasSavepoint()</li>
+                <li>setRollbackOnly()</li>
+                <li>isRollbackOnly()</li>
+                <li>flush()</li>
+                <li>isCompleted()</li>
+            </ul>
+        </div>
+        <div id="c4_4">
+            One of the transaction properties.
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <th>Level</th>
+                    <th>Name</th>
+                    <th>Allows</th>
+                </tr>
+                <tr>
+                    <td>1st (lowest)</td>
+                    <td>Read uncommitted</td>
+                    <td>phantom reads, non-repeatable reads, dirty reads</td>
+                </tr>
+                <tr>
+                    <td>2nd*</td>
+                    <td>Read committed</td>
+                    <td>phantom reads, non-repeatable reads</td>
+                </tr>
+                <tr>
+                    <td>3rd</td>
+                    <td>Repeatable reads</td>
+                    <td>phantom reads</td>
+                </tr>
+                <tr>
+                    <td>4th (highest)</td>
+                    <td>Serializable</td>
+                    <td>transactions are fully isolated</td>
+                </tr>
+            </table>
+            <br/>
+            *default in most DBs
+        </div>
+        <div id="c4_5">
+            One of the transaction properties.
+            <br/>
+            Propagation defines behavior of the target methods:
+            if they should be executed in an existing or new transaction, or no transaction at all.
+            <br/>
+            <br/>
+            <ul>
+                <li><b>REQUIRES_NEW</b>: create a new transaction, suspend any existing one
+                </li>
+                <li><b>MANDATORY</b>: use current transaction, throw exception if none exists
+                </li>
+                <li><b>REQUIRED</b>: use current transaction, if non exists – create one
+                </li>
+                <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists
+                </li>
+                <li><b>NEVER</b>: execute non-transactionally, throw exception if any transaction exists
+                </li>
+                <li><b>NOT_SUPPORTED</b>: execute non-transactionally, suspend any existing transaction
+                </li>
+                <li>
+                    <b>NESTED</b>: if a transaction exists create a nested one in it and execute everything there, else
+                    behave like Propagation.REQUIRED
+                </li>
+            </ul>
+        </div>
+        <div id="c4_6">
+            <ul>
+                <li><b>Declarative</b>: best for big amount of transactional operations.
+                    <br/>
+                    Configuration:
+                    <ul>
+                        <li>
+                            <b>@EnableTransactionManagement</b>
+                            to configuration
+                        </li>
+                        <li>
+                            <b>@Transactional</b>
+                            annotation on methods/classes
+                        </li>
+                    </ul>
+                    Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate
+                    PlatformTransactionManager
+                    implementation to drive transactions around method invocations.
+                </li>
+                <li>
+                    <b>Programming</b>: best for small number of transactional operations. Can set transaction name.
+                    <br/>
+                    Can be configured in two ways:
+                    <ul>
+                        <li>use
+                            <b>PlatformTransactionManager</b>
+                            bean directly to initiate, roll back, and commit
+                            transactions
+                            (using the TransactionDefinition and TransactionStatus)
+                        </li>
+                        <li>create <b>TransactionTemplate</b> and call execute(TransactionCallback)
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            ???? managing from JdbcTemplate
+        </div>
+        <div id="c4_7">
+            @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a
+            <b>join point</b>.
+            Method or class marked @Transactional will be covered in transactional behavior
+            (when method starts transaction will be opened and closed when the method finished).
+            <br/>
+            <br/>
 
-        If <b>one @Transactional method is calling another</b> on the same object instance:
-        since transaction-management is implemented using AOP - @Transactional annotation will have
-        <b>no effect</b>
-        on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.
-    </div>
-    <div id="c4_8">
-        Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is
-        <b>marked for
-            rollback</b>.<br />
-        Types ot Exceptions for rollback can be changed (including checked exceptions):
-        <ul>
-            <li>XML: 'rollback-for' or 'no-rollback-for' attributes can be added to tx:method</li>
-            <li>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();</li>
-            <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName, noRollbackForClassName
-            </li>
-        </ul>
-        <br />
+            If <b>one @Transactional method is calling another</b> on the same object instance:
+            since transaction-management is implemented using AOP - @Transactional annotation will have
+            <b>no effect</b>
+            on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.
+        </div>
+        <div id="c4_8">
+            Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is
+            <b>marked for
+                rollback</b>.
+            <br/>
+            Types ot Exceptions for rollback can be changed (including checked exceptions):
+            <ul>
+                <li>XML: 'rollback-for' or 'no-rollback-for' attributes can be added to tx:method</li>
+                <li>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();</li>
+                <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName,
+                    noRollbackForClassName
+                </li>
+            </ul>
+            <br/>
 
-        <b>@Transactional test is automatically rolled back</b> after completion when:
-        <ul>
-            <li>used @RunWith(SpringJUnit4ClassRunner.class) in JUnit 4</li>
-            <li>used @ExtendWith(SpringExtension.class) in JUnit 5</li>
-        </ul>
-    </div>
-    <div id="c4_9">
+            <b>@Transactional test is automatically rolled back</b>
+            after completion when:
+            <ul>
+                <li>used @RunWith(SpringJUnit4ClassRunner.class) in JUnit 4</li>
+                <li>used @ExtendWith(SpringExtension.class) in JUnit 5</li>
+            </ul>
+        </div>
+        <div id="c4_9">
 
+        </div>
     </div>
-</div>
 
-<div class="hidden">
-    <div id="c5_1">
+    <div class="hidden">
+        <div id="c5_1">
 
+        </div>
     </div>
-</div>
 
-<div class="hidden">
-    <div id="c6_1">
-        <b>Object Relational Mapping</b> is meant to help us map our entities to the database tables.<br /><br />
-        Benefits
-        <ul>
-            <li>Easy mapping object model to data model</li>
-            <li>Much less code</li>
-            <li>Concurrency support</li>
-            <li>Automatic management of: Cache, Connection pool, Transactions, Keys</li>
-        </ul>
-        <br />
+    <div class="hidden">
+        <div id="c6_1">
+            <b>Object Relational Mapping</b>
+            is meant to help us map our entities to the database tables.
+            <br/>
+            <br/>
+            Benefits
+            <ul>
+                <li>Easy mapping object model to data model</li>
+                <li>Much less code</li>
+                <li>Concurrency support</li>
+                <li>Automatic management of: Cache, Connection pool, Transactions, Keys</li>
+            </ul>
+            <br/>
 
-        Disadvantages
-        <ul>
-            <li>Overhead for simple applications</li>
-            <li>Need to learn implementation</li>
-            <li>Performance lower</li>
-            <li>Hard to make complex queries</li>
-        </ul>
-    </div>
-    <div id="c6_2">
-        <b>PersistenceContext</b> contains a set of entity instances that correspond to persistent entity identity.<br />
-        <br /><br />
+            Disadvantages
+            <ul>
+                <li>Overhead for simple applications</li>
+                <li>Need to learn implementation</li>
+                <li>Performance lower</li>
+                <li>Hard to make complex queries</li>
+            </ul>
+        </div>
+        <div id="c6_2">
+            <b>PersistenceContext</b>
+            contains a set of entity instances that correspond to persistent entity identity.
+            <br/>
+            <br/>
+            <br/>
 
-        All the manipulations with the persistent instances are made using <b>EntityManager</b>.
-        EntityManager writes, deletes and searches entities to database.
-        Injected viw @PersistenceContext.<br /><br />
+            All the manipulations with the persistent instances are made using <b>EntityManager</b>.
+            EntityManager writes, deletes and searches entities to database.
+            Injected viw @PersistenceContext.
+            <br/>
+            <br/>
 
-        <b>@Entity</b> annotation is used to mark a class as an entity class that will be mapped to the database using
-        ORM.
+            <b>@Entity</b>
+            annotation is used to mark a class as an entity class that will be mapped to the database using
+            ORM.
+        </div>
     </div>
-</div>
 
-<div class="hidden">
-    <div id="c7_1">
-        Java Persistence API - high level API and specification so that different ORM tools can implement so that it
-        provides the flexibility to developer to change the implementation from one ORM to another
-    </div>
-    <div id="c7_2">
-        One of EntityManagerFactorys need to be configured:
-        <ul>
-            <li>
-                <b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global
-                transactions
-            </li>
-            <li>
-                <b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence unit"
-                with
-                provicer and properties (persistence.xml or more programmically since Spring 3.1).
-            </li>
-        </ul>
-        Alternative is to use in a JEE-compliant container where
-        <b>application server</b> bootstraps the JPA
-        persistence unit based on the information in the deployment descriptors. This allows Spring to look up
-        the entity manager via
-        <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
-        configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1<br /><br />
+    <div class="hidden">
+        <div id="c7_1">
+            Java Persistence API - high level API and specification so that different ORM tools can implement so that it
+            provides the flexibility to developer to change the implementation from one ORM to another
+        </div>
+        <div id="c7_2">
+            One of EntityManagerFactorys need to be configured:
+            <ul>
+                <li>
+                    <b>LocalContainerEntityManagerFactoryBean</b>: supports injection of DataSource, local and global
+                    transactions
+                </li>
+                <li>
+                    <b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence
+                    unit"
+                    with
+                    provicer and properties (persistence.xml or more programmically since Spring 3.1).
+                </li>
+            </ul>
+            Alternative is to use in a JEE-compliant container where
+            <b>application server</b>
+            bootstraps the JPA
+            persistence unit based on the information in the deployment descriptors. This allows Spring to look up
+            the entity manager via
+            <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
+            configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1
+            <br/>
+            <br/>
 
-        <b>JpaTransactionManager</b> is the JPA PlatformTransactionManager implementation.
+            <b>JpaTransactionManager</b>
+            is the JPA PlatformTransactionManager implementation.
+        </div>
+        <div id="c7_3">
+            JpaTransactionManager expose a JPA transaction to JDBC access code that accesses the same DataSource
+        </div>
     </div>
-    <div id="c7_3">
-        JpaTransactionManager expose a JPA transaction to JDBC access code that accesses the same DataSource
-    </div>
-</div>
 
-<div class="hidden">
-    <div id="c8_1">
-        Is a simple way to create repoeitories.<br />
-        Can be done in two ways:
-        <ul>
-            <li>extend repository interface with <b>Repository</b>, <b>CrudRepository</b> or
-                <b>PagingAndSortingRepository</b></li>
-            <li>annotate your repository interface with <b>@RepositoryDefinition</b></li>
-        </ul>
-    </div>
-    <div id="c8_2">
-        The query builder mechanism built into Spring Data repository infrastructure is building
-        constraining queries over entities of the repository.<br />
-        The mechanism strips the following prefixes from the method and starts parsing the rest of it
-        <ul>
-            <li><b>find…By</b></li>
-            <li><b>read…By</b></li>
-            <li><b>query…By</b></li>
-            <li><b>count…By</b></li>
-            <li><b>get…By</b></li>
-        </ul>
-    </div>
-    <div id="c8_3">
-        For more <b>complex queries</b>, you can annotate your method with
-        <b>@Query</b>. Allows customization using SQL/JPQL.
+    <div class="hidden">
+        <div id="c8_1">
+            Is a simple way to create repoeitories.
+            <br/>
+            Can be done in two ways:
+            <ul>
+                <li>extend repository interface with <b>Repository</b>, <b>CrudRepository</b> or
+                    <b>PagingAndSortingRepository</b>
+                </li>
+                <li>annotate your repository interface with
+                    <b>@RepositoryDefinition</b>
+                </li>
+            </ul>
+        </div>
+        <div id="c8_2">
+            The query builder mechanism built into Spring Data repository infrastructure is building
+            constraining queries over entities of the repository.
+            <br/>
+            The mechanism strips the following prefixes from the method and starts parsing the rest of it
+            <ul>
+                <li>
+                    <b>find…By</b>
+                </li>
+                <li>
+                    <b>read…By</b>
+                </li>
+                <li>
+                    <b>query…By</b>
+                </li>
+                <li>
+                    <b>count…By</b>
+                </li>
+                <li>
+                    <b>get…By</b>
+                </li>
+            </ul>
+        </div>
+        <div id="c8_3">
+            For more <b>complex queries</b>, you can annotate your method with
+            <b>@Query</b>. Allows customization using SQL/JPQL.
+        </div>
     </div>
 </div>
