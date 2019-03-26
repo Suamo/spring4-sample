@@ -90,7 +90,7 @@
             <a title="a3_4">private fields injection</a>
             <a title="a3_5">scalar/literal injection</a>
             <a title="a3_6">@Value</a>
-            <a title="a3_7">$ vs #{}</a>
+            <a title="a3_7">$ vs #</a>
         </li>
         <li>
             <b>Properties:</b>
@@ -118,7 +118,6 @@
             <b>SpEL:</b>
             <a title="a8_1">what is</a>
             <a title="a8_2">usage</a>
-            <a title="a8_3">functionality</a>
         </li>
     </ul>
 
@@ -326,8 +325,7 @@
             <br/>
             To alter:
             <ul>
-                <li>&lt;bean id="lazy" class="com.foo.HeavyBean" <b>lazy-init</b>="true"/> or
-                    <br/>
+                <li>&lt;bean id="lazy" class="com.foo.HeavyBean" <b>lazy-init</b>="true"/> or<br/>
                     &lt;beans <b>default-lazy-init</b>="true">
                 </li>
                 <li>
@@ -352,10 +350,10 @@
                     [JSR-250] (Java config, best practice)
                 </li>
                 <li>
-                    <b>custom init()</b>
-                    method (Java and XML config)
+                    <b>custom init</b> method (Java and XML config)
                     <ul>
-                        <li>XML: &lt;beans default-init-method="init"/> or &lt;bean init-method="init"/></li>
+                        <li>XML: &lt;beans default-init-method="init"/> or<br/>
+                            &lt;bean init-method="init"/></li>
                         <li>Java: @Bean(initMethod = "init")</li>
                     </ul>
                 </li>
@@ -375,12 +373,9 @@
                     [JSR-250] (Java config, best practice)
                 </li>
                 <li>
-                    <b>custom destroy()</b>
-                    method (Java and XML config)
+                    <b>custom destroy</b> method (Java and XML config)
                     <ul>
-                        <li>XML: &lt;beans default-destroy-method attribute="destroy"/> or &lt;bean
-                            destroy-method="destroy"/>
-                        </li>
+                        <li>XML: &lt;beans default-destroy-method attribute="destroy"/> or &lt;bean destroy-method="destroy"/></li>
                         <li>Java: @Bean(destroyMethod = "destroyMethod")</li>
                     </ul>
                 </li>
@@ -398,15 +393,15 @@
         </div>
         <div id="a3_2">
             <ul>
-                <li>injects a bean</li>
-                <li>handled by Spring BeanPostProcessor</li>
-                <li>makes injection mandatory. Fails if nothing to inject</li>
-                <li>only one constructor can be Autowired</li>
+                <li><b>injects</b> a bean</li>
+                <li>handled by Spring <b>BeanPostProcessor</b></li>
+                <li>makes injection <b>mandatory</b>. Fails if nothing to inject</li>
+                <li>only <b>one constructor</b> can be Autowired</li>
                 <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
             </ul>
         </div>
         <div id="a3_3">
-            Defines exact bean name if injection by type finds multiple implementations.
+            Defines <b>exact bean name</b> if injection by type finds multiple implementations.
         </div>
         <div id="a3_4">
             Private fields are injected the same way as public.
@@ -419,17 +414,17 @@
         </div>
         <div id="a3_6">
             <ul>
-                <li>handled by Spring BeanPostProcessor</li>
+                <li>handled by Spring <b>BeanPostProcessor</b></li>
                 <li>can be placed on fields, methods and method/constructor parameters</li>
-                <li>used for expression-driven dependency injection</li>
+                <li>used for <b>expression-driven dependency injection</b></li>
                 <li>supported for dynamic resolution of handler method parameters e.g. in Spring MVC</li>
             </ul>
         </div>
         <div id="a3_7">
             <ul>Used in @Value
-                <li>#{} - SpEL expression. Inside the expression variables can be references by #newName, #this, #root
+                <li><b>#{}</b> - SpEL expression. Inside the expression variables can be references by #newName, #this, #root
                 </li>
-                <li>$ - "${" is a "placeholder prefix". ${} expression internally will be handled by
+                <li><b>${}</b> - "${" is a "placeholder prefix". ${} expression internally will be handled by
                     PropertyResolver.resolvePlaceholders
                 </li>
             </ul>
@@ -454,9 +449,9 @@
         </div>
         <div id="a4_2">
             <ul>
-                <li>predefined bean factory post-processor</li>
+                <li>predefined bean factory <b>post-processor</b></li>
                 <li>newer and more flexible version of old PropertyPlaceholderConfigurer</li>
-                <li>Resolves ${...} placeholders in bean definition property values and @Value annotations against the
+                <li><b>Resolves ${}</b> placeholders in bean definition property values and @Value annotations against the
                     current Spring Environment and its set of PropertySources
                 </li>
             </ul>
@@ -482,9 +477,9 @@
 
     <div class="hidden">
         <div id="a6_1">
-            Is a mechanism that allows for registration of different beans in different environments
+            Is a mechanism that allows for <b>registration of different beans in different environments</b>
             <br/>
-            Default profile is a "default".
+            Default profile is a "<b>default</b>".
             <br/>
             <br/>
             Useful when (examples):
@@ -498,14 +493,14 @@
         </div>
         <div id="a6_2">
             <ul>
-                <li>Java: @Profile on @Configuration/@Component/@Bean</li>
-                <li>XML: 'profile' attribute on &lt;beans></li>
+                <li>Java: <b>@Profile</b> on @Configuration/@Component/@Bean</li>
+                <li>XML: '<b>profile</b>' attribute on &lt;beans></li>
             </ul>
             <br/>
             Activation:
             <ul>
-                <li>-Dspring.profiles.active="profile1,profile2"</li>
-                <li>ctx.getEnvironment().setActiveProfiles("profile1", "profile2")</li>
+                <li>-D<b>spring.profiles.active</b>="profile1,profile2"</li>
+                <li>ctx.getEnvironment().<b>setActiveProfiles</b>("profile1", "profile2")</li>
             </ul>
             <br/>
             Arguments
@@ -515,7 +510,7 @@
             </ul>
         </div>
         <div id="a6_3">
-            It is possible to have MAX array size different profiles expected for registered bean
+            It is possible to have <b>MAX array size</b> different profiles expected for registered bean
         </div>
     </div>
 
@@ -525,8 +520,8 @@
                 <li>integrated in the container</li>
                 <li>contains
                     <ul>
-                        <li>profiles: which is currently active</li>
-                        <li>properties: configuring property sources and resolving properties from them</li>
+                        <li><b>profiles</b>: which is currently active</li>
+                        <li><b>properties</b>: configuring property sources and resolving properties from them</li>
                     </ul>
                 </li>
             </ul>
@@ -546,28 +541,9 @@
 
     <div class="hidden">
         <div id="a8_1">
-            Spring Expression Language supports querying and manipulating an object graph at runtime
-            <br/>
-        </div>
-        <div id="a8_2">
-            <ul>
-                <li>Manually: using ExpressionParser.parseExpression ("org.springframework.expression" package)
-                </li>
-                <li>In Bean Definitions:
-                    <ul>
-                        <li>XML Config: &lt;property name="prop"
-                            <br/>
-                            value="<b>#{ T(java.lang.Math).random() * 100.0 }</b>"/>
-                        </li>
-                        <li>Annotation Config:
-                            <br/>
-                            @Value("<b>#{ systemProperties['user.region'] }</b>")
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div id="a8_3">
+            Spring Expression Language supports <b>querying and manipulating an object graph at runtime</b>
+            <br/><br/>
+            Functionality:
             <ul>
                 <li>Literal expressions</li>
                 <li>Boolean and relational operators</li>
@@ -590,6 +566,26 @@
                 <li>Templated expressions</li>
             </ul>
         </div>
+        <div id="a8_2">
+            <ul>
+                <li>
+                    Manually: <br/>
+                    <b>ExpressionParser.parseExpression</b> (from "org.springframework.expression" package)
+                </li>
+                <li>In Bean Definitions:
+                    <ul>
+                        <li>XML Config: &lt;property name="prop"
+                            <br/>
+                            value="<b>#{ T(java.lang.Math).random() * 100.0 }</b>"/>
+                        </li>
+                        <li>Annotation Config:
+                            <br/>
+                            @Value("<b>#{ systemProperties['user.region'] }</b>")
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <div>
@@ -603,11 +599,11 @@
         </li>
         <li>
             <b>Terminology:</b>
-            <a title="b2_1">aspect</a>
-            <a title="b2_2">advice</a>
+            <a title="b2_1" class="label-warning">aspect</a>
+            <a title="b2_2" class="label-warning">advice</a>
             <a title="b2_3">cross-cutting concern</a>
-            <a title="b2_4">pointcut</a>
-            <a title="b2_5">join point</a>
+            <a title="b2_4" class="label-warning">pointcut</a>
+            <a title="b2_5" class="label-warning">join point</a>
             <a title="b2_6">weaving</a>
         </li>
         <li>
@@ -632,15 +628,15 @@
             </ul>
         </div>
         <div id="b1_3">
-            Once @AspectJ support enabled - all @Aspect classes will be automatically detected and used to configure
+            Once AspectJ support enabled - <b>all @Aspect classes will be automatically detected and used</b> to configure
             AOP.
             <br/>
             <br/>
             Enabling AspectJ support:
             <ul>
-                <li>Java config: @EnableAspectJAutoProxy</li>
+                <li>Java config: <b>@EnableAspectJAutoProxy</b></li>
                 <li>XML config:
-                    &lt;aop:aspectj-autoproxy/>
+                    &lt;aop:<b>aspectj-autoproxy</b>/>
                 </li>
             </ul>
         </div>
@@ -648,7 +644,7 @@
 
     <div class="hidden">
         <div id="b2_1">
-            Is a class containing code specific to a cross-cutting concern (pointcuts and advices).
+            Is a <b>class containing</b> code specific to a <b>cross-cutting</b> concern (pointcuts and advices).
             <br/>
             <br/>
             In code:
@@ -664,7 +660,7 @@
             </ul>
         </div>
         <div id="b2_2">
-            Is an action taken by an aspect at a particular join point
+            Is an action taken by an aspect at a particular join point. In Sprint - <b>annotated method</b>.
             <br/>
             <br/>
             In code:
@@ -768,17 +764,17 @@
         </div>
         <div id="b3_2">
             <ul>
-                <li>JDK dynamic proxy
+                <li><b>JDK dynamic proxy</b>
                     <ul>
-                        <li>used by default for beans with interface</li>
+                        <li>used by default for beans with <b>interface</b></li>
                         <li>recommended to use</li>
                         <li>proxy will implement the same interface as target object</li>
                     </ul>
                 </li>
                 <br/>
-                <li>CGLIB proxy
+                <li><b>CGLIB proxy</b>
                     <ul>
-                        <li>is default for @Configuration and other beans with no interface</li>
+                        <li>is <b>default for @Configuration</b> and other beans with <b>no interface</b></li>
                         <li>not recommended to use</li>
                         <li>proxy willextend target object</li>
                         <li>adviced methods cannot be final</li>
@@ -819,35 +815,35 @@
         <li>
             <b>JdbcTemplate:</b>
             <a title="c3_1">what is</a>
-            <a title="c3_2">callbacks</a>
+            <a title="c3_2" class="label-warning">callbacks</a>
             <a title="c3_3">queries</a>
         </li>
         <li>
             <b>Transactions:</b>
             <a title="c4_1">what is</a>
-            <a title="c4_2">types</a>
-            <a title="c4_6">configuration</a>
-            <a title="c4_3">transaction strategy</a>
-            <a title="c4_4">isolation</a>
-            <a title="c4_5">propagation</a>
+            <a title="c4_2" class="label-warning">types</a>
+            <a title="c4_6" class="label-warning">configuration</a>
+            <a title="c4_3" class="label-danger">transaction strategy</a>
+            <a title="c4_4" class="label-danger">isolation</a>
+            <a title="c4_5" class="label-warning">propagation</a>
             <a title="c4_7">@Transactional</a>
             <a title="c4_8">rollback</a>
         </li>
         <li>
             <b>ORM:</b>
             <a title="c6_1">what is</a>
-            <a title="c6_2">how works</a>
+            <a title="c6_2" class="label-warning">how works</a>
         </li>
         <li>
             <b>JPA:</b>
             <a title="c7_1">what is</a>
-            <a title="c7_2">configuration</a>
+            <a title="c7_2" class="label-warning">configuration</a>
             <a title="c7_3">participation in transaction</a>
         </li>
         <li>
             <b>Spring data:</b>
             <a title="c8_1">instant repository</a>
-            <a title="c8_2">how works</a>
+            <a title="c8_2" class="label-warning">how works</a>
             <a title="c8_3">@Query</a>
         </li>
     </ul>
@@ -856,9 +852,9 @@
         <div id="c1_1">
             Data access exceptions hierarchy:
             <ul>
-                <li>RuntimeException
+                <li><b>RuntimeException</b>
                     <ul>
-                        <li>DataAccessException
+                        <li><b>DataAccessException</b>
                             <ul>
                                 <li>DataAccessResourceFailureException</li>
                                 <li>CleanupFailureDataAccessException</li>
@@ -963,25 +959,25 @@
             </ul>
             <br/>
 
-            Spring Boot can auto-configure embedded:
+            Spring Boot can auto-configure <b>embedded</b>:
             <ul>
-                <li>H2</li>
-                <li>HSQL</li>
-                <li>Derby</li>
+                <li><b>H2</b></li>
+                <li><b>HSQL</b></li>
+                <li><b>Derby</b></li>
             </ul>
         </div>
         <div id="c2_3">
             &lt;jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
             <br/>
-            &lt;bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
+            &lt;bean id="txManager" class="org.springframework.transaction.jta.<b>JtaTransactionManager</b>"/>
             <br/>
-            (doesn't need to know about datasource
+            (doesn't need to know about datasource)
         </div>
     </div>
 
     <div class="hidden">
         <div id="c3_1">
-            JdbcTemplate is a JDBC approac.
+            JdbcTemplate is a JDBC approach
             <br/>
             Named so because of a Template Method pattern that it's based on.
             <br/>
@@ -996,7 +992,7 @@
             </ul>
         </div>
         <div id="c3_2">
-            callback ("call-after" function) - called after thother function execution.
+            callback ("call-after" function) - called after the other function execution.
             <br/>
             <br/>
 
@@ -1029,14 +1025,14 @@
             </ul>
         </div>
         <div id="c3_3">
-            Plain SQL statement execution:
+            <b>Plain SQL</b> statement execution:
             <ul>
-                <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
+                <li>jdbcTemplate.<b>queryFor</b>Object("select count(*) from p_user", Integer.class);</li>
                 <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
             </ul>
             <br/>
 
-            Dynamic queries (with returning an entity) are possible with RowMapper.
+            <b>Dynamic queries</b> (with returning an entity) are possible with <b>RowMapper</b>.
             <br/>
             If RowMapper is provided following JdbcTemplate methods can be used:
             <ul>
@@ -1127,27 +1123,37 @@
                 <tr>
                     <th>Level</th>
                     <th>Name</th>
-                    <th>Allows</th>
+                    <th>phantom reads</th>
+                    <th>non-repeatable reads</th>
+                    <th>dirty reads</th>
                 </tr>
                 <tr>
                     <td>1st (lowest)</td>
                     <td>Read uncommitted</td>
-                    <td>phantom reads, non-repeatable reads, dirty reads</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;+</td>
                 </tr>
                 <tr>
                     <td>2nd*</td>
                     <td>Read committed</td>
-                    <td>phantom reads, non-repeatable reads</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td/>
                 </tr>
                 <tr>
                     <td>3rd</td>
                     <td>Repeatable reads</td>
-                    <td>phantom reads</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td/>
+                    <td/>
                 </tr>
                 <tr>
                     <td>4th (highest)</td>
                     <td>Serializable</td>
-                    <td>transactions are fully isolated</td>
+                    <td/>
+                    <td/>
+                    <td/>
                 </tr>
             </table>
             <br/>
@@ -1288,15 +1294,11 @@
         <div id="c6_2">
             <b>PersistenceContext</b>
             contains a set of entity instances that correspond to persistent entity identity.
-            <br/>
-            <br/>
-            <br/>
-
+            <br/><br/>
             All the manipulations with the persistent instances are made using <b>EntityManager</b>.
             EntityManager writes, deletes and searches entities to database.
-            Injected viw @PersistenceContext.
-            <br/>
-            <br/>
+            Injected with <b>@PersistenceContext</b>.
+            <br/><br/>
 
             <b>@Entity</b>
             annotation is used to mark a class as an entity class that will be mapped to the database using
@@ -1306,7 +1308,7 @@
 
     <div class="hidden">
         <div id="c7_1">
-            Java Persistence API - high level API and specification so that different ORM tools can implement so that it
+            <b>Java Persistence API</b> - high level <b>API and specification</b> so that different ORM tools can implement so that it
             provides the flexibility to developer to change the implementation from one ORM to another
         </div>
         <div id="c7_2">
@@ -1318,20 +1320,14 @@
                 </li>
                 <li>
                     <b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence
-                    unit"
-                    with
-                    provicer and properties (persistence.xml or more programmically since Spring 3.1).
+                    unit" with provider and properties (persistence.xml or more programmically since Spring 3.1).
                 </li>
             </ul>
-            Alternative is to use in a JEE-compliant container where
-            <b>application server</b>
-            bootstraps the JPA
+            Alternative is to use in a JEE-compliant container where <b>application server</b> bootstraps the JPA
             persistence unit based on the information in the deployment descriptors. This allows Spring to look up
-            the entity manager via
-            <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
+            the entity manager via <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
             configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1
-            <br/>
-            <br/>
+            <br/><br/>
 
             <b>JpaTransactionManager</b>
             is the JPA PlatformTransactionManager implementation.

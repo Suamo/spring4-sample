@@ -9,11 +9,11 @@
         </li>
         <li>
             <b>Terminology:</b>
-            <a title="b2_1">aspect</a>
-            <a title="b2_2">advice</a>
+            <a title="b2_1" class="label-warning">aspect</a>
+            <a title="b2_2" class="label-warning">advice</a>
             <a title="b2_3">cross-cutting concern</a>
-            <a title="b2_4">pointcut</a>
-            <a title="b2_5">join point</a>
+            <a title="b2_4" class="label-warning">pointcut</a>
+            <a title="b2_5" class="label-warning">join point</a>
             <a title="b2_6">weaving</a>
         </li>
         <li>
@@ -38,15 +38,15 @@
             </ul>
         </div>
         <div id="b1_3">
-            Once @AspectJ support enabled - all @Aspect classes will be automatically detected and used to configure
+            Once AspectJ support enabled - <b>all @Aspect classes will be automatically detected and used</b> to configure
             AOP.
             <br/>
             <br/>
             Enabling AspectJ support:
             <ul>
-                <li>Java config: @EnableAspectJAutoProxy</li>
+                <li>Java config: <b>@EnableAspectJAutoProxy</b></li>
                 <li>XML config:
-                    &lt;aop:aspectj-autoproxy/>
+                    &lt;aop:<b>aspectj-autoproxy</b>/>
                 </li>
             </ul>
         </div>
@@ -54,7 +54,7 @@
 
     <div class="hidden">
         <div id="b2_1">
-            Is a class containing code specific to a cross-cutting concern (pointcuts and advices).
+            Is a <b>class containing</b> code specific to a <b>cross-cutting</b> concern (pointcuts and advices).
             <br/>
             <br/>
             In code:
@@ -70,7 +70,7 @@
             </ul>
         </div>
         <div id="b2_2">
-            Is an action taken by an aspect at a particular join point
+            Is an action taken by an aspect at a particular join point. In Sprint - <b>annotated method</b>.
             <br/>
             <br/>
             In code:
@@ -174,17 +174,17 @@
         </div>
         <div id="b3_2">
             <ul>
-                <li>JDK dynamic proxy
+                <li><b>JDK dynamic proxy</b>
                     <ul>
-                        <li>used by default for beans with interface</li>
+                        <li>used by default for beans with <b>interface</b></li>
                         <li>recommended to use</li>
                         <li>proxy will implement the same interface as target object</li>
                     </ul>
                 </li>
                 <br/>
-                <li>CGLIB proxy
+                <li><b>CGLIB proxy</b>
                     <ul>
-                        <li>is default for @Configuration and other beans with no interface</li>
+                        <li>is <b>default for @Configuration</b> and other beans with <b>no interface</b></li>
                         <li>not recommended to use</li>
                         <li>proxy willextend target object</li>
                         <li>adviced methods cannot be final</li>

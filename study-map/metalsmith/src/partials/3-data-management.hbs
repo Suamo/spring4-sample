@@ -15,35 +15,35 @@
         <li>
             <b>JdbcTemplate:</b>
             <a title="c3_1">what is</a>
-            <a title="c3_2">callbacks</a>
+            <a title="c3_2" class="label-warning">callbacks</a>
             <a title="c3_3">queries</a>
         </li>
         <li>
             <b>Transactions:</b>
             <a title="c4_1">what is</a>
-            <a title="c4_2">types</a>
-            <a title="c4_6">configuration</a>
-            <a title="c4_3">transaction strategy</a>
-            <a title="c4_4">isolation</a>
-            <a title="c4_5">propagation</a>
+            <a title="c4_2" class="label-warning">types</a>
+            <a title="c4_6" class="label-warning">configuration</a>
+            <a title="c4_3" class="label-danger">transaction strategy</a>
+            <a title="c4_4" class="label-danger">isolation</a>
+            <a title="c4_5" class="label-warning">propagation</a>
             <a title="c4_7">@Transactional</a>
             <a title="c4_8">rollback</a>
         </li>
         <li>
             <b>ORM:</b>
             <a title="c6_1">what is</a>
-            <a title="c6_2">how works</a>
+            <a title="c6_2" class="label-warning">how works</a>
         </li>
         <li>
             <b>JPA:</b>
             <a title="c7_1">what is</a>
-            <a title="c7_2">configuration</a>
+            <a title="c7_2" class="label-warning">configuration</a>
             <a title="c7_3">participation in transaction</a>
         </li>
         <li>
             <b>Spring data:</b>
             <a title="c8_1">instant repository</a>
-            <a title="c8_2">how works</a>
+            <a title="c8_2" class="label-warning">how works</a>
             <a title="c8_3">@Query</a>
         </li>
     </ul>
@@ -52,9 +52,9 @@
         <div id="c1_1">
             Data access exceptions hierarchy:
             <ul>
-                <li>RuntimeException
+                <li><b>RuntimeException</b>
                     <ul>
-                        <li>DataAccessException
+                        <li><b>DataAccessException</b>
                             <ul>
                                 <li>DataAccessResourceFailureException</li>
                                 <li>CleanupFailureDataAccessException</li>
@@ -159,25 +159,25 @@
             </ul>
             <br/>
 
-            Spring Boot can auto-configure embedded:
+            Spring Boot can auto-configure <b>embedded</b>:
             <ul>
-                <li>H2</li>
-                <li>HSQL</li>
-                <li>Derby</li>
+                <li><b>H2</b></li>
+                <li><b>HSQL</b></li>
+                <li><b>Derby</b></li>
             </ul>
         </div>
         <div id="c2_3">
             &lt;jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
             <br/>
-            &lt;bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
+            &lt;bean id="txManager" class="org.springframework.transaction.jta.<b>JtaTransactionManager</b>"/>
             <br/>
-            (doesn't need to know about datasource
+            (doesn't need to know about datasource)
         </div>
     </div>
 
     <div class="hidden">
         <div id="c3_1">
-            JdbcTemplate is a JDBC approac.
+            JdbcTemplate is a JDBC approach
             <br/>
             Named so because of a Template Method pattern that it's based on.
             <br/>
@@ -192,7 +192,7 @@
             </ul>
         </div>
         <div id="c3_2">
-            callback ("call-after" function) - called after thother function execution.
+            callback ("call-after" function) - called after the other function execution.
             <br/>
             <br/>
 
@@ -225,14 +225,14 @@
             </ul>
         </div>
         <div id="c3_3">
-            Plain SQL statement execution:
+            <b>Plain SQL</b> statement execution:
             <ul>
-                <li>jdbcTemplate.queryForObject("select count(*) from p_user", Integer.class);</li>
+                <li>jdbcTemplate.<b>queryFor</b>Object("select count(*) from p_user", Integer.class);</li>
                 <li>jdbcTemplate.queryForInt("select count(*) from p_user");</li>
             </ul>
             <br/>
 
-            Dynamic queries (with returning an entity) are possible with RowMapper.
+            <b>Dynamic queries</b> (with returning an entity) are possible with <b>RowMapper</b>.
             <br/>
             If RowMapper is provided following JdbcTemplate methods can be used:
             <ul>
@@ -323,27 +323,37 @@
                 <tr>
                     <th>Level</th>
                     <th>Name</th>
-                    <th>Allows</th>
+                    <th>phantom reads</th>
+                    <th>non-repeatable reads</th>
+                    <th>dirty reads</th>
                 </tr>
                 <tr>
                     <td>1st (lowest)</td>
                     <td>Read uncommitted</td>
-                    <td>phantom reads, non-repeatable reads, dirty reads</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;+</td>
                 </tr>
                 <tr>
                     <td>2nd*</td>
                     <td>Read committed</td>
-                    <td>phantom reads, non-repeatable reads</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td/>
                 </tr>
                 <tr>
                     <td>3rd</td>
                     <td>Repeatable reads</td>
-                    <td>phantom reads</td>
+                    <td>&nbsp;&nbsp;+</td>
+                    <td/>
+                    <td/>
                 </tr>
                 <tr>
                     <td>4th (highest)</td>
                     <td>Serializable</td>
-                    <td>transactions are fully isolated</td>
+                    <td/>
+                    <td/>
+                    <td/>
                 </tr>
             </table>
             <br/>
@@ -484,15 +494,11 @@
         <div id="c6_2">
             <b>PersistenceContext</b>
             contains a set of entity instances that correspond to persistent entity identity.
-            <br/>
-            <br/>
-            <br/>
-
+            <br/><br/>
             All the manipulations with the persistent instances are made using <b>EntityManager</b>.
             EntityManager writes, deletes and searches entities to database.
-            Injected viw @PersistenceContext.
-            <br/>
-            <br/>
+            Injected with <b>@PersistenceContext</b>.
+            <br/><br/>
 
             <b>@Entity</b>
             annotation is used to mark a class as an entity class that will be mapped to the database using
@@ -502,7 +508,7 @@
 
     <div class="hidden">
         <div id="c7_1">
-            Java Persistence API - high level API and specification so that different ORM tools can implement so that it
+            <b>Java Persistence API</b> - high level <b>API and specification</b> so that different ORM tools can implement so that it
             provides the flexibility to developer to change the implementation from one ORM to another
         </div>
         <div id="c7_2">
@@ -514,20 +520,14 @@
                 </li>
                 <li>
                     <b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence
-                    unit"
-                    with
-                    provicer and properties (persistence.xml or more programmically since Spring 3.1).
+                    unit" with provider and properties (persistence.xml or more programmically since Spring 3.1).
                 </li>
             </ul>
-            Alternative is to use in a JEE-compliant container where
-            <b>application server</b>
-            bootstraps the JPA
+            Alternative is to use in a JEE-compliant container where <b>application server</b> bootstraps the JPA
             persistence unit based on the information in the deployment descriptors. This allows Spring to look up
-            the entity manager via
-            <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
+            the entity manager via <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
             configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1
-            <br/>
-            <br/>
+            <br/><br/>
 
             <b>JpaTransactionManager</b>
             is the JPA PlatformTransactionManager implementation.

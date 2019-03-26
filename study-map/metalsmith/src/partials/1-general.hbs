@@ -28,7 +28,7 @@
             <a title="a3_4">private fields injection</a>
             <a title="a3_5">scalar/literal injection</a>
             <a title="a3_6">@Value</a>
-            <a title="a3_7">$ vs #{}</a>
+            <a title="a3_7">$ vs #</a>
         </li>
         <li>
             <b>Properties:</b>
@@ -56,7 +56,6 @@
             <b>SpEL:</b>
             <a title="a8_1">what is</a>
             <a title="a8_2">usage</a>
-            <a title="a8_3">functionality</a>
         </li>
     </ul>
 
@@ -264,8 +263,7 @@
             <br/>
             To alter:
             <ul>
-                <li>&lt;bean id="lazy" class="com.foo.HeavyBean" <b>lazy-init</b>="true"/> or
-                    <br/>
+                <li>&lt;bean id="lazy" class="com.foo.HeavyBean" <b>lazy-init</b>="true"/> or<br/>
                     &lt;beans <b>default-lazy-init</b>="true">
                 </li>
                 <li>
@@ -290,10 +288,10 @@
                     [JSR-250] (Java config, best practice)
                 </li>
                 <li>
-                    <b>custom init()</b>
-                    method (Java and XML config)
+                    <b>custom init</b> method (Java and XML config)
                     <ul>
-                        <li>XML: &lt;beans default-init-method="init"/> or &lt;bean init-method="init"/></li>
+                        <li>XML: &lt;beans default-init-method="init"/> or<br/>
+                            &lt;bean init-method="init"/></li>
                         <li>Java: @Bean(initMethod = "init")</li>
                     </ul>
                 </li>
@@ -313,12 +311,9 @@
                     [JSR-250] (Java config, best practice)
                 </li>
                 <li>
-                    <b>custom destroy()</b>
-                    method (Java and XML config)
+                    <b>custom destroy</b> method (Java and XML config)
                     <ul>
-                        <li>XML: &lt;beans default-destroy-method attribute="destroy"/> or &lt;bean
-                            destroy-method="destroy"/>
-                        </li>
+                        <li>XML: &lt;beans default-destroy-method attribute="destroy"/> or &lt;bean destroy-method="destroy"/></li>
                         <li>Java: @Bean(destroyMethod = "destroyMethod")</li>
                     </ul>
                 </li>
@@ -336,15 +331,15 @@
         </div>
         <div id="a3_2">
             <ul>
-                <li>injects a bean</li>
-                <li>handled by Spring BeanPostProcessor</li>
-                <li>makes injection mandatory. Fails if nothing to inject</li>
-                <li>only one constructor can be Autowired</li>
+                <li><b>injects</b> a bean</li>
+                <li>handled by Spring <b>BeanPostProcessor</b></li>
+                <li>makes injection <b>mandatory</b>. Fails if nothing to inject</li>
+                <li>only <b>one constructor</b> can be Autowired</li>
                 <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
             </ul>
         </div>
         <div id="a3_3">
-            Defines exact bean name if injection by type finds multiple implementations.
+            Defines <b>exact bean name</b> if injection by type finds multiple implementations.
         </div>
         <div id="a3_4">
             Private fields are injected the same way as public.
@@ -357,17 +352,17 @@
         </div>
         <div id="a3_6">
             <ul>
-                <li>handled by Spring BeanPostProcessor</li>
+                <li>handled by Spring <b>BeanPostProcessor</b></li>
                 <li>can be placed on fields, methods and method/constructor parameters</li>
-                <li>used for expression-driven dependency injection</li>
+                <li>used for <b>expression-driven dependency injection</b></li>
                 <li>supported for dynamic resolution of handler method parameters e.g. in Spring MVC</li>
             </ul>
         </div>
         <div id="a3_7">
             <ul>Used in @Value
-                <li>#{} - SpEL expression. Inside the expression variables can be references by #newName, #this, #root
+                <li><b>#{}</b> - SpEL expression. Inside the expression variables can be references by #newName, #this, #root
                 </li>
-                <li>$ - "${" is a "placeholder prefix". ${} expression internally will be handled by
+                <li><b>${}</b> - "${" is a "placeholder prefix". ${} expression internally will be handled by
                     PropertyResolver.resolvePlaceholders
                 </li>
             </ul>
@@ -392,9 +387,9 @@
         </div>
         <div id="a4_2">
             <ul>
-                <li>predefined bean factory post-processor</li>
+                <li>predefined bean factory <b>post-processor</b></li>
                 <li>newer and more flexible version of old PropertyPlaceholderConfigurer</li>
-                <li>Resolves ${...} placeholders in bean definition property values and @Value annotations against the
+                <li><b>Resolves ${}</b> placeholders in bean definition property values and @Value annotations against the
                     current Spring Environment and its set of PropertySources
                 </li>
             </ul>
@@ -420,9 +415,9 @@
 
     <div class="hidden">
         <div id="a6_1">
-            Is a mechanism that allows for registration of different beans in different environments
+            Is a mechanism that allows for <b>registration of different beans in different environments</b>
             <br/>
-            Default profile is a "default".
+            Default profile is a "<b>default</b>".
             <br/>
             <br/>
             Useful when (examples):
@@ -436,14 +431,14 @@
         </div>
         <div id="a6_2">
             <ul>
-                <li>Java: @Profile on @Configuration/@Component/@Bean</li>
-                <li>XML: 'profile' attribute on &lt;beans></li>
+                <li>Java: <b>@Profile</b> on @Configuration/@Component/@Bean</li>
+                <li>XML: '<b>profile</b>' attribute on &lt;beans></li>
             </ul>
             <br/>
             Activation:
             <ul>
-                <li>-Dspring.profiles.active="profile1,profile2"</li>
-                <li>ctx.getEnvironment().setActiveProfiles("profile1", "profile2")</li>
+                <li>-D<b>spring.profiles.active</b>="profile1,profile2"</li>
+                <li>ctx.getEnvironment().<b>setActiveProfiles</b>("profile1", "profile2")</li>
             </ul>
             <br/>
             Arguments
@@ -453,7 +448,7 @@
             </ul>
         </div>
         <div id="a6_3">
-            It is possible to have MAX array size different profiles expected for registered bean
+            It is possible to have <b>MAX array size</b> different profiles expected for registered bean
         </div>
     </div>
 
@@ -463,8 +458,8 @@
                 <li>integrated in the container</li>
                 <li>contains
                     <ul>
-                        <li>profiles: which is currently active</li>
-                        <li>properties: configuring property sources and resolving properties from them</li>
+                        <li><b>profiles</b>: which is currently active</li>
+                        <li><b>properties</b>: configuring property sources and resolving properties from them</li>
                     </ul>
                 </li>
             </ul>
@@ -484,28 +479,9 @@
 
     <div class="hidden">
         <div id="a8_1">
-            Spring Expression Language supports querying and manipulating an object graph at runtime
-            <br/>
-        </div>
-        <div id="a8_2">
-            <ul>
-                <li>Manually: using ExpressionParser.parseExpression ("org.springframework.expression" package)
-                </li>
-                <li>In Bean Definitions:
-                    <ul>
-                        <li>XML Config: &lt;property name="prop"
-                            <br/>
-                            value="<b>#{ T(java.lang.Math).random() * 100.0 }</b>"/>
-                        </li>
-                        <li>Annotation Config:
-                            <br/>
-                            @Value("<b>#{ systemProperties['user.region'] }</b>")
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div id="a8_3">
+            Spring Expression Language supports <b>querying and manipulating an object graph at runtime</b>
+            <br/><br/>
+            Functionality:
             <ul>
                 <li>Literal expressions</li>
                 <li>Boolean and relational operators</li>
@@ -526,6 +502,26 @@
                 <li>Collection projection</li>
                 <li>Collection selection</li>
                 <li>Templated expressions</li>
+            </ul>
+        </div>
+        <div id="a8_2">
+            <ul>
+                <li>
+                    Manually: <br/>
+                    <b>ExpressionParser.parseExpression</b> (from "org.springframework.expression" package)
+                </li>
+                <li>In Bean Definitions:
+                    <ul>
+                        <li>XML Config: &lt;property name="prop"
+                            <br/>
+                            value="<b>#{ T(java.lang.Math).random() * 100.0 }</b>"/>
+                        </li>
+                        <li>Annotation Config:
+                            <br/>
+                            @Value("<b>#{ systemProperties['user.region'] }</b>")
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
