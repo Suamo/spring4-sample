@@ -1776,16 +1776,16 @@
             <b>Overview:</b>
             <a title="f1_1">overview</a>
             <a title="f1_2">authentication vs authorization</a>
-            <a title="f1_3">method security</a>
+            <a title="f1_3" class="label-danger">method security</a>
             <a title="f1_4">view security</a>
         </li>
         <li>
             <b>Configuration:</b>
-            <a title="f2_1">delegating filter proxy</a>
-            <a title="f2_2">security filter chain</a>
-            <a title="f2_3">context</a>
-            <a title="f2_4">intercept-url</a>
-            <a title="f2_5">antMatcher vs mvcMatcher</a>
+            <a title="f2_1" class="label-warning">delegating filter proxy</a>
+            <a title="f2_2" class="label-warning">security filter chain</a>
+            <a title="f2_3" class="label-warning">context</a>
+            <a title="f2_4" class="label-danger">intercept-url</a>
+            <a title="f2_5" class="label-warning">antMatcher vs mvcMatcher</a>
             <a title="f2_6">passwords</a>
         </li>
     </ul>
@@ -1795,12 +1795,10 @@
             Spring Security is a cross cutting concern.
             implemented in the following two ways depending on what is to be secured:
             <ul>
-                <li>Using a Spring
-                    <b>AOP proxy</b>
+                <li><b>Method invocation authorization</b>: is done via AOP proxy
                     that inherits from the AbstractSecurityInterceptor class.
-                    Applied to method invocation authorization on objects secured with Spring Security.
                 </li>
-                <li>Spring Security’s web infrastructure is based entirely on <b>servlet filters</b>.
+                <li><b>Web infrastructure security</b>: is based entirely on servlet filters.
                     It deals in HttpServletRequest s and HttpServletResponse. Spring Security maintains a filter chain
                     internally where each of the filters has a particular responsibility.
                 </li>
@@ -1853,7 +1851,7 @@
             <br/>
             <br/>
 
-            Other security annotation and use SpEL:
+            Security annotations that use SpEL:
             <ul>
                 <li>@PreAuthorize</li>
                 <li>@PreFilter</li>
@@ -1879,9 +1877,7 @@
                     <b>authorize</b>
                     tag: visibility by condition
                     <br/>
-                    &lt;sec:authorize access="hasRole('aadministrator')">
-                    Visible if "access" expression is true
-                    &lt;/sec:authorize>
+                    &lt;sec:authorize access="hasRole('aadministrator')">Admin!&lt;/sec:authorize>
                 </li>
                 <li>
                     <b>authentication</b>
@@ -1962,7 +1958,7 @@
             <ul>
                 <li>setting an object that implements the Authentication</li>
                 <li>retrieving an object that implements the Authentication</li>
-            </ul>
+            </ul><br/>
             The <b>Authentication</b> interface defines the properties of an object that represents a
             <b>security token</b>
             for <b>authentication request</b> (prior to authentication) and
