@@ -217,10 +217,10 @@
             Alternative callback interfaces:
             <ul>
                 <li>
-                    <b>RowMapper</b>called for each ResultSet record separately to convert it to a result object
+                    <b>RowMapper</b> called for each ResultSet record separately to convert it to a result object
                 </li>
                 <li>
-                    <b>ResultSetExtractor</b>called once for the whole ResultSet to convert it to a result object
+                    <b>ResultSetExtractor</b> called once for the whole ResultSet to convert it to a result object
                 </li>
             </ul>
         </div>
@@ -330,21 +330,21 @@
                 <tr>
                     <td>1st (lowest)</td>
                     <td>Read uncommitted</td>
-                    <td>&nbsp;&nbsp;+</td>
-                    <td>&nbsp;&nbsp;+</td>
-                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;allowed</td>
+                    <td>&nbsp;&nbsp;allowed</td>
+                    <td>&nbsp;&nbsp;allowed</td>
                 </tr>
                 <tr>
                     <td>2nd*</td>
                     <td>Read committed</td>
-                    <td>&nbsp;&nbsp;+</td>
-                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;allowed</td>
+                    <td>&nbsp;&nbsp;allowed</td>
                     <td/>
                 </tr>
                 <tr>
                     <td>3rd</td>
                     <td>Repeatable reads</td>
-                    <td>&nbsp;&nbsp;+</td>
+                    <td>&nbsp;&nbsp;allowed</td>
                     <td/>
                     <td/>
                 </tr>
@@ -522,7 +522,7 @@
                     <b>LocalEntityManagerFactoryBean</b>: suitable only for simple development purposes. "persistence
                     unit" with provider and properties (persistence.xml or more programmically since Spring 3.1).
                 </li>
-            </ul>
+            </ul><br/>
             Alternative is to use in a JEE-compliant container where <b>application server</b> bootstraps the JPA
             persistence unit based on the information in the deployment descriptors. This allows Spring to look up
             the entity manager via <b>JNDI lookup</b>. In the JPA specification, a persistence unit should be defined in the
