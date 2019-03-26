@@ -70,8 +70,8 @@
         <a title="a1_5">closing context</a>
     </li>
     <li><b>Beans:</b>
-        <a title="a2_1">lifecycle</a>
-        <a title="a2_2">scope</a>
+        <a title="a2_1" class="label-warning">lifecycle</a>
+        <a title="a2_2" class="label-warning">scope</a>
         <a title="a2_3">IDs</a>
         <a title="a2_4">scanning</a>
         <a title="a2_5">stereotypes</a>
@@ -94,8 +94,8 @@
         <a title="a4_3">PropertyResolver</a>
     </li>
     <li><b>PostProcessors:</b>
-        <a title="a5_1">BeanFactoryPostProcessor</a>
-        <a title="a5_2">BeanPostProcessor</a>
+        <a title="a5_1" class="label-warning">BeanFactoryPostProcessor</a>
+        <a title="a5_2" class="label-warning">BeanPostProcessor</a>
     </li>
     <li><b>Profiles:</b>
         <a title="a6_1">what is</a>
@@ -465,9 +465,11 @@
             </li>
             <li>In Bean Definitions:
                 <ul>
-                    <li>XML Config: < property name="randomNumber" value="#{ T(java.lang.Math).random() * 100.0 }"/>
+                    <li>XML Config: &lt;property name="prop"<br/>
+                                      value="<b>#{ T(java.lang.Math).random() * 100.0 }</b>"/>
                     </li>
-                    <li>Annotation Config: @Value("#{ systemProperties['user.region'] }")</li>
+                    <li>Annotation Config:<br/>
+                        @Value("<b>#{ systemProperties['user.region'] }</b>")</li>
                 </ul>
             </li>
         </ul>

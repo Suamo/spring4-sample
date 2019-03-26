@@ -7,5 +7,6 @@ npm run site
 
 npm run watch
 
-
-
+HTML tags as plain text:
+"<" - "&lt;"
+">" - "&gt;"
