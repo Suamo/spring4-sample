@@ -4,14 +4,14 @@
         <li>
             <b>Overview:</b>
             <a title="e1_1">what is</a>
-            <a title="e1_2">configuration</a>
+            <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
         </li>
         <li>
             <b>Controller:</b>
             <a title="e2_1">@Controller</a>
             <a title="e2_2">request mapping</a>
-            <a title="e2_3">parameters</a>
+            <a title="e2_3" class="label-warning">parameters</a>
             <a title="e2_4">return types</a>
             <a title="e2_5">testing</a>
         </li>
@@ -28,12 +28,10 @@
 
     <div class="hidden">
         <div id="e1_1">
-            Spring Web MVC is the original web framework built on the Servlet API and has been included in the
-            Spring Framework from the very beginning. The formal name, “<b>Spring Web MVC</b>,” comes from the name of
-            its
-            source module (spring-webmvc), but it is more commonly known as “Spring MVC”.
-            <br/>
-            <br/>
+            <b>Spring Web MVC</b> is the original web framework built on the Servlet API and has been included in the
+            Spring Framework from the very beginning. The formal name, “Spring Web MVC,” comes from the name of
+            its source module (spring-webmvc), but it is more commonly known as “Spring MVC”.
+            <br/><br/>
             MVC is an abbreviation for a
             <b>Model–View–Controller</b>
             pattern that decouples major components
@@ -69,13 +67,13 @@
             multiple Servlet instances. Supports additional scopes:
             <ul>
                 <li>
-                    <b>request</b>
+                    <b>request</b> - one object instance per HTTP request lifecycle (each HTTP request has new instance)
                 </li>
                 <li>
-                    <b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b>
+                    <b>session</b> - restricts bean definitions with HTTP session. e.g. user profile, shopping cart
                 </li>
                 <li>
-                    <b>application</b>
+                    <b>application</b> - one object instance per ServletContext lifecycle
                 </li>
             </ul>
         </div>
@@ -104,7 +102,7 @@
                 </li>
                 <li>DeleteMapping</li>
                 <li>PutMapping</li>
-                <li>(and mode)</li>
+                <li>(and more)</li>
             </ul>
             <br/>
         </div>

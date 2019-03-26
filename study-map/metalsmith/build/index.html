@@ -252,9 +252,7 @@
                     <b>prototype</b>
                     - one object instance per bean request from container
                 </li>
-                <li>[web only] <b>request</b> - one object instance per HTTP request lifecycle (each HTTP request has
-                    new
-                    instance)
+                <li>[web only] <b>request</b> - each HTTP request has new instance
                 </li>
                 <li>[web only] <b>session</b> - one object instance per HTTP session lifecycle
                 </li>
@@ -1385,47 +1383,46 @@
     <ul>
         <li>
             <b>Spring Boot:</b>
-            <a title="c1_1">what is</a>
-            <a title="c1_2">advantages</a>
-            <a title="c1_3">configuration</a>
-            <a title="c1_4">properties</a>
-            <a title="c1_5">embadded containers</a>
-            <a title="c1_6">starter POM</a>
-            <a title="c1_7">logging</a>
+            <a title="d1_1">what is</a>
+            <a title="d1_2">advantages</a>
+            <a title="d1_3" class="label-warning">configuration</a>
+            <a title="d1_4">properties</a>
+            <a title="d1_5">embadded containers</a>
+            <a title="d1_6">starter POM</a>
+            <a title="d1_7">logging</a>
         </li>
     </ul>
 
     <div class="hidden">
-        <div id="c1_1">
-            Spring Boot is used to build stand-alone and production ready spring applications.
-            <br/>
-            Feature:
+        <div id="d1_1">
+            Spring Boot is an extension of the Spring framework which eliminates the boilerplate configurations
+            required for setting up a Spring application.
+
+            <br/><br/>
+            Features:
             <ul>
                 <li>Create <b>stand-alone</b> Spring applications
                 </li>
                 <li>
-                    <b>Embed Tomcat, Jetty or Undertow</b>
-                    directly (no need to deploy WAR files)
+                    <b>Embed servlet containers</b> (no need to deploy WAR files)
                 </li>
                 <li>Provide
-                    <b>opinionated*</b>
-                    'starter' dependencies to simplify your build configuration
+                    <b>opinionated*</b> 'starter' dependencies to simplify your build configuration
                 </li>
                 <li>
-                    <b>Automatically configure</b>
-                    Spring and 3rd party libraries whenever possible
+                    <b>Automatically configure</b> Spring and 3rd party libraries whenever possible
                 </li>
                 <li>Provide production-ready features such as metrics, health checks and externalized configuration</li>
                 <li>Absolutely no code generation and no requirement for XML configuration</li>
             </ul>
             <br/>
-            * Opinionated: Spring scans dependencies from classpath and adds support for different
+            * <b>Opinionated</b>: Spring scans dependencies from classpath and adds support for different
             components by initializing “maybe” required beans. For example if it sees a dependency on Thymeleaf,
             3 beans that Thymeleaf uses are automatically initialized: ThymeleafViewResolver, SpringTemplateEngine,
             TemplateResolver. Moreover it also scans the templates directory from resources for Thymeleaf templates.
             If you have tomcat-embedded.jar on your classpath TomcatServletWebServerFactory bean will be initialized.
         </div>
-        <div id="c1_2">
+        <div id="d1_2">
             <ul>
                 <li>easy configuration of Spring application</li>
                 <li>Integrated web containers that allow for easy testing</li>
@@ -1433,7 +1430,7 @@
                 <li>Decrease amount of boilerplate code</li>
             </ul>
         </div>
-        <div id="c1_3">
+        <div id="d1_3">
             <b>@EnableAutoConfiguration</b>
             - enables auto-configuration of the Application Context (opinionated view)
             <br/>
@@ -1443,7 +1440,7 @@
             - just convenient annotation that is
             meta-annotated with @Configuration, @EnableAutoConfiguration and @ComponentScan.
         </div>
-        <div id="c1_4">
+        <div id="d1_4">
             common annotations and configuration properties
             SpringApplication loads properties from <b>application.properties</b> (or
             <b>yml/yaml</b>) files in the
@@ -1463,7 +1460,7 @@
                 </li>
             </ul>
         </div>
-        <div id="c1_5">
+        <div id="d1_5">
             Spring Boot supports following embedded containers:
             <ul>
                 <li>
@@ -1484,7 +1481,7 @@
                 <li>WAR - archive that can be deployed on an external container</li>
             </ul>
         </div>
-        <div id="c1_6">
+        <div id="d1_6">
             Maven users can inherit from the
             <b>spring-boot-starter-parent</b>
             project to obtain sensible defaults.
@@ -1519,7 +1516,7 @@
                 </li>
             </ul>
         </div>
-        <div id="c1_7">
+        <div id="d1_7">
             Configuration:
             <ul>
                 <li>add the required dependencies to the classpat</li>
@@ -1535,9 +1532,9 @@
             <br/>
             Default configurations are provided for;
             <ul>
-                <li>Java Util Logging</li>
-                <li>Log4J2</li>
-                <li>Logback</li>
+                <li><b>Java Util Logging</b></li>
+                <li><b>Log4J2</b></li>
+                <li><b>Logback</b></li>
             </ul>
         </div>
     </div>
@@ -1548,14 +1545,14 @@
         <li>
             <b>Overview:</b>
             <a title="e1_1">what is</a>
-            <a title="e1_2">configuration</a>
+            <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
         </li>
         <li>
             <b>Controller:</b>
             <a title="e2_1">@Controller</a>
             <a title="e2_2">request mapping</a>
-            <a title="e2_3">parameters</a>
+            <a title="e2_3" class="label-warning">parameters</a>
             <a title="e2_4">return types</a>
             <a title="e2_5">testing</a>
         </li>
@@ -1572,12 +1569,10 @@
 
     <div class="hidden">
         <div id="e1_1">
-            Spring Web MVC is the original web framework built on the Servlet API and has been included in the
-            Spring Framework from the very beginning. The formal name, “<b>Spring Web MVC</b>,” comes from the name of
-            its
-            source module (spring-webmvc), but it is more commonly known as “Spring MVC”.
-            <br/>
-            <br/>
+            <b>Spring Web MVC</b> is the original web framework built on the Servlet API and has been included in the
+            Spring Framework from the very beginning. The formal name, “Spring Web MVC,” comes from the name of
+            its source module (spring-webmvc), but it is more commonly known as “Spring MVC”.
+            <br/><br/>
             MVC is an abbreviation for a
             <b>Model–View–Controller</b>
             pattern that decouples major components
@@ -1613,13 +1608,13 @@
             multiple Servlet instances. Supports additional scopes:
             <ul>
                 <li>
-                    <b>request</b>
+                    <b>request</b> - one object instance per HTTP request lifecycle (each HTTP request has new instance)
                 </li>
                 <li>
-                    <b>session (restricts bean definitions with HTTP session. e.g. user profile, shopping cart)</b>
+                    <b>session</b> - restricts bean definitions with HTTP session. e.g. user profile, shopping cart
                 </li>
                 <li>
-                    <b>application</b>
+                    <b>application</b> - one object instance per ServletContext lifecycle
                 </li>
             </ul>
         </div>
@@ -1648,7 +1643,7 @@
                 </li>
                 <li>DeleteMapping</li>
                 <li>PutMapping</li>
-                <li>(and mode)</li>
+                <li>(and more)</li>
             </ul>
             <br/>
         </div>
