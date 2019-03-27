@@ -103,6 +103,7 @@
             <b>PostProcessors:</b>
             <a title="a5_1" class="label-warning">BeanFactoryPostProcessor</a>
             <a title="a5_2" class="label-warning">BeanPostProcessor</a>
+            <a title="a5_3" class="label-warning">order</a>
         </li>
         <li>
             <b>Profiles:</b>
@@ -311,7 +312,7 @@
                             <b>@Controller</b>
                         </li>
                         <li>
-                            <b>@RestController (not from stereotype package but still considered to be a stereotype)</b>
+                            <b>@RestController (not from stereotype package but still considered as a stereotype by the Spring spec)</b>
                         </li>
                         <li>
                             <b>@Repository</b>
@@ -479,6 +480,10 @@
             <ul>
                 <li>operates on already created bean</li>
             </ul>
+        </div>
+        <div id="a5_3">
+            Both BeanPostProcessor and BeanFactoryPostProcessor, can control the order in which they execute by
+            implementing the <b>Ordered</b> or <b>PriorityOrdered</b> interface, not just BeanFactoryPostProcessor.
         </div>
     </div>
 
