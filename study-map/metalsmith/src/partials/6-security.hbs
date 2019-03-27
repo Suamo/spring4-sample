@@ -11,8 +11,7 @@
         </li>
         <li>
             <b>Configuration:</b>
-            <a title="f2_1" class="label-warning">delegating filter proxy</a>
-            <a title="f2_2" class="label-warning">security filter chain</a>
+            <a title="f2_1" class="label-warning">filters</a>
             <a title="f2_3" class="label-warning">context</a>
             <a title="f2_4" class="label-danger">intercept-url</a>
             <a title="f2_5" class="label-warning">antMatcher vs mvcMatcher</a>
@@ -161,30 +160,26 @@
 
     <div class="hidden">
         <div id="f2_1">
-            The
             <b>DelegatingFilterProxy</b>
-            class implements the javax.servlet.Filter interface and thus is a
-            <b>servlet
-                filter</b>.
-            DelegatingFilterProxy provides the link between web.xml and the application context.
-        </div>
-        <div id="f2_2">
-            The security filter chain implements the
-            <b>SecurityFilterChain</b>
-            interface and the only implementation
-            provided by Spring Security is the <b>DefaultSecurityFilterChain</b> class.
-            <br/>
-            <br/>
-            There are two parts:
             <ul>
-                <li>
-                    <b>request matcher</b>
-                    - determines whether the filters in the
-                    chain are to be applied to a request or not
-                </li>
-                <li>
-                    <b>filters</b>
-                </li>
+                <li>implements the javax.servlet.Filter interface and thus is a <b>servlet filter</b></li>
+                <li>registered in the web.xml as a &lt;filter> and linked in &lt;filter-mapping> by filter-name for particular &lt;url-pattern></li>
+                <li>provides the link between web.xml and the application context</li>
+            </ul><br/>
+
+            <b>FilterChainProxy</b>
+            <ul>
+               <li>more comfortable and readable alternative to DelegatingFilterProxy</li>
+               <li>can be used instead of adding separate DelegatingFilterProxy for each filter</li>
+               <li>registered in the web.xml as a &lt;bean> and linked in &lt;filter-mapping> by filter-name for particular &lt;url-pattern></li>
+               <li>defines a list of SecurityFilterChain</li>
+            </ul>
+            <br/>
+
+            <b>SecurityFilterChain</b>
+            <ul>
+                <li>Contains list of Filters</li>
+                <li><b>DefaultSecurityFilterChain</b> - the only Spring implementation</li>
             </ul>
         </div>
         <div id="f2_3">

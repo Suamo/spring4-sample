@@ -214,7 +214,7 @@
                     </ul>
                 </li>
             </ul>
-            It's possible to <b>listen to an event</b> by ConfigurableApplicationContext.<b>addApplicationListener</b> to do some
+            It's possible to <b>listen to an ContextClosedEvent</b> using ConfigurableApplicationContext.<b>addApplicationListener</b> to do some
             actions before close() of registerShutdownHook()
         </div>
     </div>
@@ -1493,7 +1493,8 @@
             To build WAR you need:
             <ul>
                 <li>&lt;packaging>war&lt;/packaging></li>
-                <li>provide SpringBootServletInitializer</li>
+                <li>Make spring-boot-starter-tomcat dependency as provided to avoid server files being included in the war</li>
+                <li>provide SpringBootServletInitializer implementation</li>
             </ul>
         </div>
         <div id="d1_6">
@@ -1566,7 +1567,7 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
-            <a title="e1_4" class="label-danger">filters</a>
+            <a title="e1_5">MessageSource </a>
         </li>
         <li>
             <b>Controller:</b>
@@ -1641,13 +1642,12 @@
                 </li>
             </ul>
         </div>
-        <div id="e1_4">
-            Entities:
-            <ul>
-                <li>DelegatingFilterProxy</li>
-                <li>FilterChainProxy</li>
-                <li>Filter</li>
-            </ul>
+        <div id="e1_5">
+            <b>MessageSource</b> (interface) - a solution to make a management of static text more easier and efficient.<br/>
+            <b>ResourceBundleMessageSource</b> (implementation of MessageSource) can get messages from the defined property file.<br/><br/>
+            Further usage of ubtained messages in the JSP:<br/>
+            <b>&lt;spring:message code="page.header" /></b><br/>
+            where "page.header" is a property name whit will be substituted by it's value.
         </div>
     </div>
 
@@ -1776,6 +1776,12 @@
                 <li>JSP and JSTL: InternalResourceViewResolver or ResourceBundleViewResolver</li>
                 <li>Apache Tiles: UrlBasedViewResolver or ResourceBundleViewResolver</li>
                 <li>Xslt: XsltViewResolver</li>
+            </ul><br/>
+
+            Other resolvers:
+            <ul>
+                <li><b>HandlerExceptionResolver</b>:  maps exceptions to views also allowing for more complex exception handling code.</li>
+                <li><b>ThemeResolver</b>:  resolves themes your web application can use, for example, to offer personalized layouts</li>
             </ul>
         </div>
     </div>
@@ -1813,8 +1819,7 @@
         </li>
         <li>
             <b>Configuration:</b>
-            <a title="f2_1" class="label-warning">delegating filter proxy</a>
-            <a title="f2_2" class="label-warning">security filter chain</a>
+            <a title="f2_1" class="label-warning">filters</a>
             <a title="f2_3" class="label-warning">context</a>
             <a title="f2_4" class="label-danger">intercept-url</a>
             <a title="f2_5" class="label-warning">antMatcher vs mvcMatcher</a>
@@ -1963,30 +1968,26 @@
 
     <div class="hidden">
         <div id="f2_1">
-            The
             <b>DelegatingFilterProxy</b>
-            class implements the javax.servlet.Filter interface and thus is a
-            <b>servlet
-                filter</b>.
-            DelegatingFilterProxy provides the link between web.xml and the application context.
-        </div>
-        <div id="f2_2">
-            The security filter chain implements the
-            <b>SecurityFilterChain</b>
-            interface and the only implementation
-            provided by Spring Security is the <b>DefaultSecurityFilterChain</b> class.
-            <br/>
-            <br/>
-            There are two parts:
             <ul>
-                <li>
-                    <b>request matcher</b>
-                    - determines whether the filters in the
-                    chain are to be applied to a request or not
-                </li>
-                <li>
-                    <b>filters</b>
-                </li>
+                <li>implements the javax.servlet.Filter interface and thus is a <b>servlet filter</b></li>
+                <li>registered in the web.xml as a &lt;filter> and linked in &lt;filter-mapping> by filter-name for particular &lt;url-pattern></li>
+                <li>provides the link between web.xml and the application context</li>
+            </ul><br/>
+
+            <b>FilterChainProxy</b>
+            <ul>
+               <li>more comfortable and readable alternative to DelegatingFilterProxy</li>
+               <li>can be used instead of adding separate DelegatingFilterProxy for each filter</li>
+               <li>registered in the web.xml as a &lt;bean> and linked in &lt;filter-mapping> by filter-name for particular &lt;url-pattern></li>
+               <li>defines a list of SecurityFilterChain</li>
+            </ul>
+            <br/>
+
+            <b>SecurityFilterChain</b>
+            <ul>
+                <li>Contains list of Filters</li>
+                <li><b>DefaultSecurityFilterChain</b> - the only Spring implementation</li>
             </ul>
         </div>
         <div id="f2_3">
@@ -2388,6 +2389,17 @@
             using
             following utils: AopUtils and AopProxyUtils. However there is no direct support of those libraries in
             Spring.
+            <br/>
+            <br/>
+            Spring provides <b>mock objects</b> that you can use to test your code in isolation.<br/>
+            Packages:
+            <ul>
+                <li>org.springframework.mock.env for Environment and PropertySource abstractions</li>
+                <li>org.springframework.mock.jndi for JNDI</li>
+                <li>org.springframework.mock.web for Servlet</li>
+                <li>org.springframework.mock.web.portlet for portlets</li>
+                <li>etc.</li>
+            </ul>
         </div>
         <div id="h1_4">
             Test support is provided by two modules:

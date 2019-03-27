@@ -104,7 +104,8 @@
             To build WAR you need:
             <ul>
                 <li>&lt;packaging>war&lt;/packaging></li>
-                <li>provide SpringBootServletInitializer</li>
+                <li>Make spring-boot-starter-tomcat dependency as provided to avoid server files being included in the war</li>
+                <li>provide SpringBootServletInitializer implementation</li>
             </ul>
         </div>
         <div id="d1_6">

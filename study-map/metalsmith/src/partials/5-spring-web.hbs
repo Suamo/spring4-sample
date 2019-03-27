@@ -6,7 +6,7 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
-            <a title="e1_4" class="label-danger">filters</a>
+            <a title="e1_5">MessageSource </a>
         </li>
         <li>
             <b>Controller:</b>
@@ -81,13 +81,12 @@
                 </li>
             </ul>
         </div>
-        <div id="e1_4">
-            Entities:
-            <ul>
-                <li>DelegatingFilterProxy</li>
-                <li>FilterChainProxy</li>
-                <li>Filter</li>
-            </ul>
+        <div id="e1_5">
+            <b>MessageSource</b> (interface) - a solution to make a management of static text more easier and efficient.<br/>
+            <b>ResourceBundleMessageSource</b> (implementation of MessageSource) can get messages from the defined property file.<br/><br/>
+            Further usage of ubtained messages in the JSP:<br/>
+            <b>&lt;spring:message code="page.header" /></b><br/>
+            where "page.header" is a property name whit will be substituted by it's value.
         </div>
     </div>
 
@@ -216,6 +215,12 @@
                 <li>JSP and JSTL: InternalResourceViewResolver or ResourceBundleViewResolver</li>
                 <li>Apache Tiles: UrlBasedViewResolver or ResourceBundleViewResolver</li>
                 <li>Xslt: XsltViewResolver</li>
+            </ul><br/>
+
+            Other resolvers:
+            <ul>
+                <li><b>HandlerExceptionResolver</b>:  maps exceptions to views also allowing for more complex exception handling code.</li>
+                <li><b>ThemeResolver</b>:  resolves themes your web application can use, for example, to offer personalized layouts</li>
             </ul>
         </div>
     </div>
