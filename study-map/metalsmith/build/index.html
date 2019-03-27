@@ -766,7 +766,8 @@
             </ul>
         </div>
         <div id="b2_6">
-            Is a merging advices and target class. The weaver generates a woven class (an advised object, proxy).
+            Is a merging advices and target class. The weaver generates a woven class (an advised object, proxy).<br/>
+            Weaving is done at <b>runtime</b>.
         </div>
     </div>
 
@@ -1879,14 +1880,24 @@
                     <b>@PreAuthorize</b>
                     <ul>
                         <li>restricted by SpEL expression</li>
-                        <li>enabled by @EnableGlobalMethodSecurity(<b>prePostEnabled</b>=true)</li>
+                        <li>enabled by
+                            <ul>
+                                <li>@EnableGlobalMethodSecurity(<b>prePostEnabled</b>=true)</li>
+                                <li>&lt;global-method-security <b>pre-post-annotations</b>="enabled" /></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li>
                     <b>@RolesAllowed</b>
                     <ul>
                         <li>restricted by role name</li>
-                        <li>enabled by @EnableGlobalMethodSecurity(<b>jsr250Enabled</b>=true)</li>
+                        <li>enabled by
+                            <ul>
+                                <li>@EnableGlobalMethodSecurity(<b>jsr250Enabled</b>=true)</li>
+                                <li>&lt;global-method-security <b>jsr250-annotations</b>="enabled" /></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -1894,7 +1905,12 @@
                     <ul>
                         <li>legacy annotation - better to use @PreAuthorize instead</li>
                         <li>restricted by role name</li>
-                        <li>enabled by @EnableGlobalMethodSecurity(<b>securedEnabled</b>=true)</li>
+                        <li>enabled by
+                            <ul>
+                                <li>@EnableGlobalMethodSecurity(<b>securedEnabled</b>=true)</li>
+                                <li>&lt;global-method-security <b>secured-annotations</b>="enabled" /></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
             </ul>
