@@ -86,6 +86,7 @@
             <b>DI, IOC:</b>
             <a title="a3_1">what is</a>
             <a title="a3_2">@Autowired</a>
+            <a title="a3_21">@Required</a>
             <a title="a3_3">@Qualifier</a>
             <a title="a3_4">private fields injection</a>
             <a title="a3_5">scalar/literal injection</a>
@@ -209,11 +210,12 @@
                             default
                             in Spring Boot);
                         </li>
-                        <li><b>close()</b>: app context will be closed immediately
-                        </li>
+                        <li><b>close()</b>: app context will be closed immediately</li>
                     </ul>
                 </li>
             </ul>
+            It's possible to <b>listen to an event</b> by ConfigurableApplicationContext.<b>addApplicationListener</b> to do some
+            actions before close() of registerShutdownHook()
         </div>
     </div>
 
@@ -289,8 +291,8 @@
             <br/>
             Detects
             <ul>
-                <li>Stereotypes: @Component, @Controller, @Repository, @Service</li>
-                <li>Other: @RestController, @ControllerAdvice, @Configuration</li>
+                <li>Stereotypes: @Component, @Controller, @Repository, @Service, @RestController</li>
+                <li>Other: @ControllerAdvice, @Configuration</li>
             </ul>
         </div>
         <div id="a2_5">
@@ -307,6 +309,9 @@
                     <ul>
                         <li>
                             <b>@Controller</b>
+                        </li>
+                        <li>
+                            <b>@RestController (not from stereotype package but still considered to be a stereotype)</b>
                         </li>
                         <li>
                             <b>@Repository</b>
@@ -398,6 +403,9 @@
                 <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
             </ul>
         </div>
+        <div id="a3_21">
+            An exception will be thrown if @Required dependency is not set.
+        </div>
         <div id="a3_3">
             Defines <b>exact bean name</b> if injection by type finds multiple implementations.
         </div>
@@ -464,6 +472,7 @@
             <ul>
                 <li>operates on the bean configuration metadata</li>
                 <li>can change the actual bean definition (i.e., the blueprint that defines the bean)</li>
+                <li>can modify the application context's internal bean factory after the context's standard initialization</li>
             </ul>
         </div>
         <div id="a5_2">
@@ -1127,28 +1136,28 @@
                 </tr>
                 <tr>
                     <td>1st (lowest)</td>
-                    <td>Read uncommitted</td>
+                    <td>Read <b>uncommitted</b></td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td>&nbsp;&nbsp;allowed</td>
                 </tr>
                 <tr>
                     <td>2nd*</td>
-                    <td>Read committed</td>
+                    <td>Read <b>committed</b></td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td/>
                 </tr>
                 <tr>
                     <td>3rd</td>
-                    <td>Repeatable reads</td>
+                    <td><b>Repeatable</b> reads</td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td/>
                     <td/>
                 </tr>
                 <tr>
                     <td>4th (highest)</td>
-                    <td>Serializable</td>
+                    <td><b>Serializable</b></td>
                     <td/>
                     <td/>
                     <td/>
@@ -1217,8 +1226,14 @@
                         </li>
                     </ul>
                 </li>
+            </ul><br/>
+            Main entities:
+            <ul>
+                <li><b>TransactionTemplate</b> - simplifies programmatic transaction demarcation and transaction exception handling</li>
+                <li><b>PlatformTransactionManager</b> - is the central interface in Spring's transaction infrastructure. Applications
+                    can use this directly, but it is not primarily meant as API: Typically, applications will work with
+                    either TransactionTemplate or declarative transaction demarcation through AOP.</li>
             </ul>
-            ???? managing from JdbcTemplate
         </div>
         <div id="c4_7">
             @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a
@@ -1256,12 +1271,6 @@
             </ul>
         </div>
         <div id="c4_9">
-
-        </div>
-    </div>
-
-    <div class="hidden">
-        <div id="c5_1">
 
         </div>
     </div>
@@ -1479,6 +1488,12 @@
             <ul>
                 <li>JAR - onlly suitable for embedded container since it will come as a part of the application</li>
                 <li>WAR - archive that can be deployed on an external container</li>
+            </ul><br/>
+
+            To build WAR you need:
+            <ul>
+                <li>&lt;packaging>war&lt;/packaging></li>
+                <li>provide SpringBootServletInitializer</li>
             </ul>
         </div>
         <div id="d1_6">
@@ -1519,9 +1534,13 @@
         <div id="d1_7">
             Configuration:
             <ul>
-                <li>add the required dependencies to the classpat</li>
-                <li>configure the required framework using application.properties or framework-specific
-                    configuration file placed in the classpath
+                <li>add the required dependencies to the classpath</li>
+                <li>configure the required framework using:
+                    <ul>
+                        <li>application.properties</li>
+                        <li>framework-specific configuration file placed in the classpath</li>
+                        <li>system properties</li>
+                    </ul>
                 </li>
             </ul>
             <br/>
@@ -1547,6 +1566,7 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
+            <a title="e1_4" class="label-danger">filters</a>
         </li>
         <li>
             <b>Controller:</b>
@@ -1592,6 +1612,9 @@
                         <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
                     </ul>
                 </li>
+                <li>Register <b>ContextLoaderListener</b> in web.xml. Inside &lt;listener> -> <b>&lt;listener-class></b><br/>
+                    ContextLoaderListener is responsible for starting up and shutting down Spring's root WebApplicationContext
+                </li>
             </ul>
         </div>
         <div id="e1_3">
@@ -1616,6 +1639,14 @@
                 <li>
                     <b>application</b> - one object instance per ServletContext lifecycle
                 </li>
+            </ul>
+        </div>
+        <div id="e1_4">
+            Entities:
+            <ul>
+                <li>DelegatingFilterProxy</li>
+                <li>FilterChainProxy</li>
+                <li>Filter</li>
             </ul>
         </div>
     </div>
@@ -1689,7 +1720,7 @@
         <div id="e2_4">
             <ul>
                 <li>void</li>
-                <li>String</li>
+                <li>String - returns logical view name</li>
                 <li>View</li>
                 <li>HttpHeaders</li>
                 <li>Map</li>
@@ -1775,6 +1806,7 @@
         <li>
             <b>Overview:</b>
             <a title="f1_1">overview</a>
+            <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
             <a title="f1_3" class="label-danger">method security</a>
             <a title="f1_4">view security</a>
@@ -1802,6 +1834,15 @@
                     It deals in HttpServletRequest s and HttpServletResponse. Spring Security maintains a filter chain
                     internally where each of the filters has a particular responsibility.
                 </li>
+            </ul>
+        </div>
+        <div id="f1_11">
+            Main emtities:
+            <ul>
+                <li><b>UserDetails</b>, <b>User</b> - represents principal. Store sensitive user information. Encapsulated into Authentication objects</li>
+                <li><b>UserDetailsService</b> - core DAO interface which loads user-specific data. Return User objects.</li>
+                <li><b>Authentication</b> - represents the token for an authentication request or for an authenticated
+                    principal once the request has been processed. Stored in SecurityContext.</li>
             </ul>
         </div>
         <div id="f1_2">
@@ -2222,7 +2263,6 @@
             <br/>
 
             REST controller can be annotated with specialization of @Controller - <b>@RestController</b>.
-            (while @Controller is a stereotype - @RestController is not - defined in different package).
             The difference is only that @RestController defines @ResponseBody
             <br/>
             <br/>

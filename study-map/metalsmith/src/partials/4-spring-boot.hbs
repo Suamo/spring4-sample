@@ -99,6 +99,12 @@
             <ul>
                 <li>JAR - onlly suitable for embedded container since it will come as a part of the application</li>
                 <li>WAR - archive that can be deployed on an external container</li>
+            </ul><br/>
+
+            To build WAR you need:
+            <ul>
+                <li>&lt;packaging>war&lt;/packaging></li>
+                <li>provide SpringBootServletInitializer</li>
             </ul>
         </div>
         <div id="d1_6">
@@ -139,9 +145,13 @@
         <div id="d1_7">
             Configuration:
             <ul>
-                <li>add the required dependencies to the classpat</li>
-                <li>configure the required framework using application.properties or framework-specific
-                    configuration file placed in the classpath
+                <li>add the required dependencies to the classpath</li>
+                <li>configure the required framework using:
+                    <ul>
+                        <li>application.properties</li>
+                        <li>framework-specific configuration file placed in the classpath</li>
+                        <li>system properties</li>
+                    </ul>
                 </li>
             </ul>
             <br/>

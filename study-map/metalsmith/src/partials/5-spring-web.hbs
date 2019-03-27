@@ -6,6 +6,7 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
+            <a title="e1_4" class="label-danger">filters</a>
         </li>
         <li>
             <b>Controller:</b>
@@ -51,6 +52,9 @@
                         <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
                     </ul>
                 </li>
+                <li>Register <b>ContextLoaderListener</b> in web.xml. Inside &lt;listener> -> <b>&lt;listener-class></b><br/>
+                    ContextLoaderListener is responsible for starting up and shutting down Spring's root WebApplicationContext
+                </li>
             </ul>
         </div>
         <div id="e1_3">
@@ -75,6 +79,14 @@
                 <li>
                     <b>application</b> - one object instance per ServletContext lifecycle
                 </li>
+            </ul>
+        </div>
+        <div id="e1_4">
+            Entities:
+            <ul>
+                <li>DelegatingFilterProxy</li>
+                <li>FilterChainProxy</li>
+                <li>Filter</li>
             </ul>
         </div>
     </div>
@@ -148,7 +160,7 @@
         <div id="e2_4">
             <ul>
                 <li>void</li>
-                <li>String</li>
+                <li>String - returns logical view name</li>
                 <li>View</li>
                 <li>HttpHeaders</li>
                 <li>Map</li>

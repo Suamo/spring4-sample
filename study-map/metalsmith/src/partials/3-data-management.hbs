@@ -329,28 +329,28 @@
                 </tr>
                 <tr>
                     <td>1st (lowest)</td>
-                    <td>Read uncommitted</td>
+                    <td>Read <b>uncommitted</b></td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td>&nbsp;&nbsp;allowed</td>
                 </tr>
                 <tr>
                     <td>2nd*</td>
-                    <td>Read committed</td>
+                    <td>Read <b>committed</b></td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td/>
                 </tr>
                 <tr>
                     <td>3rd</td>
-                    <td>Repeatable reads</td>
+                    <td><b>Repeatable</b> reads</td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td/>
                     <td/>
                 </tr>
                 <tr>
                     <td>4th (highest)</td>
-                    <td>Serializable</td>
+                    <td><b>Serializable</b></td>
                     <td/>
                     <td/>
                     <td/>
@@ -419,8 +419,14 @@
                         </li>
                     </ul>
                 </li>
+            </ul><br/>
+            Main entities:
+            <ul>
+                <li><b>TransactionTemplate</b> - simplifies programmatic transaction demarcation and transaction exception handling</li>
+                <li><b>PlatformTransactionManager</b> - is the central interface in Spring's transaction infrastructure. Applications
+                    can use this directly, but it is not primarily meant as API: Typically, applications will work with
+                    either TransactionTemplate or declarative transaction demarcation through AOP.</li>
             </ul>
-            ???? managing from JdbcTemplate
         </div>
         <div id="c4_7">
             @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a
@@ -458,12 +464,6 @@
             </ul>
         </div>
         <div id="c4_9">
-
-        </div>
-    </div>
-
-    <div class="hidden">
-        <div id="c5_1">
 
         </div>
     </div>

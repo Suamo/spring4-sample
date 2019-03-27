@@ -24,6 +24,7 @@
             <b>DI, IOC:</b>
             <a title="a3_1">what is</a>
             <a title="a3_2">@Autowired</a>
+            <a title="a3_21">@Required</a>
             <a title="a3_3">@Qualifier</a>
             <a title="a3_4">private fields injection</a>
             <a title="a3_5">scalar/literal injection</a>
@@ -147,11 +148,12 @@
                             default
                             in Spring Boot);
                         </li>
-                        <li><b>close()</b>: app context will be closed immediately
-                        </li>
+                        <li><b>close()</b>: app context will be closed immediately</li>
                     </ul>
                 </li>
             </ul>
+            It's possible to <b>listen to an event</b> by ConfigurableApplicationContext.<b>addApplicationListener</b> to do some
+            actions before close() of registerShutdownHook()
         </div>
     </div>
 
@@ -227,8 +229,8 @@
             <br/>
             Detects
             <ul>
-                <li>Stereotypes: @Component, @Controller, @Repository, @Service</li>
-                <li>Other: @RestController, @ControllerAdvice, @Configuration</li>
+                <li>Stereotypes: @Component, @Controller, @Repository, @Service, @RestController</li>
+                <li>Other: @ControllerAdvice, @Configuration</li>
             </ul>
         </div>
         <div id="a2_5">
@@ -245,6 +247,9 @@
                     <ul>
                         <li>
                             <b>@Controller</b>
+                        </li>
+                        <li>
+                            <b>@RestController (not from stereotype package but still considered to be a stereotype)</b>
                         </li>
                         <li>
                             <b>@Repository</b>
@@ -336,6 +341,9 @@
                 <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
             </ul>
         </div>
+        <div id="a3_21">
+            An exception will be thrown if @Required dependency is not set.
+        </div>
         <div id="a3_3">
             Defines <b>exact bean name</b> if injection by type finds multiple implementations.
         </div>
@@ -402,6 +410,7 @@
             <ul>
                 <li>operates on the bean configuration metadata</li>
                 <li>can change the actual bean definition (i.e., the blueprint that defines the bean)</li>
+                <li>can modify the application context's internal bean factory after the context's standard initialization</li>
             </ul>
         </div>
         <div id="a5_2">

@@ -4,6 +4,7 @@
         <li>
             <b>Overview:</b>
             <a title="f1_1">overview</a>
+            <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
             <a title="f1_3" class="label-danger">method security</a>
             <a title="f1_4">view security</a>
@@ -31,6 +32,15 @@
                     It deals in HttpServletRequest s and HttpServletResponse. Spring Security maintains a filter chain
                     internally where each of the filters has a particular responsibility.
                 </li>
+            </ul>
+        </div>
+        <div id="f1_11">
+            Main emtities:
+            <ul>
+                <li><b>UserDetails</b>, <b>User</b> - represents principal. Store sensitive user information. Encapsulated into Authentication objects</li>
+                <li><b>UserDetailsService</b> - core DAO interface which loads user-specific data. Return User objects.</li>
+                <li><b>Authentication</b> - represents the token for an authentication request or for an authenticated
+                    principal once the request has been processed. Stored in SecurityContext.</li>
             </ul>
         </div>
         <div id="f1_2">
