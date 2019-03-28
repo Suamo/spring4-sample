@@ -241,21 +241,12 @@
                 <li>
                     <b>request-matcher-ref</b>: Reference to RequestMatcher bean used to determine if this
                     intercept-url will be used.
-                    <ul>
-                        <li>
-                            <b>requires-channel</b>: Possible values are “http”, “https” and “any”. The first two are
-                            for
-                            access over
-                            HTTP and HTTPS respectively. Omitting this attribute or using the value “any” matches both
-                            HTTP
-                            and HTTPS.
-                        </li>
-                        <li>
-                            <b>servlet-path</b>: Servlet path used in combination with method and pattern to match
-                            requests.
-                            Optional.
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <b>requires-channel</b>: “http”, “https” or “any”.
+                </li>
+                <li>
+                    <b>servlet-path</b>: Servlet path used in combination with method and pattern to match requests.
                 </li>
             </ul>
             <br/>

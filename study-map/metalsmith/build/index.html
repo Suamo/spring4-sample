@@ -325,7 +325,7 @@
             </ul>
         </div>
         <div id="a2_6">
-            Singletons are <b>eagerly</b> instantiated by default.
+            <b>Only singletons</b> are <b>eagerly</b> instantiated by default.
             <br/>
             To alter:
             <ul>
@@ -400,7 +400,7 @@
                 <li><b>injects</b> a bean</li>
                 <li>handled by Spring <b>BeanPostProcessor</b></li>
                 <li>makes injection <b>mandatory</b>. Fails if nothing to inject</li>
-                <li>only <b>one constructor</b> can be Autowired</li>
+                <li>only <b>one constructor</b> can be Autowired, <b>but</b> multiple constructors can be marked as @Autowired(required = false)</li>
                 <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
             </ul>
         </div>
@@ -640,11 +640,11 @@
             </ul>
         </div>
         <div id="b1_3">
-            Once AspectJ support enabled - <b>all @Aspect classes will be automatically detected and used</b> to configure
-            AOP.
+            Once @AspectJ support enabled - <b>all @Aspect marked classes will be automatically detected and used</b> to configure
+            AOP. <b>Important</b>: "@AspectJ" is not an annotation, but a name of tbe libtaty the way it's used in the Spring spec and on the exam.
             <br/>
             <br/>
-            Enabling AspectJ support:
+            Enabling @AspectJ support:
             <ul>
                 <li>Java config: <b>@EnableAspectJAutoProxy</b></li>
                 <li>XML config:
@@ -1305,17 +1305,29 @@
             </ul>
         </div>
         <div id="c6_2">
-            <b>PersistenceContext</b>
-            contains a set of entity instances that correspond to persistent entity identity.
-            <br/><br/>
-            All the manipulations with the persistent instances are made using <b>EntityManager</b>.
-            EntityManager writes, deletes and searches entities to database.
-            Injected with <b>@PersistenceContext</b>.
-            <br/><br/>
+            Approaches to manipulate entities:
+            <ul>
+                <li><b>@PersistenceContext</b> (preferable)
+                    <ul>
+                        <li>defines dependency on a container-managed <b>EntityManager</b> and its associated persistence context</li>
+                    </ul>
+                </li>
+                <li><b>@PersistenceUnit</b>
+                    <ul>
+                        <li>defines dependency to <b>EntityManagerFactory</b> and its associated persistence unit</li>
+                        <li>EntityManagerFactory allows to create/destroy <b>EntityManager</b> manually</li>
+                    </ul>
+                </li>
+            </ul><br/>
 
-            <b>@Entity</b>
-            annotation is used to mark a class as an entity class that will be mapped to the database using
-            ORM.
+            <b>EntityManager</b>
+            <ul>
+                <li>associated with a persistence context (field in extended classes)</li>
+                <li>inherited persistance context contains a set of entity instances that correspond to persistent entity identity</li>
+                <li>writes, deletes and searches @Entity(s) to database</li>
+            </ul><br/>
+
+            <b>@Entity</b> marks a class as an entity that will be mapped to the database using ORM
         </div>
     </div>
 
@@ -2055,21 +2067,12 @@
                 <li>
                     <b>request-matcher-ref</b>: Reference to RequestMatcher bean used to determine if this
                     intercept-url will be used.
-                    <ul>
-                        <li>
-                            <b>requires-channel</b>: Possible values are “http”, “https” and “any”. The first two are
-                            for
-                            access over
-                            HTTP and HTTPS respectively. Omitting this attribute or using the value “any” matches both
-                            HTTP
-                            and HTTPS.
-                        </li>
-                        <li>
-                            <b>servlet-path</b>: Servlet path used in combination with method and pattern to match
-                            requests.
-                            Optional.
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <b>requires-channel</b>: “http”, “https” or “any”.
+                </li>
+                <li>
+                    <b>servlet-path</b>: Servlet path used in combination with method and pattern to match requests.
                 </li>
             </ul>
             <br/>

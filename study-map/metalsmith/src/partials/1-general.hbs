@@ -263,7 +263,7 @@
             </ul>
         </div>
         <div id="a2_6">
-            Singletons are <b>eagerly</b> instantiated by default.
+            <b>Only singletons</b> are <b>eagerly</b> instantiated by default.
             <br/>
             To alter:
             <ul>
@@ -338,7 +338,7 @@
                 <li><b>injects</b> a bean</li>
                 <li>handled by Spring <b>BeanPostProcessor</b></li>
                 <li>makes injection <b>mandatory</b>. Fails if nothing to inject</li>
-                <li>only <b>one constructor</b> can be Autowired</li>
+                <li>only <b>one constructor</b> can be Autowired, <b>but</b> multiple constructors can be marked as @Autowired(required = false)</li>
                 <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
             </ul>
         </div>

@@ -492,17 +492,29 @@
             </ul>
         </div>
         <div id="c6_2">
-            <b>PersistenceContext</b>
-            contains a set of entity instances that correspond to persistent entity identity.
-            <br/><br/>
-            All the manipulations with the persistent instances are made using <b>EntityManager</b>.
-            EntityManager writes, deletes and searches entities to database.
-            Injected with <b>@PersistenceContext</b>.
-            <br/><br/>
+            Approaches to manipulate entities:
+            <ul>
+                <li><b>@PersistenceContext</b> (preferable)
+                    <ul>
+                        <li>defines dependency on a container-managed <b>EntityManager</b> and its associated persistence context</li>
+                    </ul>
+                </li>
+                <li><b>@PersistenceUnit</b>
+                    <ul>
+                        <li>defines dependency to <b>EntityManagerFactory</b> and its associated persistence unit</li>
+                        <li>EntityManagerFactory allows to create/destroy <b>EntityManager</b> manually</li>
+                    </ul>
+                </li>
+            </ul><br/>
 
-            <b>@Entity</b>
-            annotation is used to mark a class as an entity class that will be mapped to the database using
-            ORM.
+            <b>EntityManager</b>
+            <ul>
+                <li>associated with a persistence context (field in extended classes)</li>
+                <li>inherited persistance context contains a set of entity instances that correspond to persistent entity identity</li>
+                <li>writes, deletes and searches @Entity(s) to database</li>
+            </ul><br/>
+
+            <b>@Entity</b> marks a class as an entity that will be mapped to the database using ORM
         </div>
     </div>
 
