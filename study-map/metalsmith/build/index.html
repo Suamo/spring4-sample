@@ -278,6 +278,9 @@
             By default, the bean name will be the same as the method name.
             <br/>
             Can be overriden by @Bean("customBeanName")
+            <br/><br/>
+            <b>Important</b>: @Bean doesn't jave 'id' property. Only varargs of 'name's or 'value's (alias for name in @Bean).
+            There is no such property as 'alias'.
         </div>
         <div id="a2_4">
             Responsible for searching beans to register.
@@ -1003,7 +1006,8 @@
                 <li>provides execution results</li>
                 <li>creation/releasing connections</li>
                 <li>covers JDBC exceptions with more informative</li>
-            </ul>
+            </ul><br/>
+            <b>Shouldn't be confused with HibernateTemplate.</b>
         </div>
         <div id="c3_2">
             callback ("call-after" function) - called after the other function execution.
@@ -1662,7 +1666,12 @@
                 <li>
                     <b>application</b> - one object instance per ServletContext lifecycle
                 </li>
-            </ul>
+            </ul><br/>
+            <b>AnnotationConfigWebApplicationContext</b> is an implementation of <b>WebApplicationContext</b> that is
+            essentially the equivalent of AnnotationConfigApplicationContext for a web environment. Can be configured in
+            Java config as well as in XML.
+            <br/><br/>
+            <b>contextConfigLocation</b> param can be set to DispatcherServlet in web.xml to set @Configuration class or xml config.
         </div>
         <div id="e1_5">
             <b>MessageSource</b> (interface) - a solution to make a management of static text more easier and efficient.<br/>

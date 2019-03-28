@@ -216,6 +216,9 @@
             By default, the bean name will be the same as the method name.
             <br/>
             Can be overriden by @Bean("customBeanName")
+            <br/><br/>
+            <b>Important</b>: @Bean doesn't jave 'id' property. Only varargs of 'name's or 'value's (alias for name in @Bean).
+            There is no such property as 'alias'.
         </div>
         <div id="a2_4">
             Responsible for searching beans to register.
