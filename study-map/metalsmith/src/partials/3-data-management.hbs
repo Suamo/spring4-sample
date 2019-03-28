@@ -371,7 +371,7 @@
                 </li>
                 <li><b>MANDATORY</b>: use current transaction, throw exception if none exists
                 </li>
-                <li><b>REQUIRED</b>: use current transaction, if non exists – create one
+                <li>[DEFAULT] <b>REQUIRED</b>: use current transaction, if non exists – create one
                 </li>
                 <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists
                 </li>
@@ -447,15 +447,14 @@
         </div>
         <div id="c4_8">
             Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is
-            <b>marked for
-                rollback</b>.
-            <br/>
+            <b>marked forrollback</b>.
+            <br/><br/>
             Types ot Exceptions for rollback can be changed (including checked exceptions):
             <ul>
-                <li>XML: 'rollback-for' or 'no-rollback-for' attributes can be added to tx:method</li>
+                <li>XML: '<b>rollback-for</b>' or '<b>no-rollback-for</b>' attributes can be added to tx:method</li>
                 <li>TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();</li>
-                <li>By @Transactional parameters: rollbackFor, noRollbackFor, rollbackForClassName,
-                    noRollbackForClassName
+                <li>By @Transactional parameters: <b>rollbackFor</b>, <b>noRollbackFor</b>, <b>rollbackForClassName</b>,
+                    <b>noRollbackForClassName</b>
                 </li>
             </ul>
             <br/>
