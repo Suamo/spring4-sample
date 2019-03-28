@@ -429,17 +429,21 @@
             </ul>
         </div>
         <div id="c4_7">
-            @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a
-            <b>join point</b>.
+            @Transactional forces <b>AnnotationTransactionAspect</b> to interpret target method as a <b>join point</b>.
             Method or class marked @Transactional will be covered in transactional behavior
             (when method starts transaction will be opened and closed when the method finished).
             <br/>
             <br/>
+            <b>Important</b>:
+            <ul>
+                <li>@Transactionalcan be applied on interface methods only if JDK dynamic proxy is used</li>
+                <li>By default @Transactional works only on public methods. Using it on non-public methods will not raise any error,
+                    but will have no transactional behaviour. @Transactional will work on non-public methods only in <b>AspectJ mode</b>.</li>
+                <li>If one @Transactional method is calling another on the same object instance:
+                    since transaction-management is implemented using AOP - @Transactional annotation will have no effect
+                    on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.</li>
+            </ul>
 
-            If <b>one @Transactional method is calling another</b> on the same object instance:
-            since transaction-management is implemented using AOP - @Transactional annotation will have
-            <b>no effect</b>
-            on the method being called as no proxy is created. The same behavior is characteristic for AOP aspects.
         </div>
         <div id="c4_8">
             Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is
