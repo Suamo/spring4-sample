@@ -177,7 +177,7 @@
 
     <div class="hidden">
         <div id="c3_1">
-            JdbcTemplate is a JDBC approach
+            JdbcTemplate is a <b>JDBC approach</b>
             <br/>
             Named so because of a Template Method pattern that it's based on.
             <br/>
@@ -437,7 +437,7 @@
             <br/>
             <b>Important</b>:
             <ul>
-                <li>@Transactionalcan be applied on interface methods only if JDK dynamic proxy is used</li>
+                <li>@Transactional can be applied on interface methods only if JDK dynamic proxy is used</li>
                 <li>By default @Transactional works only on public methods. Using it on non-public methods will not raise any error,
                     but will have no transactional behaviour. @Transactional will work on non-public methods only in <b>AspectJ mode</b>.</li>
                 <li>If one @Transactional method is calling another on the same object instance:
