@@ -195,6 +195,12 @@
             <ul>
                 <li>Contains list of Filters</li>
                 <li><b>DefaultSecurityFilterChain</b> - the only Spring implementation</li>
+            </ul><br/><br/>
+            <b>Filters ordering</b>:
+            <ul>
+                <li>first filter is <b class="r">ChannelProcessingFilter</b></li>
+                <li>huge list of other filters...</li>
+                <li>last (almost) - <b class="r">FilterSecurityInterceptor</b></li>
             </ul>
         </div>
         <div id="f2_3">
@@ -262,6 +268,7 @@
                 <li><b>antMatchers</b>("/services") only matches the exact “/services” URL
                     <ul>
                         <li>only matches the exact URLs. E.g. "/services" matches only "/services"</li>
+                        <li>Sample: " .antMatchers("/user/edit").<b class="r">hasRole</b>("ADMIN") "</li>
                     </ul>
                 </li>
                 <li>
@@ -292,6 +299,7 @@
             </ul>
         </div>
         <div id="f2_6">
+            Spring Security's <b class="r">PasswordEncoder</b> helps in working with encoded passwords (two methods: encode and matches)<br/><br/>
             <b>Hashing</b>
             process is referred to as password encoding and is implemented using the PasswordEncoder
             interface.

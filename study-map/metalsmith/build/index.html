@@ -353,8 +353,8 @@
             static methods can be final though it doesn't make sense.
         </div>
         <div id="a2_8">
-            <b>Init method</b>
-            - called as a callback after bean is created and assembled. Declaring options:
+            <b>Init method</b> - called as a callback after bean is created, assembled and <b>all the bean properties are set</b>.
+            Declaring options:
             <ul>
                 <li>
                     <b>@PostConstruct</b>
@@ -365,7 +365,7 @@
                     <b>custom init</b> method (Java and XML config)
                     <ul>
                         <li>XML: &lt;beans default-init-method="init"/> or<br/>
-                            &lt;bean init-method="init"/></li>
+                            &lt;bean <b class="r">init-method</b>="init"/></li>
                         <li>Java: @Bean(initMethod = "init")</li>
                     </ul>
                 </li>
@@ -538,6 +538,7 @@
             <ul>
                 <li>@Profile("development")</li>
                 <li>@Profile({"p1", "p2"})</li>
+                <li>@Profile("<b>!</b>development")  - anything other than "development"</li>
             </ul>
         </div>
         <div id="a6_3">
@@ -711,8 +712,7 @@
                     executed if a method exits by throwing an exception
                 </li>
                 <li>
-                    <b>@After</b>
-                    executed if method executed normally or with exception
+                    <b>@After</b> executed <b class="r">in any case</b> (if method executed normally or with exception)
                 </li>
                 <li>
                     <b>@Around</b>
@@ -2076,6 +2076,12 @@
             <ul>
                 <li>Contains list of Filters</li>
                 <li><b>DefaultSecurityFilterChain</b> - the only Spring implementation</li>
+            </ul><br/><br/>
+            <b>Filters ordering</b>:
+            <ul>
+                <li>first filter is <b class="r">ChannelProcessingFilter</b></li>
+                <li>huge list of other filters...</li>
+                <li>last (almost) - <b class="r">FilterSecurityInterceptor</b></li>
             </ul>
         </div>
         <div id="f2_3">
@@ -2143,6 +2149,7 @@
                 <li><b>antMatchers</b>("/services") only matches the exact “/services” URL
                     <ul>
                         <li>only matches the exact URLs. E.g. "/services" matches only "/services"</li>
+                        <li>Sample: " .antMatchers("/user/edit").<b class="r">hasRole</b>("ADMIN") "</li>
                     </ul>
                 </li>
                 <li>
@@ -2173,6 +2180,7 @@
             </ul>
         </div>
         <div id="f2_6">
+            Spring Security's <b class="r">PasswordEncoder</b> helps in working with encoded passwords (two methods: encode and matches)<br/><br/>
             <b>Hashing</b>
             process is referred to as password encoding and is implemented using the PasswordEncoder
             interface.
@@ -2309,22 +2317,15 @@
         <div id="g1_5">
             Most important codes:
             <ul>
-                <li>
-                    <b>200</b>
-                    OK
-                </li>
+                <li><b>200</b> OK</li>
+                <li><b class="r">204</b> No Content</li>
                 <li>307 Temporary redirect</li>
-                <li>
-                    <b>400</b>
-                    Bad request
-                </li>
+                <li><b>400</b> Bad request</li>
                 <li>401 Unauthorized</li>
                 <li>404 Not found</li>
+                <li><b>403</b> Forbidden</li>
                 <li>429 Too many requests</li>
-                <li>
-                    <b>500</b>
-                    Internal server error
-                </li>
+                <li><b>500</b> Internal server error</li>
                 <li>501 Not implemented</li>
                 <li>503 Service unavailable</li>
             </ul>

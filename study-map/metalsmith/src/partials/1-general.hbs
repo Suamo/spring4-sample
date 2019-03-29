@@ -287,8 +287,8 @@
             static methods can be final though it doesn't make sense.
         </div>
         <div id="a2_8">
-            <b>Init method</b>
-            - called as a callback after bean is created and assembled. Declaring options:
+            <b>Init method</b> - called as a callback after bean is created, assembled and <b>all the bean properties are set</b>.
+            Declaring options:
             <ul>
                 <li>
                     <b>@PostConstruct</b>
@@ -299,7 +299,7 @@
                     <b>custom init</b> method (Java and XML config)
                     <ul>
                         <li>XML: &lt;beans default-init-method="init"/> or<br/>
-                            &lt;bean init-method="init"/></li>
+                            &lt;bean <b class="r">init-method</b>="init"/></li>
                         <li>Java: @Bean(initMethod = "init")</li>
                     </ul>
                 </li>
@@ -472,6 +472,7 @@
             <ul>
                 <li>@Profile("development")</li>
                 <li>@Profile({"p1", "p2"})</li>
+                <li>@Profile("<b>!</b>development")  - anything other than "development"</li>
             </ul>
         </div>
         <div id="a6_3">
