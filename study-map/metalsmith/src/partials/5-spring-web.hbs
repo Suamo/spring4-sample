@@ -6,7 +6,8 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
-            <a title="e1_5">MessageSource </a>
+            <a title="e1_5">MessageSource</a>
+            <a title="e1_6">web.xml</a>
         </li>
         <li>
             <b>Controller:</b>
@@ -92,6 +93,18 @@
             Further usage of ubtained messages in the JSP:<br/>
             <b>&lt;spring:message code="page.header" /></b><br/>
             where "page.header" is a property name whit will be substituted by it's value.
+        </div>
+        <div id="e1_6">
+            In web.xml yoc can declare:
+            <ul>
+                <li>AnnotationConfigWebApplicationContext (declare the root application context)</li>
+                <li>ContextLoaderListener (bootstraps the root application context)</li>
+                <li>Spring configuration class/xml</li>
+                <li>DispatcherServlet</li>
+                <li>DelegatingFilterProxy/FilterChainProxy</li>
+                <li>servlet-mapping to mapp all requests to the dispatcher servlet</li>
+            </ul><br/>
+            You cannot define resolvers since they are must be refistered as a beans.
         </div>
     </div>
 

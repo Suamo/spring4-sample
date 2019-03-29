@@ -223,27 +223,25 @@
             Attributes:
             <ul>
                 <li>
-                    <b>access</b>: Access attributes, commonly role names, specifying the user(s) that has access
+                    <b class="r">access</b>: Access attributes, commonly role names, specifying the user(s) that has access
                 </li>
                 <li>
-                    <b>filters</b>: Omitted or having the value “none”. In the latter case the Spring Security filter
-                    chain
-                    for
-                    the URL pattern will be bypassed.
+                    <b class="r">filters</b>: Omitted or having the value “<b class="r">none</b>” (filter chain for the
+                    URL pattern entirely ignored and all requests are alowed)
                 </li>
                 <li>
-                    <b>method</b>: HTTP method used with URL pattern and, optionally, servlet path to match requests.
+                    <b class="r">method</b>: HTTP method used with URL pattern and, optionally, servlet path to match requests.
                     If omitted all HTTP methods will match.
                 </li>
                 <li>
-                    <b>pattern</b>: URL path pattern for which the Spring Security filter chain will be applied.
+                    <b class="r">pattern</b>: URL path pattern for which the Spring Security filter chain will be applied.
                 </li>
                 <li>
                     <b>request-matcher-ref</b>: Reference to RequestMatcher bean used to determine if this
                     intercept-url will be used.
                 </li>
                 <li>
-                    <b>requires-channel</b>: “http”, “https” or “any”.
+                    <b class="r">requires-channel</b>: “http”, “https” or “any”.
                 </li>
                 <li>
                     <b>servlet-path</b>: Servlet path used in combination with method and pattern to match requests.
