@@ -7,7 +7,7 @@
             <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
             <a title="f1_3" class="label-danger">method security</a>
-            <a title="f1_4">view security</a>
+            <a title="f1_4" class="label-danger">view protection</a>
         </li>
         <li>
             <b>Configuration:</b>
@@ -127,20 +127,20 @@
                     &lt;%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
                 </li>
                 <li>
-                    <b>authorize</b>
+                    <b class="r">authorize</b>
                     tag: visibility by condition
                     <br/>
                     &lt;sec:authorize access="hasRole('aadministrator')">Admin!&lt;/sec:authorize>
                 </li>
                 <li>
-                    <b>authentication</b>
+                    <b class="r">authentication</b>
                     tag: allows for accessing the Authentication object in the current security
                     context
                     <br/>
                     &lt;sec:authentication property="principal.username"/>
                 </li>
                 <li>
-                    <b>accesscontrollist</b>
+                    <b class="r">accesscontrollist</b>
                     tag (deprecated, use authorize tag): checks a list of permissions for a specific
                     domain object
                     <br/>

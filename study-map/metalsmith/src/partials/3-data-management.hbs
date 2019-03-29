@@ -17,6 +17,7 @@
             <a title="c3_1">what is</a>
             <a title="c3_2" class="label-warning">callbacks</a>
             <a title="c3_3">queries</a>
+            <a title="c3_4">updates</a>
         </li>
         <li>
             <b>Transactions:</b>
@@ -252,6 +253,15 @@
                     <b>queryForList()</b>
                     - returns multiple objects
                 </li>
+            </ul>
+        </div>
+        <div id="c3_4">
+            <b>update(..)</b> method performs insert, update and delete operations and returns number of affected rows<br/>
+            Parameter values are usually provided as Objects varargs leaving them to the PreparedStatement to guess the corresponding SQL field type.<br/>
+            <ul>
+                <li>jdbcTemplate.update("<b>insert into</b> t_actor (first_name, last_name) values (?, ?)", "Leonor", "Watling");</li>
+                <li>jdbcTemplate.update("<b>update</b> t_actor <b>set</b> last_name = ? where id = ?", "Banjo", 5276L);</li>
+                <li>jdbcTemplate.update("<b>delete</b> from actor where id = ?", Long.valueOf(actorId));</li>
             </ul>
         </div>
     </div>

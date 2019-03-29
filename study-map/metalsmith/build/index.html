@@ -16,6 +16,10 @@
             color: lawngreen;
         }
     
+        .tooltip-inner b.r {
+            color: red;
+        }
+    
         .tooltip-inner {
             text-align: left;
             max-width: 400px;
@@ -74,8 +78,8 @@
         <li>
             <b>Beans:</b>
             <a title="a2_1" class="label-warning">lifecycle</a>
-            <a title="a2_2" class="label-warning">scope</a>
-            <a title="a2_3">IDs</a>
+            <a title="a2_2">scope</a>
+            <a title="a2_3" class="label-warning">IDs</a>
             <a title="a2_4">scanning</a>
             <a title="a2_5">stereotypes</a>
             <a title="a2_6">lazy/eager init</a>
@@ -834,6 +838,7 @@
             <a title="c3_1">what is</a>
             <a title="c3_2" class="label-warning">callbacks</a>
             <a title="c3_3">queries</a>
+            <a title="c3_4">updates</a>
         </li>
         <li>
             <b>Transactions:</b>
@@ -994,7 +999,7 @@
 
     <div class="hidden">
         <div id="c3_1">
-            JdbcTemplate is a JDBC approach
+            JdbcTemplate is a <b>JDBC approach</b>
             <br/>
             Named so because of a Template Method pattern that it's based on.
             <br/>
@@ -1069,6 +1074,15 @@
                     <b>queryForList()</b>
                     - returns multiple objects
                 </li>
+            </ul>
+        </div>
+        <div id="c3_4">
+            <b>update(..)</b> method performs insert, update and delete operations and returns number of affected rows<br/>
+            Parameter values are usually provided as Objects varargs leaving them to the PreparedStatement to guess the corresponding SQL field type.<br/>
+            <ul>
+                <li>jdbcTemplate.update("<b>insert into</b> t_actor (first_name, last_name) values (?, ?)", "Leonor", "Watling");</li>
+                <li>jdbcTemplate.update("<b>update</b> t_actor <b>set</b> last_name = ? where id = ?", "Banjo", 5276L);</li>
+                <li>jdbcTemplate.update("<b>delete</b> from actor where id = ?", Long.valueOf(actorId));</li>
             </ul>
         </div>
     </div>
@@ -1254,7 +1268,7 @@
             <br/>
             <b>Important</b>:
             <ul>
-                <li>@Transactionalcan be applied on interface methods only if JDK dynamic proxy is used</li>
+                <li>@Transactional can be applied on interface methods only if JDK dynamic proxy is used</li>
                 <li>By default @Transactional works only on public methods. Using it on non-public methods will not raise any error,
                     but will have no transactional behaviour. @Transactional will work on non-public methods only in <b>AspectJ mode</b>.</li>
                 <li>If one @Transactional method is calling another on the same object instance:
@@ -1846,11 +1860,11 @@
             <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
             <a title="f1_3" class="label-danger">method security</a>
-            <a title="f1_4">view security</a>
+            <a title="f1_4" class="label-danger">view protection</a>
         </li>
         <li>
             <b>Configuration:</b>
-            <a title="f2_1" class="label-warning">filters</a>
+            <a title="f2_1" class="label-danger">filters</a>
             <a title="f2_3" class="label-warning">context</a>
             <a title="f2_4" class="label-danger">intercept-url</a>
             <a title="f2_5" class="label-warning">antMatcher vs mvcMatcher</a>
@@ -1966,20 +1980,20 @@
                     &lt;%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
                 </li>
                 <li>
-                    <b>authorize</b>
+                    <b class="r">authorize</b>
                     tag: visibility by condition
                     <br/>
                     &lt;sec:authorize access="hasRole('aadministrator')">Admin!&lt;/sec:authorize>
                 </li>
                 <li>
-                    <b>authentication</b>
+                    <b class="r">authentication</b>
                     tag: allows for accessing the Authentication object in the current security
                     context
                     <br/>
                     &lt;sec:authentication property="principal.username"/>
                 </li>
                 <li>
-                    <b>accesscontrollist</b>
+                    <b class="r">accesscontrollist</b>
                     tag (deprecated, use authorize tag): checks a list of permissions for a specific
                     domain object
                     <br/>
