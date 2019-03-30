@@ -90,12 +90,10 @@
             <b>DI, IOC:</b>
             <a title="a3_1">what is</a>
             <a title="a3_2">@Autowired</a>
-            <a title="a3_21">@Required</a>
-            <a title="a3_3">@Qualifier</a>
-            <a title="a3_4">private fields injection</a>
             <a title="a3_5">scalar/literal injection</a>
             <a title="a3_6">@Value</a>
             <a title="a3_7">$ vs #</a>
+            <a title="a3_8">lookup method</a>
         </li>
         <li>
             <b>Properties:</b>
@@ -419,16 +417,10 @@
             <ul>
                 <li><b>@Inject</b> (javax.injectx package): use with @Qualifier from javax.inject to specify name of the bean to inject</li>
                 <li><b>@Resource</b> (javax.annotation package): provides a name attribute to specify name of the bean to inject</li>
-            </ul>
-        </div>
-        <div id="a3_21">
-            An exception will be thrown if @Required dependency is not set.
-        </div>
-        <div id="a3_3">
-            Defines <b>exact bean name</b> if injection by type finds multiple implementations.
-        </div>
-        <div id="a3_4">
-            Private fields are injected the same way as public.
+            </ul><br/>
+            <b>@Required</b> - An exception will be thrown if @Required dependency is not set.<br/>
+            <b>@Qualifier</b> defines exact bean name if injection by type finds multiple implementations.<br/>
+            <b class="r">Private fields</b> are injected the same way as public.
         </div>
         <div id="a3_5">
             <ul>
@@ -452,6 +444,17 @@
                 <li><b>${}</b> - "${" is a "placeholder prefix". ${} expression internally will be handled by
                     PropertyResolver.resolvePlaceholders
                 </li>
+            </ul>
+        </div>
+        <div id="a3_8">
+            <b>Lookup Method Injection</b> replaces method (or implements if abstract) logic with searching a bean in
+            the container. If called, the method marked as a "lookup" will simply return found bean. If lookup bean name
+            is not defined, container will try to identify searching bean by the method return type.
+            <br/><br/>
+            Implementations:
+            <ul>
+                <li><b>@Lookup</b>("otherBean") abstract Command getOtherBean()</li>
+                <li><<b>lookup-method</b> name="getOtherBean" bean="otherBean"/></li>
             </ul>
         </div>
     </div>
