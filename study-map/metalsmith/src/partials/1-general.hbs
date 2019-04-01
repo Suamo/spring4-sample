@@ -5,7 +5,7 @@
             <b>Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2" class="label-warning">lifecycle</a>
-            <a title="a1_3">configuration</a>
+            <a title="a1_3" class="label-danger">configuration</a>
             <a title="a1_4">usage in test</a>
             <a title="a1_5">closing context</a>
         </li>
@@ -18,16 +18,16 @@
             <a title="a2_5">stereotypes</a>
             <a title="a2_6">lazy/eager init</a>
             <a title="a2_7">final/static</a>
-            <a title="a2_8">init/destroy</a>
+            <a title="a2_8" class="label-danger">init/destroy</a>
         </li>
         <li>
             <b>DI, IOC:</b>
             <a title="a3_1">what is</a>
-            <a title="a3_2">@Autowired</a>
+            <a title="a3_2" class="label-danger">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
             <a title="a3_6">@Value</a>
             <a title="a3_7">$ vs #</a>
-            <a title="a3_8">lookup method</a>
+            <a title="a3_8" class="label-danger">lookup method</a>
         </li>
         <li>
             <b>Properties:</b>
@@ -55,7 +55,7 @@
         <li>
             <b>SpEL:</b>
             <a title="a8_1">what is</a>
-            <a title="a8_2">usage</a>
+            <a title="a8_2" class="label-danger">usage</a>
         </li>
     </ul>
 
@@ -202,7 +202,7 @@
             </ul><br/>
             Note: if a singleton depends on prototype then this Prototype bean will be created on container
             creation.<br/>
-            <b>Custom scope</b> is done through implementation of interface Scope.
+            <b>Custom scope</b> is done through implementation of interface <b class="r">Scope</b>.
         </div>
         <div id="a2_3">
             Attributes "id" and "name" define the same thing - name of the bean and it's aliases.
@@ -251,7 +251,7 @@
                             <b>@Controller</b>
                         </li>
                         <li>
-                            <b>@RestController (not from stereotype package but still considered as a stereotype by the Spring spec)</b>
+                            <b>@RestController</b> (not from stereotype package but still considered as a stereotype by the Spring spec)
                         </li>
                         <li>
                             <b>@Repository</b>
@@ -413,7 +413,7 @@
             <ul>
                 <li>specialization of <b class="r">PlaceholderConfigurerSupport</b></li>
                 <li>predefined bean factory <b>post-processor</b></li>
-                <li>newer and more flexible version of old PropertyPlaceholderConfigurer</li>
+                <li>newer and more flexible version of PropertyPlaceholderConfigurer</li>
                 <li><b>Resolves ${}</b> placeholders in bean definition property values and @Value annotations against the
                     current Spring Environment and its set of PropertySources
                 </li>
@@ -501,7 +501,7 @@
                 <li>Java System properties (System.getProperties())</li>
                 <li>OS environment variables (System.getenv())</li>
                 <li>Spring Boot application.properties</li>
-                <li>Default Properties (is set by <b class="r">SpringApplication.setDefaultProperties</b>)</li>
+                <li>Default Properties (set by <b class="r">SpringApplication.setDefaultProperties</b>)</li>
                 <li>And many more:
                     https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
                 </li>

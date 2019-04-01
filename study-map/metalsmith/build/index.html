@@ -37,6 +37,11 @@
         .hidden {
             visibility: hidden;
         }
+    
+        .label-success {
+            background-color: #dff0d8 !important;
+            color: #3c763d5c !important;
+        }
     </style>
     <script>
         function changeTitles() {
@@ -51,7 +56,7 @@
                 if (current) {
                     link.setAttribute("class", current + " label");
                 } else {
-                    link.setAttribute("class", "label label-info");
+                    link.setAttribute("class", "label label-success");
                 }
                 if (tooltip) {
                     link.setAttribute("title", tooltip.innerHTML);
@@ -71,7 +76,7 @@
             <b>Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2" class="label-warning">lifecycle</a>
-            <a title="a1_3">configuration</a>
+            <a title="a1_3" class="label-danger">configuration</a>
             <a title="a1_4">usage in test</a>
             <a title="a1_5">closing context</a>
         </li>
@@ -84,16 +89,16 @@
             <a title="a2_5">stereotypes</a>
             <a title="a2_6">lazy/eager init</a>
             <a title="a2_7">final/static</a>
-            <a title="a2_8">init/destroy</a>
+            <a title="a2_8" class="label-danger">init/destroy</a>
         </li>
         <li>
             <b>DI, IOC:</b>
             <a title="a3_1">what is</a>
-            <a title="a3_2">@Autowired</a>
+            <a title="a3_2" class="label-danger">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
             <a title="a3_6">@Value</a>
             <a title="a3_7">$ vs #</a>
-            <a title="a3_8">lookup method</a>
+            <a title="a3_8" class="label-danger">lookup method</a>
         </li>
         <li>
             <b>Properties:</b>
@@ -121,7 +126,7 @@
         <li>
             <b>SpEL:</b>
             <a title="a8_1">what is</a>
-            <a title="a8_2">usage</a>
+            <a title="a8_2" class="label-danger">usage</a>
         </li>
     </ul>
 
@@ -268,7 +273,7 @@
             </ul><br/>
             Note: if a singleton depends on prototype then this Prototype bean will be created on container
             creation.<br/>
-            <b>Custom scope</b> is done through implementation of interface Scope.
+            <b>Custom scope</b> is done through implementation of interface <b class="r">Scope</b>.
         </div>
         <div id="a2_3">
             Attributes "id" and "name" define the same thing - name of the bean and it's aliases.
@@ -317,7 +322,7 @@
                             <b>@Controller</b>
                         </li>
                         <li>
-                            <b>@RestController (not from stereotype package but still considered as a stereotype by the Spring spec)</b>
+                            <b>@RestController</b> (not from stereotype package but still considered as a stereotype by the Spring spec)
                         </li>
                         <li>
                             <b>@Repository</b>
@@ -479,7 +484,7 @@
             <ul>
                 <li>specialization of <b class="r">PlaceholderConfigurerSupport</b></li>
                 <li>predefined bean factory <b>post-processor</b></li>
-                <li>newer and more flexible version of old PropertyPlaceholderConfigurer</li>
+                <li>newer and more flexible version of PropertyPlaceholderConfigurer</li>
                 <li><b>Resolves ${}</b> placeholders in bean definition property values and @Value annotations against the
                     current Spring Environment and its set of PropertySources
                 </li>
@@ -567,7 +572,7 @@
                 <li>Java System properties (System.getProperties())</li>
                 <li>OS environment variables (System.getenv())</li>
                 <li>Spring Boot application.properties</li>
-                <li>Default Properties (is set by <b class="r">SpringApplication.setDefaultProperties</b>)</li>
+                <li>Default Properties (set by <b class="r">SpringApplication.setDefaultProperties</b>)</li>
                 <li>And many more:
                     https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
                 </li>
@@ -631,7 +636,7 @@
             <b>AOP:</b>
             <a title="b1_1">what is</a>
             <a title="b1_2">in Spring</a>
-            <a title="b1_3">configuration</a>
+            <a title="b1_3" class="label-danger">configuration</a>
         </li>
         <li>
             <b>Terminology:</b>
@@ -846,16 +851,16 @@
         </li>
         <li>
             <b>DataSource:</b>
-            <a title="c2_1">configuration</a>
-            <a title="c2_2">types</a>
+            <a title="c2_1" class="label-danger">configuration</a>
+            <a title="c2_2" class="label-danger">types</a>
             <a title="c2_3">JNDI</a>
         </li>
         <li>
             <b>JdbcTemplate:</b>
             <a title="c3_1">what is</a>
-            <a title="c3_2" class="label-warning">callbacks</a>
-            <a title="c3_3">queries</a>
-            <a title="c3_4">updates</a>
+            <a title="c3_2" class="label-danger">callbacks</a>
+            <a title="c3_3" class="label-warning">queries</a>
+            <a title="c3_4" class="label-warning">updates</a>
         </li>
         <li>
             <b>Transactions:</b>
@@ -871,12 +876,12 @@
         <li>
             <b>ORM:</b>
             <a title="c6_1">what is</a>
-            <a title="c6_2" class="label-warning">how works</a>
+            <a title="c6_2" class="label-danger">how works</a>
         </li>
         <li>
             <b>JPA:</b>
             <a title="c7_1">what is</a>
-            <a title="c7_2" class="label-warning">configuration</a>
+            <a title="c7_2" class="label-danger">configuration</a>
             <a title="c7_3">participation in transaction</a>
         </li>
         <li>
@@ -893,7 +898,7 @@
             <ul>
                 <li><b>RuntimeException</b>
                     <ul>
-                        <li><b>DataAccessException</b>
+                        <li><b class="r">DataAccessException</b>
                             <ul>
                                 <li>DataAccessResourceFailureException</li>
                                 <li>CleanupFailureDataAccessException</li>
@@ -1225,7 +1230,7 @@
                 </li>
                 <li><b>MANDATORY</b>: use current transaction, throw exception if none exists
                 </li>
-                <li>[DEFAULT] <b>REQUIRED</b>: use current transaction, if non exists – create one
+                <li><b class="r">[DEFAULT]</b> <b>REQUIRED</b>: use current transaction, if non exists – create one
                 </li>
                 <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists
                 </li>
@@ -1423,7 +1428,7 @@
                     <b>PagingAndSortingRepository</b>
                 </li>
                 <li>annotate your repository interface with
-                    <b>@RepositoryDefinition</b>
+                    <b class="r">@RepositoryDefinition</b>
                 </li>
             </ul>
         </div>
@@ -1561,7 +1566,7 @@
                 <li>WAR - archive that can be deployed on an external container</li>
             </ul><br/>
 
-            To build WAR you need:
+            To build <b>WAR</b> you need:
             <ul>
                 <li>&lt;packaging>war&lt;/packaging></li>
                 <li>Make spring-boot-starter-tomcat dependency as provided to avoid server files being included in the war</li>
@@ -1638,8 +1643,8 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
-            <a title="e1_5">MessageSource</a>
-            <a title="e1_6">web.xml</a>
+            <a title="e1_5" class="label-warning">MessageSource</a>
+            <a title="e1_6" class="label-danger">web.xml</a>
         </li>
         <li>
             <b>Controller:</b>
@@ -1701,18 +1706,8 @@
             <b>WebApplicationContext</b>
             is an interface to provide configuration for a web application. Typically
             contains infrastructure beans, such as data repositories and business services that need to be shared across
-            multiple Servlet instances. Supports additional scopes:
-            <ul>
-                <li>
-                    <b>request</b> - one object instance per HTTP request lifecycle (each HTTP request has new instance)
-                </li>
-                <li>
-                    <b>session</b> - restricts bean definitions with HTTP session. e.g. user profile, shopping cart
-                </li>
-                <li>
-                    <b>application</b> - one object instance per ServletContext lifecycle
-                </li>
-            </ul><br/>
+            multiple Servlet instances. Supports additional scopes: <b>request</b>, <b>session</b>, <b>application</b>
+            <br/><br/>
             <b>AnnotationConfigWebApplicationContext</b> is an implementation of <b>WebApplicationContext</b> that is
             essentially the equivalent of AnnotationConfigApplicationContext for a web environment. Can be configured in
             Java config as well as in XML.

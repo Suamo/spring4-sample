@@ -8,16 +8,16 @@
         </li>
         <li>
             <b>DataSource:</b>
-            <a title="c2_1">configuration</a>
-            <a title="c2_2">types</a>
+            <a title="c2_1" class="label-danger">configuration</a>
+            <a title="c2_2" class="label-danger">types</a>
             <a title="c2_3">JNDI</a>
         </li>
         <li>
             <b>JdbcTemplate:</b>
             <a title="c3_1">what is</a>
-            <a title="c3_2" class="label-warning">callbacks</a>
-            <a title="c3_3">queries</a>
-            <a title="c3_4">updates</a>
+            <a title="c3_2" class="label-danger">callbacks</a>
+            <a title="c3_3" class="label-warning">queries</a>
+            <a title="c3_4" class="label-warning">updates</a>
         </li>
         <li>
             <b>Transactions:</b>
@@ -33,12 +33,12 @@
         <li>
             <b>ORM:</b>
             <a title="c6_1">what is</a>
-            <a title="c6_2" class="label-warning">how works</a>
+            <a title="c6_2" class="label-danger">how works</a>
         </li>
         <li>
             <b>JPA:</b>
             <a title="c7_1">what is</a>
-            <a title="c7_2" class="label-warning">configuration</a>
+            <a title="c7_2" class="label-danger">configuration</a>
             <a title="c7_3">participation in transaction</a>
         </li>
         <li>
@@ -55,7 +55,7 @@
             <ul>
                 <li><b>RuntimeException</b>
                     <ul>
-                        <li><b>DataAccessException</b>
+                        <li><b class="r">DataAccessException</b>
                             <ul>
                                 <li>DataAccessResourceFailureException</li>
                                 <li>CleanupFailureDataAccessException</li>
@@ -387,7 +387,7 @@
                 </li>
                 <li><b>MANDATORY</b>: use current transaction, throw exception if none exists
                 </li>
-                <li>[DEFAULT] <b>REQUIRED</b>: use current transaction, if non exists – create one
+                <li><b class="r">[DEFAULT]</b> <b>REQUIRED</b>: use current transaction, if non exists – create one
                 </li>
                 <li><b>SUPPORTS</b>: use current transaction, execute non-transactionally if none exists
                 </li>
@@ -585,7 +585,7 @@
                     <b>PagingAndSortingRepository</b>
                 </li>
                 <li>annotate your repository interface with
-                    <b>@RepositoryDefinition</b>
+                    <b class="r">@RepositoryDefinition</b>
                 </li>
             </ul>
         </div>

@@ -33,6 +33,11 @@
     .hidden {
         visibility: hidden;
     }
+
+    .label-success {
+        background-color: #dff0d8 !important;
+        color: #3c763d5c !important;
+    }
 </style>
 <script>
     function changeTitles() {
@@ -47,7 +52,7 @@
             if (current) {
                 link.setAttribute("class", current + " label");
             } else {
-                link.setAttribute("class", "label label-info");
+                link.setAttribute("class", "label label-success");
             }
             if (tooltip) {
                 link.setAttribute("title", tooltip.innerHTML);

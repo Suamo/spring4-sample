@@ -6,8 +6,8 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
-            <a title="e1_5">MessageSource</a>
-            <a title="e1_6">web.xml</a>
+            <a title="e1_5" class="label-warning">MessageSource</a>
+            <a title="e1_6" class="label-danger">web.xml</a>
         </li>
         <li>
             <b>Controller:</b>
@@ -69,18 +69,8 @@
             <b>WebApplicationContext</b>
             is an interface to provide configuration for a web application. Typically
             contains infrastructure beans, such as data repositories and business services that need to be shared across
-            multiple Servlet instances. Supports additional scopes:
-            <ul>
-                <li>
-                    <b>request</b> - one object instance per HTTP request lifecycle (each HTTP request has new instance)
-                </li>
-                <li>
-                    <b>session</b> - restricts bean definitions with HTTP session. e.g. user profile, shopping cart
-                </li>
-                <li>
-                    <b>application</b> - one object instance per ServletContext lifecycle
-                </li>
-            </ul><br/>
+            multiple Servlet instances. Supports additional scopes: <b>request</b>, <b>session</b>, <b>application</b>
+            <br/><br/>
             <b>AnnotationConfigWebApplicationContext</b> is an implementation of <b>WebApplicationContext</b> that is
             essentially the equivalent of AnnotationConfigApplicationContext for a web environment. Can be configured in
             Java config as well as in XML.
