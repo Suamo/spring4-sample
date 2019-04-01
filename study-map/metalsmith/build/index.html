@@ -38,14 +38,22 @@
             visibility: hidden;
         }
     
+        body {
+            background-color: #333;
+        }
+    
         .label-success {
-            background-color: #dff0d85c !important;
-            color: #3c763d40 !important;
+            background-color: #dff0d821 !important;
+            color: #deffdf57 !important;
         }
     
         h4 {
             font-weight: bold;
             color: dodgerblue;
+        }
+    
+        .sub {
+            color: darkgoldenrod;
         }
     </style>
     <script>
@@ -78,7 +86,7 @@
     <h4>General</h4>
     <ul>
         <li>
-            <b>Application context:</b>
+            <b class="sub">Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2">lifecycle</a>
             <a title="a1_3" class="label-danger">configuration</a>
@@ -86,7 +94,7 @@
             <a title="a1_5">closing context</a>
         </li>
         <li>
-            <b>Beans:</b>
+            <b class="sub">Beans:</b>
             <a title="a2_1" class="label-warning">lifecycle</a>
             <a title="a2_2">scope</a>
             <a title="a2_3" class="label-warning">IDs</a>
@@ -97,7 +105,7 @@
             <a title="a2_8" class="label-danger">init/destroy</a>
         </li>
         <li>
-            <b>DI, IOC:</b>
+            <b class="sub">DI, IOC:</b>
             <a title="a3_1">what is</a>
             <a title="a3_2" class="label-danger">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
@@ -106,30 +114,30 @@
             <a title="a3_8" class="label-danger">lookup method</a>
         </li>
         <li>
-            <b>Properties:</b>
+            <b class="sub">Properties:</b>
             <a title="a4_1">PropertySource</a>
             <a title="a4_2">PropertySourcesPlaceholderConfigurer</a>
             <a title="a4_3">PropertyResolver</a>
         </li>
         <li>
-            <b>PostProcessors:</b>
+            <b class="sub">PostProcessors:</b>
             <a title="a5_1" class="label-warning">BeanFactoryPostProcessor</a>
             <a title="a5_2" class="label-warning">BeanPostProcessor</a>
             <a title="a5_3" class="label-warning">order</a>
         </li>
         <li>
-            <b>Profiles:</b>
+            <b class="sub">Profiles:</b>
             <a title="a6_1">what is</a>
             <a title="a6_2">usage</a>
             <a title="a6_3">limitations</a>
         </li>
         <li>
-            <b>Environment:</b>
+            <b class="sub">Environment:</b>
             <a title="a7_1">what is</a>
             <a title="a7_2">property sources</a>
         </li>
         <li>
-            <b>SpEL:</b>
+            <b class="sub">SpEL:</b>
             <a title="a8_1">what is</a>
             <a title="a8_2" class="label-danger">usage</a>
         </li>
@@ -642,13 +650,13 @@
     <h4>AOP</h4>
     <ul>
         <li>
-            <b>AOP:</b>
+            <b class="sub">AOP:</b>
             <a title="b1_1">what is</a>
             <a title="b1_2">in Spring</a>
             <a title="b1_3" class="label-danger">configuration</a>
         </li>
         <li>
-            <b>Terminology:</b>
+            <b class="sub">Terminology:</b>
             <a title="b2_1" class="label-warning">aspect</a>
             <a title="b2_2" class="label-warning">advice</a>
             <a title="b2_3">cross-cutting concern</a>
@@ -657,7 +665,7 @@
             <a title="b2_6">weaving</a>
         </li>
         <li>
-            <b>Proxy:</b>
+            <b class="sub">Proxy:</b>
             <a title="b3_1">what is</a>
             <a title="b3_2">types</a>
             <a title="b3_3">benefits</a>
@@ -684,7 +692,7 @@
             <br/>
             Enabling @AspectJ support:
             <ul>
-                <li>@AspectJ requires <b class="r">aspectjweaver.jar</b></li>
+                <li>add <b class="r">aspectjweaver.jar</b> to classpath</li>
                 <li>Java config: <b>@EnableAspectJAutoProxy</b></li>
                 <li>XML config:
                     &lt;aop:<b>aspectj-autoproxy</b>/>
@@ -854,25 +862,25 @@
     <h4>Data Management</h4>
     <ul>
         <li>
-            <b>Exceptions:</b>
+            <b class="sub">Exceptions:</b>
             <a title="c1_1">hierarchy</a>
             <a title="c1_2">why unchecked</a>
         </li>
         <li>
-            <b>DataSource:</b>
+            <b class="sub">DataSource:</b>
             <a title="c2_1" class="label-danger">configuration</a>
             <a title="c2_2" class="label-danger">types</a>
             <a title="c2_3">JNDI</a>
         </li>
         <li>
-            <b>JdbcTemplate:</b>
+            <b class="sub">JdbcTemplate:</b>
             <a title="c3_1">what is</a>
             <a title="c3_2" class="label-danger">callbacks</a>
             <a title="c3_3" class="label-warning">queries</a>
             <a title="c3_4" class="label-warning">updates</a>
         </li>
         <li>
-            <b>Transactions:</b>
+            <b class="sub">Transactions:</b>
             <a title="c4_1">what is</a>
             <a title="c4_2" class="label-warning">types</a>
             <a title="c4_6" class="label-warning">configuration</a>
@@ -883,18 +891,18 @@
             <a title="c4_8">rollback</a>
         </li>
         <li>
-            <b>ORM:</b>
+            <b class="sub">ORM:</b>
             <a title="c6_1">what is</a>
             <a title="c6_2" class="label-danger">how works</a>
         </li>
         <li>
-            <b>JPA:</b>
+            <b class="sub">JPA:</b>
             <a title="c7_1">what is</a>
             <a title="c7_2" class="label-danger">configuration</a>
             <a title="c7_3">participation in transaction</a>
         </li>
         <li>
-            <b>Spring data:</b>
+            <b class="sub">Spring data:</b>
             <a title="c8_1">instant repository</a>
             <a title="c8_2" class="label-warning">how works</a>
             <a title="c8_3">@Query</a>
@@ -1474,7 +1482,7 @@
     <h4>Spring Boot</h4>
     <ul>
         <li>
-            <b>Spring Boot:</b>
+            <b class="sub">Spring Boot:</b>
             <a title="d1_1">what is</a>
             <a title="d1_2">advantages</a>
             <a title="d1_3" class="label-warning">configuration</a>
@@ -1648,7 +1656,7 @@
     <h4>Spring MVC</h4>
     <ul>
         <li>
-            <b>Overview:</b>
+            <b class="sub">Overview:</b>
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
@@ -1656,7 +1664,7 @@
             <a title="e1_6" class="label-danger">web.xml</a>
         </li>
         <li>
-            <b>Controller:</b>
+            <b class="sub">Controller:</b>
             <a title="e2_1">@Controller</a>
             <a title="e2_2">request mapping</a>
             <a title="e2_3" class="label-warning">parameters</a>
@@ -1664,12 +1672,12 @@
             <a title="e2_5">testing</a>
         </li>
         <li>
-            <b>View:</b>
+            <b class="sub">View:</b>
             <a title="e3_1">overview</a>
             <a title="e3_2">resolvers</a>
         </li>
         <li>
-            <b>Model:</b>
+            <b class="sub">Model:</b>
             <a title="e4_1">overview</a>
         </li>
     </ul>
@@ -1903,7 +1911,7 @@
     <h4>Security</h4>
     <ul>
         <li>
-            <b>Overview:</b>
+            <b class="sub">Overview:</b>
             <a title="f1_1" class="label-danger">overview</a>
             <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
@@ -1911,7 +1919,7 @@
             <a title="f1_4" class="label-danger">view protection</a>
         </li>
         <li>
-            <b>Configuration:</b>
+            <b class="sub">Configuration:</b>
             <a title="f2_1" class="label-danger">filters</a>
             <a title="f2_3" class="label-warning">context</a>
             <a title="f2_4" class="label-danger">intercept-url</a>
@@ -2218,7 +2226,7 @@
     <h4>REST</h4>
     <ul>
         <li>
-            <b>Overview:</b>
+            <b class="sub">Overview:</b>
             <a title="g1_1" class="label-warning">What is</a>
             <a title="g1_2">resources</a>
             <a title="g1_3" class="label-warning">idempotency</a>
@@ -2226,12 +2234,12 @@
             <a title="g1_5">status codes</a>
         </li>
         <li>
-            <b>In Spring:</b>
+            <b class="sub">In Spring:</b>
             <a title="g2_1" class="label-warning">configuration</a>
             <a title="g2_2">@ResponseStatus</a>
         </li>
         <li>
-            <b>RestTemplate:</b>
+            <b class="sub">RestTemplate:</b>
             <a title="g3_1" class="label-warning">overview</a>
         </li>
     </ul>
@@ -2430,7 +2438,7 @@
     <h4>Testing</h4>
     <ul>
         <li>
-            <b>Spring in testing:</b>
+            <b class="sub">Spring in testing:</b>
             <a title="h1_1">configuration</a>
             <a title="h1_2">@Transactional</a>
             <a title="h1_3">mocks</a>
