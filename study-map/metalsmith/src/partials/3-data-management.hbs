@@ -121,14 +121,10 @@
                                             <b>SimpleDriverDataSource</b>
                                         </li>
                                         <li>
-                                            <b>DriverManagerDataSource</b>
-                                            - every time uses new Connection and closes is
-                                            after use
+                                            <b>DriverManagerDataSource</b> - every time uses new Connection and closes is after use
                                             <ul>
                                                 <li>
-                                                    <b>SingleConnectionDataSource</b>
-                                                    - connection is not closed after each
-                                                    use
+                                                    <b>SingleConnectionDataSource</b> - connection is not closed after each use
                                                 </li>
                                             </ul>
                                         </li>
@@ -138,7 +134,8 @@
                         </li>
                         <li>(i) SmartDataSource
                             <ul>
-                                <li>SingleConnectionDataSource</li>
+                                <li>SingleConnectionDataSource</li> - classes using this interface can query whether or
+                                not the Connection should be closed after an operation
                             </ul>
                         </li>
                         <li>(i) EmbeddedDatabase
@@ -298,12 +295,12 @@
             </ul>
         </div>
         <div id="c4_3">
-            Defined by the <b>PlatformTransactionManager</b> interface with method
-            <b>getTransaction</b>
-            that
-            takes TransactionDefinition as an argument and returns TransactionStatus.
-            <br/>
-            <br/>
+            Defined by the <b>PlatformTransactionManager</b> interface with methods
+            <ul>
+                <li><b>getTransaction</b> (takes TransactionDefinition as an argument and returns TransactionStatus)</li>
+                <li><b>commit</b></li>
+                <li><b>rollback</b></li>
+            </ul><br/><br/>
 
             <b>TransactionDefinition</b>
             defines transaction properties:
@@ -368,7 +365,15 @@
                 </tr>
             </table>
             <br/>
-            *default in most DBs
+            *default in most DBs<br/><br/>
+            <ul>
+                <li><b>dirty read</b> [reading uncommitted between transactions] -
+                    reading not committed changes between transactions</li>
+                <li><b>non-repeatable read</b> [record changes] -
+                    second read from transaction can return different record state (if committed by another transaction in parallel)</li>
+                <li><b>phantom reads</b> [list changes] -
+                    second read from transaction can return different records list (if aded/removed by another transaction)</li>
+            </ul>
         </div>
         <div id="c4_5">
             One of the transaction properties.
@@ -557,6 +562,13 @@
 
             <b>JpaTransactionManager</b>
             is the JPA PlatformTransactionManager implementation.
+            <br/><br/>
+
+            Configuring JPA In Spring Boot:
+            <ul>
+                <li>spring-boot-starter</li>
+                <li><b>spring-boot-starter-data-jpa</b></li>
+            </ul>
         </div>
         <div id="c7_3">
             JpaTransactionManager expose a JPA transaction to JDBC access code that accesses the same DataSource

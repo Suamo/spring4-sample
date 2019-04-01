@@ -28,7 +28,7 @@
                     that inherits from the AbstractSecurityInterceptor class.
                 </li>
                 <li><b>Web infrastructure security</b>: is based entirely on servlet filters.
-                    It deals in HttpServletRequest s and HttpServletResponse. Spring Security maintains a filter chain
+                    It deals in <b class="r">HttpServletRequest</b> s and <b class="r">HttpServletResponse</b>. Spring Security maintains a filter chain
                     internally where each of the filters has a particular responsibility.
                 </li>
             </ul>
@@ -38,8 +38,10 @@
             <ul>
                 <li><b>UserDetails</b>, <b>User</b> - represents principal. Store sensitive user information. Encapsulated into Authentication objects</li>
                 <li><b>UserDetailsService</b> - core DAO interface which loads user-specific data. Return User objects.</li>
-                <li><b>Authentication</b> - represents the token for an authentication request or for an authenticated
-                    principal once the request has been processed. Stored in SecurityContext.</li>
+                <li><b>Authentication</b> - a token for an authentication request or for an authenticated
+                    principal once the request has been processed</li>
+                <li><b>SecurityContext</b> - thread-local storage for the Authentication</li>
+                <li><b>SecurityContextHolder</b> - manages SecurityContext by some authentication mechanism</li>
             </ul>
         </div>
         <div id="f1_2">
@@ -279,7 +281,8 @@
                         </li>
                         <li>mvcMatchers API is newer than the antMatchers API</li>
                     </ul>
-                </li>
+                </li><br/>
+                Both methods are called from: <b>http.authorizeRequests().</b>
             </ul>
             <br/>
             * and ** patterns:
