@@ -80,7 +80,7 @@
         <li>
             <b>Application context:</b>
             <a title="a1_1">what is</a>
-            <a title="a1_2" class="label-warning">lifecycle</a>
+            <a title="a1_2">lifecycle</a>
             <a title="a1_3" class="label-danger">configuration</a>
             <a title="a1_4">usage in test</a>
             <a title="a1_5">closing context</a>
@@ -171,7 +171,7 @@
                     <b>XML config</b>
                     <ul>
                         <li>Define beans in xml</li>
-                        <li>new <b>ClassPathXmlApplicationContext</b>("lifacycle-config.xml");
+                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml");
                         </li>
                     </ul>
                 </li>
@@ -180,7 +180,7 @@
                     <ul>
                         <li>Define <b>@Bean</b> in @Configuration (<b>Important</b>:declaring @Bean in @Component is also possible)
                         </li>
-                        <li>new <b>AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);
+                        <li>new <b class="r">AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);
                         </li>
                     </ul>
                 </li>
@@ -281,18 +281,22 @@
             <b>Custom scope</b> is done through implementation of interface <b class="r">Scope</b>.
         </div>
         <div id="a2_3">
-            Attributes "id" and "name" define the same thing - name of the bean and it's aliases.
-            <br/>
-            E.g. id="n1,n2;n3" - bean has name "n1" and aliases "n2" and "n3".
-            <br/>
-            "name" values can also be separated via space.
-            <br/>
-            By default, the bean name will be the same as the method name.
-            <br/>
-            Can be overriden by @Bean("customBeanName")
+            @Bean parameters:
+            <ul>
+                <li><b>value</b> (default param e.g. @Bean("bName")) - bean name and aliases</li>
+                <li><b>name</b> - bean name and aliases</li>
+            </ul>
+            * 'name' and 'value' are both <b>arrays</b> with identical finctionality<br/>
+            * @Bean doesn't have '<b class="r">id</b>' or '<b class="r">alias</b>' property<br/>
+            * @Bean's default name will be the same as the method name
             <br/><br/>
-            <b>Important</b>: @Bean doesn't jave 'id' property. Only varargs of 'name's or 'value's (alias for name in @Bean).
-            There is no such property as 'alias'.
+
+            &lt;bean/> parameters:
+            <ul>
+                <li><b>id</b> - exactly one unique identifier for a bean</li>
+                <li><b>name</b> - can be used to create one or more aliases</li>
+            </ul>
+            * aliases can be separated by any number of spaces, commas, or semi-colons (or any mixture of the three)
         </div>
         <div id="a2_4">
             Responsible for searching beans to register.
