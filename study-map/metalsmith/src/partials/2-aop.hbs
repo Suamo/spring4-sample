@@ -180,6 +180,7 @@
                         <li>used by default for beans with <b>interface</b></li>
                         <li>recommended to use</li>
                         <li>proxy will implement the same interface as target object</li>
+                        <li>intercepts only <b class="r">public</b> methods</li>
                     </ul>
                 </li>
                 <br/>
@@ -190,6 +191,7 @@
                         <li>proxy willextend target object</li>
                         <li>adviced methods cannot be final</li>
                         <li>CGLIB classes are under the org.springframework.cglib package and included in the spring-core jar</li>
+                        <li>intercepts <b class="r">public, protected and package-visible</b> methods</li>
                     </ul>
                 </li>
             </ul>

@@ -5,7 +5,7 @@
             <b class="sub">Spring in testing:</b>
             <a title="h1_1">configuration</a>
             <a title="h1_2">@Transactional</a>
-            <a title="h1_3">mocks</a>
+            <a title="h1_3" class="label-warning">mocks</a>
             <a title="h1_4" class="label-warning">Spring Boot</a>
         </li>
     </ul>
@@ -47,22 +47,17 @@
             <b>EasyMock</b>
             framework allows the creation of test double objects (mock objects) in
             automated unit tests for the purpose of test-driven development (TDD) or behavior-driven development (BDD).
+            <br/><br/>
 
-            <br/>
-            <br/>
-            If mock object is wrapped with Spring Proxy developer can access target object and set some expected values
-            using
-            following utils: AopUtils and AopProxyUtils. However there is no direct support of those libraries in
-            Spring.
-            <br/>
-            <br/>
-            Spring provides <b>mock objects</b> that you can use to test your code in isolation.<br/>
-            Packages:
+            If mock object is wrapped with Spring Proxy developer can access target object and set some expected values using
+            following utils: AopUtils and AopProxyUtils. However there is no direct support of those libraries in Spring.
+            <br/><br/>
+            Spring provides <b>mock objects</b> that you can use to test your code in isolation:<br/>
             <ul>
-                <li>org.springframework.mock.env for Environment and PropertySource abstractions</li>
-                <li>org.springframework.mock.jndi for JNDI</li>
-                <li>org.springframework.mock.web for Servlet</li>
-                <li>org.springframework.mock.web.portlet for portlets</li>
+                <li><b class="r">Environment, PropertySource</b> (org.springframework.mock.env)</li>
+                <li><b class="r">JNDI</b> (org.springframework.mock.jndi)</li>
+                <li><b class="r">Servlet</b> (org.springframework.mock.web)</li>
+                <li><b class="r">Portlets</b> (org.springframework.mock.web.portlet)</li>
                 <li>etc.</li>
             </ul>
         </div>

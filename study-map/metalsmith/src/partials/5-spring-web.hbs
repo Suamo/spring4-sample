@@ -16,6 +16,7 @@
             <a title="e2_3" class="label-warning">parameters</a>
             <a title="e2_4">return types</a>
             <a title="e2_5">testing</a>
+            <a title="e2_6" class="label-warning">no annotations</a>
         </li>
         <li>
             <b class="sub">View:</b>
@@ -129,11 +130,11 @@
             Mappling parameters:
             <ul>
                 <li>
-                    <b>@PathVariable</b>
+                    <b class="r">@PathVariable</b>
                     maps method parameters from the URI path(e.g. http://foo.com/user<b>/33</b>)
                 </li>
                 <li>
-                    <b>@RequestParam</b>
+                    <b class="r">@RequestParam</b>
                     maps method parameters from the URI query (e.g.
                     http://foo.com/user<b>?id=33</b>)
                     <br/>
@@ -144,9 +145,9 @@
                 </li>
                 <li>@MatrixVariable</li>
                 <li>@RequestPart</li>
-                <li>@RequestHeader</li>
+                <li><b class="r">@RequestHeader</b></li>
                 <li>@CookieValue</li>
-                <li>@ModelAttribute</li>
+                <li><b class="r">@ModelAttribute</b></li>
                 <li>@SessionAttribute</li>
             </ul>
             <br/>
@@ -187,6 +188,17 @@
                 <li>A framework, also known as
                     <b>MockMvc</b>, for testing annotated controllers through the DispatcherServlet
                 </li>
+            </ul>
+        </div>
+        <div id="e2_6">
+            To create a controller without annotations:
+            <ul>
+                <li>Create an implementation of <b>Controller</b> interface or extension of
+                    any Controller's implementations like AbstractController.</li>
+                <li>A <b>HandlerMapping</b> implementation that does not use annotations can be used, to map the requests
+                    to the handler objects.</li>
+                <li>BeanNameUrlHandlerMapping is included in the Spring framework, and it is the default if no
+                    HandlerMapping bean is registered in the application context.</li>
             </ul>
         </div>
     </div>

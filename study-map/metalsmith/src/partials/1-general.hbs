@@ -112,7 +112,12 @@
                     <b>Java annotations</b>
                     <ul>
                         <li>Add @ComponentScan to the @Configuration</li>
-                        <li>Add @ContextConfiguration to the class where bean need to be injected</li>
+                        <li>Add @ContextConfiguration to the class where bean need to be injected. Annotation params:
+                        <ul>
+                            <li>"locations", (default) "value" - path to XML configuration</li>
+                            <li>"classes" - varargs parameter with a Configuration classes</li>
+                        </ul>
+                        </li>
                         <li>Annotate bean class as
                             <b>@Component</b>
                         </li>
@@ -357,9 +362,11 @@
                 <li><b>@Resource</b> (javax.annotation package): provides a name attribute to specify name of the bean to inject</li>
             </ul><br/>
             <b>@Required</b> - An exception will be thrown if @Required dependency is not set.<br/>
-            <b>@Qualifier</b> defines exact bean name if injection by type finds multiple implementations.<br/>
+            <b>@Qualifier</b> defines exact bean name if injection by type finds multiple implementations.
+            Can be used on <b class="r">Field, Method, Method's parameter, Class, Annotation type</b><br/><br/>
             <b class="r">Private fields</b> are injected the same way as public.
         </div>
+
         <div id="a3_5">
             <ul>
                 <li>XML: by adding "value" attribute to "property" or "constructor-arg"</li>
@@ -393,7 +400,8 @@
             <ul>
                 <li><b>@Lookup</b>("otherBean") abstract Command getOtherBean()</li>
                 <li><<b>lookup-method</b> name="getOtherBean" bean="otherBean"/></li>
-            </ul>
+            </ul><br/>
+            Implemented using <b>CGLIB</b>.
         </div>
     </div>
 

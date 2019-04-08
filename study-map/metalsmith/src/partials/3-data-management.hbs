@@ -16,6 +16,7 @@
             <b class="sub">JdbcTemplate:</b>
             <a title="c3_1">what is</a>
             <a title="c3_2" class="label-danger">callbacks</a>
+            <a title="c3_21" class="label-warning">execute</a>
             <a title="c3_3" class="label-warning">queries</a>
             <a title="c3_4" class="label-warning">updates</a>
         </li>
@@ -159,10 +160,12 @@
 
             Spring Boot can auto-configure <b>embedded</b>:
             <ul>
-                <li><b>H2</b></li>
-                <li><b>HSQL</b></li>
-                <li><b>Derby</b></li>
-            </ul>
+                <li><b class="r">H2</b></li>
+                <li><b class="r">HSQL</b></li>
+                <li><b class="r">Derby</b></li>
+            </ul><br/>
+            If JARs for those DBs are in the class path Spring will try to configure in-memotry DB only if auto-configuration is
+            turn on (@SpringBootApplication or @EnableAutoConfiguration)
         </div>
         <div id="c2_3">
             &lt;jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
@@ -175,11 +178,10 @@
 
     <div class="hidden">
         <div id="c3_1">
-            JdbcTemplate is a <b>JDBC approach</b>
-            <br/>
-            Named so because of a Template Method pattern that it's based on.
-            <br/>
-            <br/>
+            JdbcTemplate is a <b>JDBC approach</b><br/>
+            Named so because of a Template Method pattern that it's based on.<br/>
+            Expects <b>DataSource</b> as a controller argument.
+            <br/><br/>
             Features:
             <ul>
                 <li>creation of statements</li>
@@ -187,14 +189,13 @@
                 <li>provides execution results</li>
                 <li>creation/releasing connections</li>
                 <li>covers JDBC exceptions with more informative</li>
+                <li>instance of JdbcTemplate is thread-safe once configured</li>
             </ul><br/>
             <b>Shouldn't be confused with HibernateTemplate.</b>
         </div>
         <div id="c3_2">
             callback ("call-after" function) - called after the other function execution.
-            <br/>
-            <br/>
-
+            <br/><br/>
             Main JdbcTemplate callbacks:
             <ul>
                 <li>
@@ -203,8 +204,7 @@
                 </li>
                 <li>
                     <b>CallableStatementCreator</b>
-                    prepare parametrized statement from a Connection to execute SQL stored
-                    procedures
+                    prepare parametrized statement from a Connection to execute SQL stored procedures
                 </li>
                 <li>
                     <b>RowCallbackHandler</b>
@@ -222,6 +222,10 @@
                     <b>ResultSetExtractor</b> called once for the whole ResultSet to convert it to a result object
                 </li>
             </ul>
+        </div>
+        <div id="c3_21">
+            jdbcTemplate.execute(...) can execute any arbitrary SQL (select, insert, delete...), including DDL statements.<br/>
+            Can throw DataAccessException.
         </div>
         <div id="c3_3">
             <b>Plain SQL</b> statement execution:
@@ -253,12 +257,16 @@
             </ul>
         </div>
         <div id="c3_4">
-            <b>update(..)</b> method performs insert, update and delete operations and returns number of affected rows<br/>
-            Parameter values are usually provided as Objects varargs leaving them to the PreparedStatement to guess the corresponding SQL field type.<br/>
+            <b>update(..)</b> method performs insert, update and delete operations and returns number of affected rows. Can call
+            <b class="r">stored procedures</b>.<br/>
+            Parameter values are usually provided as Objects varargs leaving them to the PreparedStatement to guess the corresponding SQL field type.
+            <br/><br/>
+            Samples:
             <ul>
                 <li>jdbcTemplate.update("<b>insert into</b> t_actor (first_name, last_name) values (?, ?)", "Leonor", "Watling");</li>
                 <li>jdbcTemplate.update("<b>update</b> t_actor <b>set</b> last_name = ? where id = ?", "Banjo", 5276L);</li>
                 <li>jdbcTemplate.update("<b>delete</b> from actor where id = ?", Long.valueOf(actorId));</li>
+                <li>jdbcTemplate.update("<b>call</b> MY_PROCEDURE(?)", Long.valueOf(unionId));</li>
             </ul>
         </div>
     </div>
@@ -292,7 +300,8 @@
                     <b>Local transactions</b>
                     handles single transactional resources
                 </li>
-            </ul>
+            </ul><br/>
+            JTA - Java Transaction API
         </div>
         <div id="c4_3">
             Defined by the <b>PlatformTransactionManager</b> interface with methods
@@ -312,8 +321,7 @@
             </ul>
             <br/>
 
-            <b>TransactionStatus</b>
-            - new or current transaction status with methods:
+            <b>TransactionStatus</b> - new or current transaction status with methods:
             <ul>
                 <li>isNewTransaction()</li>
                 <li>hasSavepoint()</li>
@@ -347,21 +355,21 @@
                     <td>Read <b>committed</b></td>
                     <td>&nbsp;&nbsp;allowed</td>
                     <td>&nbsp;&nbsp;allowed</td>
-                    <td/>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>3rd</td>
                     <td><b>Repeatable</b> reads</td>
                     <td>&nbsp;&nbsp;allowed</td>
-                    <td/>
-                    <td/>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>4th (highest)</td>
                     <td><b>Serializable</b></td>
-                    <td/>
-                    <td/>
-                    <td/>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
             <br/>
@@ -408,17 +416,14 @@
                     Configuration:
                     <ul>
                         <li>
-                            <b>@EnableTransactionManagement</b>
-                            to configuration
+                            <b>@EnableTransactionManagement</b> to configuration
                         </li>
                         <li>
-                            <b>@Transactional</b>
-                            annotation on methods/classes
+                            <b>@Transactional</b> annotation on methods/classes
                         </li>
                     </ul>
                     Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate
-                    PlatformTransactionManager
-                    implementation to drive transactions around method invocations.
+                    PlatformTransactionManager implementation to drive transactions around method invocations.
                 </li>
                 <li>
                     <b>Programming</b>: best for small number of transactional operations. Can set transaction name.
@@ -428,8 +433,7 @@
                         <li>use
                             <b>PlatformTransactionManager</b>
                             bean directly to <b class="r">initiate</b>, <b class="r">roll back</b>, and <b class="r">commit</b>
-                            transactions
-                            (using the TransactionDefinition and TransactionStatus)
+                            transactions (using the TransactionDefinition and TransactionStatus)
                         </li>
                         <li>create <b>TransactionTemplate</b> and call execute(TransactionCallback)
                         </li>

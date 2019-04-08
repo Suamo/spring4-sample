@@ -10,6 +10,7 @@
             <a title="d1_5">embadded containers</a>
             <a title="d1_6">starter POM</a>
             <a title="d1_7">logging</a>
+            <a title="d1_8" class="label-warning">json</a>
         </li>
     </ul>
 
@@ -80,7 +81,8 @@
                 <li>
                     <b>classpath root</b>
                 </li>
-            </ul>
+            </ul><br/>
+            <b class="r">@ConfigurationProperties</b> -  externalized properties configuration
         </div>
         <div id="d1_5">
             Spring Boot supports following embedded containers:
@@ -169,6 +171,11 @@
                 <li><b>Log4J2</b></li>
                 <li><b>Logback</b></li>
             </ul>
+        </div>
+        <div id="d1_8">
+            <b>JsonComponent</b> - Component that provides JsonSerializer and/or JsonDeserializer implementations to be
+            registered with Jackson when JsonComponentModule is in use. Can be used to annotate JsonSerializer or
+            JsonDeserializer implementations directly or a class that contains them as inner-classes.
         </div>
     </div>
 </div>
