@@ -82,8 +82,11 @@
             <b>MessageSource</b> (interface) - a solution to make a management of static text more easier and efficient.<br/>
             <b>ResourceBundleMessageSource</b> (implementation of MessageSource) can get messages from the defined property file.<br/><br/>
             Further usage of ubtained messages in the JSP:<br/>
-            <b>&lt;spring:message code="page.header" /></b><br/>
-            where "page.header" is a property name whit will be substituted by it's value.
+            <b>&lt;spring:message code="page.header"/></b><br/>
+            where "page.header" is a property name whit will be substituted by it's value.<br/><br/>
+
+            MessageSource interface is <b>automatically resolved</b>, with no additional setup necessary, other than putting
+            the 'Autowired' annotation.
         </div>
         <div id="e1_6">
             In web.xml you can declare:
