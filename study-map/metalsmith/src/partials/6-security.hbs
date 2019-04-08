@@ -3,7 +3,7 @@
     <ul>
         <li>
             <b class="sub">Overview:</b>
-            <a title="f1_1" class="label-danger">overview</a>
+            <a title="f1_1" class="label-warning">overview</a>
             <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
             <a title="f1_3" class="label-danger">method security</a>
@@ -42,7 +42,8 @@
                     principal once the request has been processed</li>
                 <li><b>SecurityContext</b> - thread-local storage for the Authentication</li>
                 <li><b>SecurityContextHolder</b> - manages SecurityContext by some authentication mechanism</li>
-            </ul>
+            </ul><br/>
+            <b>Note</b>: It is possible to store UserDetails in <b>LDAP</b>.
         </div>
         <div id="f1_2">
             <ul>
@@ -58,10 +59,7 @@
         </div>
         <div id="f1_3">
             Method-level security is commonly applied to services in the service layer of an application. Implemented by
-            AOP
-            Proxies.
-            <br/>
-            <br/>
+            AOP Proxies.<br/><br/>
             Approaches:
             <ul>
                 <li>
@@ -70,7 +68,7 @@
                         <li>restricted by SpEL expression</li>
                         <li>enabled by
                             <ul>
-                                <li>@EnableGlobalMethodSecurity(<b>prePostEnabled</b>=true)</li>
+                                <li>@EnableGlobalMethodSecurity(<b class="r">prePostEnabled</b>=true)</li>
                                 <li>&lt;global-method-security <b>pre-post-annotations</b>="enabled" /></li>
                             </ul>
                         </li>
@@ -82,7 +80,7 @@
                         <li>restricted by role name</li>
                         <li>enabled by
                             <ul>
-                                <li>@EnableGlobalMethodSecurity(<b>jsr250Enabled</b>=true)</li>
+                                <li>@EnableGlobalMethodSecurity(<b class="r">jsr250Enabled</b>=true)</li>
                                 <li>&lt;global-method-security <b>jsr250-annotations</b>="enabled" /></li>
                             </ul>
                         </li>
@@ -95,7 +93,7 @@
                         <li>restricted by role name</li>
                         <li>enabled by
                             <ul>
-                                <li>@EnableGlobalMethodSecurity(<b>securedEnabled</b>=true)</li>
+                                <li>@EnableGlobalMethodSecurity(<b class="r">securedEnabled</b>=true)</li>
                                 <li>&lt;global-method-security <b>secured-annotations</b>="enabled" /></li>
                             </ul>
                         </li>
@@ -109,11 +107,10 @@
             Security annotations that use SpEL:
             <ul>
                 <li>@PreAuthorize</li>
-                <li>@PreFilter</li>
                 <li>@PostAuthorize</li>
-                <li>@PostFilter</li>
+                <li><b class="r">@PreFilter</b></li>
+                <li><b class="r">@PostFilter</b></li>
             </ul>
-
         </div>
         <div id="f1_4">
             In order to protect JSP elements Spring <b>Security taglib</b> have to be used.

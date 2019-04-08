@@ -8,7 +8,7 @@
         </li>
         <li>
             <b class="sub">DataSource:</b>
-            <a title="c2_1" class="label-danger">configuration</a>
+            <a title="c2_1" class="label-warning">configuration</a>
             <a title="c2_2" class="label-danger">types</a>
             <a title="c2_3">JNDI</a>
         </li>
@@ -46,7 +46,7 @@
             <b class="sub">Spring data:</b>
             <a title="c8_1">instant repository</a>
             <a title="c8_2" class="label-warning">how works</a>
-            <a title="c8_3">@Query</a>
+            <a title="c8_3" class="label-warning">@Query</a>
         </li>
     </ul>
 
@@ -122,10 +122,12 @@
                                             <b>SimpleDriverDataSource</b>
                                         </li>
                                         <li>
-                                            <b>DriverManagerDataSource</b> - every time uses new Connection and closes is after use
+                                            <b>DriverManagerDataSource</b> - every time uses new Connection and closes is
+                                            after use. <b class="r">Slow</b> for many requests.
                                             <ul>
                                                 <li>
-                                                    <b>SingleConnectionDataSource</b> - connection is not closed after each use
+                                                    <b>SingleConnectionDataSource</b> - connection is not closed after each use.
+                                                    Not thread safe.
                                                 </li>
                                             </ul>
                                         </li>
@@ -189,7 +191,7 @@
                 <li>provides execution results</li>
                 <li>creation/releasing connections</li>
                 <li>covers JDBC exceptions with more informative</li>
-                <li>instance of JdbcTemplate is thread-safe once configured</li>
+                <li>instance of JdbcTemplate is <b class="r">thread-safe</b> once configured</li>
             </ul><br/>
             <b>Shouldn't be confused with HibernateTemplate.</b>
         </div>
@@ -224,8 +226,9 @@
             </ul>
         </div>
         <div id="c3_21">
-            jdbcTemplate.execute(...) can execute any arbitrary SQL (select, insert, delete...), including DDL statements.<br/>
-            Can throw DataAccessException.
+            jdbcTemplate.execute(...) can execute any arbitrary SQL (select, insert, delete...), including DDL statements
+            (e.g. CREATE TABLE).<br/>
+            Can throw DataAccessException. Returns void.
         </div>
         <div id="c3_3">
             <b>Plain SQL</b> statement execution:
@@ -309,7 +312,7 @@
                 <li><b>getTransaction</b> (takes TransactionDefinition as an argument and returns TransactionStatus)</li>
                 <li><b>commit</b></li>
                 <li><b>rollback</b></li>
-            </ul><br/><br/>
+            </ul><br/>
 
             <b>TransactionDefinition</b>
             defines transaction properties:
@@ -329,7 +332,8 @@
                 <li>isRollbackOnly()</li>
                 <li>flush()</li>
                 <li>isCompleted()</li>
-            </ul>
+            </ul><br/>
+            <b class="r">DataSourceTransactionManager</b> is a implementation for single JDBC datasources
         </div>
         <div id="c4_4">
             One of the transaction properties.
@@ -466,8 +470,8 @@
 
         </div>
         <div id="c4_8">
-            Rollback policy - in case of occured <b>RuntimeException</b> or <b>Errors</b> transaction is
-            <b>marked forrollback</b>.
+            Rollback policy - in case of occured <b>RuntimeException</b> or <b class="r">Errors</b> transaction is
+            <b>marked for rollback</b>.
             <br/><br/>
             Types ot Exceptions for rollback can be changed (including checked exceptions):
             <ul>
@@ -591,7 +595,8 @@
                 <li>annotate your repository interface with
                     <b class="r">@RepositoryDefinition</b>
                 </li>
-            </ul>
+            </ul><br/><br/>
+            <b>JDK Proxy</b> will be used when Spring Data repositories are implemented at runtime.
         </div>
         <div id="c8_2">
             The query builder mechanism built into Spring Data repository infrastructure is building
@@ -617,8 +622,16 @@
             </ul>
         </div>
         <div id="c8_3">
-            For more <b>complex queries</b>, you can annotate your method with
-            <b>@Query</b>. Allows customization using SQL/JPQL.
+            For more <b>complex queries</b>, you can annotate your method with <b>@Query</b>.
+            <br/><br/>
+            Features:
+            <ul>
+                <li>Allows customization using SQL/JPQL</li>
+                <li>The execution of <b>pagination</b> or <b>dynamic sorting</b> for native queries is <b class="r">not supported</b></li>
+                <li>Queries annotated to the query method will <b>take precedence</b> over queries defined using
+                    <b>@NamedQuery</b> or named queries declared in <b>orm.xml</b></li>
+                <li>has <b>nativeQuery</b> parameter that allows usage of native queries</li>
+            </ul>
         </div>
     </div>
 </div>

@@ -4,6 +4,7 @@
         <li>
             <b class="sub">Spring Boot:</b>
             <a title="d1_1">what is</a>
+            <a title="d1_11">ext Config</a>
             <a title="d1_2">advantages</a>
             <a title="d1_3" class="label-warning">configuration</a>
             <a title="d1_4">properties</a>
@@ -44,6 +45,17 @@
             If you have tomcat-embedded.jar on your classpath TomcatServletWebServerFactory bean will be initialized.
             <br/><br/>
             Spring Bood <b class="r">does not</b> do code generation.
+        </div>
+        <div id="d1_11">
+            Spring Boot lets you externalize your configuration so that you can work with the same application code
+            in different environments.<br/><br/>
+            Can be done in:
+            <ul>
+                <li>properties files</li>
+                <li>YAML files</li>
+                <li>environment variables</li>
+                <li>command-line arguments</li>
+            </ul>
         </div>
         <div id="d1_2">
             <ul>
@@ -160,8 +172,7 @@
                 </li>
             </ul>
             <br/>
-            Spring Boot uses
-            <b>Commons Logging</b>
+            Spring Boot uses <b class="r">Commons Logging</b>
             for all internal logging but leaves the underlying log implementation open.
             <br/>
             <br/>

@@ -5,26 +5,26 @@
             <b class="sub">Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2">lifecycle</a>
-            <a title="a1_3" class="label-danger">configuration</a>
-            <a title="a1_4">usage in test</a>
+            <a title="a1_3" class="label-warning">configuration</a>
+            <a title="a1_4" class="label-warning">usage in test</a>
             <a title="a1_5">closing context</a>
         </li>
         <li>
             <b class="sub">Beans:</b>
             <a title="a2_1" class="label-warning">lifecycle</a>
-            <a title="a2_2">scope</a>
+            <a title="a2_2" class="label-warning">scope</a>
             <a title="a2_3" class="label-warning">IDs</a>
             <a title="a2_4">scanning</a>
             <a title="a2_5">stereotypes</a>
             <a title="a2_6">lazy/eager init</a>
-            <a title="a2_7">final/static</a>
+            <a title="a2_7" class="label-danger">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
             <a title="a2_9" class="label-warning">depends-on</a>
         </li>
         <li>
             <b class="sub">DI, IOC:</b>
             <a title="a3_1">what is</a>
-            <a title="a3_2" class="label-danger">@Autowired</a>
+            <a title="a3_2" class="label-warning">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
             <a title="a3_6" class="label-warning">@Value</a>
             <a title="a3_7">$ vs #</a>
@@ -191,11 +191,14 @@
             <ul>
                 <li>
                     <b>singleton</b>
-                    (default) - one object instance per IoC container
+                    (default) - one object instance per IoC container. Ideally used for <b class="r">stateless</b> beans.
                 </li>
                 <li>
                     <b>prototype</b>
-                    - one object instance per bean request from container
+                    - one object instance per bean request from container. Ideally used for <b class="r">stateful</b> beans.
+                    Configured <b class="r">destruction</b> lifecycle callbacks are <b class="r">not called</b> on prototypes -
+                    client code must clean up prototype-scoped objects and release resources that the prototype bean is holding
+                    (e.g. using a custom bean post-processor)
                 </li>
                 <li>[web only] <b>request</b> - each HTTP request has new instance
                 </li>
@@ -216,7 +219,7 @@
                 <li><b>value</b> (default param e.g. @Bean("bName")) - bean name and aliases</li>
                 <li><b>name</b> - bean name and aliases</li>
             </ul>
-            * 'name' and 'value' are both <b>arrays</b> with identical finctionality<br/>
+            * 'name' and 'value' are both <b>arrays</b> with identical functionality<br/>
             * @Bean doesn't have '<b class="r">id</b>' or '<b class="r">alias</b>' property<br/>
             * @Bean's default name will be the same as the method name
             <br/><br/>
@@ -292,7 +295,15 @@
             <br/>
             i.e. they must not be declared as private or final.
             <br/>
-            static methods can be final though it doesn't make sense.
+            <br/>
+            <b>Static beans features</b>:
+            <ul>
+                <li>allows a method to be called without creating its containing configuration class as an instance</li>
+                <li>It is necessary when beans will get initialized early in the container lifecycle</li>
+                <li>It avoids triggering other parts of the configuration at that point of definition</li>
+                <li>they will never get intercepted by the container, not even within @Configuration classes</li>
+                <li>static methods can be final though it doesn't make sense.</li>
+            </ul>
         </div>
         <div id="a2_8">
             <b>Init method</b> - called as a callback after bean is created, assembled and <b>all the bean properties are set</b>.
@@ -341,6 +352,8 @@
             </ul><br/>
 
             <b class="r">CommonAnnotationBeanPostProcessor</b> provides support for all JSR annotations. Registered within Spring Application context.
+            <br/><br/>
+            All of the above can be used on the <b class="r">Configuration</b> as well since its instance will participate in lifacycle.
         </div>
         <div id="a2_9">
             Bean's property <b class="r">@DependsOn</b> or depends-on (XML) informs Spring that some another bean must be created before.
@@ -358,7 +371,8 @@
                 <li>handled by Spring <b>BeanPostProcessor</b></li>
                 <li>makes injection <b>mandatory</b>. Fails if nothing to inject</li>
                 <li>only <b>one constructor</b> can be Autowired, <b>but</b> multiple constructors can be marked as @Autowired(required = false)</li>
-                <li>can autowire maps (key:bean name (String only), value:bean of the expected type)</li>
+                <li>can autowire <b>Map</b> (key:bean name (String only), value:bean of the expected type)</li>
+                <li>can autowire <b class="r">array</b> which will have all the beans of array elements type</li>
             </ul><br/>
             Equivalents:
             <ul>
@@ -367,7 +381,7 @@
             </ul><br/>
             <b>@Required</b> - An exception will be thrown if @Required dependency is not set.<br/>
             <b>@Qualifier</b> defines exact bean name if injection by type finds multiple implementations.
-            Can be used on <b class="r">Field, Method, Method's parameter, Class, Annotation type</b><br/><br/>
+            Can be used on <b class="r">Field, Method, Method's parameter, Class</b><br/><br/>
             <b class="r">Private fields</b> are injected the same way as public.
         </div>
 

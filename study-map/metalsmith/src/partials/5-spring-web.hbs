@@ -13,7 +13,7 @@
             <b class="sub">Controller:</b>
             <a title="e2_1">@Controller</a>
             <a title="e2_2">request mapping</a>
-            <a title="e2_3" class="label-warning">parameters</a>
+            <a title="e2_3" class="label-danger">parameters</a>
             <a title="e2_4">return types</a>
             <a title="e2_5">testing</a>
             <a title="e2_6" class="label-warning">no annotations</a>
@@ -86,14 +86,14 @@
             where "page.header" is a property name whit will be substituted by it's value.
         </div>
         <div id="e1_6">
-            In web.xml yoc can declare:
+            In web.xml you can declare:
             <ul>
-                <li>AnnotationConfigWebApplicationContext (declare the root application context)</li>
-                <li>ContextLoaderListener (bootstraps the root application context)</li>
+                <li><b>AnnotationConfigWebApplicationContext</b> (declare the root application context)</li>
+                <li><b>ContextLoaderListener</b> (bootstraps the root application context)</li>
                 <li>Spring configuration class/xml</li>
                 <li>DispatcherServlet</li>
                 <li>DelegatingFilterProxy/FilterChainProxy</li>
-                <li>servlet-mapping to mapp all requests to the dispatcher servlet</li>
+                <li>servlet-mapping to map all requests to the dispatcher servlet</li>
             </ul><br/>
             You cannot define resolvers since they are must be refistered as a beans.
         </div>
@@ -136,7 +136,7 @@
                 <li>
                     <b class="r">@RequestParam</b>
                     maps method parameters from the URI query (e.g.
-                    http://foo.com/user<b>?id=33</b>)
+                    http://foo.com/user<b>?id=33</b>).
                     <br/>
                     <ul>
                         <li>For Map/MultiValueMap - populated with all request parameters</li>
@@ -151,12 +151,14 @@
                 <li>@SessionAttribute</li>
             </ul>
             <br/>
+            All of the above except ModelAttribute are <b class="r">Required</b> by default.
+            <br/><br/>
 
             Controller method can receive following arguments (without any annotation):
             <ul>
-                <li>ServletRequest</li>
-                <li>ServletResponse</li>
-                <li>HttpSession</li>
+                <li><b class="r">ServletRequest</b></li>
+                <li><b class="r">ServletResponse</b></li>
+                <li><b class="r">HttpSession</b></li>
                 <li>Principal</li>
                 <li>HttpMethod</li>
                 <li>Map</li>
@@ -195,7 +197,7 @@
             <ul>
                 <li>Create an implementation of <b>Controller</b> interface or extension of
                     any Controller's implementations like AbstractController.</li>
-                <li>A <b>HandlerMapping</b> implementation that does not use annotations can be used, to map the requests
+                <li>A <b class="r">HandlerMapping</b> implementation that does not use annotations can be used, to map the requests
                     to the handler objects.</li>
                 <li>BeanNameUrlHandlerMapping is included in the Spring framework, and it is the default if no
                     HandlerMapping bean is registered in the application context.</li>
@@ -232,8 +234,8 @@
             Some of View Resolvers in Spring MVC:
             <ul>
                 <li>Thymeleaf: ThymeleafViewResolver</li>
-                <li>JSP and JSTL: InternalResourceViewResolver or ResourceBundleViewResolver</li>
-                <li>Apache Tiles: UrlBasedViewResolver or ResourceBundleViewResolver</li>
+                <li>JSP and JSTL: <b class="r">InternalResourceViewResolver</b> or <b class="r">ResourceBundleViewResolver</b></li>
+                <li>Apache Tiles: <b class="r">UrlBasedViewResolver</b> or ResourceBundleViewResolver</li>
                 <li>Xslt: XsltViewResolver</li>
             </ul><br/>
 

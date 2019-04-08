@@ -95,7 +95,7 @@
                 <li>
                     <b>@Around</b>
                     executed instead of join point method. Join Point method can be called manually by
-                    ProceedingJoinPoint.proceed.
+                    ProceedingJoinPoint.proceed. The first parameter of the advice method <b>must be</b> of type ProceedingJoinPoint.
                     The only advice which can try/catch exceptions of join point.
                 </li>
             </ul>
@@ -120,6 +120,7 @@
                 <li>Logging</li>
                 <li>Security</li>
                 <li>Transaction management</li>
+                <li>Caching</li>
             </ul>
             <br/>
             Problems if cross-cutting concerns not used:
@@ -157,6 +158,8 @@
             </ul>
         </div>
         <div id="b2_5">
+            A point during the execution of a program, such as the execution of a method or the handling of an
+            exception. In Spring AOP, a join point always <b>represents a method execution</b>.<br/><br/>
             In code:
             <ul>
                 <li>
