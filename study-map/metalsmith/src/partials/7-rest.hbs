@@ -193,20 +193,19 @@
             - synchronous client to perform HTTP requests, exposing a simple, template method API over
             underlying HTTP client libraries such as the JDK {HttpURLConnection}, Apache HttpComponents, and others.
 
-            <br/>
-            <br/>
+            <br/><br/>
             <b>HttpMethod</b>
             class with constants that can be used in RestTemplate: GET, HEAD, POST, PUT, PATCH, DELETE,
             OPTIONS, TRACE.
 
-            <br/>
-            <br/>
-            Example:
-            <br/>
-            String url = "http://localhost:8080/users/{$username}";
-            <br/>
+            <br/><br/>
+            Example:<br/>
+            String url = "http://localhost:8080/users/{$username}";<br/>
             User user = <b>restTemplate.getForObject</b>(url, User.class, "johncusack");
 
+            <br/><br/>
+            restTemplate methods automatically decode spaces in URL.<br/>
+            <b class="r">The return type and the second parameter should be the same.</b>
         </div>
     </div>
 </div>

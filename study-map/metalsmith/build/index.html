@@ -103,13 +103,14 @@
             <a title="a2_6">lazy/eager init</a>
             <a title="a2_7">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
+            <a title="a2_9" class="label-warning">depends-on</a>
         </li>
         <li>
             <b class="sub">DI, IOC:</b>
             <a title="a3_1">what is</a>
             <a title="a3_2" class="label-danger">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
-            <a title="a3_6">@Value</a>
+            <a title="a3_6" class="label-warning">@Value</a>
             <a title="a3_7">$ vs #</a>
             <a title="a3_8" class="label-danger">lookup method</a>
         </li>
@@ -212,7 +213,7 @@
                 </li>
             </ul>
             <br/>
-            advantages? why final config class not allowed?
+            Configuration with <b class="r">@Import</b>(AnotherConfig.class) import beans provided config
         </div>
         <div id="a1_4">
             <ul>
@@ -425,6 +426,9 @@
 
             <b class="r">CommonAnnotationBeanPostProcessor</b> provides support for all JSR annotations. Registered within Spring Application context.
         </div>
+        <div id="a2_9">
+            Bean's property <b class="r">@DependsOn</b> or depends-on (XML) informs Spring that some another bean must be created before.
+        </div>
     </div>
 
     <div class="hidden">
@@ -460,7 +464,7 @@
         <div id="a3_6">
             <ul>
                 <li>handled by Spring <b>BeanPostProcessor</b></li>
-                <li>can be placed on fields, methods and method/constructor parameters</li>
+                <li>can be placed on <b class="r">fields, methods and method/constructor parameters</b></li>
                 <li>used for <b>expression-driven dependency injection</b></li>
                 <li>supported for dynamic resolution of handler method parameters e.g. in Spring MVC</li>
                 <li>an expression resolver is preconfigured to look for bean names when resolving expression text (<b class="r">#{}</b>)</li>
@@ -786,7 +790,8 @@
         </div>
         <div id="b2_4">
             Is an expression that identifies which join point advice should be bind to.
-            <br/>
+            The advice will be called <b class="r">when</b> the proxy method matches the join point expression.
+            <br/><br/>
             Pointcut expressions are defined using AspectJ Pointcut Expression Language.
             <br/>
             <br/>
@@ -2450,20 +2455,19 @@
             - synchronous client to perform HTTP requests, exposing a simple, template method API over
             underlying HTTP client libraries such as the JDK {HttpURLConnection}, Apache HttpComponents, and others.
 
-            <br/>
-            <br/>
+            <br/><br/>
             <b>HttpMethod</b>
             class with constants that can be used in RestTemplate: GET, HEAD, POST, PUT, PATCH, DELETE,
             OPTIONS, TRACE.
 
-            <br/>
-            <br/>
-            Example:
-            <br/>
-            String url = "http://localhost:8080/users/{$username}";
-            <br/>
+            <br/><br/>
+            Example:<br/>
+            String url = "http://localhost:8080/users/{$username}";<br/>
             User user = <b>restTemplate.getForObject</b>(url, User.class, "johncusack");
 
+            <br/><br/>
+            restTemplate methods automatically decode spaces in URL.<br/>
+            <b class="r">The return type and the second parameter should be the same.</b>
         </div>
     </div>
 </div>
