@@ -4,7 +4,7 @@
         <li>
             <b class="sub">Spring in testing:</b>
             <a title="h1_1">configuration</a>
-            <a title="h1_2">@Transactional</a>
+            <a title="h1_2" class="label-warning">@Transactional</a>
             <a title="h1_3">mocks</a>
             <a title="h1_4">Spring Boot</a>
         </li>
@@ -40,6 +40,9 @@
             Transactional support is provided to a test via a
             <b>PlatformTransactionManager bean</b>
             defined in the test’s application context.
+            <br/><br/>
+            <b class="r">@Commit</b> - Spring's <b>test annotation</b> that forces test method to finalize it's work with commit
+            instead of rolling back.
         </div>
         <div id="h1_3">
             <b>Mockito</b>

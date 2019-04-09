@@ -5,7 +5,7 @@
             <b class="sub">Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2">lifecycle</a>
-            <a title="a1_3">configuration</a>
+            <a title="a1_3" class="label-danger">configuration</a>
             <a title="a1_4" class="label-warning">usage in test</a>
             <a title="a1_5">closing context</a>
         </li>
@@ -17,23 +17,23 @@
             <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
             <a title="a2_6" class="label-warning">lazy/eager init</a>
-            <a title="a2_7">final/static</a>
+            <a title="a2_7" class="label-danger">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
-            <a title="a2_9">depends-on</a>
+            <a title="a2_9" class="label-warning">depends-on</a>
         </li>
         <li>
             <b class="sub">DI, IOC:</b>
             <a title="a3_1">what is</a>
             <a title="a3_2">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
-            <a title="a3_6">@Value</a>
+            <a title="a3_6" class="label-danger">@Value</a>
             <a title="a3_7">$ vs #</a>
             <a title="a3_8">lookup method</a>
         </li>
         <li>
             <b class="sub">Properties:</b>
             <a title="a4_1">PropertySource</a>
-            <a title="a4_2">PropertySourcesPlaceholderConfigurer</a>
+            <a title="a4_2" class="label-danger">PropertySourcesPlaceholderConfigurer</a>
             <a title="a4_3">PropertyResolver</a>
         </li>
         <li>
@@ -96,17 +96,15 @@
                     <b>XML config</b>
                     <ul>
                         <li>Define beans in xml</li>
-                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml");
-                        </li>
+                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml");</li>
                     </ul>
                 </li>
                 <li>
                     <b>Java config</b>
                     <ul>
-                        <li>Define <b>@Bean</b> in @Configuration (<b>Important</b>:declaring @Bean in @Component is also possible)
-                        </li>
-                        <li>new <b class="r">AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);
-                        </li>
+                        <li>Define <b>@Configuration</b> with a <b class="r">constructor with no arguments</b></li>
+                        <li>Define <b>@Bean</b> in @Configuration/@Component</li>
+                        <li>new <b class="r">AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);</li>
                     </ul>
                 </li>
                 <li>
@@ -285,9 +283,9 @@
                     <b>@Lazy</b>
                     for @Bean or class with beans
                 </li>
-            </ul><br/><br/>
-            <b class="r">Important</b>: When a lazy-initialized bean A is a dependency of eagerly-initialized singleton bean B,
-            bean A will still be non-lazy-initialized.
+            </ul><br/>
+            <b class="r">Note</b>: when a lazy-initialized bean is a dependency of a singleton bean that
+            is not lazy-initialized, the ApplicationContext creates the lazy-initialized bean at startup, because it must satisfy the singleton’s dependencies.
         </div>
         <div id="a2_7">
             non-static @Bean methods in @Configuration classes need to be overridable,
@@ -300,7 +298,7 @@
                 <li>allows a method to be called without creating its containing configuration class as an instance</li>
                 <li>It is necessary when beans will get initialized early in the container lifecycle</li>
                 <li>It avoids triggering other parts of the configuration at that point of definition</li>
-                <li>they will never get intercepted by the container, not even within @Configuration classes</li>
+                <li>they will <b class="r">never get intercepted by the container, not even within @Configuration classes</b></li>
                 <li>static methods can be final though it doesn't make sense.</li>
             </ul>
         </div>
@@ -376,6 +374,7 @@
                 <li>only <b>one constructor</b> can be Autowired, <b>but</b> multiple constructors can be marked as @Autowired(required = false)</li>
                 <li>can autowire <b>Map</b> (key:bean name (String only), value:bean of the expected type)</li>
                 <li>can autowire <b class="r">array</b> which will have all the beans of array elements type</li>
+                <li>applied on a <b>method/constructor</b> will make sure that all arguments will be loaded as beans from AppContext</li>
             </ul><br/>
             Equivalents:
             <ul>
@@ -401,6 +400,8 @@
                 <li>used for <b>expression-driven dependency injection</b></li>
                 <li>supported for dynamic resolution of handler method parameters e.g. in Spring MVC</li>
                 <li>an expression resolver is preconfigured to look for bean names when resolving expression text (<b class="r">#{}</b>)</li>
+                <li>applied on the <b class="r">method/constructor</b> will make sure that Value will be injected to the
+                    method/constructor arguments (string Value will be converted to appropriate type defined in parameter)</li>
             </ul>
         </div>
         <div id="a3_7">
@@ -448,7 +449,8 @@
                 <li>specialization of <b class="r">PlaceholderConfigurerSupport</b></li>
                 <li>predefined bean factory <b>post-processor</b></li>
                 <li>newer and more flexible version of PropertyPlaceholderConfigurer</li>
-                <li><b>Resolves ${}</b> placeholders in bean definition property values and @Value annotations against the
+                <li><b>Resolves</b> ${} <b class="r">placeholders</b> in bean definition property values and
+                    resulves <b class="r">@Value</b> annotations against the
                     current Spring Environment and its set of PropertySources
                 </li>
             </ul>

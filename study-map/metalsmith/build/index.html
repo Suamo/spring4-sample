@@ -97,7 +97,7 @@
             <b class="sub">Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2">lifecycle</a>
-            <a title="a1_3">configuration</a>
+            <a title="a1_3" class="label-danger">configuration</a>
             <a title="a1_4" class="label-warning">usage in test</a>
             <a title="a1_5">closing context</a>
         </li>
@@ -109,23 +109,23 @@
             <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
             <a title="a2_6" class="label-warning">lazy/eager init</a>
-            <a title="a2_7">final/static</a>
+            <a title="a2_7" class="label-danger">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
-            <a title="a2_9">depends-on</a>
+            <a title="a2_9" class="label-warning">depends-on</a>
         </li>
         <li>
             <b class="sub">DI, IOC:</b>
             <a title="a3_1">what is</a>
             <a title="a3_2">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
-            <a title="a3_6">@Value</a>
+            <a title="a3_6" class="label-danger">@Value</a>
             <a title="a3_7">$ vs #</a>
             <a title="a3_8">lookup method</a>
         </li>
         <li>
             <b class="sub">Properties:</b>
             <a title="a4_1">PropertySource</a>
-            <a title="a4_2">PropertySourcesPlaceholderConfigurer</a>
+            <a title="a4_2" class="label-danger">PropertySourcesPlaceholderConfigurer</a>
             <a title="a4_3">PropertyResolver</a>
         </li>
         <li>
@@ -188,17 +188,15 @@
                     <b>XML config</b>
                     <ul>
                         <li>Define beans in xml</li>
-                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml");
-                        </li>
+                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml");</li>
                     </ul>
                 </li>
                 <li>
                     <b>Java config</b>
                     <ul>
-                        <li>Define <b>@Bean</b> in @Configuration (<b>Important</b>:declaring @Bean in @Component is also possible)
-                        </li>
-                        <li>new <b class="r">AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);
-                        </li>
+                        <li>Define <b>@Configuration</b> with a <b class="r">constructor with no arguments</b></li>
+                        <li>Define <b>@Bean</b> in @Configuration/@Component</li>
+                        <li>new <b class="r">AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);</li>
                     </ul>
                 </li>
                 <li>
@@ -377,9 +375,9 @@
                     <b>@Lazy</b>
                     for @Bean or class with beans
                 </li>
-            </ul><br/><br/>
-            <b class="r">Important</b>: When a lazy-initialized bean A is a dependency of eagerly-initialized singleton bean B,
-            bean A will still be non-lazy-initialized.
+            </ul><br/>
+            <b class="r">Note</b>: when a lazy-initialized bean is a dependency of a singleton bean that
+            is not lazy-initialized, the ApplicationContext creates the lazy-initialized bean at startup, because it must satisfy the singleton’s dependencies.
         </div>
         <div id="a2_7">
             non-static @Bean methods in @Configuration classes need to be overridable,
@@ -392,7 +390,7 @@
                 <li>allows a method to be called without creating its containing configuration class as an instance</li>
                 <li>It is necessary when beans will get initialized early in the container lifecycle</li>
                 <li>It avoids triggering other parts of the configuration at that point of definition</li>
-                <li>they will never get intercepted by the container, not even within @Configuration classes</li>
+                <li>they will <b class="r">never get intercepted by the container, not even within @Configuration classes</b></li>
                 <li>static methods can be final though it doesn't make sense.</li>
             </ul>
         </div>
@@ -468,6 +466,7 @@
                 <li>only <b>one constructor</b> can be Autowired, <b>but</b> multiple constructors can be marked as @Autowired(required = false)</li>
                 <li>can autowire <b>Map</b> (key:bean name (String only), value:bean of the expected type)</li>
                 <li>can autowire <b class="r">array</b> which will have all the beans of array elements type</li>
+                <li>applied on a <b>method/constructor</b> will make sure that all arguments will be loaded as beans from AppContext</li>
             </ul><br/>
             Equivalents:
             <ul>
@@ -493,6 +492,8 @@
                 <li>used for <b>expression-driven dependency injection</b></li>
                 <li>supported for dynamic resolution of handler method parameters e.g. in Spring MVC</li>
                 <li>an expression resolver is preconfigured to look for bean names when resolving expression text (<b class="r">#{}</b>)</li>
+                <li>applied on the <b class="r">method/constructor</b> will make sure that Value will be injected to the
+                    method/constructor arguments (string Value will be converted to appropriate type defined in parameter)</li>
             </ul>
         </div>
         <div id="a3_7">
@@ -540,7 +541,8 @@
                 <li>specialization of <b class="r">PlaceholderConfigurerSupport</b></li>
                 <li>predefined bean factory <b>post-processor</b></li>
                 <li>newer and more flexible version of PropertyPlaceholderConfigurer</li>
-                <li><b>Resolves ${}</b> placeholders in bean definition property values and @Value annotations against the
+                <li><b>Resolves</b> ${} <b class="r">placeholders</b> in bean definition property values and
+                    resulves <b class="r">@Value</b> annotations against the
                     current Spring Environment and its set of PropertySources
                 </li>
             </ul>
@@ -705,7 +707,7 @@
         <li>
             <b class="sub">Proxy:</b>
             <a title="b3_1">what is</a>
-            <a title="b3_2">types</a>
+            <a title="b3_2" class="label-warning">types</a>
             <a title="b3_3">benefits</a>
         </li>
     </ul>
@@ -874,7 +876,6 @@
                         <li>intercepts only <b class="r">public</b> methods</li>
                     </ul>
                 </li>
-                <br/>
                 <li><b>CGLIB proxy</b>
                     <ul>
                         <li>is <b>default for @Configuration</b> and other beans with <b>no interface</b></li>
@@ -885,7 +886,8 @@
                         <li>intercepts <b class="r">public, protected and package-visible</b> methods</li>
                     </ul>
                 </li>
-            </ul>
+            </ul><br/>
+            Note: CGLIB can be forced for usage by applying <b>proxy-target-class="true"</b>
         </div>
         <div id="b3_3">
             Benefits
@@ -919,7 +921,7 @@
         </li>
         <li>
             <b class="sub">JdbcTemplate:</b>
-            <a title="c3_1">what is</a>
+            <a title="c3_1" class="label-warning">what is</a>
             <a title="c3_2">callbacks</a>
             <a title="c3_21">execute</a>
             <a title="c3_3">queries</a>
@@ -930,7 +932,7 @@
             <a title="c4_1">what is</a>
             <a title="c4_2">types</a>
             <a title="c4_6" class="label-danger">configuration</a>
-            <a title="c4_3">transaction strategy</a>
+            <a title="c4_3" class="label-danger">transaction strategy</a>
             <a title="c4_4" class="label-danger">isolation</a>
             <a title="c4_5">propagation</a>
             <a title="c4_7">@Transactional</a>
@@ -1331,8 +1333,9 @@
                             <b>@Transactional</b> annotation on methods/classes
                         </li>
                     </ul>
-                    Transactional AOP proxy uses a TransactionInterceptor in conjunction with an appropriate
+                    Transactional AOP proxy uses a <b>TransactionInterceptor</b> in conjunction with an appropriate
                     PlatformTransactionManager implementation to drive transactions around method invocations.
+                    Used in its AOP proxies in applying transactional advice.
                 </li>
                 <li>
                     <b>Programming</b>: best for small number of transactional operations. Can set transaction name.
@@ -1550,7 +1553,7 @@
             <a title="d1_11">ext Config</a>
             <a title="d1_2">advantages</a>
             <a title="d1_3">configuration</a>
-            <a title="d1_4">properties</a>
+            <a title="d1_4" class="label-warning">properties</a>
             <a title="d1_5">embadded containers</a>
             <a title="d1_6">starter POM</a>
             <a title="d1_7">logging</a>
@@ -1637,7 +1640,7 @@
                     <b>classpath root</b>
                 </li>
             </ul><br/>
-            <b class="r">@ConfigurationProperties</b> -  externalized properties configuration
+            <b class="r">@ConfigurationProperties</b> - externalized properties configuration
         </div>
         <div id="d1_5">
             Spring Boot supports following embedded containers:
@@ -1748,10 +1751,10 @@
             <b class="sub">Controller:</b>
             <a title="e2_1">@Controller</a>
             <a title="e2_2">request mapping</a>
-            <a title="e2_3">parameters</a>
+            <a title="e2_3" class="label-warning">parameters</a>
             <a title="e2_4">return types</a>
             <a title="e2_5">testing</a>
-            <a title="e2_6">no annotations</a>
+            <a title="e2_6" class="label-danger">no annotations</a>
         </li>
         <li>
             <b class="sub">View:</b>
@@ -2013,16 +2016,16 @@
             <a title="f1_1">overview</a>
             <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
-            <a title="f1_3">method security</a>
+            <a title="f1_3" class="label-warning">method security</a>
             <a title="f1_4">view protection</a>
         </li>
         <li>
             <b class="sub">Configuration:</b>
-            <a title="f2_1" class="label-warning">filters</a>
+            <a title="f2_1" class="label-danger">filters</a>
             <a title="f2_3">context</a>
             <a title="f2_4">intercept-url</a>
             <a title="f2_5">antMatcher vs mvcMatcher</a>
-            <a title="f2_6">passwords</a>
+            <a title="f2_6" class="label-warning">passwords</a>
         </li>
     </ul>
 
@@ -2111,7 +2114,7 @@
             <br/>
             <br/>
 
-            Security annotations that use SpEL:
+            Security annotations that use <b>SpEL</b>:
             <ul>
                 <li>@PreAuthorize</li>
                 <li>@PostAuthorize</li>
@@ -2202,6 +2205,7 @@
                 <li>Contains list of Filters</li>
                 <li><b>DefaultSecurityFilterChain</b> - the only Spring implementation</li>
             </ul><br/><br/>
+
             <b>Filters ordering</b>:
             <ul>
                 <li>first filter is <b class="r">ChannelProcessingFilter</b></li>
@@ -2324,7 +2328,7 @@
             <b class="sub">Overview:</b>
             <a title="g1_1">What is</a>
             <a title="g1_2">resources</a>
-            <a title="g1_3">idempotency</a>
+            <a title="g1_3" class="label-warning">idempotency</a>
             <a title="g1_4">scalable / interoperable</a>
             <a title="g1_5">status codes</a>
         </li>
@@ -2535,7 +2539,7 @@
         <li>
             <b class="sub">Spring in testing:</b>
             <a title="h1_1">configuration</a>
-            <a title="h1_2">@Transactional</a>
+            <a title="h1_2" class="label-warning">@Transactional</a>
             <a title="h1_3">mocks</a>
             <a title="h1_4">Spring Boot</a>
         </li>
@@ -2571,6 +2575,9 @@
             Transactional support is provided to a test via a
             <b>PlatformTransactionManager bean</b>
             defined in the test’s application context.
+            <br/><br/>
+            <b class="r">@Commit</b> - Spring's <b>test annotation</b> that forces test method to finalize it's work with commit
+            instead of rolling back.
         </div>
         <div id="h1_3">
             <b>Mockito</b>

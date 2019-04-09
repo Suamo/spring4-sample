@@ -19,7 +19,7 @@
         <li>
             <b class="sub">Proxy:</b>
             <a title="b3_1">what is</a>
-            <a title="b3_2">types</a>
+            <a title="b3_2" class="label-warning">types</a>
             <a title="b3_3">benefits</a>
         </li>
     </ul>
@@ -188,7 +188,6 @@
                         <li>intercepts only <b class="r">public</b> methods</li>
                     </ul>
                 </li>
-                <br/>
                 <li><b>CGLIB proxy</b>
                     <ul>
                         <li>is <b>default for @Configuration</b> and other beans with <b>no interface</b></li>
@@ -199,7 +198,8 @@
                         <li>intercepts <b class="r">public, protected and package-visible</b> methods</li>
                     </ul>
                 </li>
-            </ul>
+            </ul><br/>
+            Note: CGLIB can be forced for usage by applying <b>proxy-target-class="true"</b>
         </div>
         <div id="b3_3">
             Benefits
