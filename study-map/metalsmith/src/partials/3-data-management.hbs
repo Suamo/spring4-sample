@@ -8,45 +8,45 @@
         </li>
         <li>
             <b class="sub">DataSource:</b>
-            <a title="c2_1" class="label-warning">configuration</a>
-            <a title="c2_2" class="label-danger">types</a>
+            <a title="c2_1">configuration</a>
+            <a title="c2_2">types</a>
             <a title="c2_3">JNDI</a>
         </li>
         <li>
             <b class="sub">JdbcTemplate:</b>
             <a title="c3_1">what is</a>
-            <a title="c3_2" class="label-danger">callbacks</a>
-            <a title="c3_21" class="label-warning">execute</a>
-            <a title="c3_3" class="label-warning">queries</a>
-            <a title="c3_4" class="label-warning">updates</a>
+            <a title="c3_2">callbacks</a>
+            <a title="c3_21">execute</a>
+            <a title="c3_3">queries</a>
+            <a title="c3_4">updates</a>
         </li>
         <li>
             <b class="sub">Transactions:</b>
             <a title="c4_1">what is</a>
-            <a title="c4_2" class="label-warning">types</a>
-            <a title="c4_6" class="label-warning">configuration</a>
-            <a title="c4_3" class="label-danger">transaction strategy</a>
+            <a title="c4_2">types</a>
+            <a title="c4_6" class="label-danger">configuration</a>
+            <a title="c4_3">transaction strategy</a>
             <a title="c4_4" class="label-danger">isolation</a>
-            <a title="c4_5" class="label-warning">propagation</a>
+            <a title="c4_5">propagation</a>
             <a title="c4_7">@Transactional</a>
-            <a title="c4_8">rollback</a>
+            <a title="c4_8" class="label-warning">rollback</a>
         </li>
         <li>
             <b class="sub">ORM:</b>
             <a title="c6_1">what is</a>
-            <a title="c6_2" class="label-danger">how works</a>
+            <a title="c6_2">how works</a>
         </li>
         <li>
             <b class="sub">JPA:</b>
             <a title="c7_1">what is</a>
-            <a title="c7_2" class="label-danger">configuration</a>
+            <a title="c7_2" class="label-warning">configuration</a>
             <a title="c7_3">participation in transaction</a>
         </li>
         <li>
             <b class="sub">Spring data:</b>
             <a title="c8_1">instant repository</a>
             <a title="c8_2" class="label-warning">how works</a>
-            <a title="c8_3" class="label-warning">@Query</a>
+            <a title="c8_3">@Query</a>
         </li>
     </ul>
 
@@ -420,7 +420,7 @@
                     Configuration:
                     <ul>
                         <li>
-                            <b>@EnableTransactionManagement</b> to configuration
+                            <b class="r">@EnableTransactionManagement</b> to configuration
                         </li>
                         <li>
                             <b>@Transactional</b> annotation on methods/classes
@@ -446,7 +446,8 @@
             </ul><br/>
             Main entities:
             <ul>
-                <li><b>TransactionTemplate</b> - simplifies programmatic transaction demarcation and transaction exception handling</li>
+                <li><b>TransactionTemplate</b> - simplifies programmatic <b class="r">transaction demarcation</b>
+                    and <b class="r">transaction exception handling</b></li>
                 <li><b>PlatformTransactionManager</b> - is the central interface in Spring's transaction infrastructure. Applications
                     can use this directly, but it is not primarily meant as API: Typically, applications will work with
                     either TransactionTemplate or declarative transaction demarcation through AOP.</li>
@@ -568,8 +569,8 @@
             configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1
             <br/><br/>
 
-            <b>JpaTransactionManager</b>
-            is the JPA PlatformTransactionManager implementation.
+            <b class="r">JpaTransactionManager</b> is an implementation of PlatformTransactionManager for a single JPA EntityManagerFactory.
+            It binds a JPA EntityManager from the mentioned factory to the thread. Select the one that applies best.
             <br/><br/>
 
             Configuring JPA In Spring Boot:

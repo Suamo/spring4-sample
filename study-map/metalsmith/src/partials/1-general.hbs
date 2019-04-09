@@ -5,30 +5,30 @@
             <b class="sub">Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2">lifecycle</a>
-            <a title="a1_3" class="label-warning">configuration</a>
+            <a title="a1_3">configuration</a>
             <a title="a1_4" class="label-warning">usage in test</a>
             <a title="a1_5">closing context</a>
         </li>
         <li>
             <b class="sub">Beans:</b>
-            <a title="a2_1" class="label-warning">lifecycle</a>
-            <a title="a2_2" class="label-warning">scope</a>
-            <a title="a2_3" class="label-warning">IDs</a>
-            <a title="a2_4">scanning</a>
+            <a title="a2_1">lifecycle</a>
+            <a title="a2_2">scope</a>
+            <a title="a2_3">IDs</a>
+            <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
-            <a title="a2_6">lazy/eager init</a>
-            <a title="a2_7" class="label-danger">final/static</a>
+            <a title="a2_6" class="label-warning">lazy/eager init</a>
+            <a title="a2_7">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
-            <a title="a2_9" class="label-warning">depends-on</a>
+            <a title="a2_9">depends-on</a>
         </li>
         <li>
             <b class="sub">DI, IOC:</b>
             <a title="a3_1">what is</a>
-            <a title="a3_2" class="label-warning">@Autowired</a>
+            <a title="a3_2">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
-            <a title="a3_6" class="label-warning">@Value</a>
+            <a title="a3_6">@Value</a>
             <a title="a3_7">$ vs #</a>
-            <a title="a3_8" class="label-danger">lookup method</a>
+            <a title="a3_8">lookup method</a>
         </li>
         <li>
             <b class="sub">Properties:</b>
@@ -38,9 +38,9 @@
         </li>
         <li>
             <b class="sub">PostProcessors:</b>
-            <a title="a5_1" class="label-warning">BeanFactoryPostProcessor</a>
-            <a title="a5_2" class="label-warning">BeanPostProcessor</a>
-            <a title="a5_3" class="label-warning">order</a>
+            <a title="a5_1">BeanFactoryPostProcessor</a>
+            <a title="a5_2">BeanPostProcessor</a>
+            <a title="a5_3">order</a>
         </li>
         <li>
             <b class="sub">Profiles:</b>
@@ -56,7 +56,7 @@
         <li>
             <b class="sub">SpEL:</b>
             <a title="a8_1">what is</a>
-            <a title="a8_2" class="label-danger">usage</a>
+            <a title="a8_2">usage</a>
         </li>
     </ul>
 
@@ -133,15 +133,11 @@
         </div>
         <div id="a1_4">
             <ul>
-                <li>implement the <b>ApplicationContextAware</b> interface and obtain context in setter
-                </li>
+                <li>implement the <b>ApplicationContextAware</b> interface and obtain context in setter</li>
                 <li>extend <b>AbstractJUnit4SpringContextTests</b> / <b>AbstractTestNGSpringContextTests</b> and get
-                    access for
-                    their protected ApplicationContext field
+                    access for their protected ApplicationContext field
                 </li>
-                <li>inject
-                    <b>ApplicationContext</b>
-                </li>
+                <li>inject <b>ApplicationContext</b></li>
             </ul>
         </div>
         <div id="a1_5">
@@ -246,7 +242,8 @@
             <ul>
                 <li>Stereotypes: @Component, @Controller, @Repository, @Service, @RestController</li>
                 <li>Other: @ControllerAdvice, @Configuration</li>
-            </ul>
+            </ul><br/><br/>
+            Doesn't require @Configuration to work.
         </div>
         <div id="a2_5">
             Stereotypes ("stereotype" package):
@@ -288,7 +285,9 @@
                     <b>@Lazy</b>
                     for @Bean or class with beans
                 </li>
-            </ul>
+            </ul><br/><br/>
+            <b class="r">Important</b>: When a lazy-initialized bean A is a dependency of eagerly-initialized singleton bean B,
+            bean A will still be non-lazy-initialized.
         </div>
         <div id="a2_7">
             non-static @Bean methods in @Configuration classes need to be overridable,
@@ -310,9 +309,7 @@
             Declaring options:
             <ul>
                 <li>
-                    <b>@PostConstruct</b>
-                    [JSR-250] (Java config, best practice).<br/>
-                    Called <b class="r">before</b> "afterPropertiesSet()".
+                    <b>@PostConstruct</b> [JSR-250] (Java config, best practice)
                 </li>
                 <li>
                     <b>custom init</b> method (Java and XML config)
@@ -335,8 +332,7 @@
             <ul>
                 <li>
                     <b>@PreDestroy</b>
-                    [JSR-250] (Java config, best practice).<br/>
-                    Called <b class="r">after</b> destroy().
+                    [JSR-250] (Java config, best practice)
                 </li>
                 <li>
                     <b>custom destroy</b> method (Java and XML config)
@@ -349,8 +345,15 @@
                     <b>destroy()</b>
                     from DisposableBean callback interface (not recommended)
                 </li>
-            </ul><br/>
+            </ul><br/><br/>
+            Sequence of calling for init and destroy phases are the same:
+            <ul>
+                <li><b class="r">before init/destroy BeanPostProcessor</b> call (@PostConstruct / @PreDestroy)</li>
+                <li><b class="r">Spring specific</b> interface control (afterPropertiesSet / destroy)</li>
+                <li><b class="r">custom init/destroy</b> methods defined in mean annotation/tag arguments</li>
+            </ul>
 
+            <br/>
             <b class="r">CommonAnnotationBeanPostProcessor</b> provides support for all JSR annotations. Registered within Spring Application context.
             <br/><br/>
             All of the above can be used on the <b class="r">Configuration</b> as well since its instance will participate in lifacycle.
@@ -416,7 +419,8 @@
             <br/><br/>
             Implementations:
             <ul>
-                <li><b>@Lookup</b>("otherBean") abstract Command getOtherBean()</li>
+                <li><b>@Lookup</b>("otherBean")<br/>
+                    abstract Command getOtherBean()</li>
                 <li><<b>lookup-method</b> name="getOtherBean" bean="otherBean"/></li>
             </ul><br/>
             Implemented using <b>CGLIB</b>.

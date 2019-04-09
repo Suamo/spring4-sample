@@ -5,15 +5,15 @@
             <b class="sub">AOP:</b>
             <a title="b1_1">what is</a>
             <a title="b1_2">in Spring</a>
-            <a title="b1_3" class="label-danger">configuration</a>
+            <a title="b1_3">configuration</a>
         </li>
         <li>
             <b class="sub">Terminology:</b>
-            <a title="b2_1" class="label-warning">aspect</a>
-            <a title="b2_2" class="label-warning">advice</a>
+            <a title="b2_1">aspect</a>
+            <a title="b2_2">advice</a>
             <a title="b2_3">cross-cutting concern</a>
-            <a title="b2_4" class="label-warning">pointcut</a>
-            <a title="b2_5" class="label-warning">join point</a>
+            <a title="b2_4">pointcut</a>
+            <a title="b2_5">join point</a>
             <a title="b2_6">weaving</a>
         </li>
         <li>
@@ -35,7 +35,9 @@
                 <li>introduced in Spring to provide a close integration with Spring IoC to help solve common problems in
                     enterprise applications
                 </li>
-            </ul>
+            </ul><br/>
+            AspectJ library is used for weaving. All annotations used for AOP in spring are used from AspectJ library
+            (e.g. @Around, @Before, @Aspect, etc.)
         </div>
         <div id="b1_3">
             Once @AspectJ support enabled - <b>all @Aspect marked classes will be automatically detected and used</b> to configure
@@ -134,8 +136,7 @@
             The advice will be called <b class="r">when</b> the proxy method matches the join point expression.
             <br/><br/>
             Pointcut expressions are defined using AspectJ Pointcut Expression Language.
-            <br/>
-            <br/>
+            <br/><br/>
             In code:
             <ul>
                 <li>@Before(<b>"execution(* path.to.MyAopBean.checkPointcut(..))"</b>)

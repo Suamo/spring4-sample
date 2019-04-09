@@ -6,17 +6,17 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
-            <a title="e1_5" class="label-warning">MessageSource</a>
-            <a title="e1_6" class="label-danger">web.xml</a>
+            <a title="e1_5" class="label-danger">MessageSource</a>
+            <a title="e1_6" class="label-warning">web.xml</a>
         </li>
         <li>
             <b class="sub">Controller:</b>
             <a title="e2_1">@Controller</a>
             <a title="e2_2">request mapping</a>
-            <a title="e2_3" class="label-danger">parameters</a>
+            <a title="e2_3">parameters</a>
             <a title="e2_4">return types</a>
             <a title="e2_5">testing</a>
-            <a title="e2_6" class="label-warning">no annotations</a>
+            <a title="e2_6">no annotations</a>
         </li>
         <li>
             <b class="sub">View:</b>
@@ -48,7 +48,7 @@
                 </li>
                 <li>
                     <b>Register DispatcherServlet</b>
-                    in ne of two ways:
+                    in one of two ways:
                     <ul>
                         <li>implement WebApplicationInitializer</li>
                         <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
@@ -93,7 +93,7 @@
             <ul>
                 <li><b>AnnotationConfigWebApplicationContext</b> (declare the root application context)</li>
                 <li><b>ContextLoaderListener</b> (bootstraps the root application context)</li>
-                <li>Spring configuration class/xml</li>
+                <li>Spring configuration class/xml (via "init-param" -> "param-value" -> MyConfig)</li>
                 <li>DispatcherServlet</li>
                 <li>DelegatingFilterProxy/FilterChainProxy</li>
                 <li>servlet-mapping to map all requests to the dispatcher servlet</li>

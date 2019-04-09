@@ -97,30 +97,30 @@
             <b class="sub">Application context:</b>
             <a title="a1_1">what is</a>
             <a title="a1_2">lifecycle</a>
-            <a title="a1_3" class="label-warning">configuration</a>
+            <a title="a1_3">configuration</a>
             <a title="a1_4" class="label-warning">usage in test</a>
             <a title="a1_5">closing context</a>
         </li>
         <li>
             <b class="sub">Beans:</b>
-            <a title="a2_1" class="label-warning">lifecycle</a>
-            <a title="a2_2" class="label-warning">scope</a>
-            <a title="a2_3" class="label-warning">IDs</a>
-            <a title="a2_4">scanning</a>
+            <a title="a2_1">lifecycle</a>
+            <a title="a2_2">scope</a>
+            <a title="a2_3">IDs</a>
+            <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
-            <a title="a2_6">lazy/eager init</a>
-            <a title="a2_7" class="label-danger">final/static</a>
+            <a title="a2_6" class="label-warning">lazy/eager init</a>
+            <a title="a2_7">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
-            <a title="a2_9" class="label-warning">depends-on</a>
+            <a title="a2_9">depends-on</a>
         </li>
         <li>
             <b class="sub">DI, IOC:</b>
             <a title="a3_1">what is</a>
-            <a title="a3_2" class="label-warning">@Autowired</a>
+            <a title="a3_2">@Autowired</a>
             <a title="a3_5">scalar/literal injection</a>
-            <a title="a3_6" class="label-warning">@Value</a>
+            <a title="a3_6">@Value</a>
             <a title="a3_7">$ vs #</a>
-            <a title="a3_8" class="label-danger">lookup method</a>
+            <a title="a3_8">lookup method</a>
         </li>
         <li>
             <b class="sub">Properties:</b>
@@ -130,9 +130,9 @@
         </li>
         <li>
             <b class="sub">PostProcessors:</b>
-            <a title="a5_1" class="label-warning">BeanFactoryPostProcessor</a>
-            <a title="a5_2" class="label-warning">BeanPostProcessor</a>
-            <a title="a5_3" class="label-warning">order</a>
+            <a title="a5_1">BeanFactoryPostProcessor</a>
+            <a title="a5_2">BeanPostProcessor</a>
+            <a title="a5_3">order</a>
         </li>
         <li>
             <b class="sub">Profiles:</b>
@@ -148,7 +148,7 @@
         <li>
             <b class="sub">SpEL:</b>
             <a title="a8_1">what is</a>
-            <a title="a8_2" class="label-danger">usage</a>
+            <a title="a8_2">usage</a>
         </li>
     </ul>
 
@@ -225,15 +225,11 @@
         </div>
         <div id="a1_4">
             <ul>
-                <li>implement the <b>ApplicationContextAware</b> interface and obtain context in setter
-                </li>
+                <li>implement the <b>ApplicationContextAware</b> interface and obtain context in setter</li>
                 <li>extend <b>AbstractJUnit4SpringContextTests</b> / <b>AbstractTestNGSpringContextTests</b> and get
-                    access for
-                    their protected ApplicationContext field
+                    access for their protected ApplicationContext field
                 </li>
-                <li>inject
-                    <b>ApplicationContext</b>
-                </li>
+                <li>inject <b>ApplicationContext</b></li>
             </ul>
         </div>
         <div id="a1_5">
@@ -338,7 +334,8 @@
             <ul>
                 <li>Stereotypes: @Component, @Controller, @Repository, @Service, @RestController</li>
                 <li>Other: @ControllerAdvice, @Configuration</li>
-            </ul>
+            </ul><br/><br/>
+            Doesn't require @Configuration to work.
         </div>
         <div id="a2_5">
             Stereotypes ("stereotype" package):
@@ -380,7 +377,9 @@
                     <b>@Lazy</b>
                     for @Bean or class with beans
                 </li>
-            </ul>
+            </ul><br/><br/>
+            <b class="r">Important</b>: When a lazy-initialized bean A is a dependency of eagerly-initialized singleton bean B,
+            bean A will still be non-lazy-initialized.
         </div>
         <div id="a2_7">
             non-static @Bean methods in @Configuration classes need to be overridable,
@@ -402,9 +401,7 @@
             Declaring options:
             <ul>
                 <li>
-                    <b>@PostConstruct</b>
-                    [JSR-250] (Java config, best practice).<br/>
-                    Called <b class="r">before</b> "afterPropertiesSet()".
+                    <b>@PostConstruct</b> [JSR-250] (Java config, best practice)
                 </li>
                 <li>
                     <b>custom init</b> method (Java and XML config)
@@ -427,8 +424,7 @@
             <ul>
                 <li>
                     <b>@PreDestroy</b>
-                    [JSR-250] (Java config, best practice).<br/>
-                    Called <b class="r">after</b> destroy().
+                    [JSR-250] (Java config, best practice)
                 </li>
                 <li>
                     <b>custom destroy</b> method (Java and XML config)
@@ -441,8 +437,15 @@
                     <b>destroy()</b>
                     from DisposableBean callback interface (not recommended)
                 </li>
-            </ul><br/>
+            </ul><br/><br/>
+            Sequence of calling for init and destroy phases are the same:
+            <ul>
+                <li><b class="r">before init/destroy BeanPostProcessor</b> call (@PostConstruct / @PreDestroy)</li>
+                <li><b class="r">Spring specific</b> interface control (afterPropertiesSet / destroy)</li>
+                <li><b class="r">custom init/destroy</b> methods defined in mean annotation/tag arguments</li>
+            </ul>
 
+            <br/>
             <b class="r">CommonAnnotationBeanPostProcessor</b> provides support for all JSR annotations. Registered within Spring Application context.
             <br/><br/>
             All of the above can be used on the <b class="r">Configuration</b> as well since its instance will participate in lifacycle.
@@ -508,7 +511,8 @@
             <br/><br/>
             Implementations:
             <ul>
-                <li><b>@Lookup</b>("otherBean") abstract Command getOtherBean()</li>
+                <li><b>@Lookup</b>("otherBean")<br/>
+                    abstract Command getOtherBean()</li>
                 <li><<b>lookup-method</b> name="getOtherBean" bean="otherBean"/></li>
             </ul><br/>
             Implemented using <b>CGLIB</b>.
@@ -687,15 +691,15 @@
             <b class="sub">AOP:</b>
             <a title="b1_1">what is</a>
             <a title="b1_2">in Spring</a>
-            <a title="b1_3" class="label-danger">configuration</a>
+            <a title="b1_3">configuration</a>
         </li>
         <li>
             <b class="sub">Terminology:</b>
-            <a title="b2_1" class="label-warning">aspect</a>
-            <a title="b2_2" class="label-warning">advice</a>
+            <a title="b2_1">aspect</a>
+            <a title="b2_2">advice</a>
             <a title="b2_3">cross-cutting concern</a>
-            <a title="b2_4" class="label-warning">pointcut</a>
-            <a title="b2_5" class="label-warning">join point</a>
+            <a title="b2_4">pointcut</a>
+            <a title="b2_5">join point</a>
             <a title="b2_6">weaving</a>
         </li>
         <li>
@@ -717,7 +721,9 @@
                 <li>introduced in Spring to provide a close integration with Spring IoC to help solve common problems in
                     enterprise applications
                 </li>
-            </ul>
+            </ul><br/>
+            AspectJ library is used for weaving. All annotations used for AOP in spring are used from AspectJ library
+            (e.g. @Around, @Before, @Aspect, etc.)
         </div>
         <div id="b1_3">
             Once @AspectJ support enabled - <b>all @Aspect marked classes will be automatically detected and used</b> to configure
@@ -816,8 +822,7 @@
             The advice will be called <b class="r">when</b> the proxy method matches the join point expression.
             <br/><br/>
             Pointcut expressions are defined using AspectJ Pointcut Expression Language.
-            <br/>
-            <br/>
+            <br/><br/>
             In code:
             <ul>
                 <li>@Before(<b>"execution(* path.to.MyAopBean.checkPointcut(..))"</b>)
@@ -908,45 +913,45 @@
         </li>
         <li>
             <b class="sub">DataSource:</b>
-            <a title="c2_1" class="label-warning">configuration</a>
-            <a title="c2_2" class="label-danger">types</a>
+            <a title="c2_1">configuration</a>
+            <a title="c2_2">types</a>
             <a title="c2_3">JNDI</a>
         </li>
         <li>
             <b class="sub">JdbcTemplate:</b>
             <a title="c3_1">what is</a>
-            <a title="c3_2" class="label-danger">callbacks</a>
-            <a title="c3_21" class="label-warning">execute</a>
-            <a title="c3_3" class="label-warning">queries</a>
-            <a title="c3_4" class="label-warning">updates</a>
+            <a title="c3_2">callbacks</a>
+            <a title="c3_21">execute</a>
+            <a title="c3_3">queries</a>
+            <a title="c3_4">updates</a>
         </li>
         <li>
             <b class="sub">Transactions:</b>
             <a title="c4_1">what is</a>
-            <a title="c4_2" class="label-warning">types</a>
-            <a title="c4_6" class="label-warning">configuration</a>
-            <a title="c4_3" class="label-danger">transaction strategy</a>
+            <a title="c4_2">types</a>
+            <a title="c4_6" class="label-danger">configuration</a>
+            <a title="c4_3">transaction strategy</a>
             <a title="c4_4" class="label-danger">isolation</a>
-            <a title="c4_5" class="label-warning">propagation</a>
+            <a title="c4_5">propagation</a>
             <a title="c4_7">@Transactional</a>
-            <a title="c4_8">rollback</a>
+            <a title="c4_8" class="label-warning">rollback</a>
         </li>
         <li>
             <b class="sub">ORM:</b>
             <a title="c6_1">what is</a>
-            <a title="c6_2" class="label-danger">how works</a>
+            <a title="c6_2">how works</a>
         </li>
         <li>
             <b class="sub">JPA:</b>
             <a title="c7_1">what is</a>
-            <a title="c7_2" class="label-danger">configuration</a>
+            <a title="c7_2" class="label-warning">configuration</a>
             <a title="c7_3">participation in transaction</a>
         </li>
         <li>
             <b class="sub">Spring data:</b>
             <a title="c8_1">instant repository</a>
             <a title="c8_2" class="label-warning">how works</a>
-            <a title="c8_3" class="label-warning">@Query</a>
+            <a title="c8_3">@Query</a>
         </li>
     </ul>
 
@@ -1320,7 +1325,7 @@
                     Configuration:
                     <ul>
                         <li>
-                            <b>@EnableTransactionManagement</b> to configuration
+                            <b class="r">@EnableTransactionManagement</b> to configuration
                         </li>
                         <li>
                             <b>@Transactional</b> annotation on methods/classes
@@ -1346,7 +1351,8 @@
             </ul><br/>
             Main entities:
             <ul>
-                <li><b>TransactionTemplate</b> - simplifies programmatic transaction demarcation and transaction exception handling</li>
+                <li><b>TransactionTemplate</b> - simplifies programmatic <b class="r">transaction demarcation</b>
+                    and <b class="r">transaction exception handling</b></li>
                 <li><b>PlatformTransactionManager</b> - is the central interface in Spring's transaction infrastructure. Applications
                     can use this directly, but it is not primarily meant as API: Typically, applications will work with
                     either TransactionTemplate or declarative transaction demarcation through AOP.</li>
@@ -1468,8 +1474,8 @@
             configuration file META-INF/ persistence.xml or just using "Entity Scanning" since Spring 3.1
             <br/><br/>
 
-            <b>JpaTransactionManager</b>
-            is the JPA PlatformTransactionManager implementation.
+            <b class="r">JpaTransactionManager</b> is an implementation of PlatformTransactionManager for a single JPA EntityManagerFactory.
+            It binds a JPA EntityManager from the mentioned factory to the thread. Select the one that applies best.
             <br/><br/>
 
             Configuring JPA In Spring Boot:
@@ -1543,12 +1549,12 @@
             <a title="d1_1">what is</a>
             <a title="d1_11">ext Config</a>
             <a title="d1_2">advantages</a>
-            <a title="d1_3" class="label-warning">configuration</a>
+            <a title="d1_3">configuration</a>
             <a title="d1_4">properties</a>
             <a title="d1_5">embadded containers</a>
             <a title="d1_6">starter POM</a>
             <a title="d1_7">logging</a>
-            <a title="d1_8" class="label-warning">json</a>
+            <a title="d1_8">json</a>
         </li>
     </ul>
 
@@ -1735,17 +1741,17 @@
             <a title="e1_1">what is</a>
             <a title="e1_2" class="label-warning">configuration</a>
             <a title="e1_3">components</a>
-            <a title="e1_5" class="label-warning">MessageSource</a>
-            <a title="e1_6" class="label-danger">web.xml</a>
+            <a title="e1_5" class="label-danger">MessageSource</a>
+            <a title="e1_6" class="label-warning">web.xml</a>
         </li>
         <li>
             <b class="sub">Controller:</b>
             <a title="e2_1">@Controller</a>
             <a title="e2_2">request mapping</a>
-            <a title="e2_3" class="label-danger">parameters</a>
+            <a title="e2_3">parameters</a>
             <a title="e2_4">return types</a>
             <a title="e2_5">testing</a>
-            <a title="e2_6" class="label-warning">no annotations</a>
+            <a title="e2_6">no annotations</a>
         </li>
         <li>
             <b class="sub">View:</b>
@@ -1777,7 +1783,7 @@
                 </li>
                 <li>
                     <b>Register DispatcherServlet</b>
-                    in ne of two ways:
+                    in one of two ways:
                     <ul>
                         <li>implement WebApplicationInitializer</li>
                         <li>extend AbstractAnnotationConfigDispatcherServletInitializer</li>
@@ -1822,7 +1828,7 @@
             <ul>
                 <li><b>AnnotationConfigWebApplicationContext</b> (declare the root application context)</li>
                 <li><b>ContextLoaderListener</b> (bootstraps the root application context)</li>
-                <li>Spring configuration class/xml</li>
+                <li>Spring configuration class/xml (via "init-param" -> "param-value" -> MyConfig)</li>
                 <li>DispatcherServlet</li>
                 <li>DelegatingFilterProxy/FilterChainProxy</li>
                 <li>servlet-mapping to map all requests to the dispatcher servlet</li>
@@ -2004,18 +2010,18 @@
     <ul>
         <li>
             <b class="sub">Overview:</b>
-            <a title="f1_1" class="label-warning">overview</a>
+            <a title="f1_1">overview</a>
             <a title="f1_11">principal</a>
             <a title="f1_2">authentication vs authorization</a>
-            <a title="f1_3" class="label-danger">method security</a>
-            <a title="f1_4" class="label-danger">view protection</a>
+            <a title="f1_3">method security</a>
+            <a title="f1_4">view protection</a>
         </li>
         <li>
             <b class="sub">Configuration:</b>
-            <a title="f2_1" class="label-danger">filters</a>
-            <a title="f2_3" class="label-warning">context</a>
-            <a title="f2_4" class="label-danger">intercept-url</a>
-            <a title="f2_5" class="label-warning">antMatcher vs mvcMatcher</a>
+            <a title="f2_1" class="label-warning">filters</a>
+            <a title="f2_3">context</a>
+            <a title="f2_4">intercept-url</a>
+            <a title="f2_5">antMatcher vs mvcMatcher</a>
             <a title="f2_6">passwords</a>
         </li>
     </ul>
@@ -2316,20 +2322,20 @@
     <ul>
         <li>
             <b class="sub">Overview:</b>
-            <a title="g1_1" class="label-warning">What is</a>
+            <a title="g1_1">What is</a>
             <a title="g1_2">resources</a>
-            <a title="g1_3" class="label-warning">idempotency</a>
+            <a title="g1_3">idempotency</a>
             <a title="g1_4">scalable / interoperable</a>
             <a title="g1_5">status codes</a>
         </li>
         <li>
             <b class="sub">In Spring:</b>
-            <a title="g2_1" class="label-warning">configuration</a>
+            <a title="g2_1">configuration</a>
             <a title="g2_2">@ResponseStatus</a>
         </li>
         <li>
             <b class="sub">RestTemplate:</b>
-            <a title="g3_1" class="label-warning">overview</a>
+            <a title="g3_1">overview</a>
         </li>
     </ul>
 
@@ -2530,8 +2536,8 @@
             <b class="sub">Spring in testing:</b>
             <a title="h1_1">configuration</a>
             <a title="h1_2">@Transactional</a>
-            <a title="h1_3" class="label-warning">mocks</a>
-            <a title="h1_4" class="label-warning">Spring Boot</a>
+            <a title="h1_3">mocks</a>
+            <a title="h1_4">Spring Boot</a>
         </li>
     </ul>
 
