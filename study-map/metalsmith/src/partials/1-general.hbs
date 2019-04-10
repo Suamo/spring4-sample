@@ -11,12 +11,12 @@
         </li>
         <li>
             <b class="sub">Beans:</b>
-            <a title="a2_1">lifecycle</a>
-            <a title="a2_2">scope</a>
+            <a title="a2_1" class="label-danger">lifecycle</a>
+            <a title="a2_2" class="label-warning">scope</a>
             <a title="a2_3">IDs</a>
             <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
-            <a title="a2_6" class="label-warning">lazy/eager init</a>
+            <a title="a2_6" class="label-danger">lazy/eager init</a>
             <a title="a2_7" class="label-danger">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
             <a title="a2_9" class="label-warning">depends-on</a>
@@ -39,7 +39,7 @@
         <li>
             <b class="sub">PostProcessors:</b>
             <a title="a5_1">BeanFactoryPostProcessor</a>
-            <a title="a5_2">BeanPostProcessor</a>
+            <a title="a5_2" class="label-danger">BeanPostProcessor</a>
             <a title="a5_3">order</a>
         </li>
         <li>
@@ -127,7 +127,11 @@
                 </li>
             </ul>
             <br/>
-            Configuration with <b class="r">@Import</b>(AnotherConfig.class) import beans provided config
+            Configuration with <b class="r">@Import</b>(AnotherConfig.class) import beans provided config.<br/><br/>
+            <b class="r">Important</b>: In case imported two configurations with the same named beans defined Spring will
+            take <b>the last one</b>. E.g. In @Import({Conf1.class, Conf2.class}) Spring will take the same named bean from Conf2.
+            If the load <b>order</b> of configuratino will be switched: Conf2 via Order(1) or Conf1 via Order(2) then bean will be taken
+            from Conf1 as the last one.
         </div>
         <div id="a1_4">
             <ul>
@@ -280,8 +284,8 @@
                     &lt;beans <b>default-lazy-init</b>="true">
                 </li>
                 <li>
-                    <b>@Lazy</b>
-                    for @Bean or class with beans
+                    <b>@Lazy</b> for @Bean or class with beans. Annotation has the only boolean argument "value" that
+                    can turn on/off lazy loading (e.g. <b>@Lazy(false)</b>)
                 </li>
             </ul><br/>
             <b class="r">Note</b>: when a lazy-initialized bean is a dependency of a singleton bean that
@@ -469,8 +473,10 @@
             </ul>
         </div>
         <div id="a5_2">
+            Operates on already created bean in phases:
             <ul>
-                <li>operates on already created bean</li>
+                <li>Before initialization callbacks (afterPropertiesSet, init-method)</li>
+                <li>After initialization callbacks (afterPropertiesSet, init-method)</li>
             </ul>
         </div>
         <div id="a5_3">

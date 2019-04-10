@@ -103,12 +103,12 @@
         </li>
         <li>
             <b class="sub">Beans:</b>
-            <a title="a2_1">lifecycle</a>
-            <a title="a2_2">scope</a>
+            <a title="a2_1" class="label-danger">lifecycle</a>
+            <a title="a2_2" class="label-warning">scope</a>
             <a title="a2_3">IDs</a>
             <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
-            <a title="a2_6" class="label-warning">lazy/eager init</a>
+            <a title="a2_6" class="label-danger">lazy/eager init</a>
             <a title="a2_7" class="label-danger">final/static</a>
             <a title="a2_8" class="label-danger">init/destroy</a>
             <a title="a2_9" class="label-warning">depends-on</a>
@@ -131,7 +131,7 @@
         <li>
             <b class="sub">PostProcessors:</b>
             <a title="a5_1">BeanFactoryPostProcessor</a>
-            <a title="a5_2">BeanPostProcessor</a>
+            <a title="a5_2" class="label-danger">BeanPostProcessor</a>
             <a title="a5_3">order</a>
         </li>
         <li>
@@ -219,7 +219,11 @@
                 </li>
             </ul>
             <br/>
-            Configuration with <b class="r">@Import</b>(AnotherConfig.class) import beans provided config
+            Configuration with <b class="r">@Import</b>(AnotherConfig.class) import beans provided config.<br/><br/>
+            <b class="r">Important</b>: In case imported two configurations with the same named beans defined Spring will
+            take <b>the last one</b>. E.g. In @Import({Conf1.class, Conf2.class}) Spring will take the same named bean from Conf2.
+            If the load <b>order</b> of configuratino will be switched: Conf2 via Order(1) or Conf1 via Order(2) then bean will be taken
+            from Conf1 as the last one.
         </div>
         <div id="a1_4">
             <ul>
@@ -372,8 +376,8 @@
                     &lt;beans <b>default-lazy-init</b>="true">
                 </li>
                 <li>
-                    <b>@Lazy</b>
-                    for @Bean or class with beans
+                    <b>@Lazy</b> for @Bean or class with beans. Annotation has the only boolean argument "value" that
+                    can turn on/off lazy loading (e.g. <b>@Lazy(false)</b>)
                 </li>
             </ul><br/>
             <b class="r">Note</b>: when a lazy-initialized bean is a dependency of a singleton bean that
@@ -561,8 +565,10 @@
             </ul>
         </div>
         <div id="a5_2">
+            Operates on already created bean in phases:
             <ul>
-                <li>operates on already created bean</li>
+                <li>Before initialization callbacks (afterPropertiesSet, init-method)</li>
+                <li>After initialization callbacks (afterPropertiesSet, init-method)</li>
             </ul>
         </div>
         <div id="a5_3">
@@ -698,7 +704,7 @@
         <li>
             <b class="sub">Terminology:</b>
             <a title="b2_1">aspect</a>
-            <a title="b2_2">advice</a>
+            <a title="b2_2" class="label-warning">advice</a>
             <a title="b2_3">cross-cutting concern</a>
             <a title="b2_4">pointcut</a>
             <a title="b2_5">join point</a>
@@ -776,8 +782,8 @@
                     executed after a join point completes normally (without throwing an exception)
                 </li>
                 <li>
-                    <b>@AfterThrowing</b>
-                    executed if a method exits by throwing an exception
+                    <b>@AfterThrowing</b> executed if a method exits by throwing an exception
+                    (<b class="r">"throwing"</b> argument can specify exact exception)
                 </li>
                 <li>
                     <b>@After</b> executed <b class="r">in any case</b> (if method executed normally or with exception)
@@ -953,7 +959,7 @@
             <b class="sub">Spring data:</b>
             <a title="c8_1">instant repository</a>
             <a title="c8_2" class="label-warning">how works</a>
-            <a title="c8_3">@Query</a>
+            <a title="c8_3" class="label-warning">@Query</a>
         </li>
     </ul>
 
@@ -1537,7 +1543,7 @@
             <ul>
                 <li>Allows customization using SQL/JPQL</li>
                 <li>The execution of <b>pagination</b> or <b>dynamic sorting</b> for native queries is <b class="r">not supported</b></li>
-                <li>Queries annotated to the query method will <b>take precedence</b> over queries defined using
+                <li>Queries annotated to the query method will <b class="r">take precedence</b> over queries defined using
                     <b>@NamedQuery</b> or named queries declared in <b>orm.xml</b></li>
                 <li>has <b>nativeQuery</b> parameter that allows usage of native queries</li>
             </ul>
@@ -1549,6 +1555,7 @@
     <ul>
         <li>
             <b class="sub">Spring Boot:</b>
+            <a title="d1_0" class="label-danger">running</a>
             <a title="d1_1">what is</a>
             <a title="d1_11">ext Config</a>
             <a title="d1_2">advantages</a>
@@ -1562,6 +1569,15 @@
     </ul>
 
     <div class="hidden">
+        <div id="d1_0">
+            SpringApplication can be run in following ways:
+            <ul>
+                <li>SpringApplication.<b>run(WsApplication.class)</b>;</li>
+                <li>SpringApplication.<b>run(WsApplication.class, args)</b>;</li>
+                <li><b>new</b> SpringApplication(WsApplication.class).<b>run(args)</b>;</li>
+                <li><b>new</b> SpringApplication(WsApplication.class).<b>run()</b>;</li>
+            </ul>
+        </div>
         <div id="d1_1">
             Spring Boot is an extension of the Spring framework which eliminates the boilerplate configurations
             required for setting up a Spring application.

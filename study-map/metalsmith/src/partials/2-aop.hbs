@@ -10,7 +10,7 @@
         <li>
             <b class="sub">Terminology:</b>
             <a title="b2_1">aspect</a>
-            <a title="b2_2">advice</a>
+            <a title="b2_2" class="label-warning">advice</a>
             <a title="b2_3">cross-cutting concern</a>
             <a title="b2_4">pointcut</a>
             <a title="b2_5">join point</a>
@@ -88,8 +88,8 @@
                     executed after a join point completes normally (without throwing an exception)
                 </li>
                 <li>
-                    <b>@AfterThrowing</b>
-                    executed if a method exits by throwing an exception
+                    <b>@AfterThrowing</b> executed if a method exits by throwing an exception
+                    (<b class="r">"throwing"</b> argument can specify exact exception)
                 </li>
                 <li>
                     <b>@After</b> executed <b class="r">in any case</b> (if method executed normally or with exception)
