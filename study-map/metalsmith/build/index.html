@@ -2143,7 +2143,7 @@
                 <li><b>SecurityContext</b> - thread-local storage for the Authentication</li>
                 <li><b>SecurityContextHolder</b> - manages SecurityContext by some authentication mechanism</li>
             </ul><br/>
-            <b>Note</b>: It is possible to store UserDetails in <b>LDAP</b>.
+            <b>Note</b>: It is possible to store UserDetails in <b>LDAP/DB and other.</b>.
         </div>
         <div id="f1_2">
             <ul>
@@ -2163,9 +2163,9 @@
             Approaches:
             <ul>
                 <li>
-                    <b>@PreAuthorize</b>
+                    <b>@PreAuthorize, @PostAuthorize, @PreFilter, @PostFilter</b>
                     <ul>
-                        <li>restricted by SpEL expression</li>
+                        <li>use SpEL expression</li>
                         <li>enabled by
                             <ul>
                                 <li>@EnableGlobalMethodSecurity(<b class="r">prePostEnabled</b>=true)</li>
@@ -2199,18 +2199,8 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
-            *both annotations can be applied on class or method levels
-            <br/>
-            <br/>
-
-            Security annotations that use <b>SpEL</b>:
-            <ul>
-                <li>@PreAuthorize</li>
-                <li>@PostAuthorize</li>
-                <li><b class="r">@PreFilter</b></li>
-                <li><b class="r">@PostFilter</b></li>
-            </ul>
+            </ul><br/>
+            *annotations can be applied to class or method levels
         </div>
         <div id="f1_4">
             In order to protect JSP elements Spring <b>Security taglib</b> have to be used.
