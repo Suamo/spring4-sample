@@ -100,12 +100,13 @@
             <a title="a1_3" class="label-danger">configuration</a>
             <a title="a1_4" class="label-warning">usage in test</a>
             <a title="a1_5">closing context</a>
+            <a title="a1_6" class="label-warning">namespaces</a>
         </li>
         <li>
             <b class="sub">Beans:</b>
             <a title="a2_1" class="label-danger">lifecycle</a>
             <a title="a2_2" class="label-warning">scope</a>
-            <a title="a2_3">IDs</a>
+            <a title="a2_3" class="label-danger">IDs</a>
             <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
             <a title="a2_6" class="label-danger">lazy/eager init</a>
@@ -188,13 +189,18 @@
                     <b>XML config</b>
                     <ul>
                         <li>Define beans in xml</li>
-                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml");</li>
+                        <li>Add <b>&lt;context:component-scan></b> - automatically detects stereotyped classes and turns on the
+                            <b>&lt;context:annotation-config></b> (activates the Spring infrastructure for various annotations
+                            to be detected in bean classes, including the JSR-250 annotations)</li>
+                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml"); (<b class="r">"classpath:"</b>
+                            is added implicitly to this string. Also ClassPathXmlApplicationContext starts looking from
+                            <b class="r">root</b> of the classpath regardless of whether specify "/")</li>
                     </ul>
                 </li>
                 <li>
                     <b>Java config</b>
                     <ul>
-                        <li>Define <b>@Configuration</b> with a <b class="r">constructor with no arguments</b></li>
+                        <li>Define <b>@Configuration</b> with a <b class="r">mandatory no-args constructor</b></li>
                         <li>Define <b>@Bean</b> in @Configuration/@Component</li>
                         <li>new <b class="r">AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);</li>
                     </ul>
@@ -203,11 +209,16 @@
                     <b>Java annotations</b>
                     <ul>
                         <li>Add @ComponentScan to the @Configuration</li>
-                        <li>Add @ContextConfiguration to the class where bean need to be injected. Annotation params:
-                        <ul>
-                            <li>"locations", (default) "value" - path to XML configuration</li>
-                            <li>"classes" - varargs parameter with a Configuration classes</li>
-                        </ul>
+                        <li>Add @ContextConfiguration to the class where bean need to be injected.
+                            (if no location is defined Spfing will try to load config my naming convention i.e. MyClass-context.xml)
+                            Annotation params:
+                            <ul>
+                                <li>"locations", (default) "value" - path to XML configuration</li>
+                                <li>"classes" - varargs parameter with a Configuration classes</li>
+                                <li>"inheritLocations" (boolean) - can change default behavior of inheriting
+                                    configuration class (location)
+                                </li>
+                            </ul>
                         </li>
                         <li>Annotate bean class as
                             <b>@Component</b>
@@ -250,6 +261,27 @@
             It's possible to <b>listen to an ContextClosedEvent</b> using ConfigurableApplicationContext.<b>addApplicationListener</b> to do some
             actions before close() of registerShutdownHook()
         </div>
+        <div id="a1_6">
+            Available namespaces:
+            <ul>
+                <li><b>c</b> - ingesting by constructor arguments</li>
+                <li><b>p</b> - ingesting by setters</li>
+                <li><b>util</b>
+                    <ul>
+                        <li>util:constant - accessing constants in config</li>
+                        <li>util:properties - reading properties from a file</li>
+                        <li>util:list, util:set, util:map - creating collections</li>
+                    </ul>
+                </li>
+                <li><b>jdbc</b> - e.g. <b class="r">jdbc:embedded-database</b></li>
+                <li><b>context</b> - e.g. <b class="r">context:property-placeholder</b> reads properties from a file</li>
+                <li><b>aop</b> - e.g. <b class="r">aop:aspectj-autoproxy</b> enables detection of @Aspect bean</li>
+                <li><b>tx</b> - e.g. <b class="r">tx:annotation-driven</b> - transactional behavior based on annotations
+                    and <b class="r">tx:advice</b> creates transactional advice</li>
+                <li>others...</li>
+            </ul>
+        </div>
+        All namespaces are imported as: xmlns:<b>name</b>="http://www.springframework.org/schema/<b>name</b>" + XSD if required.
     </div>
 
     <div class="hidden">
@@ -320,6 +352,14 @@
                 <li><b>name</b> - can be used to create one or more aliases</li>
             </ul>
             * aliases can be separated by any number of spaces, commas, or semi-colons (or any mixture of the three)
+            <br/><br/>
+
+            In case the name/id is not defined:
+            <ul>
+                <li><b>@Bean</b> takes the <b class="r">method's name</b></li>
+                <li><b>&lt;bean/></b> is considered anonymous and container generates a unique id for that bean:
+                    fully qualified <b class="r">class name</b> and appened <b class="r">number</b></li>
+            </ul>
         </div>
         <div id="a2_4">
             Responsible for searching beans to register.
@@ -742,8 +782,7 @@
             <ul>
                 <li>add <b class="r">aspectjweaver.jar</b> to classpath</li>
                 <li>Java config: <b>@EnableAspectJAutoProxy</b></li>
-                <li>XML config:
-                    &lt;aop:<b>aspectj-autoproxy</b>/>
+                <li>XML config: &lt;aop:<b>aspectj-autoproxy</b>/>
                 </li>
             </ul>
         </div>
@@ -829,7 +868,7 @@
             Is an expression that identifies which join point advice should be bind to.
             The advice will be called <b class="r">when</b> the proxy method matches the join point expression.
             <br/><br/>
-            Pointcut expressions are defined using AspectJ Pointcut Expression Language.
+            <b>Pointcut expressions</b> are defined using AspectJ Pointcut Expression Language.
             <br/><br/>
             In code:
             <ul>
@@ -850,6 +889,21 @@
                 <li>target, @target</li>
                 <li>args, @args</li>
                 <li>@annotation</li>
+            </ul><br/>
+
+            Samples:
+            <ul>
+                <li>execution(public * *(..)) - all public method. Here:
+                    <ul>
+                        <li>any package - name since no package name</li>
+                        <li>* - any return type</li>
+                        <li>* - any method name</li>
+                        <li>(..) - zero or more number of arguments</li>
+                    </ul>
+                </li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
         </div>
         <div id="b2_5">
@@ -928,7 +982,7 @@
         <li>
             <b class="sub">JdbcTemplate:</b>
             <a title="c3_1" class="label-warning">what is</a>
-            <a title="c3_2">callbacks</a>
+            <a title="c3_2" class="label-danger">callbacks</a>
             <a title="c3_21">execute</a>
             <a title="c3_3">queries</a>
             <a title="c3_4">updates</a>
@@ -940,7 +994,7 @@
             <a title="c4_6" class="label-danger">configuration</a>
             <a title="c4_3" class="label-danger">transaction strategy</a>
             <a title="c4_4" class="label-danger">isolation</a>
-            <a title="c4_5">propagation</a>
+            <a title="c4_5" class="label-warning">propagation</a>
             <a title="c4_7">@Transactional</a>
             <a title="c4_8" class="label-warning">rollback</a>
         </li>
@@ -1333,7 +1387,8 @@
                     Configuration:
                     <ul>
                         <li>
-                            <b class="r">@EnableTransactionManagement</b> to configuration
+                            <b class="r">@EnableTransactionManagement</b> or <b class="r">&lt;tx:annotation-driven/></b>
+                            to configuration
                         </li>
                         <li>
                             <b>@Transactional</b> annotation on methods/classes
@@ -2065,6 +2120,17 @@
                 <li>A <b>JDBC-based</b> user store</li>
                 <li>An <b>LDAP</b>-backed user store</li>
                 <li>A custom user details service</li>
+            </ul><br/>
+
+            Aauthentication integrasion is supported with technologies:
+            <ul>
+                <li>HTTP: BASIC, Digest, X.509</li>
+                <li>LDAP</li>
+                <li>Automatic "remember-me" and Anonymous</li>
+                <li>JAAS</li>
+                <li>Java EE container auth</li>
+                <li>Kerberos</li>
+                <li>and many-many more</li>
             </ul>
         </div>
         <div id="f1_11">
@@ -2355,11 +2421,13 @@
             <a title="g1_3" class="label-warning">idempotency</a>
             <a title="g1_4">scalable / interoperable</a>
             <a title="g1_5">status codes</a>
+            <a title="g1_6" class="label-warning">exceptions</a>
         </li>
         <li>
             <b class="sub">In Spring:</b>
             <a title="g2_1">configuration</a>
             <a title="g2_2">@ResponseStatus</a>
+            <a title="g2_3">@SessionAttributes</a>
         </li>
         <li>
             <b class="sub">RestTemplate:</b>
@@ -2469,6 +2537,7 @@
             Most important codes:
             <ul>
                 <li><b>200</b> OK</li>
+                <li><b class="r">201 Created</b> Created</li>
                 <li><b class="r">204</b> No Content</li>
                 <li>307 Temporary redirect</li>
                 <li><b>400</b> Bad request</li>
@@ -2479,6 +2548,20 @@
                 <li><b>500</b> Internal server error</li>
                 <li>501 Not implemented</li>
                 <li>503 Service unavailable</li>
+            </ul>
+        </div>
+        <div id="g1_6">
+            If an exception occurs during request mapping or is thrown from a request handler (such as a @Controller),
+            the DispatcherServlet delegates to a <b>chain of HandlerExceptionResolver</b> beans to resolve the exception and
+            provide alternative handling, which is typically an error response.<br/><br/>
+
+            HandlerExceptionResolver implementations:
+            <ul>
+                <li><b>SimpleMappingExceptionResolver</b> - maps exception class names and error view names</li>
+                <li><b>DefaultHandlerExceptionResolver</b> - maps exceptions raised by Spring MVC to HTTP status codes</li>
+                <li><b>ResponseStatusExceptionResolver</b> - maps exceptions with the @ResponseStatus annotation to
+                    HTTP status codes based on the value in the annotation</li>
+                <li><b>ExceptionHandlerExceptionResolver</b> - calls @ExceptionHandler method in a @Controller or a @ControllerAdvice class</li>
             </ul>
         </div>
     </div>
@@ -2533,6 +2616,13 @@
             annotated exceptions, and for support of @ExceptionHandler methods. You can customize that list or replace
             it.
         </div>
+        <div id="g2_3">
+            <b>@SessionAttributes</b> is used to store <b class="r">model attributes</b> in the
+            <b class="r">HTTP Servlet session</b> between requests.
+            It is a type-level annotation that declares the session attributes used by a specific controller.
+            This typically lists the names of model attributes or types of model attributes that should be transparently
+            stored in the session for subsequent requests to access.
+        </div>
     </div>
 
     <div class="hidden">
@@ -2572,8 +2662,12 @@
     <div class="hidden">
         <div id="h1_1">
             <ul>
-                <li>Annotate test with
-                    <b>@RunWith(SpringJUnit4ClassRunner.class)</b>
+                <li>Annotate test with one of:
+                    <ul>
+                        <li><b>@RunWith(SpringJUnit4ClassRunner.class)</b></li>
+                        <li><b>@SpringBootTest</b></li>
+                        <li><b>@WebMvcTest(MyController.class)</b></li>
+                    </ul>
                 </li>
                 <li>Annotate test with
                     <b>@ContextConfiguration</b>
@@ -2583,12 +2677,10 @@
                 </li>
             </ul>
             <br/>
-            <b>TestContext</b>
-            framework stores сreated <b>Application Contexts</b> in
-            <b>static context cache</b>
+            <b>TestContext</b> reuses <b>Application Contexts</b> in all tests/test classes from
+            <b>static context cache</b> (unless @DirtiesContext is used)
             by configuration's location as a key.
             So if tests are running one by one using the same configuration - they will reuse the same AppContext.
-
         </div>
         <div id="h1_2">
             <b>@Transactional</b>

@@ -48,8 +48,7 @@
             <ul>
                 <li>add <b class="r">aspectjweaver.jar</b> to classpath</li>
                 <li>Java config: <b>@EnableAspectJAutoProxy</b></li>
-                <li>XML config:
-                    &lt;aop:<b>aspectj-autoproxy</b>/>
+                <li>XML config: &lt;aop:<b>aspectj-autoproxy</b>/>
                 </li>
             </ul>
         </div>
@@ -135,7 +134,7 @@
             Is an expression that identifies which join point advice should be bind to.
             The advice will be called <b class="r">when</b> the proxy method matches the join point expression.
             <br/><br/>
-            Pointcut expressions are defined using AspectJ Pointcut Expression Language.
+            <b>Pointcut expressions</b> are defined using AspectJ Pointcut Expression Language.
             <br/><br/>
             In code:
             <ul>
@@ -156,6 +155,21 @@
                 <li>target, @target</li>
                 <li>args, @args</li>
                 <li>@annotation</li>
+            </ul><br/>
+
+            Samples:
+            <ul>
+                <li>execution(public * *(..)) - all public method. Here:
+                    <ul>
+                        <li>any package - name since no package name</li>
+                        <li>* - any return type</li>
+                        <li>* - any method name</li>
+                        <li>(..) - zero or more number of arguments</li>
+                    </ul>
+                </li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
         </div>
         <div id="b2_5">

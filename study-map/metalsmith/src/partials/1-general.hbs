@@ -8,12 +8,13 @@
             <a title="a1_3" class="label-danger">configuration</a>
             <a title="a1_4" class="label-warning">usage in test</a>
             <a title="a1_5">closing context</a>
+            <a title="a1_6" class="label-warning">namespaces</a>
         </li>
         <li>
             <b class="sub">Beans:</b>
             <a title="a2_1" class="label-danger">lifecycle</a>
             <a title="a2_2" class="label-warning">scope</a>
-            <a title="a2_3">IDs</a>
+            <a title="a2_3" class="label-danger">IDs</a>
             <a title="a2_4" class="label-warning">scanning</a>
             <a title="a2_5">stereotypes</a>
             <a title="a2_6" class="label-danger">lazy/eager init</a>
@@ -96,13 +97,18 @@
                     <b>XML config</b>
                     <ul>
                         <li>Define beans in xml</li>
-                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml");</li>
+                        <li>Add <b>&lt;context:component-scan></b> - automatically detects stereotyped classes and turns on the
+                            <b>&lt;context:annotation-config></b> (activates the Spring infrastructure for various annotations
+                            to be detected in bean classes, including the JSR-250 annotations)</li>
+                        <li>new <b class="r">ClassPathXmlApplicationContext</b>("lifacycle-config.xml"); (<b class="r">"classpath:"</b>
+                            is added implicitly to this string. Also ClassPathXmlApplicationContext starts looking from
+                            <b class="r">root</b> of the classpath regardless of whether specify "/")</li>
                     </ul>
                 </li>
                 <li>
                     <b>Java config</b>
                     <ul>
-                        <li>Define <b>@Configuration</b> with a <b class="r">constructor with no arguments</b></li>
+                        <li>Define <b>@Configuration</b> with a <b class="r">mandatory no-args constructor</b></li>
                         <li>Define <b>@Bean</b> in @Configuration/@Component</li>
                         <li>new <b class="r">AnnotationConfigApplicationContext</b>(JavaApplicationConfig.class);</li>
                     </ul>
@@ -111,11 +117,16 @@
                     <b>Java annotations</b>
                     <ul>
                         <li>Add @ComponentScan to the @Configuration</li>
-                        <li>Add @ContextConfiguration to the class where bean need to be injected. Annotation params:
-                        <ul>
-                            <li>"locations", (default) "value" - path to XML configuration</li>
-                            <li>"classes" - varargs parameter with a Configuration classes</li>
-                        </ul>
+                        <li>Add @ContextConfiguration to the class where bean need to be injected.
+                            (if no location is defined Spfing will try to load config my naming convention i.e. MyClass-context.xml)
+                            Annotation params:
+                            <ul>
+                                <li>"locations", (default) "value" - path to XML configuration</li>
+                                <li>"classes" - varargs parameter with a Configuration classes</li>
+                                <li>"inheritLocations" (boolean) - can change default behavior of inheriting
+                                    configuration class (location)
+                                </li>
+                            </ul>
                         </li>
                         <li>Annotate bean class as
                             <b>@Component</b>
@@ -158,6 +169,27 @@
             It's possible to <b>listen to an ContextClosedEvent</b> using ConfigurableApplicationContext.<b>addApplicationListener</b> to do some
             actions before close() of registerShutdownHook()
         </div>
+        <div id="a1_6">
+            Available namespaces:
+            <ul>
+                <li><b>c</b> - ingesting by constructor arguments</li>
+                <li><b>p</b> - ingesting by setters</li>
+                <li><b>util</b>
+                    <ul>
+                        <li>util:constant - accessing constants in config</li>
+                        <li>util:properties - reading properties from a file</li>
+                        <li>util:list, util:set, util:map - creating collections</li>
+                    </ul>
+                </li>
+                <li><b>jdbc</b> - e.g. <b class="r">jdbc:embedded-database</b></li>
+                <li><b>context</b> - e.g. <b class="r">context:property-placeholder</b> reads properties from a file</li>
+                <li><b>aop</b> - e.g. <b class="r">aop:aspectj-autoproxy</b> enables detection of @Aspect bean</li>
+                <li><b>tx</b> - e.g. <b class="r">tx:annotation-driven</b> - transactional behavior based on annotations
+                    and <b class="r">tx:advice</b> creates transactional advice</li>
+                <li>others...</li>
+            </ul>
+        </div>
+        All namespaces are imported as: xmlns:<b>name</b>="http://www.springframework.org/schema/<b>name</b>" + XSD if required.
     </div>
 
     <div class="hidden">
@@ -228,6 +260,14 @@
                 <li><b>name</b> - can be used to create one or more aliases</li>
             </ul>
             * aliases can be separated by any number of spaces, commas, or semi-colons (or any mixture of the three)
+            <br/><br/>
+
+            In case the name/id is not defined:
+            <ul>
+                <li><b>@Bean</b> takes the <b class="r">method's name</b></li>
+                <li><b>&lt;bean/></b> is considered anonymous and container generates a unique id for that bean:
+                    fully qualified <b class="r">class name</b> and appened <b class="r">number</b></li>
+            </ul>
         </div>
         <div id="a2_4">
             Responsible for searching beans to register.

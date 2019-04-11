@@ -13,8 +13,12 @@
     <div class="hidden">
         <div id="h1_1">
             <ul>
-                <li>Annotate test with
-                    <b>@RunWith(SpringJUnit4ClassRunner.class)</b>
+                <li>Annotate test with one of:
+                    <ul>
+                        <li><b>@RunWith(SpringJUnit4ClassRunner.class)</b></li>
+                        <li><b>@SpringBootTest</b></li>
+                        <li><b>@WebMvcTest(MyController.class)</b></li>
+                    </ul>
                 </li>
                 <li>Annotate test with
                     <b>@ContextConfiguration</b>
@@ -24,12 +28,10 @@
                 </li>
             </ul>
             <br/>
-            <b>TestContext</b>
-            framework stores сreated <b>Application Contexts</b> in
-            <b>static context cache</b>
+            <b>TestContext</b> reuses <b>Application Contexts</b> in all tests/test classes from
+            <b>static context cache</b> (unless @DirtiesContext is used)
             by configuration's location as a key.
             So if tests are running one by one using the same configuration - they will reuse the same AppContext.
-
         </div>
         <div id="h1_2">
             <b>@Transactional</b>

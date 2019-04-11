@@ -15,7 +15,7 @@
         <li>
             <b class="sub">JdbcTemplate:</b>
             <a title="c3_1" class="label-warning">what is</a>
-            <a title="c3_2">callbacks</a>
+            <a title="c3_2" class="label-danger">callbacks</a>
             <a title="c3_21">execute</a>
             <a title="c3_3">queries</a>
             <a title="c3_4">updates</a>
@@ -27,7 +27,7 @@
             <a title="c4_6" class="label-danger">configuration</a>
             <a title="c4_3" class="label-danger">transaction strategy</a>
             <a title="c4_4" class="label-danger">isolation</a>
-            <a title="c4_5">propagation</a>
+            <a title="c4_5" class="label-warning">propagation</a>
             <a title="c4_7">@Transactional</a>
             <a title="c4_8" class="label-warning">rollback</a>
         </li>
@@ -420,7 +420,8 @@
                     Configuration:
                     <ul>
                         <li>
-                            <b class="r">@EnableTransactionManagement</b> to configuration
+                            <b class="r">@EnableTransactionManagement</b> or <b class="r">&lt;tx:annotation-driven/></b>
+                            to configuration
                         </li>
                         <li>
                             <b>@Transactional</b> annotation on methods/classes

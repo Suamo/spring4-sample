@@ -8,11 +8,13 @@
             <a title="g1_3" class="label-warning">idempotency</a>
             <a title="g1_4">scalable / interoperable</a>
             <a title="g1_5">status codes</a>
+            <a title="g1_6" class="label-warning">exceptions</a>
         </li>
         <li>
             <b class="sub">In Spring:</b>
             <a title="g2_1">configuration</a>
             <a title="g2_2">@ResponseStatus</a>
+            <a title="g2_3">@SessionAttributes</a>
         </li>
         <li>
             <b class="sub">RestTemplate:</b>
@@ -122,6 +124,7 @@
             Most important codes:
             <ul>
                 <li><b>200</b> OK</li>
+                <li><b class="r">201 Created</b> Created</li>
                 <li><b class="r">204</b> No Content</li>
                 <li>307 Temporary redirect</li>
                 <li><b>400</b> Bad request</li>
@@ -132,6 +135,20 @@
                 <li><b>500</b> Internal server error</li>
                 <li>501 Not implemented</li>
                 <li>503 Service unavailable</li>
+            </ul>
+        </div>
+        <div id="g1_6">
+            If an exception occurs during request mapping or is thrown from a request handler (such as a @Controller),
+            the DispatcherServlet delegates to a <b>chain of HandlerExceptionResolver</b> beans to resolve the exception and
+            provide alternative handling, which is typically an error response.<br/><br/>
+
+            HandlerExceptionResolver implementations:
+            <ul>
+                <li><b>SimpleMappingExceptionResolver</b> - maps exception class names and error view names</li>
+                <li><b>DefaultHandlerExceptionResolver</b> - maps exceptions raised by Spring MVC to HTTP status codes</li>
+                <li><b>ResponseStatusExceptionResolver</b> - maps exceptions with the @ResponseStatus annotation to
+                    HTTP status codes based on the value in the annotation</li>
+                <li><b>ExceptionHandlerExceptionResolver</b> - calls @ExceptionHandler method in a @Controller or a @ControllerAdvice class</li>
             </ul>
         </div>
     </div>
@@ -185,6 +202,13 @@
             @ResponseStatus
             annotated exceptions, and for support of @ExceptionHandler methods. You can customize that list or replace
             it.
+        </div>
+        <div id="g2_3">
+            <b>@SessionAttributes</b> is used to store <b class="r">model attributes</b> in the
+            <b class="r">HTTP Servlet session</b> between requests.
+            It is a type-level annotation that declares the session attributes used by a specific controller.
+            This typically lists the names of model attributes or types of model attributes that should be transparently
+            stored in the session for subsequent requests to access.
         </div>
     </div>
 
